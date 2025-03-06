@@ -1,6 +1,7 @@
 "use server"
 
 import ChartLanding from "@/components/chartLanding";
+import Tasks from "@/components/tasks";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,12 +30,21 @@ export default async function Home() {
           </div>
         </Link>
       </div>
-      <section className="flex flex-col items-center justify-center w-full gap-6 min-h-[100dvh] md:gap-12">
+      <section id="control" className="flex flex-col items-center justify-center w-full gap-6 min-h-[80dvh] md:gap-12">
         <div className="flex flex-col justify-evenly gap-3 w-full items-center md:gap-8">
-          <h3 id="control" className="shrink-1 text-3xl font-extrabold text-gray-900 md:text-5xl">Håll koll på dina högskolepoäng</h3>
+          <h3 className="shrink-1 text-3xl font-extrabold text-gray-900 md:text-5xl">Håll koll på dina högskolepoäng</h3>
           <p className="text-lg font-bold text-gray-600 md:text-xl">Få en överblick över hela din studiegång, se vilka perioder du presterat som bäst!</p>
         </div>
         <ChartLanding />
+      </section>
+      <section className="flex flex-col items-center justify-center w-full gap-6 md:gap-12">
+        <div className="flex gap-18 justify-center items-center">
+          <div className="flex flex-col">
+            <h4 className="shrink-1 text-3xl font-extrabold text-gray-900 md:text-5xl">Håll koll på dina högskolepoäng</h4>
+            <p className="text-lg font-bold text-gray-600 md:text-xl">Få en överblick över hela din studiegång, se vilka perioder du presterat som bäst!</p>
+          </div>
+          <Tasks />
+        </div>
       </section>
     </>
   );

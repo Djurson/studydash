@@ -57,7 +57,7 @@ const chartData = [
 const chartConfig = {
     hp: {
         label: "Högskolepoäng",
-        color: "hsl(var(--chart-1))",
+        color: "hsl(var(--color-blue-900))",
     }
 } satisfies ChartConfig
 
