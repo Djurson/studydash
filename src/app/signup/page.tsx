@@ -3,7 +3,7 @@
 import Title from "@/components/title";
 import { LockKeyhole, LockKeyholeOpen, Mail, User } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Page() {
     const [userLogin, setUserLogin] = useState({
@@ -16,10 +16,16 @@ export default function Page() {
         first: 'false',
     });
 
-    const SignUpEmil = (e) => {
-        e.preventDefault();
+    async function SignUpEmail(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        // Lägga in checks för att kolla så att båda lösenorden stämmer överrens
+        // andra lösenords krav?
+        // kolla så att mailen inte används redan?
+        // skapa användar dokument
     }
 
+    // @ts-ignore
     const HandleChange = (e) => {
         setUserLogin({
             ...userLogin,
@@ -30,7 +36,7 @@ export default function Page() {
     return (
         <>
             <Title title={"Registrera dig idag!"} subtitle={"Skapa ett konto här nedan"} />
-            <form className="flex flex-col w-full gap-10 mt-12" onSubmit={SignUpEmil}>
+            <form className="flex flex-col w-full gap-10 mt-12" onSubmit={SignUpEmail}>
                 <div className="flex items-center w-full gap-1 px-4 border-2 border-gray-900 justify-evenly rounded-xl">
                     <User className="w-6 h-6 text-gray-900" />
                     <input className="w-full px-2 py-4 text-base font-medium text-gray-900 placeholder-gray-600 bg-transparent border-transparent outline-none peer rounded-xl"

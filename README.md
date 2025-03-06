@@ -10,6 +10,12 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 npm install
 ```
 
+_Eventuellt också_
+
+```console
+npm install firebase
+```
+
 ---
 
 ## Dokumentation till library

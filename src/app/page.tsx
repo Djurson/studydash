@@ -1,11 +1,12 @@
-"use client"
+"use server"
 
 import ChartLanding from "@/components/chartLanding";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <>
       <section className="flex flex-col items-center justify-center w-full gap-2 min-h-[90dvh]">

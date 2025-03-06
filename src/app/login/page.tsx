@@ -1,25 +1,99 @@
+"use client"
+
 import Title from "@/components/title";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { auth } from "../firebase/config";
+import { useRouter } from 'next/navigation'
 
-export default async function Page() {
+export default function Page() {
+    const router = useRouter();
+
+    const [userLogin, setUserLogin] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [error, setError] = useState(null);
+
+    const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserLogin({
+            ...userLogin,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
+        // Sidan ska inte reloadas
+        event.preventDefault();
+
+        // Kopplar samman med firebase, firebase kollar finns den här mailen och lösenordet
+        const res = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password).catch((error) => {
+            setError(error.code);
+        })
+
+        // Inloggningen gick bra
+        if (res?.user) {
+            Navigate();
+        } else {
+            // Errors
+        }
+    }
+
+    async function SignInGoogle() {
+        const provider = new GoogleAuthProvider();
+
+        // Kopplar samman med firebase, firebase kollar finns den här mailen och lösenordet
+        const res = await signInWithPopup(auth, provider);
+
+        // Inloggningen gick bra
+        if (res?.user) {
+            // Folk som är nya kan råka gå in här och "skapa" ett konto
+            // Implementera att kolla ifall det finns ett dokument för användaren -> annars skapa ett
+            // Exakt samma funktion kommer användas i signup kanske går att göra någon komponent som gör det?
+
+            Navigate();
+        }
+    }
+
+    function Navigate() {
+        router.push('/');
+    }
+
     return (
         <>
             <Title title={"Välkommen tillbaka!"} subtitle={"Logga in på ditt konto här nedan"} />
-            <form className="flex flex-col w-full gap-10 mt-12">
+            <form className="flex flex-col w-full gap-10 mt-12" onSubmit={HandleSubmit} method="POST">
                 <div className="flex items-center w-full gap-1 px-4 border-2 border-gray-900 justify-evenly rounded-xl">
                     <Mail className="w-6 h-6 text-gray-900" />
                     <input className="w-full px-2 py-4 text-base font-medium text-gray-900 placeholder-gray-600 bg-transparent border-transparent outline-none peer rounded-xl"
+                        name="email"
                         placeholder="exempel@epost.se"
-                        type="text" />
+                        type="text"
+                        value={userLogin.email}
+                        onChange={HandleChange}
+                        required />
                     <label className="relative px-2 text-base font-medium text-gray-600 -translate-y-1/2 w-23 -top-5 right-4/5 bg-white-400 peer-focus:animate-text-pule">E-post</label>
                 </div>
-                <div className="flex items-center w-full gap-1 px-4 border-2 border-gray-900 justify-evenly rounded-xl">
-                    <LockKeyhole className="w-6 h-6 text-gray-900" />
-                    <input className="w-full px-2 py-4 text-base font-medium text-gray-900 placeholder-gray-600 bg-transparent border-transparent outline-none peer rounded-xl"
-                        placeholder="************"
-                        type="password" />
-                    <label className="relative px-2 text-base font-medium text-gray-600 -translate-y-1/2 w-23 -top-5 right-[74%] bg-white-400 peer-focus:animate-text-pule">Lösenord</label>
+                <div className="flex flex-col gap-4 w-full">
+                    <div className="flex items-center w-full gap-1 px-4 border-2 border-gray-900 justify-evenly rounded-xl">
+                        <LockKeyhole className="w-6 h-6 text-gray-900" />
+                        <input className="w-full px-2 py-4 text-base font-medium text-gray-900 placeholder-gray-600 bg-transparent border-transparent outline-none peer rounded-xl"
+                            name="password"
+                            placeholder="************"
+                            type="password"
+                            value={userLogin.password}
+                            onChange={HandleChange}
+                            required />
+                        <label className="relative px-2 text-base font-medium text-gray-600 -translate-y-1/2 w-23 -top-5 right-[74%] bg-white-400 peer-focus:animate-text-pule">Lösenord</label>
+                    </div>
+                    {error == 'auth/invalid-credential' && (
+                        <>
+                            <p className="text-red-900">Fel e-post eller lösenord!</p>
+                        </>
+                    )}
                 </div>
                 <button className="w-full py-4 bg-gray-900 text-white-400 rounded-xl">Logga in</button>
             </form>
@@ -29,7 +103,9 @@ export default async function Page() {
                     <p className="px-4">eller</p>
                     <div className="flex-1 h-1 bg-gray-100"></div>
                 </div>
-                <button className="flex items-center justify-center w-full gap-4 py-4 shadow-xl bg-white-100 text-white-400 rounded-xl shadow-black/25">
+                <button className="flex items-center justify-center w-full gap-4 py-4 shadow-xl bg-white-100 text-white-400 rounded-xl shadow-black/25"
+                    onClick={SignInGoogle}
+                >
                     <svg
                         className="w-6 h-6"
                         xmlns="http://www.w3.org/2000/svg"
