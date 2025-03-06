@@ -27,7 +27,6 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 
 > ### TailwindCSS
 >
-> - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 > - [Tailwind Dokumentation](https://tailwindcss.com/docs/)
 > - [Tailwind Spacing Chart](https://tailwindcss.com/docs/customizing-spacing)
 > - [Tailwind Färger](https://tailwindcss.com/docs/customizing-colors)
@@ -40,3 +39,13 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 >
 > - [Komponenter](https://ui.shadcn.com/docs/components/accordion)
 > - [Grafer](https://ui.shadcn.com/charts)
+
+### Rekomenderade VS Code tillägg
+
+> - [Fil ikoner](https://marketplace.visualstudio.com/items?itemName=tal7aouy.icons)
+> - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+>
+>   **_Ändra helst detta också_** ![alt text](readme-imgs/image.png)
+>
+> - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+> - [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
