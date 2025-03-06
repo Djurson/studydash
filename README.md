@@ -8,18 +8,9 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 
 ```console
 npm install
-npm install -D tailwindcss postcss autoprefixer
-npm install firebase
-npm install react-router-dom --save
-npm install -D @types/node
 ```
 
 ---
-
-### Dependencies
-
-> - recharts _(2.15.1)_
-> - lucide-react _(0.477.0)_
 
 ## Dokumentation till library
 
