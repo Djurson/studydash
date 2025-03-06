@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Om projektet
 
-## Getting Started
+Många studenter vid Linköpings universitets medieteknikprogram upplever svårigheter med att hålla koll på sina studieresultat och planera sin studiegång. Detta kan leda till osäkerhet kring vilka kurser som är viktigast att prioritera och svårigheter med att uppfylla CSN:s krav för studiemedel. Projektet undersöker hur en webbaserad plattform kan underlätta för studenter genom att samla relevant statistik och ge rekommendationer baserat på deras individuella situation. Plattformen visualiserar studentens framsteg mot examen, ger insikter om tentastatistik och hjälper dem att prioritera sina studier effektivt.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## VIKTIGT ATT INSTALLERA FÖRSTA GÅNGEN!
+
+```console
+npm install
+npm install -D tailwindcss postcss autoprefixer
+npm install firebase
+npm install react-router-dom --save
+npm install -D @types/node
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> - recharts _(2.15.1)_
+> - lucide-react _(0.477.0)_
 
-## Learn More
+## Dokumentation till library
 
-To learn more about Next.js, take a look at the following resources:
+Lite diverse länkar till dokumentation för de olika librarys/plugins vi använder
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> ### TailwindCSS
+>
+> - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+> - [Tailwind Dokumentation](https://tailwindcss.com/docs/)
+> - [Tailwind Spacing Chart](https://tailwindcss.com/docs/customizing-spacing)
+> - [Tailwind Färger](https://tailwindcss.com/docs/customizing-colors)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> ### Ikoner
+>
+> - [Lucide](https://lucide.dev/)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> ### Shadcn/ui
+>
+> - [Komponenter](https://ui.shadcn.com/docs/components/accordion)
+> - [Grafer](https://ui.shadcn.com/charts)
