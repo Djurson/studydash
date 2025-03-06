@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sv">
+    <html lang="sv" className="scroll-smooth">
       <body className={`flex flex-col items-center w-full min-h-svh bg-white-400 ${inter.className}`}>
         <div className="flex flex-col w-11/12 py-8">
           {children}
