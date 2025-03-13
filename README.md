@@ -1,7 +1,5 @@
 # Kandidatprojekt - 2025
 
-# Om projektet
-
 Många studenter vid Linköpings universitets medieteknikprogram upplever svårigheter med att hålla koll på sina studieresultat och planera sin studiegång. Detta kan leda till osäkerhet kring vilka kurser som är viktigast att prioritera och svårigheter med att uppfylla CSN:s krav för studiemedel. Projektet undersöker hur en webbaserad plattform kan underlätta för studenter genom att samla relevant statistik och ge rekommendationer baserat på deras individuella situation. Plattformen visualiserar studentens framsteg mot examen, ger insikter om tentastatistik och hjälper dem att prioritera sina studier effektivt.
 
 ---
