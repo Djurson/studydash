@@ -16,7 +16,7 @@ _Eventuellt också_
 npm install firebase
 ```
 
-KOMMER INTE FUNKA UTAN .local.env FILEN!
+KOMMER INTE FUNKA UTAN **.local.env** FILEN!
 
 ---
 
