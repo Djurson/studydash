@@ -48,3 +48,5 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 >
 > - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 > - [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
+
+[Figma länk](https://www.figma.com/design/xFmuAvVpI5714AzzsBwDYI/Vart-%C3%A4r-mitt-CSN?node-id=0-1&p=f&t=jAgwB2QnENzXwnjn-0)
