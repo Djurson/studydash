@@ -44,7 +44,8 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 > - [Fil ikoner](https://marketplace.visualstudio.com/items?itemName=tal7aouy.icons)
 > - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 >
->   **_Ändra helst detta också_** ![alt text](readme-imgs/image.png)
+>   **_Ändra helst detta också_**
+>   ![alt text](readme-imgs/image.png)
 >
 > - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 > - [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
