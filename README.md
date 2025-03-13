@@ -45,6 +45,7 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 > - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 >
 >   **_Ändra helst detta också_**
+>   
 >   ![alt text](readme-imgs/image.png)
 >
 > - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
