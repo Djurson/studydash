@@ -1,4 +1,12 @@
+"use client"
+import { useState } from 'react';
 import data from '../../../data/data_processed.json'
+
+enum Locations {
+    signup,
+    updateinfo,
+    optional
+}
 
 export default async function Page() {
 
@@ -28,15 +36,6 @@ export default async function Page() {
                         </clipPath>
                     </defs>
                 </svg>
-            </div>
-            <div className='w-full'>
-                {terminArr.map((termin, index) => {
-                    return (
-                        <>
-                            <p>{termin}</p>
-                        </>
-                    )
-                })}
             </div>
         </>
     )
