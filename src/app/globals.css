@@ -5,23 +5,24 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-gray-100: oklch(88.34% 0.0054 286.29);
-  --color-gray-600: oklch(53.99% 0.0077 286.14);
-  --color-gray-900: oklch(23.16% 0.0038 286.1);
+  --color-gray-100: #D8D8DC;
+  --color-gray-600: #6E6E73;
+  --color-gray-900: #1D1D1F;
 
-  --color-white-100: oklch(98.51% 0 0);
-  --color-white-400: oklch(97.07% 0.0027 286.35);
-  --color-white-600: oklch(96.5% 0.004 286.32);
-  --color-white-900: oklch(95.9% 0.004 286.32);
+  --color-white-100: #FAFAFA;
+  --color-white-400: #F5F5F7;
+  --color-white-600: #F3F3F6;
+  --color-white-900: #F1F1F4;
 
-  --color-blue-100: oklch(72.64% 0.1058 251.06);
-  --color-blue-900: oklch(56.29% 0.1933 256.16);
+  --color-blue-100: #D9EBFF;
+  --color-blue-400: #73ABE7;
+  --color-blue-900: #0071E3;
 
-  --color-green-900: oklch(61.26% 0.148 138.39);
+  --color-green-900: #529839;
 
-  --color-red-900: oklch(68.97% 0.1716 25.88);
+  --color-red-900: #F36961;
 
-  --color-yellow-900: oklch(80.08% 0.13 64.04);
+  --color-yellow-900: #F8AB5E;
 
   --animate-text-pule: colorChange 2s ease-in-out infinite;
 
