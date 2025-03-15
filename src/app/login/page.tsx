@@ -2,7 +2,7 @@
 
 import Title from "@/components/title";
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { LockKeyhole, Mail } from "lucide-react";
+import { ChevronRight, LockKeyhole, Mail } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { auth } from "../firebase/config";
@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import InputField from "@/components/inputfield";
 import FormsButton from "@/components/formsbutton";
 import GoogleIcon from "@/components/googleIcon";
+import Navbar from "@/components/navbar";
 
 export default function Page() {
     const router = useRouter();
@@ -67,22 +68,29 @@ export default function Page() {
 
     return (
         <>
-            <div className="flex flex-col w-full justify-center items-center h-full gap-6">
-                <h1 className="font-semibold text-3xl">Logga in</h1>
-                <form className="w-lg flex justify-center flex-col gap-4" method="POST" onSubmit={HandleSubmit}>
-                    <InputField type="email" placeholder="E-post" onchange={HandleChange} value={userLogin.email} />
-                    <InputField type="password" placeholder="Lösenord" onchange={HandleChange} value={userLogin.password} />
-                    <div className="flex flex-col gap-4 justify-center item-center">
-                        <FormsButton label="Logga in" type="submit" />
-                        <FormsButton classname="!bg-white-100 !text-gray-600 border-2 border-gray-100"
-                            label="Logga in med Google"
-                            type="button"
-                            onclick={SignInGoogle}
-                        >
-                            <GoogleIcon />
-                        </FormsButton>
-                    </div>
-                </form>
+            <div className="flex flex-col gap-24">
+                <Link href={"/"}><Navbar /></Link>
+                <div className="flex flex-col w-full justify-center items-center h-full gap-6">
+                    <h1 className="font-semibold text-3xl">Logga in</h1>
+                    <form className="w-lg flex justify-center flex-col gap-8" method="POST" onSubmit={HandleSubmit}>
+                        <div className="flex w-full flex-col gap-4">
+                            <InputField type="email" placeholder="E-post" onchange={HandleChange} value={userLogin.email} />
+                            <InputField type="password" placeholder="Lösenord" onchange={HandleChange} value={userLogin.password} />
+                            <span className="text-blue-900 flex">Glömt ditt lösenord? <ChevronRight className="text-blue-900" /></span>
+                        </div>
+                        <div className="flex flex-col gap-4 justify-center item-center">
+                            <FormsButton label="Logga in" type="submit" />
+                            <FormsButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
+                                label="Logga in med Google"
+                                type="button"
+                                onclick={SignInGoogle}
+                            >
+                                <GoogleIcon />
+                            </FormsButton>
+                        </div>
+                    </form>
+                    <span className="flex gap-2 w-lg">Har du inget konto? <Link className="text-blue-900 flex" href={"/signup"}>Skapa ett konto <ChevronRight /></Link></span>
+                </div>
             </div>
         </>
     )
