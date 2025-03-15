@@ -1,16 +1,15 @@
 "use client"
 
-import Title from "@/components/title";
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { ChevronRight, LockKeyhole, Mail } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { auth } from "../firebase/config";
+import { auth } from "@/components/firebase/config";
 import { useRouter } from 'next/navigation'
-import InputField from "@/components/inputfield";
-import FormsButton from "@/components/formsbutton";
+import InputField from "@/components/form/inputfield";
+import FormButton from "@/components/form/formbutton";
 import GoogleIcon from "@/components/googleIcon";
-import Navbar from "@/components/navbar";
+import LogoCenter from "@/components/form/logocenter";
 
 export default function Page() {
     const router = useRouter();
@@ -69,7 +68,7 @@ export default function Page() {
     return (
         <>
             <div className="flex flex-col gap-24">
-                <Link href={"/"}><Navbar /></Link>
+                <Link href={"/"}><LogoCenter /></Link>
                 <div className="flex flex-col w-full justify-center items-center h-full gap-6">
                     <h1 className="font-semibold text-3xl">Logga in</h1>
                     <form className="w-lg flex justify-center flex-col gap-8" method="POST" onSubmit={HandleSubmit}>
@@ -79,14 +78,14 @@ export default function Page() {
                             <span className="text-blue-900 flex">Glömt ditt lösenord? <ChevronRight className="text-blue-900" /></span>
                         </div>
                         <div className="flex flex-col gap-4 justify-center item-center">
-                            <FormsButton label="Logga in" type="submit" />
-                            <FormsButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
+                            <FormButton label="Logga in" type="submit" />
+                            <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
                                 label="Logga in med Google"
                                 type="button"
-                                onclick={SignInGoogle}
+                                onClick={SignInGoogle}
                             >
                                 <GoogleIcon />
-                            </FormsButton>
+                            </FormButton>
                         </div>
                     </form>
                     <span className="flex gap-2 w-lg">Har du inget konto? <Link className="text-blue-900 flex" href={"/signup"}>Skapa ett konto <ChevronRight /></Link></span>
