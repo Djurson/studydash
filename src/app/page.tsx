@@ -22,7 +22,7 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center min-h-[10dvh]">
         <Link href={"#control"} scroll={true} className="group">
           <div className="flex items-center gap-4 w-fit animate-bounce">
             <p className="font-semibold text-gray-600 transition-all duration-400 ease-in-out group-hover:[text-shadow:_0_4px_8px_rgba(110,110,115,0.6)]">Läs mer</p>
