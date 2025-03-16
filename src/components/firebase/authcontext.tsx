@@ -1,14 +1,13 @@
 'use client';
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from './config';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface AuthContextType {
     user: User | null;
-    signIn: () => Promise<void>;
-    logOut: () => Promise<void>;
+    loading: boolean;
 }
 
 interface AuthProviderProps {
@@ -18,35 +17,47 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const router = useRouter();
     const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const protectedRoutes = ['/oversikt', '/dashboard', '/profile'];
+    const publicRoutes = ['/login', '/signup', '/', '/verify'];
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
-            if (user && !user?.emailVerified) {
-                router.push("/verify");
-            }
+            setLoading(false);
         });
+
         return () => unsubscribe();
     }, []);
 
-    const signIn = async () => {
-        const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
-    };
+    useEffect(() => {
+        if (!loading) {
+            const isProtectedRoute = protectedRoutes.includes(pathname);
+            const isPublicRoute = publicRoutes.includes(pathname);
 
-    const logOut = async () => {
-        await signOut(auth);
-    };
+            if (isProtectedRoute && !user) {
+                router.push('/login');
+            } else if (isProtectedRoute && user && !user.emailVerified) {
+                router.push('/verify');
+            }
+        }
+    }, [user, loading, pathname, router]);
 
     return (
-        <AuthContext.Provider value={{ user, signIn, logOut }}>
+        <AuthContext.Provider value={{ user, loading }}>
             {children}
         </AuthContext.Provider>
     );
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth måste användas inom en AuthProvider');
+    }
+    return context;
 }
