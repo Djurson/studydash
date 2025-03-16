@@ -62,7 +62,7 @@ export default function Page() {
     }
 
     function Navigate() {
-        router.push('/');
+        router.push('/oversikt');
     }
 
     return (
