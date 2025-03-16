@@ -10,16 +10,19 @@ export default function VerifyEmailPage() {
     const { user } = useAuth();
     const router = useRouter();
 
-    useEffect(() => {
-        if (user?.emailVerified) {
-            console.log("hej")
-        }
-    }, [user, router]);
-
     const Verified = (e: MouseEvent<HTMLButtonElement>) => {
-        // kontrollera om användaren har verifierat mailen
-        // ladda in localstorage
-        // skapa dokument med localstorage fälten
+        window.location.reload();
+
+        if (!user?.emailVerified) {
+            return
+        }
+
+        const savedUserInfo = localStorage.getItem("userInfo");
+
+        if (savedUserInfo) {
+            // skapa dokument med localstorage fälten
+        }
+
         // skicka användaren vidare
     }
 
