@@ -9,9 +9,15 @@ import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+import { checkEmail, checkPassword, checkStudyInfo } from "@/components/utils/validation";
+import { UserRegistration } from "@/components/firebase/firebaseAuth";
+import { CreateUserProps } from "@/components/firebase/usertypes";
+import { auth } from "@/components/firebase/config";
 
 export default function Page() {
-    const [userInfo, setUserInfo] = useState({
+    const [userInfo, setUserInfo] = useState<CreateUserProps>({
         firstname: "",
         lastname: "",
         email: "",
@@ -21,15 +27,42 @@ export default function Page() {
         first: "",
     });
 
+    const [error, setError] = useState<string | null>(null);
     const [currentTabsPage, setCurrentTabsPage] = useState("signup");
+
+    function emailPasswordCheck() {
+        const emailError = checkEmail(userInfo.email);
+        const passwordError = checkPassword(userInfo.password, userInfo.repeatpassword);
+
+        if (emailError || passwordError) {
+            setError(emailError || passwordError);
+            return;
+        } else {
+            setError("");
+            setCurrentTabsPage("updateinfo");
+        }
+    }
 
     async function SignUpEmail(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        // Lägga in checks för att kolla så att båda lösenorden stämmer överrens
-        // andra lösenords krav?
-        // kolla så att mailen inte används redan?
-        // skapa användar dokument
+        const emailError = checkEmail(userInfo.email);
+        const passwordError = checkPassword(userInfo.password, userInfo.repeatpassword);
+        const studyInfoError = checkStudyInfo(userInfo.year, userInfo.first);
+
+        if (emailError || passwordError || studyInfoError) {
+            setError(emailError || passwordError || studyInfoError);
+            return;
+        }
+
+        const userRegError = await UserRegistration(userInfo);
+
+        if (userRegError) {
+            setError(userRegError);
+            return;
+        }
+
+        console.log(auth.currentUser)
     }
 
     // @ts-ignore
@@ -60,21 +93,31 @@ export default function Page() {
                             <TabsTrigger className={`${currentTabsPage == 'updateinfo' ? 'outline-none border-gray-100 border-2 text-gray-900' : ''} transition duration-200 ease-in-out hover:cursor-pointer`}
                                 value="updateinfo"
                                 onClick={() => setCurrentTabsPage("updateinfo")}
+                                disabled={!!(checkEmail(userInfo.email) || checkPassword(userInfo.password, userInfo.repeatpassword))}
                             >
                                 Studieinformation
                             </TabsTrigger>
                         </TabsList>
-                        <form className="w-lg flex justify-center items-center" method="POST" onSubmit={SignUpEmail}>
+                        <form className="w-lg flex flex-col justify-center gap-4" method="POST" onSubmit={SignUpEmail}>
+                            {error != "" && error != null && (
+                                <Alert variant="destructive">
+                                    <AlertCircle className="h-4 w-4" />
+                                    <AlertTitle>Fel</AlertTitle>
+                                    <AlertDescription>
+                                        {error}
+                                    </AlertDescription>
+                                </Alert>
+                            )}
                             <TabsContent value="signup" className="flex flex-col gap-4">
                                 <div className="w-full flex gap-6">
-                                    <InputField type="text" name="firstname" placeholder="Förnamn" value={userInfo.firstname} onchange={HandleChange} />
-                                    <InputField type="text" name="lastname" placeholder="Efternamn" value={userInfo.lastname} onchange={HandleChange} />
+                                    <InputField type="text" name="firstname" placeholder="Förnamn" value={userInfo.firstname} onchange={HandleChange} required={true} />
+                                    <InputField type="text" name="lastname" placeholder="Efternamn" value={userInfo.lastname} onchange={HandleChange} required={true} />
                                 </div>
-                                <InputField type="email" name="email" placeholder="E-post" value={userInfo.email} onchange={HandleChange} />
-                                <InputField type="password" name="password" placeholder="Lösenord" value={userInfo.password} onchange={HandleChange} />
-                                <InputField type="password" name="repeatpassword" placeholder="Bekräfta lösenord" value={userInfo.repeatpassword} onchange={HandleChange} />
+                                <InputField type="email" name="email" placeholder="E-post" value={userInfo.email} onchange={HandleChange} required={true} />
+                                <InputField type="password" name="password" placeholder="Lösenord" value={userInfo.password} onchange={HandleChange} required={true} />
+                                <InputField type="password" name="repeatpassword" placeholder="Bekräfta lösenord" value={userInfo.repeatpassword} onchange={HandleChange} required={true} />
                                 <div className="flex flex-col gap-4 justify-center item-center">
-                                    <FormButton label="Nästa" type="button" onClick={() => setCurrentTabsPage("updateinfo")} />
+                                    <FormButton label="Nästa" type="button" onClick={emailPasswordCheck} />
                                     <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
                                         label="Skapa ett konto med Google"
                                         type="button"
@@ -85,13 +128,13 @@ export default function Page() {
                                 </div>
                             </TabsContent>
                             <TabsContent value="updateinfo" className="flex flex-col gap-6">
-                                <Select name="year" onValueChange={(value) => setUserInfo({ ...userInfo, year: value })}>
+                                <Select name="year" onValueChange={(value) => setUserInfo({ ...userInfo, year: value })} required={true} defaultValue={userInfo.year}>
                                     <SelectTrigger className="w-full text-base py-3 px-4">
                                         <SelectValue placeholder="Studieår" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
-                                            <SelectLabel className="text-base text-gray-600">År</SelectLabel>
+                                            <SelectLabel className="text-base text-gray-600">Studieår</SelectLabel>
                                             <SelectItem className="text-base text-gray-600" value="1">1</SelectItem>
                                             <SelectItem className="text-base text-gray-600" value="2">2</SelectItem>
                                             <SelectItem className="text-base text-gray-600" value="3">3</SelectItem>
@@ -101,12 +144,13 @@ export default function Page() {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <Select name="first" onValueChange={(value) => setUserInfo({ ...userInfo, first: value })}>
+                                <Select name="first" onValueChange={(value) => setUserInfo({ ...userInfo, first: value })} required={true} defaultValue={userInfo.first} >
                                     <SelectTrigger className="w-full text-base py-3 px-4">
                                         <SelectValue placeholder="Har du sökt CSN tidigare?" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
+                                            <SelectLabel className="text-base text-gray-600">Har du sökt CSN tidigare?</SelectLabel>
                                             <SelectItem className="text-base text-gray-600" value="true">Ja</SelectItem>
                                             <SelectItem className="text-base text-gray-600" value="false">Nej</SelectItem>
                                         </SelectGroup>
@@ -114,14 +158,14 @@ export default function Page() {
                                 </Select>
                                 <div className="flex flex-col gap-4 justify-center item-center">
                                     <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100" label="Tillbaka" type="button" onClick={() => setCurrentTabsPage("signup")} />
-                                    <FormButton label="Klar" type="submit" />
+                                    <FormButton label="Klar" type="submit" disabled={!userInfo.year || !userInfo.first} />
                                 </div>
                             </TabsContent>
                         </form>
                     </Tabs>
                     <p className="text-gray-600 text-xs w-lg">Genom att skapa ett konto godkänner du Google Firesbase användarvillkor för hur din persondata hanteras och lagras på vår plattform. <Link href={"/"} className="text-blue-900">Se hur din data hanteras.</Link></p>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

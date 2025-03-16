@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import "./globals.css";
+import { AuthProvider } from "@/components/firebase/authcontext";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/components/firebase/config";
+import { redirect } from "next/navigation";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,7 +23,9 @@ export default function RootLayout({
     <html lang="sv" className="scroll-smooth">
       <body className={`flex flex-col items-center w-full min-h-svh bg-white-400 ${inter.className}`}>
         <div className="flex flex-col w-11/12">
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </div>
       </body>
     </html >
