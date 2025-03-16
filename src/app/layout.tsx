@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
 import "./globals.css";
-import { AuthProvider } from "@/components/firebase/authcontext";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/components/firebase/config";
-import { redirect } from "next/navigation";
+import { AuthProvider } from "@/components/firebase/authcontext";
 
 const inter = Inter({ subsets: ['latin'] })
 

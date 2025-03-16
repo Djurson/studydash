@@ -8,15 +8,18 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { checkEmail, checkPassword, checkStudyInfo } from "@/components/utils/validation";
 import { UserRegistration } from "@/components/firebase/firebaseAuth";
 import { CreateUserProps } from "@/components/firebase/usertypes";
-import { auth } from "@/components/firebase/config";
+import { useAuth } from "@/components/firebase/authcontext";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const router = useRouter();
+
     const [userInfo, setUserInfo] = useState<CreateUserProps>({
         firstname: "",
         lastname: "",
@@ -55,6 +58,8 @@ export default function Page() {
             return;
         }
 
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+
         const userRegError = await UserRegistration(userInfo);
 
         if (userRegError) {
@@ -62,11 +67,10 @@ export default function Page() {
             return;
         }
 
-        console.log(auth.currentUser)
+        router.push("/oversikt")
     }
 
-    // @ts-ignore
-    const HandleChange = (e) => {
+    const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
