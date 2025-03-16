@@ -17,7 +17,10 @@ export default function VerifyEmailPage() {
     }, [user, router]);
 
     const Verified = (e: MouseEvent<HTMLButtonElement>) => {
-        window.location.reload;
+        // kontrollera om användaren har verifierat mailen
+        // ladda in localstorage
+        // skapa dokument med localstorage fälten
+        // skicka användaren vidare
     }
 
     return (
