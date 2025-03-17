@@ -5,7 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+
+  --gap-x1: 0.5rem;
+
+  --h-x3: 1.5rem;
+
   --color-gray-100: #D8D8DC;
+  --color-gray-200: #D2D2D7;
   --color-gray-600: #6E6E73;
   --color-gray-900: #1D1D1F;
 

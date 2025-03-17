@@ -1,9 +1,10 @@
 // middleware.js
 // https://www.youtube.com/watch?v=NYbM-gP7Vwc&ab_channel=RavenJS
 // https://www.youtube.com/watch?v=-BEqV6eaaQk&t=1997s&ab_channel=Timegame
+
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-
+/*
 export async function middleware(request: NextRequest) {
     const response = NextResponse.next();
     const cookieStore = cookies();
@@ -18,4 +19,11 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: ['/oversikt/:path*',],
+}
+*/
+
+export async function middleware(request: NextRequest) {
+
+        return NextResponse.next();
+    
 }
