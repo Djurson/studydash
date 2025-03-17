@@ -1,7 +1,5 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { Auth, getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
+import { Auth, connectAuthEmulator, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
@@ -19,8 +17,21 @@ const currentApps = getApps();
 if (currentApps.length <= 0) {
     const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
+
+    if (process.env.NEXT_PUBLIC_APP_ENV === "emulator" && process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH) {
+        connectAuthEmulator(
+            auth,
+            `http://${process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH}`
+        );
+    }
 } else {
     auth = getAuth(currentApps[0]);
+    if (process.env.NEXT_PUBLIC_APP_ENV === "emulator" && process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH) {
+        connectAuthEmulator(
+            auth,
+            `http://${process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH}`
+        );
+    }
 }
 
 export { auth }

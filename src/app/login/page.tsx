@@ -4,7 +4,7 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { auth } from "@/components/firebase/client";
+import { auth } from "../../../firebase/client";
 import { useRouter } from 'next/navigation'
 import InputField from "@/components/form/inputfield";
 import FormButton from "@/components/form/formbutton";
