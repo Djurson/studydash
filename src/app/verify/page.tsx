@@ -1,29 +1,61 @@
-'use client';
+'use client'
 
 import { useAuth } from '@/components/firebase/authcontext';
+import { CreateUserDoc } from '@/components/firebase/firebaseAuth';
 import FormButton from '@/components/form/formbutton';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 
 export default function VerifyEmailPage() {
     const { user } = useAuth();
     const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
 
-    const Verified = (e: MouseEvent<HTMLButtonElement>) => {
-        window.location.reload();
+    useEffect(() => {
+        if (user) {
+            CreateDoc();
+        }
+    }, [user])
 
+    async function CreateDoc() {
         if (!user?.emailVerified) {
+            setError("E-posten är inte verifierad")
+            return;
+        }
+        const savedUserInfo = localStorage.getItem("userInfo");
+
+        if (!savedUserInfo) {
+            setError("Kan inte hitta data, vänligen skapa ett nytt konto")
             return
         }
 
-        const savedUserInfo = localStorage.getItem("userInfo");
+        const userInfoJSON = JSON.parse(savedUserInfo);
 
-        if (savedUserInfo) {
-            // skapa dokument med localstorage fälten
+        const userInfo = {
+            displayname: userInfoJSON.firstname + " " + userInfoJSON.lastname,
+            email: userInfoJSON.email,
+            year: userInfoJSON.year,
+            previous: JSON.parse(userInfoJSON.previous),
+        };
+
+        console.log(userInfo)
+
+        try {
+            const userInfoDoc = await CreateUserDoc(userInfo, user.uid);
+            if (userInfoDoc) {
+                setError(userInfoDoc);
+                return;
+            }
+
+            localStorage.removeItem("userInfo");
+            router.push("/private/oversikt");
+        } catch (error) {
+            setError(error instanceof Error ? error.message : "Ett okänt fel inträffade");
         }
+    }
 
-        // skicka användaren vidare
+    const Verified = async (e: MouseEvent<HTMLButtonElement>) => {
+        window.location.reload();
     }
 
     return (
@@ -34,6 +66,7 @@ export default function VerifyEmailPage() {
             <div className='w-lg flex justify-center'>
                 <FormButton label='Gå vidare' onClick={Verified} />
             </div>
+            <p>{error}</p>
         </div >
     );
 }

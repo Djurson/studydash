@@ -14,6 +14,7 @@ _Eventuellt också_
 
 ```console
 npm install firebase
+npm install firebase-admin
 ```
 
 KOMMER INTE FUNKA UTAN **.local.env** FILEN!
