@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow only authenticated content owners access
+    match /users/{userId} {
+      allow read, update, delete, create: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+  match /databases/{database}/documents {
+    match /kurser/{document=**} {
+      	allow delete: if false;
+    }
+  }
+}

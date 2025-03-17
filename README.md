@@ -10,11 +10,16 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 npm install
 ```
 
-_Eventuellt också_
+_Eventuellt också (osäker)_
 
 ```console
 npm install firebase
 npm install firebase-admin
+npm install js-cookie
+npm install --save @types/js-cookie
+
+//windows också
+npm install --save-dev cross-env
 ```
 
 KOMMER INTE FUNKA UTAN **.local.env** FILEN!

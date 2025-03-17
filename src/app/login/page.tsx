@@ -4,7 +4,7 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { auth } from "@/components/firebase/config";
+import { auth } from "@/components/firebase/client";
 import { useRouter } from 'next/navigation'
 import InputField from "@/components/form/inputfield";
 import FormButton from "@/components/form/formbutton";
@@ -80,8 +80,8 @@ export default function Page() {
                             </Alert>
                         )}
                         <div className="flex w-full flex-col gap-4">
-                            <InputField type="email" placeholder="E-post" onchange={HandleChange} value={userLogin.email} />
-                            <InputField type="password" placeholder="Lösenord" onchange={HandleChange} value={userLogin.password} />
+                            <InputField name="email" type="email" placeholder="E-post" onchange={HandleChange} value={userLogin.email} />
+                            <InputField name="password" type="password" placeholder="Lösenord" onchange={HandleChange} value={userLogin.password} />
                             <span className="text-blue-900 flex">Glömt ditt lösenord? <ChevronRight className="text-blue-900" /></span>
                         </div>
                         <div className="flex flex-col gap-4 justify-center item-center">
