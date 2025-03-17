@@ -7,8 +7,15 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+const { initializeApp } = require("firebase-admin/app");
+const { getFirestore } = require("firebase-admin/firestore");
+
+
+initializeApp();
+
+export const onUserCreate = auth.user().onCreate(async (user) => {
+    const write = await getFirestore().collection("users").add()
+})
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
