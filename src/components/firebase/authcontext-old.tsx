@@ -1,16 +1,17 @@
 "use client"
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, User } from 'firebase/auth';
 import { auth } from '../../../firebase/client';
 import Cookies from 'js-cookie';
-import { CreateUser, UserInputDB, UserLogin } from './usertypes';
+import { CreateUser, UserLogin } from './usertypes';
 
 type AuthContextType = {
     user: User | null;
-    userRegistration: (userDB: UserInputDB, userData?: CreateUser) => Promise<string | null>;
+    userRegistration: (userData?: CreateUser) => Promise<string | null>;
     userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
     logout: () => Promise<string | null>;
+    sendUserData: (userData: CreateUser, user: User) => Promise<string | null>;
 }
 
 type AuthProviderProps = {
@@ -34,30 +35,27 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
 
-    async function userRegistration(userDB: UserInputDB, userData?: CreateUser): Promise<string | null> {
+    async function userRegistration(userData: CreateUser, userBasic: ): Promise<string | null> {
         if (!auth) {
-            return Promise.reject("Internal error: 100");
+            return Promise.resolve("Någonting gick fel");
         }
+
         try {
             if (!userData) {
-                const usercred = await signInWithPopup(auth, new GoogleAuthProvider());
-
-                // användaren har skapat ett kontos
-                await sendUserData(userDB, usercred.user);
+                await signInWithPopup(auth, new GoogleAuthProvider());
             } else {
                 const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
                 await sendEmailVerification(usercred.user);
-                await updateProfile(usercred.user, { displayName: `${userData.firstname} ${userData.lastname}` });
             }
             return null
         } catch (error) {
-            return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
+            return Promise.reject("Fel vid inloggning/skapande av konto: " + (error as Error).message);
         }
     }
 
     async function userSignInEmail(userLogin: UserLogin): Promise<string | null> {
         if (!auth) {
-            return Promise.resolve("Internal error: 100");
+            return Promise.resolve("Någonting gick fel");
         }
 
         try {
@@ -70,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     async function logout(): Promise<string | null> {
         if (!auth) {
-            return Promise.resolve("Internal error: 100");
+            return Promise.resolve("Någonting gick fel");
         }
 
         try {
@@ -81,9 +79,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    async function sendUserData(userData: UserInputDB, user: User): Promise<string | null> {
-        // Skicka iväg datan till servern för att kunna skapa databas fil
-        return null
+    async function sendUserData(userData: CreateUser, user: User): Promise<string | null> {
+        try {
+            await fetch(`${process.env.API_URL}/api/items`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: user.email,
+                    year: userData.year,
+                    previous: userData.previous,
+                    displayname: user.displayName,
+                }),
+            });
+
+            return null
+        } catch (error) {
+            return Promise.reject("Fel vid skapande av dokument: " + (error as Error).message);
+        }
     }
 
     useEffect(() => {
@@ -102,7 +116,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, logout }}>
+        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, logout, sendUserData }}>
             {children}
         </AuthContext.Provider>
     );
