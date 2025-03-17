@@ -4,22 +4,32 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 
 ---
 
-## VIKTIGT ATT INSTALLERA FÖRSTA GÅNGEN!
+## Hur du kör projektet
+
+För att kunna köra projektet behöver följande steg göras
+
+### Installationer
 
 ```console
 npm install
 npm install -g firebase-tools
 npm install --save @types/js-cookie
 
-//Windows
-npm install --save-dev cross-env
+// För windows behöver man följande
+npm install --save-dev cross-env'
+```
 
-// Öppna två olika konsoler
+### Emulator/körning
+```console
 npm run emulators
 npm run dev
 ```
 
-KOMMER INTE FUNKA UTAN **.local.env** FILEN!
+#### Viktigt att veta
+Projektet kommer inte kunna gå att köra utan dessa filer:
+- **.env.local** 
+- **.env.development**
+- **serviceAccount.json**
 
 ---
 
