@@ -41,3 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 ServiceAccount.json
+*.log
+firebase-debug.log
