@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, User } from 'firebase/auth';
 import { auth } from '../../../firebase/client';
 import Cookies from 'js-cookie';
 import { CreateUser, UserLogin } from './usertypes';
@@ -10,7 +10,7 @@ type AuthContextType = {
     user: User | null;
     userRegistration: (userInfo?: CreateUser) => Promise<string | null>;
     userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
-    logout: () => Promise<void>;
+    logout: () => Promise<string | null>;
 }
 
 type AuthProviderProps = {
@@ -64,10 +64,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    function logout(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            reject();
-        })
+    async function logout(): Promise<string | null> {
+        if (!auth) {
+            return Promise.resolve("Någonting gick fel");
+        }
+
+        try {
+            await signOut(auth)
+            return null
+        } catch (error) {
+            return Promise.reject("Fel vid utloggning: " + (error as Error).message);
+        }
     }
 
     useEffect(() => {
