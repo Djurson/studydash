@@ -1,23 +1,23 @@
 "use client"
 
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { AlertCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { auth } from "../../../firebase/client";
 import { useRouter } from 'next/navigation'
 import InputField from "@/components/form/inputfield";
 import FormButton from "@/components/form/formbutton";
 import GoogleIcon from "@/components/googleIcon";
 import LogoCenter from "@/components/form/logocenter";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { SignIn, UserRegistration } from "@/components/firebase/firebaseAuth";
-import { UserLoginProps } from "@/components/firebase/usertypes";
+import { UserLogin } from "@/components/firebase/usertypes";
+import { useAuth } from "@/components/firebase/authcontext";
 
 export default function Page() {
+    const auth = useAuth();
+
     const router = useRouter();
 
-    const [userLogin, setUserLogin] = useState<UserLoginProps>({
+    const [userLogin, setUserLogin] = useState<UserLogin>({
         email: "",
         password: "",
     });
@@ -34,7 +34,7 @@ export default function Page() {
     async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const userError = await SignIn(userLogin);
+        const userError = await auth?.userSignInEmail(userLogin);
 
         if (userError) {
             setError(userError);
@@ -47,7 +47,7 @@ export default function Page() {
     }
 
     async function SignInGoogle() {
-        const userRegError = await UserRegistration();
+        const userRegError = await auth?.userRegistration();
 
         if (userRegError) {
             setError(userRegError);
