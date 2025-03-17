@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { checkUserRegistrationInput, checkStudyInfo } from "@/components/utils/validation";

@@ -10,6 +10,7 @@ type AuthContextType = {
     user: User | null;
     userRegistration: (userDB: UserInputDB, userData?: CreateUser) => Promise<string | null>;
     userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
+    sendUserData: (userData: UserInputDB, user: User) => Promise<string | null>;
     logout: () => Promise<string | null>;
 }
 
@@ -41,8 +42,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             if (!userData) {
                 const usercred = await signInWithPopup(auth, new GoogleAuthProvider());
-
-                // användaren har skapat ett kontos
                 await sendUserData(userDB, usercred.user);
             } else {
                 const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
@@ -82,8 +81,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     async function sendUserData(userData: UserInputDB, user: User): Promise<string | null> {
-        // Skicka iväg datan till servern för att kunna skapa databas fil
-        return null
+        try {
+            await fetch(`${process.env.API_URL}/api/setCustomClaims`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    uid: user.uid,
+                    year: userData.year,
+                    previous: userData.previous,
+                }),
+            });
+            return null
+        } catch (error) {
+            return Promise.reject("Fel vid skapning utav dokument: " + (error as Error).message)
+        }
     }
 
     useEffect(() => {
@@ -102,7 +115,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, logout }}>
+        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, sendUserData, logout }}>
             {children}
         </AuthContext.Provider>
     );
