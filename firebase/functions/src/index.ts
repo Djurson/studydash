@@ -7,14 +7,15 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-const { initializeApp } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
+import { firestore } from 'firebase-admin'
+import * as functions from 'firebase-functions/v1'
 
+export const onUserCreate = functions.auth.user().onCreate(async (user) => {
+    if (user.emailVerified) {
+        await firestore().doc(`/users/${user.uid}`).create({
 
-initializeApp();
-
-export const onUserCreate = auth.user().onCreate(async (user) => {
-    const write = await getFirestore().collection("users").add()
+        })
+    }
 })
 
 // Start writing functions
