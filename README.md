@@ -15,6 +15,7 @@ _Eventuellt också (osäker)_
 ```console
 npm install firebase
 npm install firebase-admin
+npm install -g firebase-tools
 npm install js-cookie
 npm install --save @types/js-cookie
 
