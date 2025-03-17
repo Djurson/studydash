@@ -33,7 +33,7 @@ export default function Page() {
     const [error, setError] = useState<string | null>(null);
     const [currentTabsPage, setCurrentTabsPage] = useState("signup");
     // @ts-ignore
-    const isGoogleSignup = auth?.user.providerData.some(provider => provider.providerId === "google.com");
+    const isGoogleSignup = auth?.user?.providerData.some(provider => provider.providerId === "google.com");
 
     useEffect(() => {
         if (auth?.user && isGoogleSignup) {
