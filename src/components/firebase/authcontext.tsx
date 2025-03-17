@@ -1,10 +1,11 @@
 "use client"
 
-interface AuthContextType {
+type AuthContextType = {
     user: User | null;
+
 }
 
-interface AuthProviderProps {
+type AuthProviderProps = {
     children?: ReactNode;
 }
 

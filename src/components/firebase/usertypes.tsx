@@ -1,5 +1,5 @@
 // Skapa konto struktur
-export interface CreateUserProps {
+export type CreateUserProps = {
     firstname: string,
     lastname: string,
     email: string,
@@ -10,7 +10,7 @@ export interface CreateUserProps {
 }
 
 // Database struktur
-export interface UserProps {
+export type UserProps = {
     displayname: string,
     email: string,
     year: string,
@@ -18,7 +18,7 @@ export interface UserProps {
 }
 
 // Login Struktur
-export interface UserLoginProps {
+export type UserLoginProps = {
     email: string;
     password: string;
 }

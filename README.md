@@ -19,7 +19,11 @@ npm install js-cookie
 npm install --save @types/js-cookie
 
 //windows också
-npm install --save-dev cross-env
+npm install --save-dev cross-
+
+// Öppna två olika konsoler
+npm run emulators
+npm run dev
 ```
 
 KOMMER INTE FUNKA UTAN **.local.env** FILEN!
