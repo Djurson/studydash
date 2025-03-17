@@ -8,16 +8,17 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { checkEmail, checkPassword, checkStudyInfo } from "@/components/utils/validation";
-import { UserRegistration } from "@/components/firebase/firebaseAuth";
+import { CreateUserDoc, UserRegistration } from "@/components/firebase/firebaseAuth";
 import { CreateUserProps } from "@/components/firebase/usertypes";
-import { useAuth } from "@/components/firebase/authcontext";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/firebase/authcontext";
 
 export default function Page() {
+    const { user } = useAuth();
     const router = useRouter();
 
     const [userInfo, setUserInfo] = useState<CreateUserProps>({
@@ -27,11 +28,18 @@ export default function Page() {
         password: "",
         repeatpassword: "",
         year: "",
-        first: "",
+        previous: "",
     });
 
     const [error, setError] = useState<string | null>(null);
     const [currentTabsPage, setCurrentTabsPage] = useState("signup");
+    const isGoogleSignup = user?.providerData.some(provider => provider.providerId === "google.com");
+
+    useEffect(() => {
+        if (user && isGoogleSignup) {
+            setCurrentTabsPage("updateinfo");
+        }
+    }, [user])
 
     function emailPasswordCheck() {
         const emailError = checkEmail(userInfo.email);
@@ -39,9 +47,9 @@ export default function Page() {
 
         if (emailError || passwordError) {
             setError(emailError || passwordError);
-            return;
+            return
         } else {
-            setError("");
+            setError(null);
             setCurrentTabsPage("updateinfo");
         }
     }
@@ -49,13 +57,17 @@ export default function Page() {
     async function SignUpEmail(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
+        if (isGoogleSignup) {
+            await SignUpGoogle();
+            return
+        }
         const emailError = checkEmail(userInfo.email);
         const passwordError = checkPassword(userInfo.password, userInfo.repeatpassword);
-        const studyInfoError = checkStudyInfo(userInfo.year, userInfo.first);
+        const studyInfoError = checkStudyInfo(userInfo.year, userInfo.previous);
 
         if (emailError || passwordError || studyInfoError) {
             setError(emailError || passwordError || studyInfoError);
-            return;
+            return
         }
 
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
@@ -64,10 +76,55 @@ export default function Page() {
 
         if (userRegError) {
             setError(userRegError);
-            return;
+            return
         }
 
         router.push("/oversikt")
+    }
+
+    async function GoogleSetup(e: MouseEvent<HTMLButtonElement>) {
+        const userRegError = await UserRegistration();
+
+        if (userRegError) {
+            setError(userRegError);
+            return
+        }
+
+        setError(null);
+        setCurrentTabsPage("updateinfo");
+    }
+
+    async function SignUpGoogle() {
+        if (!user) {
+            setError("Ingen användare");
+            return
+        }
+
+        const studyInfoError = checkStudyInfo(userInfo.year, userInfo.previous);
+
+        if (studyInfoError) {
+            setError(studyInfoError);
+            return
+        }
+
+        try {
+            const user_info = {
+                displayname: user.displayName || "",
+                email: user.email || "",
+                year: userInfo.year,
+                previous: JSON.parse(userInfo.previous),
+            };
+
+            const userInfoDoc = await CreateUserDoc(user_info, user.uid)
+            if (userInfoDoc) {
+                setError(userInfoDoc);
+                return;
+            }
+
+            router.push("/private/oversikt");
+        } catch (error) {
+            setError(error instanceof Error ? error.message : "Ett okänt fel inträffade");
+        }
     }
 
     const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,19 +148,20 @@ export default function Page() {
                             <TabsTrigger className={`${currentTabsPage == 'signup' ? 'outline-none border-gray-100 border-2 text-gray-900' : ''} transition duration-200 ease-in-out hover:cursor-pointer`}
                                 value="signup"
                                 onClick={() => setCurrentTabsPage("signup")}
+                                disabled={isGoogleSignup}
                             >
                                 Grund information
                             </TabsTrigger>
                             <TabsTrigger className={`${currentTabsPage == 'updateinfo' ? 'outline-none border-gray-100 border-2 text-gray-900' : ''} transition duration-200 ease-in-out hover:cursor-pointer`}
                                 value="updateinfo"
                                 onClick={() => setCurrentTabsPage("updateinfo")}
-                                disabled={!!(checkEmail(userInfo.email) || checkPassword(userInfo.password, userInfo.repeatpassword))}
+                                disabled={!isGoogleSignup && !!(checkEmail(userInfo.email) || checkPassword(userInfo.password, userInfo.repeatpassword))}
                             >
                                 Studieinformation
                             </TabsTrigger>
                         </TabsList>
                         <form className="w-lg flex flex-col justify-center gap-4" method="POST" onSubmit={SignUpEmail}>
-                            {error != "" && error != null && (
+                            {error != null && (
                                 <Alert variant="destructive">
                                     <AlertCircle className="h-4 w-4" />
                                     <AlertTitle>Fel</AlertTitle>
@@ -125,7 +183,7 @@ export default function Page() {
                                     <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
                                         label="Skapa ett konto med Google"
                                         type="button"
-                                        onClick={() => setCurrentTabsPage("updateinfo")}
+                                        onClick={GoogleSetup}
                                     >
                                         <GoogleIcon />
                                     </FormButton>
@@ -148,7 +206,7 @@ export default function Page() {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <Select name="first" onValueChange={(value) => setUserInfo({ ...userInfo, first: value })} required={true} defaultValue={userInfo.first} >
+                                <Select name="first" onValueChange={(value) => setUserInfo({ ...userInfo, previous: value })} required={true} defaultValue={userInfo.previous} >
                                     <SelectTrigger className="w-full text-base py-3 px-4">
                                         <SelectValue placeholder="Har du sökt CSN tidigare?" />
                                     </SelectTrigger>
@@ -162,7 +220,7 @@ export default function Page() {
                                 </Select>
                                 <div className="flex flex-col gap-4 justify-center item-center">
                                     <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100" label="Tillbaka" type="button" onClick={() => setCurrentTabsPage("signup")} />
-                                    <FormButton label="Klar" type="submit" disabled={!userInfo.year || !userInfo.first} />
+                                    <FormButton label="Klar" type="submit" disabled={!userInfo.year || !userInfo.previous} />
                                 </div>
                             </TabsContent>
                         </form>

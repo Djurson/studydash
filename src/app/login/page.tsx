@@ -1,7 +1,7 @@
 "use client"
 
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { ChevronRight } from "lucide-react";
+import { AlertCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { auth } from "@/components/firebase/config";
@@ -10,16 +10,19 @@ import InputField from "@/components/form/inputfield";
 import FormButton from "@/components/form/formbutton";
 import GoogleIcon from "@/components/googleIcon";
 import LogoCenter from "@/components/form/logocenter";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { SignIn, UserRegistration } from "@/components/firebase/firebaseAuth";
+import { UserLoginProps } from "@/components/firebase/usertypes";
 
 export default function Page() {
     const router = useRouter();
 
-    const [userLogin, setUserLogin] = useState({
+    const [userLogin, setUserLogin] = useState<UserLoginProps>({
         email: "",
         password: "",
     });
 
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUserLogin({
@@ -29,40 +32,35 @@ export default function Page() {
     };
 
     async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
-        // Sidan ska inte reloadas
         event.preventDefault();
 
-        // Kopplar samman med firebase, firebase kollar finns den här mailen och lösenordet
-        const res = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password).catch((error) => {
-            setError(error.code);
-        })
+        const userError = await SignIn(userLogin);
 
-        // Inloggningen gick bra
-        if (res?.user) {
-            Navigate();
-        } else {
-            // Errors
+        if (userError) {
+            setError(userError);
+            return
         }
+
+        setError(null);
+
+        Navigate();
     }
 
     async function SignInGoogle() {
-        const provider = new GoogleAuthProvider();
+        const userRegError = await UserRegistration();
 
-        // Kopplar samman med firebase, firebase kollar finns den här mailen och lösenordet
-        const res = await signInWithPopup(auth, provider);
-
-        // Inloggningen gick bra
-        if (res?.user) {
-            // Folk som är nya kan råka gå in här och "skapa" ett konto
-            // Implementera att kolla ifall det finns ett dokument för användaren -> annars skapa ett
-            // Exakt samma funktion kommer användas i signup kanske går att göra någon komponent som gör det?
-
-            Navigate();
+        if (userRegError) {
+            setError(userRegError);
+            return
         }
+
+        setError(null);
+
+        Navigate();
     }
 
-    function Navigate() {
-        router.push('/oversikt');
+    async function Navigate() {
+        router.push("/private/oversikt");
     }
 
     return (
@@ -71,7 +69,16 @@ export default function Page() {
                 <Link href={"/"}><LogoCenter /></Link>
                 <div className="flex flex-col w-full justify-center items-center h-full gap-6">
                     <h1 className="font-semibold text-3xl">Logga in</h1>
-                    <form className="w-lg flex justify-center flex-col gap-8" method="POST" onSubmit={HandleSubmit}>
+                    <form className="w-lg flex flex-col justify-center gap-4" method="POST" onSubmit={HandleSubmit}>
+                        {error != "" && error != null && (
+                            <Alert variant="destructive">
+                                <AlertCircle className="h-4 w-4" />
+                                <AlertTitle>Fel</AlertTitle>
+                                <AlertDescription>
+                                    {error}
+                                </AlertDescription>
+                            </Alert>
+                        )}
                         <div className="flex w-full flex-col gap-4">
                             <InputField type="email" placeholder="E-post" onchange={HandleChange} value={userLogin.email} />
                             <InputField type="password" placeholder="Lösenord" onchange={HandleChange} value={userLogin.password} />
