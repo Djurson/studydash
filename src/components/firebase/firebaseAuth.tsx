@@ -1,7 +1,7 @@
 "use client"
 
 import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth"
-import { auth, db } from "./client"
+import { auth, db } from "../../../firebase/client"
 import { CreateUserProps, UserLoginProps, UserProps } from "./usertypes"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
