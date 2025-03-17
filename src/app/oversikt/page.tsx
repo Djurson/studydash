@@ -1,7 +1,7 @@
 "use client"
 
 import { useAuth } from "@/components/firebase/authcontext";
-import { auth } from "@/components/firebase/config";
+import { auth } from "@/components/firebase/client";
 import PillButton from "@/components/main/pillbutton";
 import { signOut } from "firebase/auth";
 import { useState } from "react";

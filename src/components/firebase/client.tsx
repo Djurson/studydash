@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { Auth, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -13,9 +13,14 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FB_MEASUREMENT_ID
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const auth = getAuth(app);
-//const analytics = getAnalytics(app);
-const db = getFirestore(app);
+let auth: Auth | undefined = undefined;
 
-export { app, auth, db }
+const currentApps = getApps();
+if (currentApps.length <= 0) {
+    const app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+} else {
+    auth = getAuth(currentApps[0]);
+}
+
+export { auth }
