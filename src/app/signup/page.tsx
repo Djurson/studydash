@@ -12,16 +12,15 @@ import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { checkEmail, checkPassword, checkStudyInfo } from "@/components/utils/validation";
-import { CreateUserDoc, UserRegistration } from "@/components/firebase/firebaseAuth";
-import { CreateUserProps } from "@/components/firebase/usertypes";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/firebase/authcontext";
+import { CreateUser } from "@/components/firebase/usertypes";
 
 export default function Page() {
-    const { user } = useAuth();
+    const auth = useAuth();
     const router = useRouter();
 
-    const [userInfo, setUserInfo] = useState<CreateUserProps>({
+    const [userInfo, setUserInfo] = useState<CreateUser>({
         firstname: "",
         lastname: "",
         email: "",
@@ -33,13 +32,14 @@ export default function Page() {
 
     const [error, setError] = useState<string | null>(null);
     const [currentTabsPage, setCurrentTabsPage] = useState("signup");
-    const isGoogleSignup = user?.providerData.some(provider => provider.providerId === "google.com");
+    // @ts-ignore
+    const isGoogleSignup = auth?.user.providerData.some(provider => provider.providerId === "google.com");
 
     useEffect(() => {
-        if (user && isGoogleSignup) {
+        if (auth?.user && isGoogleSignup) {
             setCurrentTabsPage("updateinfo");
         }
-    }, [user])
+    }, [auth?.user])
 
     function emailPasswordCheck() {
         const emailError = checkEmail(userInfo.email);
@@ -72,7 +72,7 @@ export default function Page() {
 
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
-        const userRegError = await UserRegistration(userInfo);
+        const userRegError = await auth?.userRegistration(userInfo);
 
         if (userRegError) {
             setError(userRegError);
@@ -83,7 +83,7 @@ export default function Page() {
     }
 
     async function GoogleSetup(e: MouseEvent<HTMLButtonElement>) {
-        const userRegError = await UserRegistration();
+        const userRegError = await auth?.userRegistration();
 
         if (userRegError) {
             setError(userRegError);
@@ -95,7 +95,7 @@ export default function Page() {
     }
 
     async function SignUpGoogle() {
-        if (!user) {
+        if (!auth?.user) {
             setError("Ingen användare");
             return
         }
@@ -109,19 +109,16 @@ export default function Page() {
 
         try {
             const user_info = {
-                displayname: user.displayName || "",
-                email: user.email || "",
+                firstname: auth.user.displayName,
+                lastname: "",
+                email: auth.user.email,
                 year: userInfo.year,
                 previous: JSON.parse(userInfo.previous),
             };
 
-            const userInfoDoc = await CreateUserDoc(user_info, user.uid)
-            if (userInfoDoc) {
-                setError(userInfoDoc);
-                return;
-            }
+            localStorage.setItem("userInfo", JSON.stringify(user_info));
 
-            router.push("/private/oversikt");
+            router.push("/oversikt");
         } catch (error) {
             setError(error instanceof Error ? error.message : "Ett okänt fel inträffade");
         }

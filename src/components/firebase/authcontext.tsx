@@ -1,15 +1,15 @@
 "use client"
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { GoogleAuthProvider, signInWithPopup, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
 import { auth } from '../../../firebase/client';
 import Cookies from 'js-cookie';
-import { CreateUserProps } from './usertypes';
+import { CreateUser, UserLogin } from './usertypes';
 
 type AuthContextType = {
     user: User | null;
-    userRegistration: (userInfo?: CreateUserProps) => Promise<string | null>;
-    userSignInEmail: () => Promise<string | null>;
+    userRegistration: (userInfo?: CreateUser) => Promise<string | null>;
+    userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
     logout: () => Promise<void>;
 }
 
@@ -34,21 +34,34 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
 
-    async function userRegistration(): Promise<string | null> {
-        try {
-            if (!auth) {
-                return Promise.resolve("Någonting gick fel");
-            }
+    async function userRegistration(userInfo?: CreateUser): Promise<string | null> {
+        if (!auth) {
+            return Promise.resolve("Någonting gick fel");
+        }
 
-            const result = await signInWithPopup(auth, new GoogleAuthProvider());
+        try {
+            if (!userInfo) {
+                await signInWithPopup(auth, new GoogleAuthProvider());
+            } else {
+                await createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password);
+            }
             return null
         } catch (error) {
-            return Promise.reject("Fel vid inloggning: " + (error as Error).message);
+            return Promise.reject("Fel vid inloggning/skapande av konto: " + (error as Error).message);
         }
     }
 
-    function userRegistrationEmail(): Promise<string | null> {
+    async function userSignInEmail(userLogin: UserLogin): Promise<string | null> {
+        if (!auth) {
+            return Promise.resolve("Någonting gick fel");
+        }
 
+        try {
+            await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
+            return null;
+        } catch (error) {
+            return Promise.reject("Fel vid inloggning/skapande av konto: " + (error as Error).message);
+        }
     }
 
     function logout(): Promise<void> {
@@ -73,7 +86,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, userRegistration, userRegistrationEmail, logout }}>
+        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, logout }}>
             {children}
         </AuthContext.Provider>
     );

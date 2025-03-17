@@ -1,24 +1,23 @@
 'use client'
 
 import { useAuth } from '@/components/firebase/authcontext';
-import { CreateUserDoc } from '@/components/firebase/firebaseAuth';
 import FormButton from '@/components/form/formbutton';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useEffect, useState } from 'react';
 
 export default function VerifyEmailPage() {
-    const { user } = useAuth();
+    const auth = useAuth();
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (user) {
+        if (auth?.user) {
             CreateDoc();
         }
-    }, [user])
+    }, [auth])
 
     async function CreateDoc() {
-        if (!user?.emailVerified) {
+        if (!auth?.user?.emailVerified) {
             setError("E-posten är inte verifierad")
             return;
         }
@@ -38,20 +37,7 @@ export default function VerifyEmailPage() {
             previous: JSON.parse(userInfoJSON.previous),
         };
 
-        console.log(userInfo)
-
-        try {
-            const userInfoDoc = await CreateUserDoc(userInfo, user.uid);
-            if (userInfoDoc) {
-                setError(userInfoDoc);
-                return;
-            }
-
-            localStorage.removeItem("userInfo");
-            router.push("/private/oversikt");
-        } catch (error) {
-            setError(error instanceof Error ? error.message : "Ett okänt fel inträffade");
-        }
+        // servern ska ha en metod för att skriva dokument
     }
 
     const Verified = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -61,7 +47,7 @@ export default function VerifyEmailPage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen">
             <h1 className="text-2xl font-bold text-gray-900">Verifiera din e-post</h1>
-            <p>Vi har skickat ett verifieringsmejl till {user?.email}. Klicka på länken i mejlet för att fortsätta.</p>
+            <p>Vi har skickat ett verifieringsmejl till {auth?.user?.email}. Klicka på länken i mejlet för att fortsätta.</p>
             <p>Uppdatera sidan när du har verifierat din e-post.</p>
             <div className='w-lg flex justify-center'>
                 <FormButton label='Gå vidare' onClick={Verified} />
