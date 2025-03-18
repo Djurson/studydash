@@ -7,6 +7,16 @@ import Cookies from 'js-cookie';
 import { CreateUser, UserInputDB, UserLogin } from './usertypes';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
+enum UserTypesEnum {
+    NORMAL = "normal",
+    PRO = "pro",
+}
+
+type UserType = {
+    verified: string;
+    userRole: UserTypesEnum;
+}
+
 type AuthContextType = {
     user: User | null;
     UserSignUpEmail: (userData: CreateUser) => Promise<string | null>;
@@ -14,6 +24,7 @@ type AuthContextType = {
     UserSignInGoogle: () => Promise<string | null>;
     CreateUserData: (user: User, userData: UserInputDB) => Promise<string | null>;
     Logout: () => Promise<string | null>;
+    userInfo: UserType | null;
 }
 
 type AuthProviderProps = {
@@ -36,6 +47,27 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
+    const [userInfo, setUserInfo] = useState<UserType | null>(null)
+
+    useEffect(() => {
+        if (!auth) return;
+
+        return auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                setUser(null);
+                removeAuthToken();
+            } else {
+                const token = await user.getIdToken();
+                setUser(user);
+                setAuthToken(token);
+
+                const tokenResult = await user.getIdTokenResult();
+
+                console.log(tokenResult.claims)
+                // setUserInfo(userinfo);
+            }
+        })
+    }, []);
 
     async function UserSignUpEmail(userData: CreateUser): Promise<string | null> {
         if (!auth) {
@@ -57,7 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 ...userData,
                 displayname: user.displayName,
                 email: user.email,
-                created: serverTimestamp(),
+                created: user.metadata.creationTime,
             })
             return null
         } catch (error) {
@@ -103,23 +135,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    useEffect(() => {
-        if (!auth) return;
-
-        return auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                setUser(null);
-                removeAuthToken();
-            } else {
-                const token = await user.getIdToken();
-                setUser(user);
-                setAuthToken(token);
-            }
-        })
-    }, []);
-
     return (
-        <AuthContext.Provider value={{ user, UserSignUpEmail, UserSignInEmail, UserSignInGoogle, CreateUserData, Logout }}>
+        <AuthContext.Provider value={{ user, UserSignUpEmail, UserSignInEmail, UserSignInGoogle, CreateUserData, Logout, userInfo }}>
             {children}
         </AuthContext.Provider>
     );
