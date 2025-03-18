@@ -47,7 +47,7 @@ export default function Page() {
     }
 
     async function SignInGoogle() {
-        const userRegError = await auth?.userRegistration();
+        const userRegError = await auth?.userSignInGoogle();
 
         if (userRegError) {
             setError(userRegError);

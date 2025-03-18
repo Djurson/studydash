@@ -2,15 +2,17 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from 'firebase/auth';
-import { auth } from '../../../firebase/client';
+import { auth, db } from '../../../firebase/client';
 import Cookies from 'js-cookie';
 import { CreateUser, UserInputDB, UserLogin } from './usertypes';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 type AuthContextType = {
     user: User | null;
     userRegistration: (userDB: UserInputDB, userData?: CreateUser) => Promise<string | null>;
     userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
-    sendUserData: (userData: UserInputDB, user: User) => Promise<string | null>;
+    userSignInGoogle: () => Promise<string | null>;
+    CreateUserData: (user: User, userData: UserInputDB) => Promise<string | null>;
     logout: () => Promise<string | null>;
 }
 
@@ -42,12 +44,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             if (!userData) {
                 const usercred = await signInWithPopup(auth, new GoogleAuthProvider());
-                await sendUserData(userDB, usercred.user);
+                await CreateUserData(usercred.user, userDB);
             } else {
                 const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
                 await sendEmailVerification(usercred.user);
                 await updateProfile(usercred.user, { displayName: `${userData.firstname} ${userData.lastname}` });
             }
+            return null
+        } catch (error) {
+            return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
+        }
+    }
+
+    async function CreateUserData(user: User, userData: UserInputDB): Promise<string | null> {
+        try {
+            await setDoc(doc(db, "users", user.uid), {
+                ...userData,
+                displayname: user.displayName,
+                email: user.email,
+                created: serverTimestamp(),
+            })
             return null
         } catch (error) {
             return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
@@ -63,7 +79,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
             return null;
         } catch (error) {
-            return Promise.reject("Fel vid inloggning/skapande av konto: " + (error as Error).message);
+            return Promise.reject("Fel vid inloggning: " + (error as Error).message);
+        }
+    }
+
+    async function userSignInGoogle(): Promise<string | null> {
+        if (!auth) {
+            return Promise.resolve("Internal error: 100");
+        }
+        try {
+            await signInWithPopup(auth, new GoogleAuthProvider());
+            return null
+        } catch (error) {
+            return Promise.reject("Fel vid inloggning: " + (error as Error).message);
         }
     }
 
@@ -77,25 +105,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             return null
         } catch (error) {
             return Promise.reject("Fel vid utloggning: " + (error as Error).message);
-        }
-    }
-
-    async function sendUserData(userData: UserInputDB, user: User): Promise<string | null> {
-        try {
-            await fetch(`${process.env.API_URL}/api/setCustomClaims`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    uid: user.uid,
-                    year: userData.year,
-                    previous: userData.previous,
-                }),
-            });
-            return null
-        } catch (error) {
-            return Promise.reject("Fel vid skapning utav dokument: " + (error as Error).message)
         }
     }
 
@@ -115,7 +124,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, sendUserData, logout }}>
+        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, userSignInGoogle, CreateUserData, logout }}>
             {children}
         </AuthContext.Provider>
     );
