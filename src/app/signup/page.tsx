@@ -57,40 +57,39 @@ export default function Page() {
             return
         }
 
-        HandleRegistration(userCred);
-
-        // Klar med signupen
-    }
-
-    async function SignUpGoogle() {
-        await HandleRegistration();
-
-        // Klar med signupen
-    }
-
-    async function HandleRegistration(userCred?: CreateUser) {
         if (!auth) {
             setError("Internal error: 100")
             return
         }
 
-        const UserInputDB: UserInputDB = {
-            year: userDBInfo.year,
-            previous: JSON.parse(userDBInfo.previous),
-        }
-
-        let regError;
-
-        if (userCred) {
-            regError = await auth.userRegistration(UserInputDB, userCred);
-        } else {
-            regError = await auth.userRegistration(UserInputDB);
-        }
+        const regError = await auth.UserSignUpEmail(userCred);
 
         if (regError) {
             setError(regError);
             return
         }
+
+        localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
+
+        router.push("/verify")
+    }
+
+    async function SignUpGoogle() {
+        if (!auth) {
+            setError("Internal error: 100")
+            return
+        }
+
+        const regError = await auth.UserSignInGoogle();
+
+        if (regError) {
+            setError(regError);
+            return
+        }
+
+        localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
+
+        router.push("/oversikt");
     }
 
     const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
