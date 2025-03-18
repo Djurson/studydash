@@ -6,15 +6,28 @@
  *
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
+import { Change, FirestoreEvent, onDocumentCreatedWithAuthContext } from "firebase-functions/v2/firestore";
+import * as admin from 'firebase-admin';
 
-import { firestore } from 'firebase-admin'
-import * as functions from 'firebase-functions/v1'
+admin.initializeApp();
 
-export const onUserCreate = functions.auth.user().onCreate(async (user) => {
-    if (user.emailVerified) {
-        await firestore().doc(`/users/${user.uid}`).create({
+exports.createuser = onDocumentCreatedWithAuthContext("users/{userId}", async (e) => {
+    const uid = e.authId;
 
-        })
+    if (uid) {
+        const customClaims = {
+            verified: true,
+            usertype: 'normal',
+        };
+
+        try {
+            await admin.auth().setCustomUserClaims(uid, customClaims);
+            console.log(`Anpassade claims satt för användare ${uid}`);
+        } catch (error) {
+            console.error(`Kunde inte sätta anpassade claims för användare ${uid}:`, error);
+        }
+    } else {
+        console.error('Ingen användar-ID (uid) tillgänglig i händelsens autentiseringsinformation.');
     }
 })
 

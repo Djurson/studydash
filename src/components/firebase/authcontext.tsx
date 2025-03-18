@@ -9,11 +9,11 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 type AuthContextType = {
     user: User | null;
-    userRegistration: (userDB: UserInputDB, userData?: CreateUser) => Promise<string | null>;
-    userSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
-    userSignInGoogle: () => Promise<string | null>;
+    UserSignUpEmail: (userData: CreateUser) => Promise<string | null>;
+    UserSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
+    UserSignInGoogle: () => Promise<string | null>;
     CreateUserData: (user: User, userData: UserInputDB) => Promise<string | null>;
-    logout: () => Promise<string | null>;
+    Logout: () => Promise<string | null>;
 }
 
 type AuthProviderProps = {
@@ -37,19 +37,14 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
 
-    async function userRegistration(userDB: UserInputDB, userData?: CreateUser): Promise<string | null> {
+    async function UserSignUpEmail(userData: CreateUser): Promise<string | null> {
         if (!auth) {
             return Promise.reject("Internal error: 100");
         }
         try {
-            if (!userData) {
-                const usercred = await signInWithPopup(auth, new GoogleAuthProvider());
-                await CreateUserData(usercred.user, userDB);
-            } else {
-                const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
-                await sendEmailVerification(usercred.user);
-                await updateProfile(usercred.user, { displayName: `${userData.firstname} ${userData.lastname}` });
-            }
+            const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
+            await sendEmailVerification(usercred.user);
+            await updateProfile(usercred.user, { displayName: `${userData.firstname} ${userData.lastname}` });
             return null
         } catch (error) {
             return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
@@ -70,7 +65,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    async function userSignInEmail(userLogin: UserLogin): Promise<string | null> {
+    async function UserSignInEmail(userLogin: UserLogin): Promise<string | null> {
         if (!auth) {
             return Promise.resolve("Internal error: 100");
         }
@@ -83,7 +78,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    async function userSignInGoogle(): Promise<string | null> {
+    async function UserSignInGoogle(): Promise<string | null> {
         if (!auth) {
             return Promise.resolve("Internal error: 100");
         }
@@ -95,7 +90,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }
 
-    async function logout(): Promise<string | null> {
+    async function Logout(): Promise<string | null> {
         if (!auth) {
             return Promise.resolve("Internal error: 100");
         }
@@ -124,7 +119,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, userRegistration, userSignInEmail, userSignInGoogle, CreateUserData, logout }}>
+        <AuthContext.Provider value={{ user, UserSignUpEmail, UserSignInEmail, UserSignInGoogle, CreateUserData, Logout }}>
             {children}
         </AuthContext.Provider>
     );
