@@ -10,7 +10,7 @@
 
   --h-x3: 1.5rem;
 
-  
+
   --color-gray-100: #D8D8DC;
   --color-gray-200: #D2D2D7;
   --color-gray-600: #6E6E73;
@@ -114,7 +114,7 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
+  --sidebar: #F5F5F7;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
