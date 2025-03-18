@@ -9,7 +9,7 @@ export default function Page() {
     const [current, setCurrent] = useState("");
 
     function SignOut() {
-        auth?.logout();
+        auth?.Logout();
     }
 
     console.log(auth?.user)
