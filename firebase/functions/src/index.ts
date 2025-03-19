@@ -6,10 +6,10 @@
  *
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
-import { onDocumentWrittenWithAuthContext } from "firebase-functions/v2/firestore"
+const { onDocumentCreated } = require("firebase-functions/v2/firestore");
 
-exports.createuser = onDocumentWrittenWithAuthContext("users/{userId}", async (e) => {
-    console.log("hej")
+exports.createuser = onDocumentCreated("users/{userId}", async (e) => {
+    console.log(e.params.userId)
 })
 
 // Start writing functions
