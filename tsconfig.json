@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/types/app/test/page.tsx"
-  ],
+, "src/components/navigation"  ],
   "exclude": ["node_modules"]
 }

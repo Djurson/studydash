@@ -1,4 +1,12 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  ChartNoAxesCombined,
+  GraduationCap,
+  HandCoins,
+  BookOpen,
+  Hammer,
+  MessageCircleQuestion,
+  Settings,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -17,17 +25,17 @@ const general = [
   {
     title: "Översikt",
     url: "#",
-    icon: Home,
+    icon: ChartNoAxesCombined,
   },
   {
     title: "Min utbildning",
     url: "#",
-    icon: Inbox,
+    icon: GraduationCap,
   },
   {
     title: "Studiemedel",
     url: "#",
-    icon: Calendar,
+    icon: HandCoins,
   },
 ];
 
@@ -35,12 +43,12 @@ const help = [
   {
     title: "Gamla tentor",
     url: "#",
-    icon: Home,
+    icon: BookOpen,
   },
   {
     title: "Master builder",
     url: "#",
-    icon: Inbox,
+    icon: Hammer,
   },
 ];
 
@@ -48,12 +56,12 @@ const others = [
   {
     title: "Inställningar",
     url: "#",
-    icon: Home,
+    icon: Settings,
   },
   {
     title: "Support",
     url: "#",
-    icon: Inbox,
+    icon: MessageCircleQuestion,
   },
 ];
 
