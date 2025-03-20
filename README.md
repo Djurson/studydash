@@ -10,24 +10,20 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 npm install
 ```
 
-_Eventuellt också (osäker)_
+**Kommer också behöva installeras**
 
 ```console
-npm install firebase
-npm install firebase-admin
 npm install -g firebase-tools
-npm install js-cookie
-npm install --save @types/js-cookie
 
-//windows också
-npm install --save-dev cross-
+#windows också
+npm install --save-dev cross-env
 
 // Öppna två olika konsoler
 npm run emulators
 npm run dev
 ```
 
-KOMMER INTE FUNKA UTAN **.local.env** FILEN!
+KOMMER INTE FUNKA UTAN **.local.env samt ServiceAccount** FILERNA!
 
 ---
 
@@ -56,7 +52,7 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 > - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 >
 >   **_Ändra helst detta också_**
->   
+>
 >   ![alt text](readme-imgs/image.png)
 >
 > - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
