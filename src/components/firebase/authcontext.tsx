@@ -19,12 +19,12 @@ type UserType = {
 
 type AuthContextType = {
     user: User | null;
+    userInfo: UserType | null;
     UserSignUpEmail: (userData: CreateUser) => Promise<string | null>;
     UserSignInEmail: (userLogin: UserLogin) => Promise<string | null>;
     UserSignInGoogle: () => Promise<string | null>;
     CreateUserData: (user: User, userData: UserInputDB) => Promise<string | null>;
     Logout: () => Promise<string | null>;
-    userInfo: UserType | null;
 }
 
 type AuthProviderProps = {
