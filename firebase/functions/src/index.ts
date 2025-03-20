@@ -6,11 +6,20 @@
  *
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
+import { onDocumentCreatedWithAuthContext } from "firebase-functions/v2/firestore";
+import { getAuth } from "firebase-admin/auth";
+// import * as logger from "firebase-functions/logger";
+const { initializeApp } = require("firebase-admin/app");
 
-exports.createuser = onDocumentCreated("users/{userId}", async (e) => {
-    console.log(e.params.userId)
-})
+initializeApp();
+exports.userReg = onDocumentCreatedWithAuthContext("users/{userId}", (event) => {
+  const uid = event.params.userId;
+
+  getAuth().setCustomUserClaims(uid, {
+    verified: true,
+    userRole: "normal",
+  });
+});
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
