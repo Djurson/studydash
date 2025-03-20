@@ -4,15 +4,20 @@ import { useAuth } from "@/components/firebase/authcontext";
 import { UserInputDB } from "@/components/firebase/usertypes";
 import PillButton from "@/components/main/pillbutton";
 import { useEffect, useState } from "react";
+import { adminAuth } from "../../../firebase/server";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const auth = useAuth();
+    const router = useRouter();
     const [current, setCurrent] = useState("");
 
     function SignOut() {
         auth?.Logout();
+        router.push("/");
     }
 
+    // Testning bara ta bort senare
     useEffect(() => {
         if (!auth) {
             return
@@ -33,13 +38,11 @@ export default function Page() {
 
             auth.CreateUserData(auth.user, UserInputDB);
         }
+
+        localStorage.removeItem("signUpInfo");
     }, [])
 
     console.log(auth?.userInfo)
-    if (auth?.user) {
-        console.log((auth?.user?.emailVerified).toString())
-    }
-
     return (
         <>
             <div className="w-full h-dvh">

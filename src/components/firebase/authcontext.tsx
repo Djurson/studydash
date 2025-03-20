@@ -13,7 +13,7 @@ enum UserTypesEnum {
 }
 
 type UserType = {
-    verified: string;
+    verified: boolean;
     userRole: UserTypesEnum;
 }
 
@@ -57,14 +57,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 setUser(null);
                 removeAuthToken();
             } else {
-                const token = await user.getIdToken();
+                const token = await user.getIdToken(true);
                 setUser(user);
                 setAuthToken(token);
 
                 const tokenResult = await user.getIdTokenResult();
+                const verified = tokenResult.claims.verified === true ? true : false;
+                const role = tokenResult.claims.userRole === "pro" ? UserTypesEnum.PRO : UserTypesEnum.NORMAL;
 
-                console.log(tokenResult.claims)
-                // setUserInfo(userinfo);
+                setUserInfo({
+                    verified: verified,
+                    userRole: role,
+                })
             }
         })
     }, []);
@@ -103,7 +107,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
 
         try {
-            await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
+            const usercred = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
+            setAuthToken(await usercred.user.getIdToken());
             return null;
         } catch (error) {
             return Promise.reject("Fel vid inloggning: " + (error as Error).message);
@@ -115,7 +120,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             return Promise.resolve("Internal error: 100");
         }
         try {
-            await signInWithPopup(auth, new GoogleAuthProvider());
+            const usercred = await signInWithPopup(auth, new GoogleAuthProvider());
+            await setAuthToken(await usercred.user.getIdToken());
             return null
         } catch (error) {
             return Promise.reject("Fel vid inloggning: " + (error as Error).message);

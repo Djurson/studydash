@@ -4,7 +4,7 @@ import { Firestore, getFirestore } from "firebase-admin/firestore";
 import { Auth, getAuth } from "firebase-admin/auth";
 
 let firestore: Firestore | undefined = undefined;
-let auth: Auth | undefined = undefined;
+let adminAuth: Auth | undefined = undefined;
 
 const currentApps = getApps();
 if (currentApps.length <= 0) {
@@ -17,10 +17,10 @@ if (currentApps.length <= 0) {
   });
 
   firestore = getFirestore(app);
-  auth = getAuth(app);
+  adminAuth = getAuth(app);
 } else {
   firestore = getFirestore(currentApps[0]);
-  auth = getAuth(currentApps[0]);
+  adminAuth = getAuth(currentApps[0]);
 }
 
-export { firestore, auth };
+export { firestore, adminAuth };

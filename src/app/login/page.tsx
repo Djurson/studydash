@@ -60,7 +60,7 @@ export default function Page() {
     }
 
     async function Navigate() {
-        router.push("/private/oversikt");
+        router.push("/oversikt");
     }
 
     return (
