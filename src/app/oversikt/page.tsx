@@ -46,7 +46,7 @@ export default function Page() {
                 Logga ut
               </button>
             </div>
-            <div className="h-[788px] bg-amber-500"></div>
+            <div className="h-[788px] bg-white-100"></div>
           </main>
         </div>
       </SidebarProvider>

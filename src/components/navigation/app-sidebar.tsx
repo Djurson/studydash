@@ -67,7 +67,7 @@ const others = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="">
+    <Sidebar collapsible="icon">
       <SidebarContent className="mt-[3.688rem]">
         <SidebarGroup>
           <SidebarGroupLabel>Generellt</SidebarGroupLabel>
