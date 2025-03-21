@@ -1,4 +1,4 @@
-interface PillButtonProps {
+type PillButtonProps = {
     id: string;
     label: string;
     value: string;
