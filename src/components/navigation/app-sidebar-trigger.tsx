@@ -1,7 +1,8 @@
+"use client";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Menu } from "lucide-react";
 import { Azeret_Mono } from "next/font/google";
-import MainIcon from "../../components/mainicon";
+import MainIcon from "@/components/mainicon";
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
 
 export function AppSidebarTrigger() {
