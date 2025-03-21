@@ -4,32 +4,26 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 
 ---
 
-## Hur du kör projektet
-
-För att kunna köra projektet behöver följande steg göras
-
-### Installationer
+## VIKTIGT ATT INSTALLERA FÖRSTA GÅNGEN!
 
 ```console
 npm install
-npm install -g firebase-tools
-npm install --save @types/js-cookie
-
-// För windows behöver man följande
-npm install --save-dev cross-env'
 ```
 
-### Emulator/körning
+**Kommer också behöva installeras**
+
 ```console
+npm install -g firebase-tools
+
+#windows också
+npm install --save-dev cross-env
+
+// Öppna två olika konsoler
 npm run emulators
 npm run dev
 ```
 
-#### Viktigt att veta
-Projektet kommer inte kunna gå att köra utan dessa filer:
-- **.env.local** 
-- **.env.development**
-- **serviceAccount.json**
+KOMMER INTE FUNKA UTAN **.local.env samt ServiceAccount** FILERNA!
 
 ---
 
@@ -58,7 +52,7 @@ Lite diverse länkar till dokumentation för de olika librarys/plugins vi använ
 > - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 >
 >   **_Ändra helst detta också_**
->   
+>
 >   ![alt text](readme-imgs/image.png)
 >
 > - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)

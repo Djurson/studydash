@@ -34,7 +34,7 @@ export default function Page() {
     async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        const userError = await auth?.userSignInEmail(userLogin);
+        const userError = await auth?.UserSignInEmail(userLogin);
 
         if (userError) {
             setError(userError);
@@ -47,7 +47,7 @@ export default function Page() {
     }
 
     async function SignInGoogle() {
-        const userRegError = await auth?.userRegistration();
+        const userRegError = await auth?.UserSignInGoogle();
 
         if (userRegError) {
             setError(userRegError);
@@ -60,7 +60,7 @@ export default function Page() {
     }
 
     async function Navigate() {
-        router.push("/private/oversikt");
+        router.push("/oversikt");
     }
 
     return (
