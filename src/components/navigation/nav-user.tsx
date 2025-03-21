@@ -41,7 +41,7 @@ export function NavUser({
 
   const auth = useAuth();
   function SignOut() {
-    auth?.logout();
+    auth?.Logout();
   }
 
   return (
