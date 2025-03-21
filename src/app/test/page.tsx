@@ -1,3 +1,4 @@
+import AlertPopupWindow from "@/components/main/alert-popup";
 import { Item, ItemAccess } from "../api/items/route"
 
 export default async function Page() {
@@ -32,6 +33,7 @@ export default async function Page() {
                         </div>
                     )
                 })}
+                <AlertPopupWindow />
             </div>
         </>
     )

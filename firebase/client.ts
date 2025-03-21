@@ -1,5 +1,6 @@
 import { initializeApp, getApps } from "firebase/app";
 import { Auth, connectAuthEmulator, getAuth } from "firebase/auth";
+import { connectFirestoreEmulator, Firestore, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
@@ -12,26 +13,30 @@ const firebaseConfig = {
 };
 
 let auth: Auth | undefined = undefined;
+let db: Firestore;
 
 const currentApps = getApps();
 if (currentApps.length <= 0) {
     const app = initializeApp(firebaseConfig);
     auth = getAuth(app);
-
+    db = getFirestore(app);
     if (process.env.NEXT_PUBLIC_APP_ENV === "emulator" && process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH) {
         connectAuthEmulator(
             auth,
             `http://${process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH}`
         );
+        connectFirestoreEmulator(db, "127.0.0.1", 8080);
     }
 } else {
     auth = getAuth(currentApps[0]);
+    db = getFirestore(currentApps[0]);
     if (process.env.NEXT_PUBLIC_APP_ENV === "emulator" && process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH) {
         connectAuthEmulator(
             auth,
             `http://${process.env.NEXT_PUBLIC_EMULATOR_AUTH_PATH}`
         );
+        connectFirestoreEmulator(db, "127.0.0.1", 8080);
     }
 }
 
-export { auth }
+export { auth, db }

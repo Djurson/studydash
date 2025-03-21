@@ -11,14 +11,39 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/navigation/app-sidebar";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UserInputDB } from "@/components/firebase/usertypes";
 
 export default function Page() {
   const auth = useAuth();
   const [current, setCurrent] = useState("");
 
+  useEffect(() => {
+    if (!auth) {
+      return
+    }
+
+    if (!auth.user) {
+      return
+    }
+
+    const savedUserInfo = localStorage.getItem("signUpInfo");
+
+    if (savedUserInfo) {
+      const userInfo = JSON.parse(savedUserInfo);
+      const UserInputDB: UserInputDB = {
+        year: userInfo.year,
+        previous: JSON.parse(userInfo.previous),
+      }
+
+      auth.CreateUserData(auth.user, UserInputDB);
+    }
+
+    localStorage.removeItem("signUpInfo");
+  }, [])
+
   function SignOut() {
-    auth?.logout();
+    auth?.Logout();
   }
 
   console.log(auth?.user);

@@ -1,16 +1,20 @@
-// Skapa konto struktur
+// Skapa konto (email) struktur
 export type CreateUser = {
     firstname: string,
     lastname: string,
     email: string,
     password: string,
     repeatpassword: string,
-    year: string,
-    previous: string,
+}
+
+// Generell skapa konto info
+export type UserInputDB = {
+    year: string;
+    previous: boolean;
 }
 
 // Database struktur
-export type User = {
+export type UserDB = {
     displayname: string,
     email: string,
     year: string,

@@ -1,14 +1,10 @@
-export function checkEmail(email: string): string | null {
+export function checkUserRegistrationInput(email: string, password: string, repeatpassword: string): string | null {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
         return "Ogiltig e-postadress";
     }
 
-    return null;
-}
-
-export function checkPassword(password: string, repeatpassword: string): string | null {
     const passwordRegex = /^(?=.*[\W_])[^\s]{8,}$/;
 
     if (password !== repeatpassword) {
@@ -22,11 +18,12 @@ export function checkPassword(password: string, repeatpassword: string): string 
     return null;
 }
 
-export function checkStudyInfo(year: string, first: string): string | null {
-    if (!year) {
+export function checkStudyInfo(year: string, previous: string): string | null {
+    if (!year || year === "") {
         return "Välj ett studieår.";
     }
-    if (!first) {
+    // Implementera en bättre check ifall det kan vara en boolean eller inte?
+    if (!previous || previous === "") {
         return "Välj om du har sökt CSN tidigare.";
     }
     return null;
