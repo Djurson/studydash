@@ -13,18 +13,21 @@ import { AppSidebar } from "@/components/navigation/app-sidebar";
 
 import { useEffect, useState } from "react";
 import { UserInputDB } from "@/components/firebase/usertypes";
+import { Content } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const auth = useAuth();
+  const router = useRouter();
   const [current, setCurrent] = useState("");
 
   useEffect(() => {
     if (!auth) {
-      return
+      return;
     }
 
     if (!auth.user) {
-      return
+      return;
     }
 
     const savedUserInfo = localStorage.getItem("signUpInfo");
@@ -34,16 +37,17 @@ export default function Page() {
       const UserInputDB: UserInputDB = {
         year: userInfo.year,
         previous: JSON.parse(userInfo.previous),
-      }
+      };
 
       auth.CreateUserData(auth.user, UserInputDB);
     }
 
     localStorage.removeItem("signUpInfo");
-  }, [])
+  }, []);
 
   function SignOut() {
     auth?.Logout();
+    router.push("/");
   }
 
   console.log(auth?.user);
@@ -57,21 +61,11 @@ export default function Page() {
         <div className="flex mt-[2.938rem] h-full">
           <AppSidebar />
 
-          <main>
-            <div className="flex items-center justify-center p-10 w-full">
-              <PillButton
-                label="Alla"
-                id="alla"
-                onChange={() => setCurrent("alla")}
-                currentValue={current}
-                value="alla"
-              />
-              <p className="text-gray-900">{auth?.user?.email}</p>
-              <button className="text-gray-900" onClick={SignOut}>
-                Logga ut
-              </button>
+          <main className="flex p-4 w-full justify-center">
+            <div className=" max-w-[74rem] w-full bg-amber-500 h-[788px]">
+              <header className="w-full p-10 bg-amber-200"></header>
+              <section></section>
             </div>
-            <div className="h-[788px] bg-white-100"></div>
           </main>
         </div>
       </SidebarProvider>

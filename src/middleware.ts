@@ -4,7 +4,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+
 export async function middleware(request: NextRequest) {
+  /*
   const response = NextResponse.next();
   const cookieStore = cookies();
   const authToken = (await cookieStore).get("firebaseIdToken")?.value;
@@ -12,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   } else {
     return NextResponse.next();
-  }
+  }*/
 }
 
 export const config = {
