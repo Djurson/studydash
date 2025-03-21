@@ -21,6 +21,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { NavUser } from "@/components/navigation/nav-user";
+
 // Menu items.
 const general = [
   {
@@ -65,6 +67,14 @@ const others = [
     icon: MessageCircleQuestion,
   },
 ];
+
+const data = {
+  user: {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    avatar: "JD",
+  },
+};
 
 export function AppSidebar() {
   return (
@@ -122,7 +132,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarFooter>
-          <p>This is a footer</p>
+          <NavUser user={data.user} />
         </SidebarFooter>
         <SidebarRail />
       </SidebarContent>
