@@ -9,22 +9,28 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "../ui/button"
 
-export default function AlertPopupWindow() {
+type AlertPopupWindowProps = {
+    defaultOpen?: boolean;
+    title: string;
+    description: string;
+    actiontext: string;
+    actionlink?: string;
+}
+
+export default function AlertPopupWindow({ defaultOpen, title, description, actiontext, actionlink }: AlertPopupWindowProps) {
     return (
         <>
-            <AlertDialog defaultOpen>
+            <AlertDialog defaultOpen={defaultOpen ?? false}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Ingen kursinfo?</AlertDialogTitle>
+                        <AlertDialogTitle>{title}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Vi kan inte hitta någon studieinformation kopplat till ditt konto? Denna tjänst baseras på att du laddar upp ett ladok resultatintyg eller
-                            manuellt fyller i kurser och examinationsmoment. Har du redan fyllt i din kursinformation? Vänligen välj rapportera ett fel.
+                            {description}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogAction>Fyll i kursinformation</AlertDialogAction>
+                        <AlertDialogAction>{actiontext}</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog >
