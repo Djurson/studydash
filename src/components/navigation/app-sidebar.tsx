@@ -1,4 +1,12 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  ChartNoAxesCombined,
+  GraduationCap,
+  HandCoins,
+  BookOpen,
+  Hammer,
+  MessageCircleQuestion,
+  Settings,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -10,24 +18,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarRail,
 } from "@/components/ui/sidebar";
+
+import { NavUser } from "@/components/navigation/nav-user";
 
 // Menu items.
 const general = [
   {
     title: "Översikt",
     url: "#",
-    icon: Home,
+    icon: ChartNoAxesCombined,
   },
   {
     title: "Min utbildning",
     url: "#",
-    icon: Inbox,
+    icon: GraduationCap,
   },
   {
     title: "Studiemedel",
     url: "#",
-    icon: Calendar,
+    icon: HandCoins,
   },
 ];
 
@@ -35,12 +46,12 @@ const help = [
   {
     title: "Gamla tentor",
     url: "#",
-    icon: Home,
+    icon: BookOpen,
   },
   {
     title: "Master builder",
     url: "#",
-    icon: Inbox,
+    icon: Hammer,
   },
 ];
 
@@ -48,18 +59,26 @@ const others = [
   {
     title: "Inställningar",
     url: "#",
-    icon: Home,
+    icon: Settings,
   },
   {
     title: "Support",
     url: "#",
-    icon: Inbox,
+    icon: MessageCircleQuestion,
   },
 ];
 
+const data = {
+  user: {
+    name: "John Doe",
+    email: "johndoe@example.com",
+    avatar: "JD",
+  },
+};
+
 export function AppSidebar() {
   return (
-    <Sidebar className="">
+    <Sidebar collapsible="icon">
       <SidebarContent className="mt-[3.688rem]">
         <SidebarGroup>
           <SidebarGroupLabel>Generellt</SidebarGroupLabel>
@@ -113,8 +132,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarFooter>
-          <p>This is a footer</p>
+          <NavUser user={data.user} />
         </SidebarFooter>
+        <SidebarRail />
       </SidebarContent>
     </Sidebar>
   );
