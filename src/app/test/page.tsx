@@ -1,11 +1,11 @@
-import { PageTemplate } from "@/components/PageTemplate";
+import { DefaultPageTemplate } from "@/components/PageTemplate";
 
 export default function Page() {
   return (
     <>
-      <PageTemplate>
+      <DefaultPageTemplate>
         <h2>HEJSVEJ</h2>
-      </PageTemplate>
+      </DefaultPageTemplate>
     </>
   );
 }
