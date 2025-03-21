@@ -26,3 +26,13 @@ export type UserLogin = {
     email: string;
     password: string;
 }
+
+export enum UserTypesEnum {
+    NORMAL = "normal",
+    PRO = "pro",
+}
+
+export type UserType = {
+    verified: boolean;
+    userRole: UserTypesEnum;
+}
