@@ -60,7 +60,7 @@ export default function Page() {
     }
 
     async function Navigate() {
-        router.push("/oversikt");
+        router.push("/dashboard");
     }
 
     return (

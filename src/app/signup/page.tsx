@@ -89,7 +89,7 @@ export default function Page() {
 
         localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
 
-        router.push("/oversikt");
+        router.push("/dashboard");
     }
 
     const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
