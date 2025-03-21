@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/components/firebase/authcontext";
+import AuthProviderServer from "@/components/firebase/AuthProviderServer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={`flex flex-col items-center w-full min-h-svh bg-white-400 ${inter.className}`}>
         <div className="flex flex-col w-12/12">
-          <AuthProvider>{children}</AuthProvider>
+          {children}
         </div>
       </body>
     </html>
