@@ -13,7 +13,7 @@ export function DefaultPageTemplate({ children }: PageProps) {
         <TopNavBar />
         <ClientSidebar />
         <div className="flex justify-center bg-white-400 w-screen">
-          <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82vw]">
+          <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82.2vw]">
             <div className="w-full bg-amber-500 h-[788px]">
               <header className="w-full p-10 bg-purple-200"></header>
               <section>{children}</section>
