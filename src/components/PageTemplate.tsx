@@ -6,7 +6,7 @@ type PageProps = {
   children: ReactNode;
 };
 
-export function PageTemplate({ children }: PageProps) {
+export function DefaultPageTemplate({ children }: PageProps) {
   return (
     <>
       <div className="max-w-screen min-h-screen h-[300vh] bg-green-400 flex">
