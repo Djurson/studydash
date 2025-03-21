@@ -18,6 +18,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarFooter,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 
 // Menu items.
@@ -123,6 +124,7 @@ export function AppSidebar() {
         <SidebarFooter>
           <p>This is a footer</p>
         </SidebarFooter>
+        <SidebarRail />
       </SidebarContent>
     </Sidebar>
   );
