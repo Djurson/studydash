@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ChartNoAxesCombined,
   GraduationCap,
@@ -72,7 +74,7 @@ const data = {
   user: {
     name: "John Doe",
     email: "johndoe@example.com",
-    avatar: "JD",
+    avatar: "",
   },
 };
 
