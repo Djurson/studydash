@@ -1,25 +1,6 @@
-import {
-  ChartNoAxesCombined,
-  GraduationCap,
-  HandCoins,
-  BookOpen,
-  Hammer,
-  MessageCircleQuestion,
-  Settings,
-} from "lucide-react";
+import { ChartNoAxesCombined, GraduationCap, HandCoins, BookOpen, Hammer, MessageCircleQuestion, Settings } from "lucide-react";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarFooter,
-  SidebarRail,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, SidebarRail } from "@/components/ui/sidebar";
 
 import { NavUser } from "@/components/navigation/nav-user";
 
@@ -72,7 +53,7 @@ const data = {
   user: {
     name: "John Doe",
     email: "johndoe@example.com",
-    avatar: "JD",
+    avatar: "",
   },
 };
 
