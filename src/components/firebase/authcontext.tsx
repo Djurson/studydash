@@ -3,19 +3,9 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from 'firebase/auth';
 import { auth, db } from '../../../firebase/client';
-import Cookies from 'js-cookie';
-import { CreateUser, UserInputDB, UserLogin } from './usertypes';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
-
-enum UserTypesEnum {
-    NORMAL = "normal",
-    PRO = "pro",
-}
-
-type UserType = {
-    verified: boolean;
-    userRole: UserTypesEnum;
-}
+import { CreateUser, UserInputDB, UserLogin, UserType, UserTypesEnum } from './usertypes';
+import { doc, setDoc } from 'firebase/firestore';
+import { removeAuthToken, setAuthToken } from '../utils/cookies';
 
 type AuthContextType = {
     user: User | null;
@@ -29,18 +19,6 @@ type AuthContextType = {
 
 type AuthProviderProps = {
     children?: ReactNode;
-}
-
-export function getAuthToken(): string | undefined {
-    return Cookies.get("firebaseIdToken");
-}
-
-export function setAuthToken(token: string): string | undefined {
-    return Cookies.set("firebaseIdToken", token, { secure: true });
-}
-
-export function removeAuthToken(): void {
-    return Cookies.remove("firebaseIdToken");
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);

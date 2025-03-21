@@ -4,18 +4,18 @@ import { Item, ItemAccess } from "../api/items/route"
 export default async function Page() {
     let items: Item[] = [];
 
-    const response = await fetch(`${process.env.API_URL}/api/items`);
+    // const response = await fetch(`${process.env.API_URL}/api/items`);
 
-    if (response.ok) {
-        const itemsJSON = await response.json();
-        if (itemsJSON && itemsJSON.length > 0)
-            items = itemsJSON;
-    }
+    // if (response.ok) {
+    //     const itemsJSON = await response.json();
+    //     if (itemsJSON && itemsJSON.length > 0)
+    //         items = itemsJSON;
+    // }
 
     return (
         <>
-            <div className="w-full h-screen flex flex-col items-center justify-center gap-6">
-                {items.map((item) => {
+            {/* <div className="w-full h-screen flex flex-col items-center justify-center gap-6"> */}
+            {/* {items.map((item) => {
                     return (
                         <div className="flex w-60 justify-between px-4 py-2 rounded-sm items-center bg-gray-100" key={item.id}>
                             <p>{item.title}</p>
@@ -32,9 +32,15 @@ export default async function Page() {
                             </span>
                         </div>
                     )
-                })}
-                <AlertPopupWindow />
-            </div>
+                })} */}
+            <AlertPopupWindow
+                title="Ingen kursinfo?"
+                description="Vi kan inte hitta någon studieinformation kopplat till ditt konto? Denna tjänst baseras på att du laddar upp ett ladok resultatintyg eller
+                manuellt fyller i kurser och examinationsmoment. Har du redan fyllt i din kursinformation? Vänligen välj rapportera ett fel."
+                actiontext="Fyll i kursinformation"
+                defaultOpen={true}
+            />
+            {/* </div > */}
         </>
     )
 }
