@@ -40,9 +40,6 @@ export function NavUser({
   const { isMobile } = useSidebar();
 
   const auth = useAuth();
-  function SignOut() {
-    auth?.logout();
-  }
 
   return (
     <SidebarMenu>
@@ -93,7 +90,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut onClick={SignOut} />
+              <LogOut onClick={() => auth?.Logout()} />
               Logga ut
             </DropdownMenuItem>
           </DropdownMenuContent>
