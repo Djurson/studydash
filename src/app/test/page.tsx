@@ -38,7 +38,7 @@ export default async function Page() {
                 description="Vi kan inte hitta någon studieinformation kopplat till ditt konto? Denna tjänst baseras på att du laddar upp ett ladok resultatintyg eller
                 manuellt fyller i kurser och examinationsmoment. Har du redan fyllt i din kursinformation? Vänligen välj rapportera ett fel."
                 actiontext="Fyll i kursinformation"
-                defaultOpen={true}
+                defaultOpen={false}
             />
             {/* </div > */}
         </>
