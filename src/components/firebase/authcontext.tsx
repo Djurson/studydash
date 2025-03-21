@@ -1,30 +1,9 @@
 "use client";
 
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  sendEmailVerification,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-  updateProfile,
-  User,
-} from "firebase/auth";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from "firebase/auth";
 import { auth, db } from "../../../firebase/client";
-import {
-  CreateUser,
-  UserInputDB,
-  UserLogin,
-  UserType,
-  UserTypesEnum,
-} from "./usertypes";
+import { CreateUser, UserInputDB, UserLogin, UserType, UserTypesEnum } from "./usertypes";
 import { doc, setDoc } from "firebase/firestore";
 import { removeAuthToken, setAuthToken } from "../utils/cookies";
 
@@ -62,10 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         const tokenResult = await user.getIdTokenResult();
         const verified = tokenResult.claims.verified === true ? true : false;
-        const role =
-          tokenResult.claims.userRole === "pro"
-            ? UserTypesEnum.PRO
-            : UserTypesEnum.NORMAL;
+        const role = tokenResult.claims.userRole === "pro" ? UserTypesEnum.PRO : UserTypesEnum.NORMAL;
 
         setUserInfo({
           verified: verified,
@@ -80,27 +56,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return Promise.reject("Internal error: 100");
     }
     try {
-      const usercred = await createUserWithEmailAndPassword(
-        auth,
-        userData.email,
-        userData.password
-      );
+      const usercred = await createUserWithEmailAndPassword(auth, userData.email, userData.password);
       await sendEmailVerification(usercred.user);
       await updateProfile(usercred.user, {
         displayName: `${userData.firstname} ${userData.lastname}`,
       });
       return null;
     } catch (error) {
-      return Promise.reject(
-        "Fel vid skapande av konto: " + (error as Error).message
-      );
+      return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
     }
   }
 
-  async function CreateUserData(
-    user: User,
-    userData: UserInputDB
-  ): Promise<string | null> {
+  async function CreateUserData(user: User, userData: UserInputDB): Promise<string | null> {
     try {
       await setDoc(doc(db, "users", user.uid), {
         ...userData,
@@ -110,9 +77,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       return null;
     } catch (error) {
-      return Promise.reject(
-        "Fel vid skapande av konto: " + (error as Error).message
-      );
+      return Promise.reject("Fel vid skapande av konto: " + (error as Error).message);
     }
   }
 
@@ -122,11 +87,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     try {
-      const usercred = await signInWithEmailAndPassword(
-        auth,
-        userLogin.email,
-        userLogin.password
-      );
+      const usercred = await signInWithEmailAndPassword(auth, userLogin.email, userLogin.password);
       setAuthToken(await usercred.user.getIdToken());
       return null;
     } catch (error) {
