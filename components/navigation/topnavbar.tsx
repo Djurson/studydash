@@ -25,7 +25,7 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
           </>
         ) : (
           <>
-            <Link href={"/oversikt"} className="flex gap-4">
+            <Link href={"/dashboard"} className="flex gap-4">
               <ChevronLeft size={24} />
               <figure className="flex items-center gap-2">
                 <div className="h-6">
