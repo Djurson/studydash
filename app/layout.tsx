@@ -1,13 +1,12 @@
 import DeployButton from "@/components/supabase-template/deploy-button";
 import { EnvVarWarning } from "@/components/supabase-template/env-var-warning";
 import HeaderAuth from "@/components/supabase-template/header-auth";
-import { ThemeSwitcher } from "@/components/supabase-template/theme-switcher";
 import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
 import "./globals.css";
 import { Metadata } from "next";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,14 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sv" className={`scroll-smooth ${inter.className}`} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground flex flex-col items-center w-full min-h-svh">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+          {/* <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
             <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
               <div className="flex gap-5 items-center font-semibold">
                 <Link href={"/"}>Next.js Supabase Starter</Link>
@@ -44,8 +43,10 @@ export default function RootLayout({
               </div>
               {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
             </div>
-          </nav>
-          {children}
+          </nav> */}
+          <div className="flex flex-col w-full">
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>
