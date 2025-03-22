@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const signUpAction = async (formData: FormData) => {
+export const SignUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const supabase = await createClient();
@@ -35,7 +35,7 @@ export const signUpAction = async (formData: FormData) => {
   }
 };
 
-export const signInAction = async (formData: FormData) => {
+export const SignInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const supabase = await createClient();
@@ -52,7 +52,18 @@ export const signInAction = async (formData: FormData) => {
   return redirect("/protected");
 };
 
-export const forgotPasswordAction = async (formData: FormData) => {
+export const SignInActionGoogle = async () => {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
+
+  if (error) {
+    return encodedRedirect("error", "/sign-in", error.message);
+  }
+
+  return redirect("/protected");
+};
+
+export const ForgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
@@ -82,7 +93,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
   );
 };
 
-export const resetPasswordAction = async (formData: FormData) => {
+export const ResetPasswordAction = async (formData: FormData) => {
   const supabase = await createClient();
 
   const password = formData.get("password") as string;
@@ -111,7 +122,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   encodedRedirect("success", "/protected/reset-password", "Password updated");
 };
 
-export const signOutAction = async () => {
+export const SignOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
