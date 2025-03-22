@@ -8,22 +8,10 @@ Många studenter vid Linköpings universitets medieteknikprogram upplever svåri
 
 ```console
 npm install
-```
-
-**Kommer också behöva installeras**
-
-```console
-npm install -g firebase-tools
-
-#windows också
-npm install --save-dev cross-env
-
-// Öppna två olika konsoler
-npm run emulators
 npm run dev
 ```
 
-KOMMER INTE FUNKA UTAN **.local.env samt ServiceAccount** FILERNA!
+KOMMER INTE FUNKA UTAN **.local.env** FILEN!
 
 ---
 
