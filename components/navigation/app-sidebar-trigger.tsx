@@ -20,6 +20,6 @@ export function AppSidebarTrigger() {
         </div>
         <p className={`${azeret_mono.className} text-xl`}>Portalen</p>
       </figure>
-    </div>
+    </div >
   );
 }
