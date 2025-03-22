@@ -1,23 +1,22 @@
 "use client"
 
-import FormButton from "@//components/form/formbutton";
-import GoogleIcon from "@//components/googleIcon";
-import InputField from "@//components/form/inputfield";
-import LogoCenter from "@//components/form/logocenter";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@//components/ui/select";
-import { Tabs, TabsContent, TabsTrigger } from "@//components/ui/tabs";
+import FormButton from "@/components/form/formbutton";
+import GoogleIcon from "@/components/googleIcon";
+import InputField from "@/components/form/inputfield";
+import LogoCenter from "@/components/form/logocenter";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { TabsList } from "@radix-ui/react-tabs";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@//components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { checkUserRegistrationInput, checkStudyInfo } from "@//components/utils/validation";
+import { checkUserRegistrationInput, checkStudyInfo } from "@/components/utils/validation";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@//components/firebase/authcontext";
-import { CreateUser, UserInputDB } from "@//components/firebase/usertypes";
+import { CreateUser, UserInputDB } from "@/components/firebase/usertypes";
 
 export default function Page() {
-    const auth = useAuth();
+    // const auth = useAuth();
     const router = useRouter();
 
     const [userCred, setUserCred] = useState<CreateUser>({
@@ -47,50 +46,50 @@ export default function Page() {
         setCurrentTabsPage("signup");
     }
 
-    async function SignUpEmail(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+    // async function SignUpEmail(event: FormEvent<HTMLFormElement>) {
+    //     event.preventDefault();
 
-        const emailPasswordError = checkUserRegistrationInput(userCred.email, userCred.password, userCred.repeatpassword);
+    //     const emailPasswordError = checkUserRegistrationInput(userCred.email, userCred.password, userCred.repeatpassword);
 
-        if (emailPasswordError) {
-            setError(emailPasswordError);
-            return
-        }
+    //     if (emailPasswordError) {
+    //         setError(emailPasswordError);
+    //         return
+    //     }
 
-        if (!auth) {
-            setError("Internal error: 100")
-            return
-        }
+    //     if (!auth) {
+    //         setError("Internal error: 100")
+    //         return
+    //     }
 
-        const regError = await auth.UserSignUpEmail(userCred);
+    //     const regError = await auth.UserSignUpEmail(userCred);
 
-        if (regError) {
-            setError(regError);
-            return
-        }
+    //     if (regError) {
+    //         setError(regError);
+    //         return
+    //     }
 
-        localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
+    //     localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
 
-        router.push("/verify")
-    }
+    //     router.push("/verify")
+    // }
 
-    async function SignUpGoogle() {
-        if (!auth) {
-            setError("Internal error: 100")
-            return
-        }
+    // async function SignUpGoogle() {
+    //     if (!auth) {
+    //         setError("Internal error: 100")
+    //         return
+    //     }
 
-        const regError = await auth.UserSignInGoogle();
+    //     const regError = await auth.UserSignInGoogle();
 
-        if (regError) {
-            setError(regError);
-            return
-        }
+    //     if (regError) {
+    //         setError(regError);
+    //         return
+    //     }
 
-        localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
+    //     localStorage.setItem("signUpInfo", JSON.stringify(userDBInfo))
 
-        router.push("/dashboard");
-    }
+    //     router.push("/dashboard");
+    // }
 
     const HandleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setUserCred({
@@ -124,7 +123,7 @@ export default function Page() {
                                 Konto information
                             </TabsTrigger>
                         </TabsList>
-                        <form className="w-lg flex flex-col justify-center gap-4" method="POST" onSubmit={SignUpEmail}>
+                        <form className="w-lg flex flex-col justify-center gap-4" method="POST">
                             {error != null && (
                                 <Alert variant="destructive">
                                     <AlertCircle className="h-4 w-4" />
@@ -147,7 +146,6 @@ export default function Page() {
                                     <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
                                         label="Skapa ett konto med Google"
                                         type="button"
-                                        onClick={SignUpGoogle}
                                     >
                                         <GoogleIcon />
                                     </FormButton>

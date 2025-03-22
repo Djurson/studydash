@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/types/app/test/page.tsx",
-    "components/navigation"
+    "components/navigation",
+    "app/old/items/route.xt"
   ],
   "exclude": ["node_modules"]
 }

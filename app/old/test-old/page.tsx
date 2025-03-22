@@ -1,5 +1,5 @@
 import AlertPopupWindow from "@/components/main/alert-popup";
-import { Item, ItemAccess } from "../items/route"
+import { Item, ItemAccess } from "../items/route.xt"
 
 export default async function Page() {
     let items: Item[] = [];
