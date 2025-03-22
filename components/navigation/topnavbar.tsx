@@ -3,6 +3,7 @@ import { Bell, ChevronLeft } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
 import Link from "next/link";
+import { ThemeSwitcher } from "../supabase-template/theme-switcher";
 
 type NavbarProps = {
   defaultPage: boolean;
@@ -19,6 +20,7 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
         ${defaultPage ? "aspect-square rounded-md bg-white" : ""} `}>
         {defaultPage ? (
           <>
+            <ThemeSwitcher />
             <Bell size={24} />
           </>
         ) : (

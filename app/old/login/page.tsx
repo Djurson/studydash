@@ -10,11 +10,8 @@ import GoogleIcon from "@/components/googleIcon";
 import LogoCenter from "@/components/form/logocenter";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { UserLogin } from "@/components/firebase/usertypes";
-import { useAuth } from "@/components/firebase/authcontext";
 
 export default function Page() {
-    const auth = useAuth();
-
     const router = useRouter();
 
     const [userLogin, setUserLogin] = useState<UserLogin>({
@@ -31,37 +28,37 @@ export default function Page() {
         });
     };
 
-    async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+    // async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
+    //     event.preventDefault();
 
-        const userError = await auth?.UserSignInEmail(userLogin);
+    //     const userError = await auth?.UserSignInEmail(userLogin);
 
-        if (userError) {
-            setError(userError);
-            return
-        }
+    //     if (userError) {
+    //         setError(userError);
+    //         return
+    //     }
 
-        setError(null);
+    //     setError(null);
 
-        Navigate();
-    }
+    //     Navigate();
+    // }
 
-    async function SignInGoogle() {
-        const userRegError = await auth?.UserSignInGoogle();
+    // async function SignInGoogle() {
+    //     const userRegError = await auth?.UserSignInGoogle();
 
-        if (userRegError) {
-            setError(userRegError);
-            return
-        }
+    //     if (userRegError) {
+    //         setError(userRegError);
+    //         return
+    //     }
 
-        setError(null);
+    //     setError(null);
 
-        Navigate();
-    }
+    //     Navigate();
+    // }
 
-    async function Navigate() {
-        router.push("/dashboard");
-    }
+    // async function Navigate() {
+    //     router.push("/dashboard");
+    // }
 
     return (
         <>
@@ -69,7 +66,7 @@ export default function Page() {
                 <Link href={"/"}><LogoCenter /></Link>
                 <div className="flex flex-col w-full justify-center items-center h-full gap-6">
                     <h1 className="font-semibold text-3xl">Logga in</h1>
-                    <form className="w-lg flex flex-col justify-center gap-4" method="POST" onSubmit={HandleSubmit}>
+                    <form className="w-lg flex flex-col justify-center gap-4" method="POST">
                         {error != "" && error != null && (
                             <Alert variant="destructive">
                                 <AlertCircle className="h-4 w-4" />
@@ -89,7 +86,6 @@ export default function Page() {
                             <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100"
                                 label="Logga in med Google"
                                 type="button"
-                                onClick={SignInGoogle}
                             >
                                 <GoogleIcon />
                             </FormButton>

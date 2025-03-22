@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
-import { useAuth } from "../firebase/authcontext";
 
 export function NavUser({
   user,
@@ -18,8 +17,6 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
-
-  const auth = useAuth();
 
   return (
     <SidebarMenu>
@@ -64,7 +61,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut onClick={() => auth?.Logout()} />
+              <LogOut />
               Logga ut
             </DropdownMenuItem>
           </DropdownMenuContent>
