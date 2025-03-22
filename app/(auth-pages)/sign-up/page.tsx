@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
+import LogoCenter from "@/components/form/logocenter";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -20,6 +21,15 @@ export default async function Signup(props: {
 
   return (
     <>
+      <div className="flex flex-col gap-12">
+        <Link href={"/"}><LogoCenter /></Link>
+        <div className="flex flex-col w-full justify-center items-center h-full gap-6">
+          <div className="flex flex-col justify-center items-center gap-3 w-lg">
+            <h1 className="font-semibold text-3xl">Skapa ett konto</h1>
+            <p className="text-base font-normal text-center">Ett konto gör att vi kan erbjuda dig samma upplevelse på flera enheter. Har du redan ett konto? <Link href={"/login"} className="text-blue-900">Logga in</Link></p>
+          </div>
+        </div>
+      </div>
       <form className="flex flex-col min-w-64 max-w-64">
         <h1 className="text-2xl font-medium">Sign up</h1>
         <p className="text-sm text text-foreground">
