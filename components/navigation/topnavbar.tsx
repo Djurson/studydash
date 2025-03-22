@@ -7,10 +7,11 @@ import { ThemeSwitcher } from "../supabase-template/theme-switcher";
 
 type NavbarProps = {
   defaultPage: boolean;
+  backLink: string;
 };
 
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
-export function TopNavBar({ defaultPage }: NavbarProps) {
+export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
   return (
     <nav
       className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-white-400 border-b border-gray- z-40
@@ -25,7 +26,7 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
           </>
         ) : (
           <>
-            <Link href={"/dashboard"} className="flex gap-4">
+            <Link href={backLink} className="flex gap-4">
               <ChevronLeft size={24} />
               <figure className="flex items-center gap-2">
                 <div className="h-6">
