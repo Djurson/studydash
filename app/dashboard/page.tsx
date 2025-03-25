@@ -9,7 +9,7 @@ export default function Page() {
         <div className="ml-4">
           <p className="text-xl font-semibold text-gray-600">300hp</p>
           <h1 className="text-3xl font-semibold">
-            Civilinegjörsprogram i medieteknik.
+            Civilingenjörsprogram i medieteknik.
           </h1>
         </div>
       </header>
@@ -26,6 +26,12 @@ export default function Page() {
           <Card cardTitle="Mina studieframsteg"></Card>
         </div>
       </main>
+      <section className="mt-8">
+        <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
+      </section>
+      <section className="mt-8">
+        <h2 className="text-2xl font-semibold">Dina presataioner</h2>
+      </section>
     </>
   );
 }
