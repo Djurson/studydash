@@ -13,7 +13,7 @@ export default function Page() {
           </h1>
         </div>
       </header>
-      <main className="w-full h-full grid grid-cols-5 grid-rows-2 gap-4">
+      <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-8 ">
         <div className="row-span-2 col-span-2">
           <Card cardTitle="Intjänade högskolepoäng"></Card>
         </div>
