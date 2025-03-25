@@ -29,7 +29,7 @@ import { NavUser } from "./nav-user";
 const general = [
   {
     title: "Översikt",
-    url: "#",
+    url: "/dashboard",
     icon: ChartNoAxesCombined,
   },
   {
@@ -60,7 +60,7 @@ const help = [
 const others = [
   {
     title: "Inställningar",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
   {
