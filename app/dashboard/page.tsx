@@ -1,5 +1,6 @@
 import Card from "@/components/card/card";
 import ExamCard from "@/components/card/exam-card";
+import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
 import PillButton from "@/components/main/pillbutton";
 import React, { useState } from "react";
@@ -36,14 +37,8 @@ export default function Page() {
         <div className="flex">
           {/*<PillButton id={""} label={"test"} value={""} currentValue={""} />*/}
         </div>
-        <div>
-          <ExamCard
-            courseName="test"
-            courseCode="test"
-            date="00-00-00"
-            type="test"
-            points="1"></ExamCard>
-        </div>
+
+        <CardCarousel />
       </section>
       <section className="mt-8">
         <h2 className="text-2xl font-semibold">Dina prestationer</h2>

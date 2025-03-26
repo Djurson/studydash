@@ -30,7 +30,7 @@ export default function Card({
 }: CardProps) {
   return (
     <>
-      <main className="p-4 bg-white rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
+      <main className="shrink-0 p-4 bg-white rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-[13.625rem] h-full">
         <header className="flex items-center">
           <p className="text-sm font-semibold">{courseName}</p>
         </header>

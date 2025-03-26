@@ -12,7 +12,7 @@ export function PageTemplate({ children, defaultPage }: PageProps) {
     <div className="max-w-screen min-h-screen bg-green-400 flex">
       <TopNavBar defaultPage={defaultPage} backLink="/dashboard" />
       {defaultPage && <ClientSidebar />}
-      <div className="flex justify-center bg-white-400 w-screen">
+      <div className="flex justify-center bg-white-400 w-full">
         <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82.2vw]">
           <div className="w-full  h-[788px]">
             <section>{children}</section>
