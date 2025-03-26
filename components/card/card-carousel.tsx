@@ -76,40 +76,17 @@ export default function CardCarousel() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const carouselRef = useRef<HTMLUListElement | null>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (carouselRef.current) {
-        const { scrollLeft } = carouselRef.current;
-        const slideWidth =
-          carouselRef.current.querySelector("li")?.clientWidth || 1;
-        const newSlide = Math.round(scrollLeft / slideWidth);
-        setCurrentSlide(newSlide);
-      }
-    };
-
-    const carousel = carouselRef.current;
-    if (carousel) {
-      carousel.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (carousel) {
-        carousel.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
   return (
     <>
       <ul
-        className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.1)] gap-4 px-regular snap-mandatory snap-x scroll-smooth container-snap"
+        className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.08)] px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
         ref={carouselRef}>
         {slides.map((slide, index) => (
           <li
-            className={`w-[13.625rem] h-full p-4 bg-white rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-center snap-normal 
+            className={`w-[13.625rem] h-full my-4 mr-4 last:mr-0 p-4 bg-white rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-center snap-normal 
               ${index === 0 ? "snap-start" : ""} 
               ${index === slides.length - 1 ? "snap-end" : ""}`}
-            key={slide.courseName}>
+            key={slide.position}>
             <header className="flex items-center">
               <p className="text-sm font-semibold">{slide.courseName}</p>
             </header>
@@ -127,15 +104,6 @@ export default function CardCarousel() {
           </li>
         ))}
       </ul>
-      <div className="flex w-full gap-small justify-center py-medium">
-        {slides.map((_, index) => (
-          <div
-            className={`h-2 w-2 rounded-full ${
-              index === currentSlide ? "bg-blue-dark" : "bg-grey-lighter"
-            }`}
-            key={index}></div>
-        ))}
-      </div>
     </>
   );
 }
