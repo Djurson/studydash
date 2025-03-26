@@ -17,27 +17,18 @@ export default function Page() {
           </h1>
         </div>
       </header>
-      <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-8 ">
-        <div className="row-span-2 col-span-2">
-          <Card cardTitle="Intjänade högskolepoäng"></Card>
-        </div>
-        <Card cardTitle="Studiemedelskrav"></Card>
-        <Card cardTitle="Medelmerit"></Card>
-        <div className="row-span-2 ">
-          <Card cardTitle="Mina kurser"></Card>
-        </div>
-        <div className="col-span-2 ">
-          <Card cardTitle="Mina studieframsteg"></Card>
-        </div>
+      <main className="w-full mt-8 ">
+        <section className="mt-8">
+          <h2 className="text-2xl font-semibold">Kurser</h2>
+          <PillbuttonContainer />
+        </section>
       </main>
-      <section className="mt-8">
-        <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
-        <PillbuttonContainer />
 
-        <CardCarousel />
+      <section className="mt-4">
+        <h2 className="text-2xl font-semibold">Meritvärde</h2>
       </section>
       <section className="mt-4">
-        <h2 className="text-2xl font-semibold">Dina prestationer</h2>
+        <h2 className="text-2xl font-semibold">Högskolepoäng</h2>
       </section>
     </>
   );
