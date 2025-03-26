@@ -34,7 +34,7 @@ const general = [
   },
   {
     title: "Min utbildning",
-    url: "#",
+    url: "/program",
     icon: GraduationCap,
   },
   {
