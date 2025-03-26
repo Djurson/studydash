@@ -2,12 +2,10 @@ import Card from "@/components/card/card";
 import ExamCard from "@/components/card/exam-card";
 import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
-import PillButton from "@/components/main/pillbutton";
+import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 
 export default function Page() {
-  /*const [selected, setSelected] = useState("");*/
-
   return (
     <>
       <header className="flex items-center">
@@ -34,9 +32,7 @@ export default function Page() {
       </main>
       <section className="mt-8">
         <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
-        <div className="flex">
-          {/*<PillButton id={""} label={"test"} value={""} currentValue={""} />*/}
-        </div>
+        <PillbuttonContainer />
 
         <CardCarousel />
       </section>
