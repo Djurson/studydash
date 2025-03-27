@@ -8,7 +8,7 @@ export default function Page() {
         <h1 className="text-3xl font-semibold">Redigera kurser och moment.</h1>
       </header>
       <main className="w-full mt-4">
-        <section className="mt-4 w-full flex gap-12">
+        <section className="flex w-full gap-12 mt-4">
           <div className="flex flex-col flex-1 gap-4">
             <Select disabled>
               <SelectTrigger className="w-full">
@@ -49,8 +49,10 @@ export default function Page() {
             <h2 className="text-2xl font-semibold">Meritvärde</h2>
           </div>
 
-          <div className="w-full flex-1 sticky">
-            <UploadPDFInput />
+          <div className="sticky flex-1 w-full">
+            <form>
+              <UploadPDFInput />
+            </form>
           </div>
         </section>
       </main>
