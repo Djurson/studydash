@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/types/app/test/page.tsx"
-, "src/components/navigation"  ],
+    ".next/types/app/test/page.tsx",
+    "components/navigation",
+    "app/old/items/route.xt"
+  ],
   "exclude": ["node_modules"]
 }
