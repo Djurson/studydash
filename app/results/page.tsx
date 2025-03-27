@@ -50,9 +50,7 @@ export default function Page() {
           </div>
 
           <div className="w-full flex-1 sticky">
-            <form>
-              <UploadPDFInput />
-            </form>
+            <UploadPDFInput />
           </div>
         </section>
       </main>
