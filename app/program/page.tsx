@@ -14,23 +14,21 @@ export default function Page() {
           <img src={LiuImg.src} alt="" className="h-[4.25rem]" />
           <div className="ml-4">
             <p className="text-sm font-semibold text-gray-600">300hp</p>
-            <h2 className="text-2xl font-semibold">
-              Civilingenjörsprogram i medieteknik.
-            </h2>
+            <h2 className="text-2xl font-semibold">Civilingenjörsprogram i medieteknik.</h2>
           </div>
         </div>
       </header>
-      <main className="w-full mt-8 ">
+      <main className="w-full mt-4">
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
         </section>
       </main>
 
-      <section className="mt-4">
+      <section>
         <h2 className="text-2xl font-semibold">Meritvärde</h2>
       </section>
-      <section className="mt-4">
+      <section>
         <h2 className="text-2xl font-semibold">Högskolepoäng</h2>
       </section>
     </>

@@ -14,7 +14,7 @@ export function PageTemplate({ children, defaultPage }: PageProps) {
       {defaultPage && <ClientSidebar />}
       <div className="flex justify-center bg-white-400 w-full">
         <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82.2vw]">
-          <div className="w-full  h-[788px]">
+          <div className="w-full h-fit gap-4">
             <section>{children}</section>
           </div>
         </main>
