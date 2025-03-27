@@ -3,6 +3,7 @@ import { Bell, ChevronLeft } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type NavbarProps = {
   defaultPage: boolean;
@@ -10,7 +11,10 @@ type NavbarProps = {
 };
 
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
+
 export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
+  const router = useRouter();
+
   return (
     <nav
       className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-white-400 border-b border-gray- z-40
@@ -24,15 +28,22 @@ export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
           </>
         ) : (
           <>
-            <Link href={backLink} className="flex gap-4">
-              <ChevronLeft size={24} />
+            {/*<Link href={backLink} className="flex gap-4"></Link>*/}
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={() => router.back()}
+                className="cursor-pointer">
+                <ChevronLeft size={24} />
+              </button>
+
               <figure className="flex items-center gap-2">
                 <div className="h-6">
                   <MainIcon className="h-full w-auto" />
                 </div>
                 <p className={`${azeret_mono.className} text-xl`}>Portalen</p>
               </figure>
-            </Link>
+            </div>
           </>
         )}
       </div>
