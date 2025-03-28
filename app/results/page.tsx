@@ -1,5 +1,13 @@
 import { UploadPDFInput } from "@/components/form/uploadpdf";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Page() {
   return (
@@ -17,7 +25,9 @@ export default function Page() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Universitet</SelectLabel>
-                  <SelectItem value="Linköpings universitet">Linköpings universitet</SelectItem>
+                  <SelectItem value="Linköpings universitet">
+                    Linköpings universitet
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -29,7 +39,9 @@ export default function Page() {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Program/utbildning</SelectLabel>
-                    <SelectItem value="Civilingenjör i medieteknik">Civilingenjör i medieteknik</SelectItem>
+                    <SelectItem value="Civilingenjör i medieteknik">
+                      Civilingenjör i medieteknik
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
