@@ -1,7 +1,12 @@
+"use client";
 import { UploadPDFInput } from "@/components/form/uploadpdf";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { PDFReadAction } from "./actions";
 
 export default function Page() {
+  const [result, setResult] = useState<string | null>(null);
+
   return (
     <>
       <header>
