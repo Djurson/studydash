@@ -1,9 +1,10 @@
-import { ComponentProps } from "react";
+"use client";
+
+import { ComponentProps, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileUp, Info } from "lucide-react";
 import Link from "next/link";
-import { PDFReadAction } from "@/app/results/actions";
 import FormButton from "./formbutton";
 
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
@@ -24,7 +25,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
         <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" />
       </Link>
       <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" {...props} />
-      <FormButton formAction={PDFReadAction}>Ladda upp</FormButton>
+      <FormButton>Ladda upp</FormButton>
     </>
   );
 }
