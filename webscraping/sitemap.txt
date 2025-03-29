@@ -13,3 +13,86 @@ second one (trying again):
 complete, working sitemap (1 årskurs (2022)):
 
 {"_id":"6CEMEN-2022-New","startUrl":["https://studieinfo.liu.se/program/6CMEN/5143#curriculum"],"selectors":[{"id":"Program-wrapper","multiple":true,"parentSelectors":["_root"],"selector":"div.main-container","type":"SelectorElement"},{"id":"Program","multiple":false,"parentSelectors":["Program-wrapper"],"regex":"","selector":"h1","type":"SelectorText"},{"clickActionType":"real","clickElementSelector":"section.accordion:nth-of-type(-n+6)","clickElementUniquenessType":"uniqueText","clickType":"clickMore","delay":2000,"discardInitialElements":"do-not-discard","id":"Terminer-expandera","multiple":true,"parentSelectors":["Program-wrapper"],"selector":"section.accordion:nth-of-type(-n+6)","type":"SelectorElementClick"},{"id":"Terminer-wrapper","multiple":false,"parentSelectors":["Terminer-expandera"],"selector":"_parent_","type":"SelectorElement"},{"id":"Termin","multiple":false,"parentSelectors":["Terminer-wrapper"],"regex":"","selector":"h3","type":"SelectorText"},{"id":"Period-wrapper","multiple":true,"parentSelectors":["Terminer-wrapper"],"selector":"tbody","type":"SelectorElement"},{"id":"Period","multiple":false,"parentSelectors":["Period-wrapper"],"regex":"","selector":"th","type":"SelectorText"},{"id":"Kurslank","linkType":"linkFromHref","multiple":true,"parentSelectors":["Period-wrapper"],"selector":"td a","type":"SelectorLink"},{"id":"Kurs-wrapper","multiple":false,"parentSelectors":["Kurslank"],"selector":"div.main-container","type":"SelectorElement"},{"id":"Kurs","multiple":false,"parentSelectors":["Kurs-wrapper"],"regex":"","selector":"h1","type":"SelectorText"},{"id":"Kurskod","multiple":false,"parentSelectors":["Kurs-wrapper"],"regex":"","selector":"p.subtitle:nth-of-type(2)","type":"SelectorText"},{"id":"Oversikt","multiple":false,"parentSelectors":["Kurs-wrapper"],"regex":"","selector":"section.overview-content","type":"SelectorHTML"},{"id":"Kursplan","multiple":false,"parentSelectors":["Kurs-wrapper"],"regex":"","selector":"section.syllabus","type":"SelectorHTML"},{"id":"Examinationsmoment-wrapper","multiple":false,"parentSelectors":["Kurs-wrapper"],"selector":"#examination","type":"SelectorElement"},{"id":"Examinationsmoment","multiple":true,"parentSelectors":["Examinationsmoment-wrapper"],"selector":"tr:nth-child(n+2)","type":"SelectorElement"},{"id":"Kod","multiple":false,"parentSelectors":["Examinationsmoment"],"regex":"","selector":"td:nth-of-type(1)","type":"SelectorText"},{"id":"Benamning","multiple":false,"parentSelectors":["Examinationsmoment"],"regex":"","selector":"td:nth-of-type(2)","type":"SelectorText"},{"id":"Omfattning","multiple":false,"parentSelectors":["Examinationsmoment"],"regex":"","selector":"td:nth-of-type(3)","type":"SelectorText"},{"id":"Betygskala","multiple":false,"parentSelectors":["Examinationsmoment"],"regex":"","selector":"td:nth-of-type(4)","type":"SelectorText"},{"id":"Kurslitteratur","multiple":true,"parentSelectors":["Kurs-wrapper"],"regex":"","selector":"#literature","type":"SelectorHTML"}]}
+
+
+json struktur:
+
+{
+  "program": {
+    "name": "Civilingenjörsprogram i medieteknik",
+    "credits": "300 hp",
+    "semesters": [
+      {
+        "name": "Termin 1 HT 2022",
+        "periods": [
+          {
+            "name": "Period 0",
+            "courses": [
+              {
+                "name": "Matematisk grundkurs",
+                "course_code": "TNA001",
+                "credits": "6 hp",
+                "url": "https://studieinfo.liu.se/kurs/TNA001/ht-2022",
+                "overview": {
+                  "main_subject": "Matematik, Tillämpad matematik",
+                  "education_level": "Grundnivå",
+                  "course_type": "Programkurs",
+                  "examiner": "Claes Algström",
+                  "study_director": "George Baravdish",
+                  "scheduled_hours": "89 h",
+                  "self_study_hours": "71 h"
+                },
+                "course_plan": {
+                  "learning_objectives": [
+                    "kunna visa en elementär förmåga att skriva, läsa och tala det matematiska språket.",
+                    "kunna visa god algebraisk räkneförmåga med reella tal och komplexa tal.",
+                    "... (more objectives here)"
+                  ],
+                  "content": [
+                    "Räkning med algebraiska uttryck, olikheter, absolutbelopp.",
+                    "Ekvationslösning.",
+                    "Funktioner och funktionskurvor.",
+                    "... (more content here)"
+                  ]
+                },
+                "examinations": [
+                  {
+                    "code": "KTR1",
+                    "name": "Frivilliga kontrollskrivningar",
+                    "credits": "0 hp",
+                    "grading": "D"
+                  },
+                  {
+                    "code": "UPG1",
+                    "name": "Inlämningsuppgifter och muntliga redovisningar",
+                    "credits": "1.5 hp",
+                    "grading": "U, G"
+                  },
+                  {
+                    "code": "TEN1",
+                    "name": "Skriftlig tentamen",
+                    "credits": "4.5 hp",
+                    "grading": "U, 3, 4, 5"
+                  }
+                ],
+                "literature": [
+                  {
+                    "type": "Bok",
+                    "title": "Matematisk analys, en variabel",
+                    "authors": "Forsling-Neymark",
+                    "edition": "2",
+                    "chapters": "Kap 1-2"
+                  },
+                  {
+                    "type": "Kompendium",
+                    "title": "Kompletterande material (utges av institutionen)"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
