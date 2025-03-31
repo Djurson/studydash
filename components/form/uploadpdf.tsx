@@ -45,6 +45,6 @@ async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
   formData.append("file", file);
 
   HandleFileUpload(file).then((res) => {
-    console.log(res);
+    console.log(res)
   });
 }

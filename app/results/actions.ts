@@ -1,11 +1,12 @@
 "use server";
 
-import { promises as fs } from "fs";
+import { promises as fs, writeFile } from "fs";
 import { v4 as uuidv4 } from "uuid";
 import PDFParser from "pdf2json";
 import path from "path";
 import os from "os";
 import { tryCatch } from "@/components/utils/trycatch";
+import { ParseCourses } from "@/components/utils/courseparsing";
 
 export async function HandleFileUpload(file: File) {
   let fileName = uuidv4();
@@ -17,15 +18,19 @@ export async function HandleFileUpload(file: File) {
   const { data, error } = await tryCatch(ReadWritePDF(tempFilePath, file));
 
   if (error) {
-    fs.unlink(tempFilePath).catch(() => {});
+    await fs.unlink(tempFilePath).catch(() => {});
     console.error("Error processing PDF:", error);
   }
 
-  console.log(tempFilePath);
+  if (!data) {
+    await fs.unlink(tempFilePath).catch(() => {});
+    console.error("Error when reading file!");
+    return;
+  }
 
-  console.log(data);
+  const parsed = await ParseCourses(data);
 
-  return data;
+  return parsed;
 }
 
 async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
