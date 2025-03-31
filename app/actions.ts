@@ -5,6 +5,16 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+/**
+ * Sign up with email & password server action
+ *
+ * @param formData - The form data (passed automatically by the form)
+ *
+ * @remarks Automatically sends a confirm email message to the user, redirects the user to /sign-up on success
+ *
+ * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
+ *
+ */
 export const SignUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
@@ -35,6 +45,16 @@ export const SignUpAction = async (formData: FormData) => {
   }
 };
 
+/**
+ * Sign in with email & password server action
+ *
+ * @param formData - The form data (passed automatically by the form)
+ *
+ * @remarks Redirects the user to /protected on success
+ *
+ * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
+ *
+ */
 export const SignInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -52,6 +72,14 @@ export const SignInAction = async (formData: FormData) => {
   return redirect("/protected");
 };
 
+/**
+ * Sign up with google server action
+ *
+ * @remarks Redirects the user to /protected on success
+ *
+ * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
+ *
+ */
 export const SignInActionGoogle = async () => {
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
@@ -63,6 +91,16 @@ export const SignInActionGoogle = async () => {
   return redirect("/protected");
 };
 
+/**
+ * Forgot password server action
+ *
+ * @param formData - The form data (passed automatically by the form)
+ *
+ * @remarks Redirects the user to /forgot-password on success
+ *
+ * @returns There are several returns, either with an error (email criterias were not satisfied, or other errors through supabase) or success
+ *
+ */
 export const ForgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
   const supabase = await createClient();
@@ -93,6 +131,16 @@ export const ForgotPasswordAction = async (formData: FormData) => {
   );
 };
 
+/**
+ * Reset password server action
+ *
+ * @param formData - The form data (passed automatically by the form)
+ *
+ * @remarks Redirects the user to /protected/reset-password on success
+ *
+ * @returns There are several returns, either with an error (password criterias were not satisfied, or other errors through supabase) or success
+ *
+ */
 export const ResetPasswordAction = async (formData: FormData) => {
   const supabase = await createClient();
 
@@ -122,6 +170,12 @@ export const ResetPasswordAction = async (formData: FormData) => {
   encodedRedirect("success", "/protected/reset-password", "Password updated");
 };
 
+/**
+ * Sign out server action
+ *
+ * @remarks Redirects the user to /sign-in on success
+ *
+ */
 export const SignOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
