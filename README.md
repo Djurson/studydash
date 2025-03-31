@@ -15,7 +15,7 @@ npm run dev
 
 **Viktigt:** Detta kommer inte att fungera utan filen **.local.env**!
 
-***
+---
 
 ## Dokumentation för bibliotek
 
@@ -36,7 +36,7 @@ Här hittar du länkar till dokumentation för de bibliotek och plugins vi anvä
 - [Komponenter](https://ui.shadcn.com/docs/components/accordion)
 - [Grafer](https://ui.shadcn.com/charts)
 
-***
+---
 
 ### Rekommenderade VS Code-tillägg
 
@@ -47,7 +47,7 @@ Här hittar du länkar till dokumentation för de bibliotek och plugins vi anvä
 - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 - [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
 
-***
+---
 
 ## Figma Design
 
