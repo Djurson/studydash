@@ -1,49 +1,56 @@
-# Kandidatprojekt - 2025
+# Kandidatprojekt 2025
 
-Många studenter vid Linköpings universitets medieteknikprogram upplever svårigheter med att hålla koll på sina studieresultat och planera sin studiegång. Detta kan leda till osäkerhet kring vilka kurser som är viktigast att prioritera och svårigheter med att uppfylla CSN:s krav för studiemedel. Projektet undersöker hur en webbaserad plattform kan underlätta för studenter genom att samla relevant statistik och ge rekommendationer baserat på deras individuella situation. Plattformen visualiserar studentens framsteg mot examen, ger insikter om tentastatistik och hjälper dem att prioritera sina studier effektivt.
+Studenter vid Linköpings universitets medieteknikprogram stöter ofta på utmaningar när det gäller att hålla koll på sina studieresultat och planera sin studiegång. Detta kan skapa osäkerhet kring vilka kurser som bör prioriteras och försvåra uppfyllandet av CSN:s krav för studiemedel. I detta projekt undersöker vi hur en webbaserad plattform kan hjälpa studenter genom att samla relevant statistik och ge rekommendationer anpassade efter deras individuella behov. Plattformen visualiserar studentens framsteg mot examen, erbjuder insikter om tentastatistik och hjälper till att effektivt prioritera studierna.
 
 ---
 
-## VIKTIGT ATT INSTALLERA FÖRSTA GÅNGEN!
+## Installationsguide (första gången)
+
+För att komma igång med projektet, kör följande kommandon:
 
 ```console
 npm install
 npm run dev
 ```
 
-KOMMER INTE FUNKA UTAN **.local.env** FILEN!
+**Viktigt:** Detta kommer inte att fungera utan filen **.local.env**!
 
 ---
 
-## Dokumentation till library
+## Dokumentation för bibliotek
 
-Lite diverse länkar till dokumentation för de olika librarys/plugins vi använder
+Här hittar du länkar till dokumentation för de bibliotek och plugins vi använder i projektet:
 
-> ### TailwindCSS
->
-> - [Tailwind Dokumentation](https://tailwindcss.com/docs/)
-> - [Tailwind Spacing Chart](https://tailwindcss.com/docs/customizing-spacing)
-> - [Tailwind Färger](https://tailwindcss.com/docs/customizing-colors)
+### TailwindCSS
 
-> ### Ikoner
->
-> - [Lucide](https://lucide.dev/)
+- [Tailwind Dokumentation](https://tailwindcss.com/docs/)
+- [Tailwind Spacing Chart](https://tailwindcss.com/docs/customizing-spacing)
+- [Tailwind Färger](https://tailwindcss.com/docs/customizing-colors)
 
-> ### Shadcn/ui
->
-> - [Komponenter](https://ui.shadcn.com/docs/components/accordion)
-> - [Grafer](https://ui.shadcn.com/charts)
+### Ikoner
 
-### Rekomenderade VS Code tillägg
+- [Lucide Ikoner](https://lucide.dev/)
 
-> - [Fil ikoner](https://marketplace.visualstudio.com/items?itemName=tal7aouy.icons)
-> - [Prettier formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
->
->   **_Ändra helst detta också_**
->
->   ![alt text](readme-imgs/image.png)
->
-> - [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-> - [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
+### Shadcn/ui
+
+- [Komponenter](https://ui.shadcn.com/docs/components/accordion)
+- [Grafer](https://ui.shadcn.com/charts)
+
+---
+
+### Rekommenderade VS Code-tillägg
+
+- [Filikoner](https://marketplace.visualstudio.com/items?itemName=tal7aouy.icons)
+- [Prettier Formatting](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  **_Detta kan du även ändra enligt dina egna preferenser_**
+  ![alt text](readme-imgs/image.png)
+- [Tailwind IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Headwind](https://marketplace.visualstudio.com/items?itemName=heybourn.headwind)
+
+---
+
+## Figma Design
+
+Följ den här länken för att komma åt Figma-designen för projektet:
 
 [Figma länk](https://www.figma.com/design/xFmuAvVpI5714AzzsBwDYI/Vart-%C3%A4r-mitt-CSN?node-id=0-1&p=f&t=jAgwB2QnENzXwnjn-0)

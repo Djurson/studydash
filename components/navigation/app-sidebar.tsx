@@ -78,6 +78,15 @@ const data = {
   },
 };
 
+/**
+ * Application sidebar component
+ * 
+ * @remarks
+ * This component renders a collapsible sidebar containing categorized menu items,
+ * user information, and navigation links.
+ * 
+ * @returns Returns a sidebar navigation element with categorized links and user details
+ */
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">

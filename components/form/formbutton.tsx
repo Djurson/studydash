@@ -3,6 +3,20 @@ import { ComponentProps } from "react";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 
+/**
+ * Form button component with loading indicator
+ * 
+ * @remarks
+ * This component renders a button with custom styles and displays a loading spinner
+ * when the form is in a pending state.
+ * It uses `useFormStatus` to track the form submission state.
+ * 
+ * @param children - The content of the button, usually text or icons
+ * @param props - Additional props passed to the `Button` component
+ * 
+ * @returns Returns a button with custom styles, showing a loading indicator when pending
+ */
+
 export default function FormButton({ children, ...props }: ComponentProps<typeof Button>) {
     const { pending } = useFormStatus();
     return (

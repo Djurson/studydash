@@ -4,6 +4,19 @@ import { Label } from "../ui/label";
 import { FileUp, Info } from "lucide-react";
 import Link from "next/link";
 
+/**
+ * A file upload input for uploading PDF documents.
+ * 
+ * @remarks
+ * This component renders a styled label with an icon that acts as a file upload area. Users can either click to select a file or drag and drop a file into the area.
+ * The input accepts only PDF files.
+ * An info icon is also provided for additional instructions or information.
+ * 
+ * @param {ComponentProps<typeof Input> & ComponentProps<typeof Label>} props - The input and label component props to customize the file input behavior and appearance.
+ * 
+ * @returns A file upload input with a custom label, drag-and-drop area, and a hidden file input field.
+ */
+
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   return (
     <>

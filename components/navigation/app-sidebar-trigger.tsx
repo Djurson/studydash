@@ -5,6 +5,15 @@ import { Azeret_Mono } from "next/font/google";
 import MainIcon from "../mainicon";
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
 
+/**
+ * Sidebar trigger component
+ * 
+ * @remarks
+ * This component provides a button to toggle the sidebar visibility
+ * and displays the main application icon with a title.
+ * 
+ * @returns Returns a fixed top navigation element with a sidebar toggle button
+ */
 export function AppSidebarTrigger() {
   const { toggleSidebar } = useSidebar();
 

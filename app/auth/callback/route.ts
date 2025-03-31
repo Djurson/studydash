@@ -1,6 +1,22 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
+/**
+ * Handles the OAuth callback for server-side authentication with Supabase.
+ *
+ * This route processes the authorization code sent from the OAuth provider, exchanges
+ * it for a user session using Supabase's server-side auth flow, and redirects the user
+ * to the specified `redirect_to` URL or a default protected page if no redirection is specified.
+ *
+ * @param request - The HTTP request object containing the URL, including the authorization code and redirection URL.
+ *
+ * @returns A `NextResponse` redirecting the user to the appropriate page after authentication.
+ *
+ * @example
+ * // Example of usage:
+ * // User visits the `/auth/callback?code=somecode&redirect_to=/dashboard` route
+ * // The server handles exchanging the code and redirects the user to the `/dashboard` page.
+ */
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
   // by the SSR package. It exchanges an auth code for the user's session.
