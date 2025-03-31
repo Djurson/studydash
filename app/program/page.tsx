@@ -48,9 +48,15 @@ export default function Page() {
 
       <section>
         <h2 className="text-2xl font-semibold">Meritvärde</h2>
+        <div className="mt-4 w-full h-50">
+          <Card cardTitle=""></Card>
+        </div>
       </section>
       <section>
         <h2 className="text-2xl font-semibold">Högskolepoäng</h2>
+        <div className="mt-4 w-full h-50">
+          <Card cardTitle=""></Card>
+        </div>
       </section>
     </>
   );
