@@ -1,0 +1,1521 @@
+{
+    "programs": [
+        {
+            "name": "Civilingenjörsprogram i medieteknik",
+            "credits": "300 hp",
+            "url": "https://studieinfo.liu.se/program/6CMEN/5143#curriculum",
+            "semesters": [
+                {
+                    "name": "Termin 1 HT 2022",
+                    "courses": [
+                        {
+                            "name": "Matematisk grundkurs",
+                            "course_code": "TNA001",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA001/ht-2022",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Claes Algström",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "89 h",
+                                "self_study_hours": "71 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen syftar till att bidra till en positiv start på universitetsstudierna, både då det gäller en social tillhörighet samt att få en repetition av matematik från tidigare studier. Dessutom skall några matematiska begrepp, som för många är nya, introduceras. Ett viktigt mål är att systematiskt ge utvecklingsmöjligheter inom vissa områden genom att använda varierat arbetssätt och flera examinationsmoment. Detta skall bl.a. bidra till att förbättra den studerandes förmåga att reflektera över det egna lärandet och ge förtrogenhet med att arbeta i en grupp, som skall ses som en resurs där goda samarbetsformer uppmuntras.Inom ramen för kursens innehåll skall den studerande efter genomgången kurs:",
+                                "course_content": "Räkning med algebraiska uttryck, olikheter, absolutbelopp. Ekvationslösning. Funktioner och funktionskurvor. Definition av de elementära funktionerna: naturliga logaritmfunktionen, exponential- och potensfunktioner, trigonometriska funktioner och arcusfunktionerna, komplexa exponentialfunktionen. Undersökning av de elementära funktionernas egenskaper. Grundläggande principer för logiska resonemang. Induktionsbevis. Koordinatsystem i planet, polära koordinater, ekvationer för räta linjer och cirklar. Komplexa talplanet, komplexa tal i polär form, Eulers formler. Talföljder och summor, binomialsatsen. Grundläggande vektorgeometri, ekvationer för linjer och plan i tre dimensioner.",
+                                "teaching_methods": "Undervisningen och stödet till kursdeltagarna sker i form av föreläsningar, lektioner och handledning av lärare. En stor del av arbetet, inklusive viss examination, kommer att ske i grupper (se nedan).",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "4.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Inlämningsuppgifter och muntliga redovisningar",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivilliga kontrollskrivningar",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Forsling-Neymark",
+                                    "title": "Matematisk analys, en variabel",
+                                    "edition": "Matematisk analys, en variabel 2",
+                                    "chapters": "Kap1-2"
+                                },
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Kompletterande material (utges av institutionen)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Programmering grk",
+                            "course_code": "TND012",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TND012/ht-2022",
+                            "overview": {
+                                "main_subject": "Datateknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Aida Nordman",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "68 h",
+                                "self_study_hours": "92 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen skall ge grundläggande kunskaper om hur man konstruerar program i ett högnivåspråk, C++. For att bli godkänd på kursen ska studenten ha uppnått följande lärandemål. Förklara vad som händer då ett program körs utifrån programmets källkod. Beskriva begreppen kompilering, källkod, objektkod, exekverbar kod. Använda datatyper för heltal, flyttal, textsträngar, sekvenser och poster uppbyggda av delkomponenterna av olika typ. Använda styrsatser för val (selektion) och upprepning (iteration) i egna program. Skriva egna underprogram och kunna använda olika parametrar och returvärden. Utifrån ett problem skriva ett program. Dela upp ett program i lämpliga underprogram, där varje underprogram utför en uppgift. Använda funktionaliteten hos några grundläggande standardbibliotek i C++. Skriva program för enkel filhantering.",
+                                "course_content": "Vad är ett program och hur programmerar man?Variabler, deklaration, och aritmetiska uttryck.Styrsatser: selektion och iteration.Sekvenser: sortering och sökning.Funktioner. Funktioner som inte returnerar något värde.Parameteröverföring: call-by-value och call-by-reference.Funktionsdeklarationer. Uppdelning av programRäckvidd och synlighet.Posttyper (struct).In- och utmatning. Enkel filhantering.Grundläggande standardbiblioteket i C++.",
+                                "teaching_methods": "Föreläsningar, lektioner och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "DAT1",
+                                    "name": "Tentamen vid dator",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Frivillig uppgift",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Digitala medier",
+                            "course_code": "TNM088",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM088/ht-2022",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Daniel Nyström",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "60 h",
+                                "self_study_hours": "100 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Efter fullgjord kurs ska kursdeltagaren ha fått en inledande kunskap inom området digitala medier. Inom ett område, som studenten själv väljer, erhålls en mer fördjupad kunskap. Efter kursen skall studenten vara bekant med en projektmodell som hjälpmedel och kunna grunderna i enklare rapportskrivning. Vidare skall studenten ha stiftat bekantskap med frågeställningar som rör etik, informationssökning och källkritik. Efter fullgjord kurs ska kursdeltagaren kunna: förklara bildreproduktionens tekniska förutsättningar. beskriva de tekniska förutsättningarna för ljud- och videoinspelning. använda verktyg för grundläggande bildbehandling, videoproduktion, publicering och grafik. tillämpa grundläggande kunskaper inom typografi och grafisk design. analysera dramaturgins roll i ett filmiskt berättande. reflektera över etiska frågeställningar i en fallbeskrivning. planera och genomföra projekt genom att tillämpa projektmodellen som verktyg i ett projektarbete. tillämpa grunderna för rapportskrivning enligt angivna förutsättningar. presentera en uppgift muntligt inför publik enligt angivna förutsättningar.",
+                                "course_content": "Kursen bygger på ämnesblocken bild, grafik, film/video, ljud och publicering. Kursen ingår i språkstrimman där övningar i muntlig och skriftlig presentation ingår.",
+                                "teaching_methods": "Under Ht1 består utbildningen av veckovisa teman i form av föreläsningar, seminarier, grupparbeten och laborationer. Under Ht2 består kursen av främst projektarbete i grupper om 4-6 studenter.",
+                                "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "KTR1",
+                                    "name": "Dugga",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Inlämningsuppgift, språkstrimma",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "PRA2",
+                                    "name": "Projektuppgift",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG2",
+                                    "name": "Projektredovisning, språkstrimma",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Dokumentation delas ut under kursens gång."
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Linjär algebra",
+                            "course_code": "TNA002",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA002/ht-2022",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "George Baravdish",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "87 h",
+                                "self_study_hours": "73 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Att ge sammanhållen begreppsram för geometrisk och algebraisk teknik med tillämpningar inom analys, datorgrafik, elektroteknik, reglerteknik, linjär optimering m fl. ämnen. Vidare ingår att utveckla förmågan att använda det matematiska språket, skriftligt och muntligt. Därför är det nödvändigt för deltagaren att kunna lösa ekvationssystem arbeta med skalärprodukt och vektorprodukt för geometriska vektorer räkna med matriser och determinanter räkna med vektorer och koordinater i ett vektorrum bestämma matrisen för en linjär avbildning samt beräkna nollrum och värderum bestämma ON-baser i euklidiska rum projicera ortogonalt på underrum och använda minstakvadrat-metoden använda basbyte för att lösa problem bestämma och använda egenvärden och egenvektorer i olika problem använda spektralsatsen i olika situationer bestämma kanoniska baser till kvadratiska former och utnyttja detta för att lösa geometriska problem lösa system av linjära ordinära differentialekvationer utvärdera resultat och delresultat, för att verifiera att dessa är korrekta eller rimliga",
+                                "course_content": "Linjära ekvationssystem.Vektorgeometri. Räta linjer och plan. Matriser. Determinanter. Vektorrum och underrum. Euklidiska rum. Bas och dimension. Gram-schmidts ortogonaliserigsprocess. Avstånd och approximation. Linjära avbildningar. Matrisframställning. Basbyte. Bas- och koordinatsamband. Samband mellan avbildningsmatriser. Egenvärden och egenvektorer. Spektralsatsen. Diagonalisering av matriser med tillämpningar på kvadratiska former. System av linjära ordinära differentialekvationer.",
+                                "teaching_methods": "Undervisningen ges i form av föreläsningar och lektioner.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Kontrollskrivning, bonuspoäng",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                },
+                                {
+                                    "code": "UPG2",
+                                    "name": "Frivilligt nätbaserat kursmoment, bonuspoäng",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "KTR2",
+                                    "name": "Kontrollskrivning, bonuspoäng",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Kompendium utgivet vid ITN."
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Elektronisk publicering",
+                            "course_code": "TNMK30",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNMK30/ht-2022",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Niklas Rönnberg",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "84 h",
+                                "self_study_hours": "76 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Studenten ska efter genomgången kurs kunna: utforma effektiv information använda de olika teknikerna och formaten som finns för att presentera text och bild elektroniskt särskilja mellan verktyg och teknik och kunna avgöra vilken teknik/standard som är mest lämpad för ett givet problem utvärdera en befintlig publikation med avseende på teknik genomgången i kursen analysera möjligheter och risker med användandet av digitala medier från ett socialt och ekonomiskt perspektiv använda en agil utvecklingsmetodik för att i grupp om 4-5 personer genomföra ett programmeringsprojekt för elektronisk publicering",
+                                "course_content": "Fokus på tekniker för innehållsutformning inom elektronisk publicering. Grundläggande märkspråk för innehållsutformning. Introduktion till klient-servermodellen och skriptspråk. Introduktion till layout och form inom elektronisk publicering, exempelvis formatmallar. Introduktion till logik och funktion inom elektronisk publicering och distribuerade tjänster, exempelvis dynamisk information. Kort introduktion till databaser och dessas använding för lagring och presentation av dynamisk information. Sociala och ekonomiska aspekter på användandet av digitala medier.",
+                                "teaching_methods": "Föreläsningar, laborationer och projektarbete. Laborationer omfattar även inlämningsuppgifter. Projekt utförs i grupper om fyra eller fem personer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "LAB2",
+                                    "name": "Laborationskurs inklusive inlämningsuppgifter",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Utvärderingsuppgift",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Ingen specifik kursbok. Istället kommer en lista med länkar till passande fri information på webben att göras tillgänglig via kurshemsidan."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 2 VT 2023",
+                    "courses": [
+                        {
+                            "name": "Analys I",
+                            "course_code": "TNA003",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA003/vt-2023",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "George Baravdish",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "84 h",
+                                "self_study_hours": "76 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Att du som student skall tillägna dig den förtrogenhet med matematiska begrepp, resonemang och samband som ryms inom envariabelanalys samt den färdighet i kalkyl och problemlösning som behövs för de fortsatta studierna. Efter fullgjord kurs skall du kunna läsa och tolka matematisk text citera och förklara definitioner av begrepp såsom lokalt extremvärde, gränsvärde, kontinuitet, derivata, primitiv funktion och integral citera, förklara och använda centrala satser såsom huvudsatsen, insättningsformeln, medelvärdessatserna, satsen om mellanliggande värde samt satsen om största och minsta värde använda räknelagar för gränsvärden, derivator, primitiva funktioner och integraler genomföra funktionsundersökningar, t ex med hjälp av derivator, gränsvärden och egenskaper hos elementära funktioner, och därigenom kunna dra slutsatser om funktioners egenskaper använda standardtekniker för att bestämma primitiva funktioner och bestämda integraler göra undersökning av generaliserade integraler med hjälp av primitiv funktion göra jämförelser mellan summor och integraler utföra kontroller av resultat och delresultat, för att verifiera att dessa är korrekta eller rimliga",
+                                "course_content": "Funktioner av en reell variabel. Gränsvärde och kontinuitet. Derivator. Deriveringsregler. De elementära funktionernas derivator. Egenskaper hos deriverbara funktioner. Derivatans betydelse för monotonicitet. Kurvritning, tangent och normal, asymptoter. Lokala och globala maxima och minima. Derivator av högre ordning. Bestämning av primitiva funktioner. Partiell integration, variabelbyte. Primitiver till rationella funktioner, funktioner innehållande vissa rotuttryck och trigonometriska funktioner. Riemannintegralen: definition och egenskaper. Integration av kontinuerliga funktioner. Samband mellan bestämd integral och primitiv funktion. Integrationsmetoder. Generaliserade integraler. Jämförelser mellan summor och integraler.",
+                                "teaching_methods": "Undervisningen ges i form av föreläsningar och lektioner eller enbart lektioner.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivilliga kontrollskrivningar",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Tillämpad matematik i teknik och naturvetenskap",
+                            "course_code": "TNA005",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA005/vt-2023",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Berkant Savas",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "37 h",
+                                "self_study_hours": "123 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen avser att utgöra en brygga mellan de grundläggande matematikkurserna och kurser inom teknik och naturvetenskap. Studenterna skall vänja sig vid att använda matematiska resultat och beräkningsprogram, som MATLAB, för att studera, analysera, och till viss del lösa realistiska problem från tillämpningar. Efter avslutad kurs skall studenten kunna: matematiskt modellera vissa problemställningar inom informationsteknologiska och fysikaliska tillämpningar; reflektera över en matematisk modells förtjänster och begränsningar; använda MATLAB som ett naturligt redskap för att lösa beräkningsproblem, däribland: behandla matriser och linjära ekvationssystem, teckna och lösa minstakvadratproblem, lösa ordinära differentialekvationer, utföra numerisk integrering; välja lämpliga metoder för att studera matematiska frågeställningar som uppstår i olika sammanhang inom teknik och naturvetenskap; strukturera och presentera en bärande matematisk idé såväl muntligt som skriftligt; hålla en kort presentation och ge återkoppling på annan presentation, båda momenten på engelska; kritiskt konstruktivt granska andras skriftliga framställan och föra en diskussion om innehållet.",
+                                "course_content": "Introduktion till MATLAB och enklare programmering. Matematisk modellering. Numeriska beräkningar: linjär algebra, avbildningar, ekvationssystem, minsta kvadratproblem, beräkningar med matriser, matrisfaktorisering, kvadratur och ordinära differentialekvationer. Behandling av tillämpningsproblem inom datorgrafik, informationsteknologi, och fysik. Rapportskrivning på svenska. Muntliga redovisningar och återkoppling (på svenska och engelska). Repetition av engelsk grammatik och meningsuppbyggnad.",
+                                "teaching_methods": "Undervisningen förmedlas i form av föreläsningar, datorlaborationer, språkseminarier, redovisningar med återkoppling, och resurstillfällen. Ett antal miniprojekt utgör kärnan i kursen. Dessa skall utföras med hjälp av MATLAB, och en rapport skall lämnas in för varje uppgift samt redovisas muntligt. Miniprojekten görs i grupper om två till tre studenter, förutom den sista uppgiften som görs individuellt. Till grupparbetena skall även en skriftlig och muntlig opposition genomföras. Aktiv medverkan förutsätts på språkseminarier. Kursen pågår hela vårterminen och i kursen ingår en del av kommunikationsstrimman i engelska för ED, KTS och MT.",
+                                "grade_scale": "Tvågradig skala, U, G",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPGB",
+                                    "name": "Muntlig presentation och återkoppling på engelska",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPGA",
+                                    "name": "Aktiv medverkan med inlämning på språkseminarier",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG9",
+                                    "name": "Individuell datordugga som introduktion till Matlab",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG5",
+                                    "name": "Miniprojekt i grupp, skriftlig o muntlig redovisning",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG7",
+                                    "name": "Miniprojekt i grupp; skriftlig och muntlig redovisning och opponering",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG6",
+                                    "name": "Individuellt miniprojekt, skriftlig och muntlig redovisning",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Forsling, Göran, Neymark, Mats,  (2011)",
+                                    "title": "Matematisk analys : en variabel.",
+                                    "edition": "Matematisk analys : en variabel. 2., [utök. och rev.] uppl. Stockholm : Liber, 2011 ISBN: 9789147100231 Godtycklig utgåva"
+                                },
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Jönsson, Per,  (2020)",
+                                    "title": "MATLAB-beräkningar inom teknik och naturvetenskap : med symbolisk matematik.",
+                                    "edition": "MATLAB-beräkningar inom teknik och naturvetenskap : med symbolisk matematik. Fjärde upplagan Lund : Studentlitteratur, [2020] ISBN: 9789144134246"
+                                },
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Baravdish, George, Linjär algebra TNA002 Kompendium utgivet av institutionen, godtycklig utgåva."
+                                },
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Kompletterande materiel tillgängligt från kurshemsidan"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Objektorienterad programmering",
+                            "course_code": "TND002",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TND002/vt-2023",
+                            "overview": {
+                                "main_subject": "Datateknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Mark E Dieckmann",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "70 h",
+                                "self_study_hours": "90 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen ska ge kunskaper om objektorienterad programutveckling \noch programmering i ett objektorienterat programspråk, Java. Efter kursen ska deltagaren kunna: skriva enkla program för in- och utmatning av tal och text dels för kommandofönster och dels med dialogrutor. förklara skillnaden mellan inbyggda typer och klasstyper/objekt  samt skillanden mellan enkla variabler och referensvariabler. förklara skillnaden mellan instansvariabler och klassvariabler samt skillnaden mellan instansmetoder och klassmetoder. designa och implementera egna klasser samt använda dem. använda vanliga standardklasser från Java API. skriva program för filhantering, särskilt för textfiler. förklara begreppen arv, polymorfism och dynamisk bindning samt begreppen abstrakt klass och interface. designa och implementera egna klasshierarkier samt använda dem. skriva program med enkla grafiska gränssnitt. förklara begreppet händelsestyrda program. för ett givet problem utveckla ett objektorienterat program bestående av ett antal klasser samt dokumentera detta i UML.",
+                                "course_content": "Programspråket Java, variabler och datatyper,  in- och utmatning, styrsatser.Klasser och objekt,  instansvariabler och instansmetoder, klassvariabler och klassmetoder. Objektorienterad programutveckling, klassdiagram och UML.Standardklasser och Java API.  Ärvning, subklasser och superklasser, polymorfism och dynamisk bindning, abstrakta klasser och interface.Strömmar och filer, felhantering. Program med grafiska användargränssnitt, grafiska komponenter och layouthanterare, händelsestyrda program.",
+                                "teaching_methods": "Föreläsningar, lektioner och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "DAT1",
+                                    "name": "Tentamen med datorstöd",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Endast föreläsningsanteckningar."
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Analys II",
+                            "course_code": "TNA004",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA004/vt-2023",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "George Baravdish",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "70 h",
+                                "self_study_hours": "90 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Att du som student skall tillägna dig den förtrogenhet med matematiska begrepp, resonemang och samband som ryms inom envariabelsanalys samt den färdighet i kalkyl och problemlösning som behövs för de fortsatta studierna. Efter fullgjord kurs skall du kunna läsa och tolka matematisk text förklara Taylors formel och begreppen numerisk serie, potensserie och konvergens av serie teckna uttryck för, och beräkna, geometriska storheter såsom plan area, kurvlängd, rotationsvolym och rotationsarea hantera differentialekvationer (1:a ordingens linjära, separabla och högre ordningens linjära med konstanta koefficienter) samt integralekvationer och serielösningar använda Taylorutvecklingar för att approximera funktioner med polynom, undersöka gränsvärden, beräkna närmevärden och avgöra lokala egenskaper genomföra konvergensundersökningar av generaliserade integraler, numeriska serier och potensserier utföra kontroller av resultat och delresultat, för att verifiera att dessa är korrekta eller rimliga",
+                                "course_content": "Tillämpningar av integraler - Generaliserade integraler: definition och beräkningar, uppskattning av summor, area av plana ytor, kurvlängd, volym av rotationskroppar, area av rotationsytor, massa och tyngdpunkt. Taylors och Maclaurins formler. Maclaurinutveckling av elementära funktioner. Olika former på resttermen: Lagrange och ordo. Tillämpningar bl a på feluppskattning vid approximationer och beräkning av gränsvärden. Ordinära differentialekvationer. Första ordningens linjära och separabla ekvationer. Integralekvationer. Linjära ekvationer av högre ordning med konstanta koefficienter. Generaliserade integraler: konvergensundersökning, absolutkonvergens. Numeriska serier: konvergensundersökning, absolutkonvergens, Leibniz kriterium. Potensserier, serielösning till differentialekvationer.",
+                                "teaching_methods": "Undervisningen ges i form av föreläsningar och lektioner.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivilliga duggor",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "TEN1",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Datorgrafik",
+                            "course_code": "TNM046",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM046/vt-2023",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Sasan Gooran",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "50 h",
+                                "self_study_hours": "110 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Studenten skall efter genomgången kurs kunna: redogöra för, beskriva och använda vanliga metoder och tekniker för syntes av bilder välja och motivera metoder och tekniker för att lösa specifika vanliga problem på området implementera lösningar på verkliga problem på området med egen programkod",
+                                "course_content": "2D-grafik: transformationer, rendering. Grafikprogrammering i 2D. 3D-grafik: objekt, polygoner/trianglar, transformationer, projektion, perspektiv, gömda ytor, lokala ljusmodeller, texturmappning, Enklare grafikprogrammering i 3D.",
+                                "teaching_methods": "Föreläsningar för teori samt laborationer för tillämpning och fördjupning. Kursboken och övrigt kursmaterial är på engelska.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "title": "Steve Marschner, Peter Shirley., Fundamentals of Computer Graphics"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 3 HT 2023",
+                    "courses": [
+                        {
+                            "name": "Analys III",
+                            "course_code": "TNA006",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA006/ht-2023",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Olof Svensson",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "50 h",
+                                "self_study_hours": "110 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen bygger på kursen i Analys I-II. Följaktligen är målen likartade: att ge de studerande förståelse för matematiska begrepp och förtrogenhet med matematiska metoder för funktioner av flera variabler som uppstår i alla grenar av fysik och teknik. Studenten ska efter genomgången kurs kunna: hantera funktioner av flera variabler, t.ex. att kunna bestämma gränsvärden, avgöra om funktioner är kontinuerliga och differentierbara, bestämma partiella derivator, samt använda kedjeregeln för att transformera och lösa partiella differentialekvationer lösa globala och lokala maximi- och minimiproblem, med och utan bivillkor. citera och förklara definitioner av begrepp såsom lokalt extremvärde, gränsvärde, kontinuitet, partiell derivata, differntierbarhet, gradient, tangentplan, dubbel- och trippelintegraler. förklara och använda centrala satser såsom implicita funktionssatsen. beräkna dubbel- och trippelintegraler och  teckna uttryck för area och volymer med hjälp av dubbel- och trippelintegraler.",
+                                "course_content": "Funktioner av flera variabler. Gränsvärden och kontinuitet. Partiell derivata, gradient, riktingsderivata och differential. Tangentplan och linearisering. Kedjeregeln. Taylors formel. Vektorvärda funktioner, Jacobis matris och Jacobian. Implicit derivering och implicita funktioner. Lokala och globala maxima och minima. Maximi- och minimiproblem med och utan bivillkor. Dubbel- och trippelintegraler. Itererad integration. Variabelbyte. Rymdkurvor.",
+                                "teaching_methods": "Kursen ges i form av föreläsningar, lektioner, kontrollskrivningar och sluttentamen.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivillig dugga",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Neymark, Mats,  (2017)",
+                                    "title": "Matematisk analys : flera variabler",
+                                    "edition": "Matematisk analys : flera variabler Upplaga 2 Stockholm : Liber, [2017] ISBN: 9789147125852"
+                                },
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Problemsamling för kursen TNA006."
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Mekanik och vågfysik",
+                            "course_code": "TNE043",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNE043/ht-2023",
+                            "overview": {
+                                "main_subject": "Teknisk, fysik, Fysik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Ulf Sannemo",
+                                "study_director": "Kjell Karlsson",
+                                "scheduled_hours": "58 h",
+                                "self_study_hours": "102 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen skall ge grundläggande kunskaper inom några centrala delar av den klassiska fysiken samt kännedom om viktiga tillämpningar. Laborationsdelen skall ge erfarenhet av att planera, utföra och redovisa experiment. Efter genomgången kurs skall studenten kunna tillämpa grundläggande kinematiksamband, Newtons lagar formulerade både för translations- och rotationsrörelse, energisamband, bevaringslagar vid modellformulering och problemlösning samt kunna redogöra för under vilka förutsättningar respektive lagar och samband kan användas använda grundläggande dynamik för att modellera enkla harmoniska svängningar samt utvidgningen av teorin till att omfatta mekaniska vågor formulera vågekvationen och ge exempel på lösningar, beräkna egenskaper som utbredningshastighet och ge exempel på tillämpningar beskriva och vid modellformulering och problemlösning tillämpa grundläggande begrepp inom akustik som exempelvis stående vågor, resonans och Dopplereffekt beskriva och tillämpa grundläggande begrepp inom den geometriska optiken inom fysikalisk optik kunna beskriva och tillämpa begrepp som polarisation, koherens, diffraktion, interferens och superposition vid problemlösning ge exempel på tillämpningar av mekanik och vågfysik inom såväl naturvetenskap som tekniska användningsområden ha utvecklat sin begreppsförståelse, sin problemlösningsförmåga och sitt modelltänkande inom fysik redogöra för innebörden av experimentell problemlösning samt den arbetsgång som används bedöma om beräknade och uppmätta resultat är rimliga och utföra dimensionsanalys av fysikaliska formler skriva en vetenskaplig rapport med ett akademiskt språk samt muntligt presentera resultat och opponera på andra studenters resultat",
+                                "course_content": "Introduktion till experimentell problemlösning, dimensionsanalys, mätvärdesbehandling. Mekanik: Kinematik, kraft, Newtons lagar, energi och arbete, svängningar, stöt, rotation kring fix axel. Vågrörelselära och optik: allmän vågrörelse, superposition, vågekvationen, mekaniska vågor, akustik, elektromagnetiska vågor, geometrisk optik, interfererens, diffraktion. Individuell rapportskrivning med ökade krav på akademiskt språk samt muntlig presentation och opposition.",
+                                "teaching_methods": "Kursen består av föreläsningar, lektioner och laborationer. En skriftlig tentamen ges efter kursens slut. I laborationskursen ingår en individuellt skriven rapport på svenska, presentation samt opposition.I kursen ingår en del av kommunikationsstrimman i svenska för ED, KTS och MT.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN2",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "4 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB2",
+                                    "name": "En obligatorisk laborationskurs",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivillig dugga",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG3",
+                                    "name": "Rapportskrivn. på svenska, muntlig presentation o opposition",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Halliday, Resnick, Walker,  (2020)",
+                                    "title": "Halliday & Resnick´s Principles of Physics,",
+                                    "edition": "Halliday & Resnick´s Principles of Physics, 11:th Edition, Global Edition, Wiley ISBN: 978111945549-3 (e-book) , 978111945401-4 (paperback)"
+                                },
+                                {
+                                    "type": "Kompendier",
+                                    "title": "B Sandell (reviderad av P Andersson och M Eriksson 2019), Experimentell problemlösning, utgivet av LiU"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Kommunikation och användargränssnitt",
+                            "course_code": "TNM040",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM040/ht-2023",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Camilla Forsell",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "76 h",
+                                "self_study_hours": "84 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen syftar till att ge studenterna grundläggande kännedom om interaktiva datorsystem, kognitiva processer samt kunskaper om principer, metoder och verktyg för att utveckla datorsystem anpassade till användare. Efter kursen kan studenter: förklara relevansen av perception, minne och språkbruk vid utveckling av interaktiva system. beskriva och diskutera olika steg i implementeringen av interaktiva system. diskutera kommunikation mellan människor och kommunikation via datorsystem. diskutera användbarhet och tillgänglighet vid utveckling av interaktiva system",
+                                "course_content": "Kognitiv psykologi, designprinciper, användarcentrerade metoder för utveckling och riktlinjer för gränssnittsutformning.",
+                                "teaching_methods": "Föreläsningar, programmeringsuppgifter, individuell hemuppgift, programmeringsprojekt som grupparbete, samt muntlig presentation.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPG3",
+                                    "name": "Individuell inlämningsuppgift",
+                                    "credits": "2 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "UPG4",
+                                    "name": "Grupprogrammeringsuppgifter",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "PRA1",
+                                    "name": "Projektuppgift",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Artiklar",
+                                    "title": ""
+                                },
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Fastställes senare"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Vektoranalys",
+                            "course_code": "TNA007",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNA007/ht-2023",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Olof Svensson",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "48 h",
+                                "self_study_hours": "112 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen bygger på kursen i flervariabelanalys. Följaktligen är målen likartade: \natt ge de studerande förståelse för matematiska begrepp och förtrogenhet \nmed matematiska metoder för vektorfält som uppstår i alla grenar av fysik \noch teknik. Efter kursen ska studenterna kunna söka potential och vektorpotential till ett vektorfält söka fältlinjer till ett vektorfält beräkna linje- och ytintegraler använda Gauss och Stokes satser för beräkningar av flödes- och linjeintegraler använda sfäriska och cylindriska koordinater i beräkningar.",
+                                "course_content": "Skalär- och vektorfält. Gradient, divergens och rotation. Kurvintegraler samt yt- och flödesintegraler. Gauss sats och Stokes sats. Kroklinjiga koordinatsystem. Partiella differentialekvationer.",
+                                "teaching_methods": "Kursen ges i form av föreläsningar, lektioner, kontrollskrivningar och sluttentamen.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "KTR2",
+                                    "name": "Frivillig kontrollskrivning",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                },
+                                {
+                                    "code": "KTR3",
+                                    "name": "Frivillig kontrollskrivning",
+                                    "credits": "0 hp",
+                                    "grading": "D"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Anders Ramgard",
+                                    "title": "Vektoranalys",
+                                    "edition": "Vektoranalys THS AB."
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Programmering i C++",
+                            "course_code": "TNG033",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG033/ht-2023",
+                            "overview": {
+                                "main_subject": "Datateknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Aida Nordman",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "60 h",
+                                "self_study_hours": "100 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursens syfte är att ge kunskaper i att använda programspråket C++ för att utveckla program. För att bli godkänd på kursen ska studenten ha uppnått följande lärandemål.",
+                                "course_content": "Pekare och dynamisk minnesallokering. Enkellänkade listor. Klasser och arv. Konstruktorer och destruktorer. Vänner. Operatoröverlagring. Virtuell funktion. Abstrakta klasser. Strömmar. Mallar. Namnrymder. Standardbibliotek (STL): containerklasser; iteratorer och algoritmer.",
+                                "teaching_methods": "Föreläsningar, lektioner och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "DAT1",
+                                    "name": "Datortentamen",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Obligatorisk laborationskurs",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 4 VT 2024",
+                    "courses": [
+                        {
+                            "name": "Tillämpad transformteori",
+                            "course_code": "TNG032",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG032/vt-2024",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Lukás Malý",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "58 h",
+                                "self_study_hours": "102 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen skall ge de matematiska grunderna för de transformmetoder som används i kretsteori, reglerteori, signaler och system, bildbehandling och produktionsekonomi. Studenten ska efter genomgången kurs: kunna använda och bestämma Fourierserier, tillämpa Parsevals formel, känna till konvergensresultat transformera funktioner och talföljder, med Fourier-, Laplace- och Z-transformen ha kunskap om vilka funktioner och serier som kan transformeras använda transformer och Fourierserier för att lösa t.ex. ordinära differentialekvationer, partiella differentialekvationer, differensekvationer, integralekvationer ha förmåga att på engelska skriva en teknisk rapport.",
+                                "course_content": "Några viktiga linjära transformationer studeras, med hjälp av vilka linjära problem, givna av differential-, integral-, differensekvationer kan översättas till mer hanterbara linjära algebraiska problem. Följande moment kommer att studeras: Fourierserier, Parsevals relation, Fouriertransformer, Inversionsformeln, Faltningsformeln, Laplacetransformen, z-transformen.I laborationskursen ingår en skriftlig rapport på engelska. Fördjupning av språkfärdighet utifrån strimman åk 1.",
+                                "teaching_methods": "Undervisningen sker i form av föreläsningar, lektioner, laborationer och språkseminarier. På språkseminarier förutsätts aktiv medverkan. I kursen ingår en del av kommunikationsstrimman i engelska för ED, KTS och MT.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPGB",
+                                    "name": "Rapportskrivning på engelska",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPGA",
+                                    "name": "Aktiv medverkan med inlämning på språkseminarier",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "TEN3",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "4 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB3",
+                                    "name": "En laborationskurs",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivillig dugga",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Beerends, R. J., 1958-,  (2003)",
+                                    "title": "Fourier and Laplace transforms",
+                                    "edition": "Fourier and Laplace transforms ISBN: 9780521806893, 9780521534413, 0521806895, 0521534410"
+                                },
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Problemsamling"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Grafisk teknik",
+                            "course_code": "TNM059",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM059/vt-2024",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Sasan Gooran",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "36 h",
+                                "self_study_hours": "124 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Efter genomgången kurs ska studenten kunna: Utförligt redogöra för hur ett foto digitaliseras och lagras samt för återgivning av digitala bilder i tryck Implementera, utvärdera samt genomföra beräkningar för olika rastreringstekniker Redogöra för enkla objektiva kvalitetsmått för rasterbilder Utförligt redogöra för färgseendet och olika färgsystem samt principer för olika metoder för mätning och representation av färg Genomföra beräkningar av färgstimuli (sensorer och observatörer) samt färgreproduktion i tryck",
+                                "course_content": "Grundläggande kunskaper om tryck.  Återgivning av monokroma bilder i tryck - rastrering. Digitala raster. Optisk och mekanisk punktförstoring. Objektiva kvalitetsmått för rasterbilder. Färglära: synsinnets färguppfattning, färgrepresentation, färgstandarder, färgåtergivning. Färgrastrering. Digitalisering av färgbilder. Tonomfång, färgomfång, gråbalans, färgkorrektion och färghantering (color management).",
+                                "teaching_methods": "Kursen består av föreläsningar, lektioner och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "4.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Sasan Gooran, Digital Halftoning and Color Reproduction"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "3D Datorgrafik",
+                            "course_code": "TNM061",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM061/vt-2024",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Martin Falk",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "52 h",
+                                "self_study_hours": "108 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Den här kursen ger en översikt över koncept och tekniker som ofta används för att skapa 3D-datorgrafik. Studenten skall efter genomgången kurs kunna redogöra för, beskriva och använda vanliga metoder och tekniker inom 3D-datorgrafik välja och motivera metoder och tekniker för att lösa vanliga problem på området använda sig av programvara för 3D-datorgrafik för att modellera, animera och rendera enkla scener",
+                                "course_content": "3D-grafik: scengrafer, transformationer, datastrukturer realtidsgrafik: rendereringspipeline, grafikhårdvara, shading modellering: polygonnät, parametriska kurvor och ytor material: interaktion mellan ljus och objekt, texturering global belysning: strålspårning (ray tracing), radiosity animering med keyframes, invers kinematik, fysikbaserade simuleringar",
+                                "teaching_methods": "Kursen omfattar föreläsningar, laborationer samt en större projektuppgift. Föreläsningarna är inriktade på grundläggande koncepter medan laborationerna och projektmomentet ger möjlighet att omsätta dessa i praktiken.Kursen pågår hela vårterminen och kombinerar teori och praktik.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "En obligatorisk laborationskurs",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Projektuppgift i grupp",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Matematisk statistik",
+                            "course_code": "TNG006",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG006/vt-2024",
+                            "overview": {
+                                "main_subject": "Matematik, Tillämpad, matematik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Tomas Johansson",
+                                "study_director": "George Baravdish",
+                                "scheduled_hours": "52 h",
+                                "self_study_hours": "108 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen avser att lära den studerande förstå och utnyttja grundläggande sannolikhetslära och statistik, dvs teorin för försök som påverkas av slumpmässiga faktorer. Kursen inriktas speciellt på sådana grundläggande kunskaper som krävs för tillämpningar inom teknik, ekonomi och naturvetenskap. Efter fullgjord kurs skall studenten  kunna: Teckna och använda händelser samt stokastiska variabler i olika problemformuleringar Använda betingad sannolikhet Använda multiplikationsprincipen samt kombinatorik Ha god förståelse för härledning och användning av de olika fördelningsfunktionerna, se kursinnehåll nedan Avgöra om det föreligger oberoende för givna variabler Vid behov räkna ut väntevärde och varians för stokastiska variabler, summor och andra funktioner av dessa Använda centrala gränsvärdessatsen Punktskatta t.ex. med metoder såsom maximum-likelihood, momentskattningar och minsta kvadratskattningar Bestämma konfidensintervall för väntevärde och varians Ställa upp en nollhypotes och en mothypotes och bestämma ett förkastelseområde Använda regressionsanalys",
+                                "course_content": "Sannolikhetslära: Händelser och sannolikheter i utfallsrum. Stokastiska variabler, sannolikhetsfördelningar, väntevärden och standardavvikelser. Bl a behandlas likformig, exponential-, normal-, binomial-, Poission- och hypergeometrisk fördelning. Kombinatorik. Beroende och oberoende variabler, något om beroendemått. Summor och andra funktioner av stokastiska variabler. Centrala gränsvärdessatsen och stora talens lag. Betingning. Statistik: Punktskattningar och deras osäkerhet, maximum-likelihood -skattningar, momentskattningar och minsta kvadratskattningar. Chi-två- och t-fördelning. Intervallskattning. Hypotestestning med och utan parametriska förutsättningar.  Regressionsanalys. Problemlösning inriktad på problemställningar från teknik, naturvetenskap, kvalitetskontroll mm.",
+                                "teaching_methods": "Föreläsningar och lektionsundervisning.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "En skriftlig tentamen",
+                                    "credits": "6 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "KTR1",
+                                    "name": "Frivillig dugga",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Signaler och system",
+                            "course_code": "TNG015",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG015/vt-2024",
+                            "overview": {
+                                "main_subject": "Elektroteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Naveen Kumar Dasanadoddi Venkategowda",
+                                "study_director": "Kjell Karlsson",
+                                "scheduled_hours": "50 h",
+                                "self_study_hours": "110 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Efter avslutad kurs ska studenten kunna: Hantera tidskontinuerliga signaler och system i tids- och frekvensdomänen (TEN6) Hantera tidsdiskreta signaler och system i tids- och frekvensdomänen (TEN7) Tillämpa Fourier-, Laplace- och Z-transformen för beräkningar och analys (LAB2)",
+                                "course_content": "Grundläggande signaler och deras egenskaper LTI-system Fouriertransformen och frekvensanalys Samplingsvillkor och tidsdiskreta signaler Laplacetransformen och systemanalys Z-transformen för samplade signaler och system Digitala filter (FIR och IIR) Adaptiva filter Individuell rapportskrivning (för högre betyg)",
+                                "teaching_methods": "Föreläsningar, lektioner och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "LAB2",
+                                    "name": "En obligatorisk laborationskurs",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "TEN6",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "2 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "TEN7",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "2 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 5 HT 2024",
+                    "courses": [
+                        {
+                            "name": "Ljudfysik",
+                            "course_code": "TFYA65",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TFYA65/ht-2024",
+                            "overview": {
+                                "main_subject": "Teknisk, fysik, Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Per Sandström",
+                                "study_director": "Magnus Boman",
+                                "scheduled_hours": "40 h",
+                                "self_study_hours": "120 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen syftar till att ge studenterna kunskaper om ljud och akustik. Efter kursen ska studenten kunna: Känna till, redogöra för och lösa enkla problem om ljudets uppkomst, utbredning och andra fysikaliska fenomen relaterade till ljudvågor. Känna till och redogöra för människans uppfattning av ljud. Förstå och redogöra för frekvensbeskrivning av ljud. Redogöra för funktionen och egenskaper hos elektroniska kretsar relaterade till ljudteknik, samt känna till hur vanliga mätningar av ljud utförs. Förstå grundläggande rumsakustiska samband och redogöra för hur man kan påverka akustiken i ett rum. Känna till grunderna för olika ljudformat, ljudupptagning och ljudbearbetning samt digital ljud- och signalbehandling.",
+                                "course_content": "Grundläggande beskrivning av ljudvågor och fysikaliska fenomen relaterade till dessa. Ljudutberedning och rumsakustik. Psykoakustik: människans uppfattning av ljud. Egenskaper hos några olika ljudalstrare. Ljudmätteknik och elektroniska kretsar relaterade till ljud. Introduktion till digitalt ljud, olika digitala ljudformat, signalbehandling och taligenkänning. Grunderna i ljudupptagning och ljudbearbetning.",
+                                "teaching_methods": "Kursen ges i form av föreläsningar, laborationer och ett projektarbete.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för fysik, kemi och biologi"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationer",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "PRA1",
+                                    "name": "Projektarbete",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "title": "Alton F. Everest, Master Handbook of Acoustics"
+                                },
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Ken C. Pohlmann",
+                                    "title": "Principles of Digital Audio",
+                                    "edition": "Principles of Digital Audio Böckerna finns tillgängliga som e-böcker via Universitetsbiblioteket. Delar av båda böckerna används"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Reglerteknik",
+                            "course_code": "TNG028",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG028/ht-2024",
+                            "overview": {
+                                "main_subject": "Elektroteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Anna Lombardi",
+                                "study_director": "Kjell Karlsson",
+                                "scheduled_hours": "60 h",
+                                "self_study_hours": "100 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen skall ge förståelse för dynamiska system och kunskaper om grundläggande metoder för att analysera och dimensionera återkopplade reglersystem. Efter genomförd kurs skall studenten kunna Analysera modeller av dynamiska system på in-utsignalform samt konstruera och analysera reglersystem baserade på PID-regulatorer.  Beskriva de grundläggande förutsättningarna, möjligheterna och begränsningarna för återkopplad reglering. Analysera reglersystem utgående från modeller av dynamiska system givna på frekvensfunktionsform samt dimensionera regulatorer i frekvensdomän för att erhålla önskad systemprestanda. Genomföra systemanalys och konstruera reglersystem baserat på tillståndsmodeller. Modellera, konstruera och verifiera ett reglersystem för en labprocess.",
+                                "course_content": "Del I:Differentialekvationer, överföringsfunktioner, poler och nollställenStabilitet, specifikationer, samband mellan dynamiska egenskaper och polerÅterkopplingsprincipen, blockschema, framkopplingPID-regulatorn, uppbyggnad och funktionTolkning av systemegenskaper m h a rotort Del II:Bodediagram, Nyquistdiagram, fas- och amplitudmarginalRegulatorer i frekvensdomän i form av högpass- och lågpass- filter för att erhålla önskad systemprestandaSamband mellan frekvens- och tidssvarTidsfördröjningarFundamentala begränsningar vid återkoppling, robusthetskriteriet Del III:Tillståndsmodeller, stabilitet, styr- och observerbarhetTillståndsåterkoppling, tillståndsskattning, återkoppling från skattade tillstånd",
+                                "teaching_methods": "Kursen består av föreläsningar, lektioner, MATLAB-övningar och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "4.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laboration",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "T. Glad och L. Ljung,  (2006)",
+                                    "title": "Reglerteknik - Grundläggande teori",
+                                    "edition": "Reglerteknik - Grundläggande teori Studentlitteratur"
+                                },
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Övningsexempel"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Tillämpad visualisering och virtuell verklighet",
+                            "course_code": "TNM093",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM093/ht-2024",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Kostiantyn Kucher",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "34 h",
+                                "self_study_hours": "126 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Studenten skall efter avslutad kurs kunna: använda vanliga tekniker för datautforskning och -analys, samt virtuell verklighet för att implementera tillämpningar inom visualisering och datorgrafik använda tracking och korrekt grafisk projektion för att implementera ett-till-ett-mappning mellan verkliga och virtuella koordinater använda vanliga programvaror och system för att implementera grundläggande visualiseringar och multi-sensoriska interaktioner kunna reflektera över etiska risker med visualisering.",
+                                "course_content": "Visualiseringspipelinen! Visualiseringstekniker Tracking och VR-vyer Interaktionstekniker Perception Tillämpningar",
+                                "teaching_methods": "Kursen introducerar teorier och praktiska exempel genom föreläsningar. I laborationer ska studenterna testa den praktiska användningen av olika verktyg och på så sätt skaffa sig de kunskaper som krävs för att använda programvara för visualisering. Vidare kommer principer inom VR att tillämpas för att korrigera den grafiska vyn.",
+                                "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationer",
+                                    "credits": "6 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Charles Hansen and Chris Johnson",
+                                    "title": "The Visualization Handbook",
+                                    "edition": "The Visualization Handbook Föreslagna, valfria böcker om kursens ämnen:"
+                                },
+                                {
+                                    "type": "Böcker",
+                                    "authors": "John Vince",
+                                    "title": "Essential Virtual Reality Fast",
+                                    "edition": "Essential Virtual Reality Fast Föreslagna, valfria böcker om kursens ämnen:"
+                                },
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Robert Spence",
+                                    "title": "Information Visualization: Design for Interaction",
+                                    "edition": "Information Visualization: Design for Interaction 2nd Edition Föreslagna, valfria böcker om kursens ämnen:"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Modellbygge och simulering",
+                            "course_code": "TNG022",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNG022/ht-2024",
+                            "overview": {
+                                "main_subject": "Elektroteknik, Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Anna Lombardi",
+                                "study_director": "Kjell Karlsson",
+                                "scheduled_hours": "48 h",
+                                "self_study_hours": "112 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursen skall ge kunskaper om metoder och principer att bygga matematiska modeller för dynamiska system (dvs system som beskrivs med hjälp av differential och/eller differensekvationer). Kursen skall också ge kunskaper om hur modellernas egenskaper studeras genom simulering. Efter avslutad kurs förväntas studenten kunna: definiera, beskriva och tillämpa grundläggande begrepp relaterade till modeller, identifiering och simulering förenkla en given modell genom användande av statiska samband, ersättning av variabler med konstanter, försummande av små effekter/idealiseringar och aggregering av tillstånd utifrån balans- och jämviktsekvationer och andra fysikaliska samband modellera mekaniska (i en dimension), elektriska och flödessystem, och kombinationer av dessa, på DAE- och (om möjligt) tillståndsform ställa upp bindningsgrafer för tillämpliga system ur ovan nämnda klass, förenkla och analysera bindningsgrafen m a p kausalitetskonflikter, samt ur en given konfliktfri bindningsgraf ta fram en tillståndsmodell beräkna index för en given DAE modellera och simulera mekaniska (i en dimension) och elektriska system med hjälp av datorverktygen Simulink och OpenModelica identifiera en modell för ett verkligt system genom lämpligt val av experimentdesign, efterbehandling av data, modellstruktur och validering beräkna asymptotiska bias- och variansegenskaper för ett givet linjärt identifieringsproblem avgöra om en given simuleringsmetod är implicit eller explicit och vilket antal steg den har, samt beräkna lokala och globala felet och stabilitetsområdet för enkla simuleringsmetoder ha förmåga att på engelska skriva en analyserande teknisk rapport.",
+                                "course_content": "Modeller och modellbegreppet. Differentialekvationer, differensekvationer. Att beskriva statiska och dynamiska förlopp. Fysikaliska grundekvationer för modellbygget: energibalans, flödesbalans, Newtons rörelselagar, strömningslagar och dylikt. Principer för modellbygget. Bindninggrafer. Modellförenkling. Differentialalgebraiska ekvationer. Identifiering av dynamiska system: metoder att konstruera modeller baserat på mätdata från processer. Blackboxmodeller. Parameterskattning i linjära dynamiska modeller. Systemidentifiering som modellbyggesverktyg. Modellvalidering. Simulering: numerisk noggrannhet och stabilitet. Simuleringsspråket: Simulink. Rapportskrivning på engelska av analyserande text knuten till kursinnehållet. Ytterligare fördjupning av språkfärdighet utifrån strimman åk 2.",
+                                "teaching_methods": "Undervisningen förmedlas i form av föreläsningar, lektioner, laborationer samt språkseminarier med aktiv medverkan.I kursen ingår en del av kommunikationsstrimman i engelska för ED, KTS och MT.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPGB",
+                                    "name": "Rapportskrivning på engelska",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPGA",
+                                    "name": "Aktiv medverkan med inlämning på språkseminarier",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "TEN2",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "4 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB2",
+                                    "name": "Laboration",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Bildbehandling och bildanalys",
+                            "course_code": "TNM087",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM087/ht-2024",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Daniel Nyström",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "50 h",
+                                "self_study_hours": "110 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Kursens syfte är att ge en teoretisk och praktisk grund för datoriserad bearbetning och analys av digitala bilder. Efter genomgången kurs ska studenten kunna: beskriva principen för bildinfångning, samt förklara och tolka grundläggande operationer på digitala bilder, såsom gråskaletransformationer och histogramanalys. konstruera och använda filter i spatial- och frekvensdomänen, samt förklara och tolka kopplingen mellan digitala bilder och deras Fourierspektrum. beskriva och implementera metoder för segmentering och bildrestaurering, samt förklara och utföra morfologiska operationer. beskriva olika metoder att representera regioner och konturer i bilder, samt principerna för mönsterigenkänning baserad på beslutsfunktioner.",
+                                "course_content": "Bildinfångning och grundläggande egenskaper för kameror och bildsensorer. Gråskaletransformationer och histogram. Filtrering i spatialdomänen. Fouriertransformen och filtrering i frekvensdomänen. Bildrestaurering och bildåterskapande. Morfologiska operationer. Segmentering. Representation av regioner i digitala bilder. Mönsterigenkänning.",
+                                "teaching_methods": "Kursen består av föreläsningar, lektioner samt laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "4.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Gonzalez, Woods,  (2017)",
+                                    "title": "Digital Image Processing",
+                                    "edition": "Digital Image Processing Fourth edition Pearson ISBN: 9781292223049"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 6 VT 2025",
+                    "courses": [
+                        {
+                            "name": "Medietekniskt kandidatprojekt",
+                            "course_code": "TNM094",
+                            "credits": "18 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM094/vt-2025",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Daniel Jönsson",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "56 h",
+                                "self_study_hours": "424 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "För att få godkänt på kursen måste studenten visa förmåga att skapa och analysera tekniska lösningar för att lösa ett givet problem inom området medieteknik (exempelvis publicering, ljud- och bildteknik, datorgrafik och visualisering). söka och tillgodogöra sig innehållet i relevant facklitteratur för att lösa eller reflektera över lösningen på ett givet problem formulera frågeställningar samt avgränsa dessa inom givna tidsramar i grupp planera, genomföra och redovisa ett arbete professionellt uttrycka sig skriftligt och muntligt kritiskt granska och diskutera ett framlagt arbete relatera sitt arbete till relevanta samhälleliga och etiska aspekter tillämpa etablerade protokoll för utvecklingsprojekt (projektstyrning, kravhantering, systemarkitektur, programdesign, implementation, dokumentation, test, underhåll) utnyttja relevanta verktyg för programvaruutveckling för att utveckla lösningar på ett givet problem.",
+                                "course_content": "Grundprinciper i programvaruutveckling Utvecklingsmetodik Designmönster Modelleringsnotation",
+                                "teaching_methods": "Kursen introducerar teorier och principer för programvaruutveckling och utvecklingsmetodik genom föreläsningar, som examineras genom individuella rapporter. I laborationer får studenterna prova på praktiskt användande av vertyg och öva upp färdigheter. Teorier och färdigheter används sedan i ett omfattande utvecklingsprojekt i grupper om 4-8 studenter. Studentens förståelse och färdigheter examineras genom projektmöten samt en avslutande presentation av projektets resultat. Projektet är kopplat till Svenska-strimman där studenterna får både skrivhjälp och återkoppling på rapporter.",
+                                "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationer",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "PRA1",
+                                    "name": "Projekt",
+                                    "credits": "14 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Uppsats",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG2",
+                                    "name": "Opponering",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Ian Sommerville,  (2016)",
+                                    "title": "Software Engineering",
+                                    "edition": "Software Engineering 10 Pearson ISBN: 978-1-292-09613-1"
+                                },
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Tsui, Frank F., Karam, Orlando, Bernal, Barbara,  (2014)",
+                                    "title": "Essentials of software engineering, third edition. [Elektronisk resurs]",
+                                    "edition": "Essentials of software engineering, third edition. [Elektronisk resurs] 3rd ed. Burlington, Mass. : Jones & Bartlett Learning, c2014 ISBN: 9781449691998, 1449691994, 9781449692001"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Introduktion till artificiell intelligens",
+                            "course_code": "TNM119",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TNM119/vt-2025",
+                            "overview": {
+                                "main_subject": "Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Elmira Zohrevandi",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "52 h",
+                                "self_study_hours": "108 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Målet med kursen är att studenten ska få insikter i artificiell intelligens, inklusive klassiska maskininlärningstekniker, djupinlärning och generativa modeller. Efter avslutad kurs ska studenten kunna resonera om olika maskininlärningstekniker, resonera om skillnader mellan klassiska maskininlärningstekniker, djupinlärning och generativa modeller, identifiera lämplig teknik för att lösa olika AI-relaterade problem, tillämpa vanliga AI-tekniker för att lösa problem relaterade till perception, resonemang och handlingar, resonera om utmaningarna med att hålla människor i loopen med autonoma system, beskriva vanliga etiska och samhälleliga utmaningar med artificiell intelligens.",
+                                "course_content": "Grundläggande begrepp om AI:s historia och dess betydelse, optimeringstekniker för tillämpningar av AI, funktionsextraktion, probabilistiska resonemang, regelbaserade system, förstärkningsinlärning, övervakat och oövervakat lärande, Bayesianska och regressionsmodeller.",
+                                "teaching_methods": "Närvaro är nödvändig för projektpresentation och examination av laborationer. Teorier och praktisk användning av dessa teorier presenteras genom föreläsningar. Betydande laborationsarbete ingår, där teorier omvandlas till praktisk kunskap.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPG1",
+                                    "name": "Inlämningsuppgift",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "PRA1",
+                                    "name": "Projekt",
+                                    "credits": "2 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laboration",
+                                    "credits": "3.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": []
+                        },
+                        {
+                            "name": "Introduktionskurs i interkulturell kompetens",
+                            "course_code": "TINT01",
+                            "credits": "2 hp",
+                            "VOF": "V",
+                            "url": "https://studieinfo.liu.se/kurs/TINT01/vt-2025",
+                            "overview": {
+                                "main_subject": "Inget, huvudområde",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Christoph Röcklinsberg",
+                                "study_director": "Olle Linge",
+                                "scheduled_hours": "14 h",
+                                "self_study_hours": "39 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Efter kursen skall studenterna kunna: Redogöra för grundläggande begrepp och teorier inom interkulturell kommunikation och det antropologiska kulturbegreppet Identifiera och beskriva specifika kulturella och kommunikativa mönster i Sverige Övergripande beskriva och kontrastera dessa kulturella mönster och prioriteringar med andra kultur- och språkområden i världen",
+                                "course_content": "Grundläggande koncept inom interkulturell kommunikation, etnocentrism och stereotyper samt olika faser i det interkulturella mötet Introducera och reflektera över konceptet av ”Cultural Embeddedness” i människors sociala agerande Introducera och reflektera över konceptet av ”Doing Culture” i interaktiva kommunikationssituationer Introducera och reflektera över konceptet av ”Swedishness” och dess särdrag ur ett kontrastivt perspektiv Reflektera över det individuella beteendet vs. de kollektiva och kulturella förväntningarna",
+                                "teaching_methods": "Undervisning sker genom föreläsningar och seminarier. Stor vikt läggs på reflektioner och diskussion i grupp över kulturens inverkan generellt men även specifikt över de kulturella mönstren i Sverige för att kunna relatera till och vara förberedd på möten med andra kulturer. I dessa delar är undervisningsspråket svenska. Föreläsningar ger vid sidan om introduktioner i kultur och interkulturella modeller även grundläggande inblick om olika kulturella värderingar i olika regioner i världen. Kursen ges vid flera tillfällen under året, varav kurstillfället under sommaren är på distans.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för ekonomisk och industriell utveckling"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "MOM1",
+                                    "name": "Aktivt deltagande i seminarier och gruppdiskussioner",
+                                    "credits": "1 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG2",
+                                    "name": "Digital inlämningsuppgift",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Digital inlämningsuppgift",
+                                    "credits": "0.5 hp",
+                                    "grading": "U, 3, 4, 5"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Kompendier",
+                                    "title": "Kompendium (distribueras digitalt via kursrummet i Lisam)"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Datastrukturer",
+                            "course_code": "TND004",
+                            "credits": "6 hp",
+                            "VOF": "O",
+                            "url": "https://studieinfo.liu.se/kurs/TND004/vt-2025",
+                            "overview": {
+                                "main_subject": "Datateknik, Medieteknik",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Aida Nordman",
+                                "study_director": "Camilla Forsell",
+                                "scheduled_hours": "60 h",
+                                "self_study_hours": "100 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Målet med kursen är att ge studenten redskap att självständigt kunna skapa program som löser praktiska problem med stora mängder data, med hänsyn taget till effektivt utnyttjande av tid och minne. För att bli godkänd på kursen ska studenten ha uppnått följande lärandemål.",
+                                "course_content": "Algoritmanalys. Rekursion. Listor, stackar och köer.Träd och trädtraversering. Binära sökträd och balanserade träd.Hashing och hashtabeller. Prioritetsköer och binära heapar.Sortering och sökning.Grafer och graftraversering. Fundamentala grafalgoritmer.",
+                                "teaching_methods": "Föreläsningar, lektioner, och laborationer.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Institutionen för teknik och naturvetenskap"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "TEN1",
+                                    "name": "Skriftlig tentamen",
+                                    "credits": "3 hp",
+                                    "grading": "U, 3, 4, 5"
+                                },
+                                {
+                                    "code": "LAB1",
+                                    "name": "Laborationskurs",
+                                    "credits": "3 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Frivilliga uppgift",
+                                    "credits": "0 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Böcker",
+                                    "authors": "Mark Allen Weiss,  (2013)",
+                                    "title": "Data Structure and Algorithm Analysis in C++",
+                                    "edition": "Data Structure and Algorithm Analysis in C++ 4th Edition"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Praktik",
+                            "course_code": "TPTE06",
+                            "credits": "6 hp",
+                            "VOF": "V",
+                            "url": "https://studieinfo.liu.se/kurs/TPTE06/vt-2025",
+                            "overview": {
+                                "main_subject": "Inget, huvudområde",
+                                "education_level": "Grundnivå",
+                                "course_type": "Programkurs",
+                                "examiner": "Nämndspecifikt",
+                                "study_director": "",
+                                "scheduled_hours": "0 h",
+                                "self_study_hours": "160 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Målet med praktiken är att studenten skall få praktisk erfarenhet av arbete på en arbetsplats som bedöms som relevant för en individ med utbildning inom det tekniska eller naturvetenskapliga området. Efter praktikperiodens slut skall studenten vara förtrogen med arbetsmiljön i en verksamhet som utbildningen syftar till samt erhållit erfarenhet från samverkan på en arbetsplats. Vidare skall praktiken öka studentens förmåga att ta personligt ansvar och även ge erfarenhet av andra kompetenser som värdesätts utöver den tekniska/naturvetenskapliga ämneskunskapen. Efter genomgången kurs ska studenten kunna: redogöra för de krav som yrkeslivet ställer på ämneskunskaper reflektera över de generiska färdigheter som yrkesrollen kräver reflektera över på vilket sätt arbetsplatsens verksamhet påverkar samhället utifrån relevanta hållbarhetsperspektiv skriva en sammanfattande praktikrapport i enlighet med instruktion",
+                                "course_content": "Kursen genomförs som en individuell praktik i en från universitets- och högskolesektorn extern organisation. Studenten ansvarar för att finna en praktikplats inom ett område som har anknytning till teknik/naturvetenskap. Praktikuppgifterna skall vara av relevant och teknisk/natur-vetenskaplig karaktär och på förhand definierade i en praktikplan. För att godkännas på kursen skall studenten vistas minst 3 veckor sammanhängande heltid på arbetsplatsen och därefter skriva en praktikrapport. För att studenten ska kunna redogöra för och reflektera över det som krävs enligt lärandemålen behöver arbetsplatsen erbjuda kontinuerlig kontakt med kollegor, dvs enbart ensamarbete är inte lämpligt.",
+                                "teaching_methods": "När studenten funnit en lämplig praktikplats och en namngiven handledare vid den organisation där praktiken ska genomföras, kontaktas studievägledningen samt programnämndens ordförande (som fungerar som examinator alternativt delegerar uppdraget). Studievägledningen kontrollerar behörigheten och examinator godkänner praktikplanen. Praktikplanen ska vara formulerad enligt fastställd mall och undertecknad av handledaren och studenten. Studenten antas på praktikkursen via studievägledningen, som även kontrollerar behörigheten. Efter genomförd praktikperiod ska studenten dokumentera uppgiften i en skriftlig praktikrapport. Rapporten ska vara utförlig och professionellt skriven och väl spegla kursens mål. Det ska finnas en presentation av arbetsplatsen, en frågeställning i en yrkeslivskontext och en redogörelse för hur uppgifterna i praktikplanen angripits. Diskussionen ska vara omfattande och visa på den studerandes erhållna insikter av de krav som yrkesrollen kräver på såväl ämnesmässiga som generiska färdigheter. Rapporten ska innehålla god källhantering. Efter genomförd praktikperiod ska handledaren på arbetsplatsen styrka studentens närvaro samt aktiva medverkan i tilldelade praktikuppgifter i ett handledarintyg enligt fastställd mall. Ytterligare instruktioner samt mall för praktikplan och handledarintyg finns i bilaga, se fliken \"Övriga dokument\".",
+                                "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                "institution": "Tekniska fakultetens kansli"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "UPG1",
+                                    "name": "Projektuppgift",
+                                    "credits": "6 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": [
+                                {
+                                    "type": "Övrigt",
+                                    "title": "Ingen obligatorisk litteratur. I förekommande fall bestäms litteratur i samråd med handledaren och anges i praktikplanen."
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
