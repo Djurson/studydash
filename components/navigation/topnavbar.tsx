@@ -12,6 +12,18 @@ type NavbarProps = {
 
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
 
+/**
+ * Top navigation bar component
+ * 
+ * @remarks
+ * This component renders a fixed top navigation bar with different layouts
+ * depending on whether it's the default page or a subpage.
+ * 
+ * @param defaultPage - Determines if the navigation bar is for the default page layout
+ * @param backLink - URL for the back button navigation
+ * 
+ * @returns Returns a navigation bar with either a notification bell or a back button and logo
+ */
 export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
   const router = useRouter();
 

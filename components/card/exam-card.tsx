@@ -19,6 +19,31 @@ type CardProps = {
 //     "small": " text-sm"
 // );
 
+/**
+ * A card component that displays course-related information in a styled box.
+ * 
+ * @param courseName - The name of the course to be displayed at the top of the card.
+ * @param courseCode - The course code to be displayed beneath the course name.
+ * @param date - The date associated with the course.
+ * @param type - The type of the course (e.g., lecture, seminar).
+ * @param points - The number of points the course offers.
+ * @param variant - Defines the style of the card. Can be "default", "compact", or "large". Default is "default".
+ * @param children - Optional content to be displayed in the footer of the card.
+ * 
+ * @returns A card component displaying the course information with optional custom content in the footer.
+ * 
+ * @example
+ * <Card 
+ *   courseName="Introduction to Programming" 
+ *   courseCode="CS101" 
+ *   date="2023-09-01" 
+ *   type="Lecture" 
+ *   points="5"
+ * >
+ *   <button>View Details</button>
+ * </Card>
+ */
+
 export default function Card({
   variant = "default",
   children,

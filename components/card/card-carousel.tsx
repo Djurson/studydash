@@ -72,6 +72,16 @@ const slides: Slide[] = [
   },
 ];
 
+/**
+ * A carousel component that displays a list of course slides in a horizontally scrollable view.
+ * 
+ * @remarks
+ * The carousel shows multiple slides, each containing information about a specific course. 
+ * The slides can be navigated horizontally. Each slide contains details such as course name, code, date, type, and points.
+ * 
+ * @returns A horizontally scrollable carousel of course slides.
+ */
+
 export default function CardCarousel() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const carouselRef = useRef<HTMLUListElement | null>(null);

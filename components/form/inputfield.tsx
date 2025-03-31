@@ -1,6 +1,18 @@
 import { ComponentProps } from "react";
 import { Input } from "../ui/input";
 
+/**
+ * Custom input field component with custom styles
+ * 
+ * @remarks
+ * This component extends the `Input` component with additional styles for the input field.
+ * It allows for customization through the `className` and other props passed to the `Input` component.
+ * 
+ * @param props - Additional props passed to the `Input` component, including className and event handlers
+ * 
+ * @returns Returns an input field with custom styles and placeholder text
+ */
+
 export default function InputField({ ...props }: ComponentProps<typeof Input>) {
     return (
         <>
