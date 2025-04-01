@@ -51,7 +51,7 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
     pdfParser.loadPDF(tempFilePath);
 
     pdfParser.on("pdfParser_dataReady", () => {
-      parsedText = (pdfParser as any).getRawTextContent() + " ";
+      parsedText = (pdfParser as any).getRawTextContent();
       resolve(parsedText);
     });
 

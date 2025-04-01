@@ -11,7 +11,7 @@ async function ExtractCourses(text: string): Promise<Array<Object>> {
   const textSplit = text.split(/\r?\n/);
 
   const courseRegex = /^[A-Z]{3}\d{3}/; // Example: "TNA001"
-  const examinationReger = /^[A-Z]{3}\d{1}[A-Z]{1}/; // Example: "TEN1S"
+  const examinationRegex = /^[A-Z]{3}\d{1}/; // Example: "TEN1"
 
   let notNormalFormatting = false;
   let unfinishedCourses = false;
@@ -20,11 +20,18 @@ async function ExtractCourses(text: string): Promise<Array<Object>> {
       unfinishedCourses = true;
       continue;
     }
-    if (!notNormalFormatting && !courseRegex.test(line) && !examinationReger.test(line)) continue;
+    if (!notNormalFormatting && !courseRegex.test(line) && !examinationRegex.test(line)) continue;
 
     if (courseRegex.test(line)) {
       PassedCourseParsing(line, notNormalFormatting);
+      continue;
     }
+
+    if (examinationRegex.test(line)) {
+      PassedExaminationParsing(line, notNormalFormatting);
+    }
+
+    if (!unfinishedCourses) continue;
   }
 
   return courses;
@@ -51,21 +58,20 @@ function ParseHP(line: string): number {
 function PassedCourseParsing(line: string, notNormalFormatting: boolean): Course {
   let currentCourse: Course = CreateEmptyCourse();
 
-  currentCourse.code = line.slice(0, 6).trim();
-  line = line.slice(6);
+  const pattern = /([A-Z]{3}\d{3})(.+?)(\d+,\d+)hp(\d)(\d{4}-\d{2}-\d{2})(\d)/;
 
-  const numberRegex = /\d/;
-
-  if (!numberRegex.test(line)) {
-    currentCourse.name = line;
-    notNormalFormatting = true;
-    return currentCourse;
+  const match = line.match(pattern);
+  if (match) {
+    currentCourse.code = match[1];
+    currentCourse.name = match[2].trim();
+    currentCourse.hp = parseFloat(match[3].replace(",", ".")); // Byter , till . och gör om till number
+    currentCourse.grade = /^\d$/.test(match[4]) ? parseInt(match[4], 10) : match[4];
+    currentCourse.date = match[5];
   }
-
   return currentCourse;
 }
 
-function PassedExaminationParsing(line: string): Examination {
+function PassedExaminationParsing(line: string, notNormalFormatting: boolean): Examination {
   let exam: Examination = CreateEmptyExamination();
 
   return exam;
