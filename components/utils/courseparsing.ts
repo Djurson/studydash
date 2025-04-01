@@ -1,40 +1,29 @@
 import { Course, Examination } from "./types";
 
 export async function ParseCourses(data: string): Promise<Array<Object>> {
-  const splitCourses = SplitText(data);
-
-  return splitCourses;
+  return await ExtractCourses(data);
 }
 
-async function SplitText(text: string): Promise<Array<Object>> {
-  const normalizedText = text.replace(/\r\n|\r/g, "\n");
-
-  // Dela upp texten i rader
-  const lines = normalizedText.split("\n");
-
-  const courseRegex = /^[A-Z]{3}\d{3}/; // Matchar kurskod (3 bokstäver + 3 siffror)
-  const examRegex = /^[A-Z]{3}\d{1}/;
-
+async function ExtractCourses(text: string): Promise<Array<Object>> {
   let currentCourse: Course = CreateEmptyCourse();
   let courses: Course[] = [];
 
-  for (let line of lines) {
-    if (!courseRegex.test(line) || !examRegex.test(line)) {
-      if (currentCourse.code !== "") {
-        courses.push(currentCourse);
-      }
+  const textSplit = text.split(/\r?\n/);
 
+  const courseRegex = /^[A-Z]{3}\d{3}/; // Example: "TNA001"
+  const examinationReger = /^[A-Z]{3}\d{1}[A-Z]{1}/; // Example: "TEN1S"
+
+  let notNormalFormatting = false;
+  let unfinishedCourses = false;
+  for (let line of textSplit) {
+    if (line === "Delar i ej avslutade kurser") {
+      unfinishedCourses = true;
       continue;
     }
-
-    line = line.slice(0, -1).trim();
+    if (!notNormalFormatting && !courseRegex.test(line) && !examinationReger.test(line)) continue;
 
     if (courseRegex.test(line)) {
-      currentCourse = CourseParsing(line);
-    }
-
-    if (examRegex.test(line)) {
-      currentCourse.examinations.push(CourseParsing(line));
+      PassedCourseParsing(line, notNormalFormatting);
     }
   }
 
@@ -59,42 +48,25 @@ function ParseHP(line: string): number {
   return match ? parseFloat(match[1].replace(",", ".")) : 0;
 }
 
-function CourseParsing(line: string): Course {
+function PassedCourseParsing(line: string, notNormalFormatting: boolean): Course {
   let currentCourse: Course = CreateEmptyCourse();
 
-  currentCourse.code = line.slice(0, 6);
-  line = line.slice(6).trim();
+  currentCourse.code = line.slice(0, 6).trim();
+  line = line.slice(6);
 
-  currentCourse.date = line.slice(-10);
-  line = line.slice(0, -10).trim();
+  const numberRegex = /\d/;
 
-  currentCourse.grade = ParseGrade(line);
-  line = line.slice(0, -1).trim();
-
-  currentCourse.hp = ParseHP(line);
-  line = line.replace(/(\d+,\d+)hp/, "").trim();
-
-  currentCourse.name = line;
+  if (!numberRegex.test(line)) {
+    currentCourse.name = line;
+    notNormalFormatting = true;
+    return currentCourse;
+  }
 
   return currentCourse;
 }
 
-function ExaminationParsing(line: string): Examination {
+function PassedExaminationParsing(line: string): Examination {
   let exam: Examination = CreateEmptyExamination();
-
-  exam.code = line.slice(0, 4);
-  line = line.slice(4).trim();
-
-  exam.date = line.slice(-10);
-  line = line.slice(0, -10).trim();
-
-  exam.grade = ParseGrade(line);
-  line = line.slice(0, -1).trim();
-
-  exam.hp = ParseHP(line);
-  line = line.replace(/(\d+,\d+)hp/, "").trim();
-
-  exam.name = line;
 
   return exam;
 }
