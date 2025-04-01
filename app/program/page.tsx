@@ -5,8 +5,29 @@ import LiuImg from "@/assets/liu.png";
 import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 import { PencilLine } from "lucide-react";
+import SemesterAccordion from "@/components/accordions/SemesterAccordion";
+import { GetStaticProps } from "next";
+
+import programData from "@/webscraping/6CEMEN-2022.json";
+
+interface Program {
+  name: string;
+  credits: string;
+  url: string;
+  semesters: Semester[];
+}
+
+interface Semester {
+  name: string;
+}
+
+interface ProgramData {
+  programs: Program[];
+}
 
 export default function Page() {
+  const program = programData.programs[0];
+
   return (
     <>
       <header>
@@ -43,6 +64,11 @@ export default function Page() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
+          <div>
+            {program.semesters.map((semester) => (
+              <SemesterAccordion key={semester.name} semester={semester} />
+            ))}
+          </div>
         </section>
       </main>
 
