@@ -16,6 +16,14 @@ interface Course {
   course_code: string;
   credits: string;
   VOF: string;
+  examinations: Examination[];
+}
+
+interface Examination {
+  code: string;
+  name: string;
+  credits: string;
+  grading: string;
 }
 
 export default function SemesterAccordion({
@@ -35,11 +43,11 @@ export default function SemesterAccordion({
           <h3 className="text-xl font-medium">{semester.name.slice(0, -7)}</h3>
         </div>
 
-        <p className="col-start-6 col-span-2 text-xs text-gray-600 text-left">
+        <p className="col-start-6 col-span-2 text-xs text-gray-600 text-left ">
           {semester.name.slice(-7)}
         </p>
 
-        <p className="col-start-8 col-span-1 text-xs text-gray-600 text-left">
+        <p className="col-start-8 col-span-1 text-xs text-gray-600 text-left ">
           0/30 hp
         </p>
 
