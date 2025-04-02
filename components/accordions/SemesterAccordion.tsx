@@ -7,6 +7,14 @@ import CourseAccordion from "@/components/accordions/CourseAccordion";
 
 interface Semester {
   name: string;
+  courses: Course[];
+}
+
+interface Course {
+  name: string;
+  course_code: string;
+  credits: string;
+  VOF: string;
 }
 
 export default function SemesterAccordion({
@@ -37,7 +45,15 @@ export default function SemesterAccordion({
           }`}
         />
       </button>
-      <section></section>
+      <section>
+        {isOpen && (
+          <div className="p-4 bg-white">
+            {semester.courses.map((course) => (
+              <CourseAccordion key={course.course_code} course={course} />
+            ))}
+          </div>
+        )}
+      </section>
     </main>
   );
 }
