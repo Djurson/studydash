@@ -19,7 +19,10 @@ interface Program {
 
 interface Semester {
   name: string;
+  courses: Course[];
 }
+
+interface Course {}
 
 interface ProgramData {
   programs: Program[];
@@ -64,7 +67,7 @@ export default function Page() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
-          <div>
+          <div className="flex flex-col gap-4 mt-4">
             {program.semesters.map((semester) => (
               <SemesterAccordion key={semester.name} semester={semester} />
             ))}
