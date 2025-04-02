@@ -17,7 +17,8 @@ export default function CourseAccordion({ course }: { course: Course }) {
       <button
         className="grid grid-cols-10 grid-rows-1 w-full text-left items-center py-2"
         onClick={() => setIsOpen(!isOpen)}>
-        <div className="col-start-1 col-span-5 pl-4 flex gap-4 items-center">
+        <div className="col-start-1 col-span-5 flex gap-4 items-center">
+          <ChevronDown className="rotate-45 stroke-1" size={16} />
           <div className="border-1 border-gray-900 rounded-sm h-[1rem] aspect-square"></div>
           <h4 className="font-medium text-sm">
             {course.name} - {course.course_code}
@@ -52,7 +53,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
           </div>
         </div>
       )}
-      <div className="pl-4">
+      <div className="pl-8">
         <Separator />
       </div>
     </div>
