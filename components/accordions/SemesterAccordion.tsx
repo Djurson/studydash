@@ -4,6 +4,7 @@ import { useState } from "react";
 import Header from "../supabase-template/hero";
 import { ChevronDown } from "lucide-react";
 import CourseAccordion from "@/components/accordions/CourseAccordion";
+import { Separator } from "../ui/separator";
 
 interface Semester {
   name: string;
@@ -47,7 +48,7 @@ export default function SemesterAccordion({
       </button>
       <section>
         {isOpen && (
-          <div className="p-4 bg-white">
+          <div className=" bg-white mt-4">
             {semester.courses.map((course) => (
               <CourseAccordion key={course.course_code} course={course} />
             ))}
