@@ -24,6 +24,8 @@ interface Semester {
 
 interface Course {}
 
+interface Examination {}
+
 interface ProgramData {
   programs: Program[];
 }
