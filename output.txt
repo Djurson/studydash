@@ -1,0 +1,149 @@
+ResultatintygUtskriftsdatum
+2025-03-27
+NamnPersonnummer
+Emil Djurson20030901-3977
+Avslutade kurser
+KodBenämningOmfattningBetygDatumNot
+TNA001Matematisk grundkurs6,0hp42022-10-261
+KTR1Frivilliga kontrollskrivningar( 0,0hp )D2022-10-064
+UPG1Inlämningsuppgifter och muntliga redovisningar( 1,5hp )G2022-10-183
+TEN1Skriftlig tentamen( 4,5hp )42022-10-261
+TND012Programmering grk6,0hp52022-10-281
+LAB1Laborationskurs( 3,0hp )G2022-10-253
+DAT1Tentamen vid dator( 3,0hp )52022-10-281
+TNA002Linjär algebra6,0hp32023-01-101
+KTR1Kontrollskrivning, bonuspoäng( 0,0hp )D2022-11-184
+UPG2Frivilligt nätbaserat kursmoment, bonuspoäng( 0,0hp )G2022-12-203
+TEN1Skriftlig tentamen( 6,0hp )32023-01-101
+TNM088Digitala medier6,0hpG2023-01-133
+UPG1Inlämningsuppgift, språkstrimma( 2,0hp )G2022-10-073
+KTR1Dugga( 1,0hp )G2022-10-253
+PRA2Projektuppgift( 2,0hp )G2022-12-193
+UPG2Projektredovisning, språkstrimma( 1,0hp )G2023-01-133
+TND002Objektorienterad programmering6,0hp52023-04-121
+DAT1Tentamen med datorstöd( 3,0hp )52023-03-221
+LAB1Laborationskurs( 3,0hp )G2023-04-123
+TNMK30Elektronisk publicering6,0hp52023-06-061
+LAB2Laborationskurs inklusive inlämningsuppgifter( 3,0hp )G2022-12-223
+UPG1Utvärderingsuppgift( 3,0hp )52023-06-061
+TNA005Tillämpad matematik i teknik och 
+naturvetenskap
+6,0hpG2023-09-012
+UPG9Individuell datordugga som introduktion till Matlab( 1,0hp )G2023-02-103
+UPG5Miniprojekt i grupp, skriftlig o muntlig redovisning( 1,0hp )G2023-03-193
+UPGAAktiv medverkan med inlämning på 
+språkseminarier
+( 0,5hp )G2023-05-072
+UPGBMuntlig presentation och återkoppling på engelska( 0,5hp )G2023-05-072
+Kontrollera intyget på: https://www.student.ladok.se/verifiera/Personnummer: 20030901-3977
+Verifierbart tom: 2025-06-25Kontrollkod: LEN3LBEDH8
+Sida 1 / 4
+----------------Page (0) Break----------------
+Emil DjursonResultatintygUtskriftsdatum
+20030901-39772025-03-27
+KodBenämningOmfattningBetygDatumNot
+UPG6Individuellt miniprojekt, skriftlig och muntlig 
+redovisning
+( 2,0hp )G2023-05-263
+UPG7Miniprojekt i grupp; skriftlig och muntlig redovisning 
+och opponering
+( 1,0hp )G2023-09-013
+TNA006Analys III6,0hp32023-10-281
+KTR1Frivillig dugga( 0,0hp )G2023-09-253
+TEN1Skriftlig tentamen( 6,0hp )32023-10-281
+TNM040Kommunikation och användargränssnitt6,0hp52023-12-201
+UPG3Individuell inlämningsuppgift( 2,0hp )42023-10-301
+UPG4Grupprogrammeringsuppgifter( 1,0hp )G2023-12-183
+PRA1Projektuppgift( 3,0hp )52023-12-201
+TNE043Mekanik och vågfysik6,0hp42024-01-031
+KTR1Frivillig dugga( 0,0hp )G2023-09-203
+LAB2En obligatorisk laborationskurs( 1,0hp )G2023-10-163
+UPG3Rapportskrivn. på svenska, muntlig presentation o 
+opposition
+( 1,0hp )G2023-11-243
+TEN2En skriftlig tentamen( 4,0hp )42024-01-031
+TNA007Vektoranalys6,0hp32024-01-081
+KTR2Frivillig kontrollskrivning( 0,0hp )D2023-11-204
+KTR3Frivillig kontrollskrivning( 0,0hp )D2023-12-134
+TEN1Skriftlig tentamen( 6,0hp )32024-01-081
+TNG033Programmering i C++6,0hp42024-01-101
+LAB1Obligatorisk laborationskurs( 3,0hp )G2023-12-203
+DAT1Datortentamen( 3,0hp )42024-01-101
+TNA003Analys I6,0hp42024-03-181
+KTR1Frivilliga kontrollskrivningar( 0,0hp )D2023-03-134
+KTR2Frivillig kontrollskrivning( 0,0hp )G2024-02-132
+KTR3Frivillig kontrollskrivning( 0,0hp )G2024-02-272
+UPG1Frivillig nätbaserat kursmoment( 0,0hp )G2024-03-112
+TEN1En skriftlig tentamen( 6,0hp )42024-03-181
+TNG032Tillämpad transformteori6,0hp42024-03-221
+KTR1Frivillig dugga( 0,0hp )G2024-02-153
+UPGAAktiv medverkan med inlämning på 
+språkseminarier
+( 0,5hp )G2024-02-292
+UPGBRapportskrivning på engelska( 0,5hp )G2024-02-292
+LAB3En laborationskurs( 1,0hp )G2024-03-063
+TEN3En skriftlig tentamen( 4,0hp )42024-03-221
+TNM059Grafisk teknik6,0hp42024-03-231
+LAB1Laborationskurs( 1,5hp )G2024-03-053
+TEN1Skriftlig tentamen( 4,5hp )42024-03-231
+TNA004Analys II6,0hp42024-05-301
+Kontrollera intyget på: https://www.student.ladok.se/verifiera/Personnummer: 20030901-3977
+Verifierbart tom: 2025-06-25Kontrollkod: LEN3LBEDH8
+Sida 2 / 4
+----------------Page (1) Break----------------
+Emil DjursonResultatintygUtskriftsdatum
+20030901-39772025-03-27
+KodBenämningOmfattningBetygDatumNot
+KTR1Frivilliga duggor( 0,0hp )G2024-05-212
+TEN1En skriftlig tentamen( 6,0hp )42024-05-301
+TNG006Matematisk statistik6,0hp42024-05-311
+KTR1Frivillig dugga( 0,0hp )G2024-04-263
+TEN1En skriftlig tentamen( 6,0hp )42024-05-311
+TNG028Reglerteknik6,0hp52024-10-251
+LAB1Laboration( 1,5hp )G2024-10-213
+TEN1Skriftlig tentamen( 4,5hp )52024-10-251
+TFYA65Ljudfysik6,0hp42024-10-291
+PRA1Projektarbete( 1,5hp )G2024-10-243
+LAB1Laborationer( 1,5hp )G2024-10-243
+TEN1Skriftlig tentamen( 3,0hp )42024-10-291
+TNG022Modellbygge och simulering6,0hp42025-01-171
+UPGAAktiv medverkan med inlämning på 
+språkseminarier
+( 0,5hp )G2024-12-172
+UPGBRapportskrivning på engelska( 0,5hp )G2024-12-192
+LAB2Laboration( 1,0hp )G2024-12-193
+TEN2Skriftlig tentamen( 4,0hp )42025-01-171
+Delar i ej avslutade kurser
+KodBenämningOmfattningBetygDatumNot
+TNM0613D Datorgrafik(6,0hp)
+LAB1En obligatorisk laborationskurs1,5hpG2024-03-073
+UPG1Projektuppgift i grupp3,0hp52024-07-081
+TNM087Bildbehandling och bildanalys(6,0hp)
+LAB1Laborationskurs1,5hpG2024-12-213
+TNG015Signaler och system(6,0hp)
+LAB2En obligatorisk laborationskurs2,0hpG2024-06-183
+Summering
+Totaltvarav tillgodoräknatÖvrig tillgodoräknad utbildning
+128,0 hp
+Kontrollera intyget på: https://www.student.ladok.se/verifiera/Personnummer: 20030901-3977
+Verifierbart tom: 2025-06-25Kontrollkod: LEN3LBEDH8
+Sida 3 / 4
+----------------Page (2) Break----------------
+Emil DjursonResultatintygUtskriftsdatum
+20030901-39772025-03-27
+Noter och information
+60 högskolepoäng (hp) motsvarar ett års heltidsstudier. Poängsystemet är likvärdigt med European Credit 
+Transfer System (ECTS), då en högskolepoäng svarar mot en ECTS-poäng.
+1Betygsskala: Fem (5), Fyra (4), Tre (3), Underkänd (U), Underkänd (1)
+2Betygsskala: Godkänd (G), Underkänd (U)
+3Betygsskala: Godkänd (G), Underkänd (U), Underkänd (1)
+4Betygsskala: Deltagit (D), Underkänd (U)
+Ovanstående är ett utdrag ur registret för studiedokumentation.
+Kontrollera intyget på: https://www.student.ladok.se/verifiera/Personnummer: 20030901-3977
+Verifierbart tom: 2025-06-25Kontrollkod: LEN3LBEDH8
+PostadressKontaktinformationSida 4 / 4
+Linköpings universitet
+581 83 Linköping
+https://www.liu.se
+----------------Page (3) Break----------------
+ 
