@@ -50,7 +50,7 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
                   <FormButton formAction={SignInAction} type="submit">
                     Logga in
                   </FormButton>
-                  <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100" formAction={SignInActionGoogle}>
+                  <FormButton className="!bg-white-100 !text-gray-600 border-2 border-gray-100" onClick={SignInActionGoogle}>
                     <GoogleIcon />
                     Logga in med Google
                   </FormButton>
