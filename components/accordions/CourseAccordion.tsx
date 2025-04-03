@@ -79,7 +79,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
                     xxxx-xx-xx
                   </p>
                   <p className="col-start-8 col-span-1 text-xs text-gray-600">
-                    0/{exam.credits}
+                    {parseFloat(exam.credits) > 0 && `0/${exam.credits}`}
                   </p>
                 </div>
                 <div className="pl-8 last:invisible">

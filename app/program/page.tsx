@@ -88,6 +88,11 @@ export default function Page() {
             <div>
               <p className="">Master</p>
               <div className="mt-2 flex flex-col gap-4">
+                {/*
+                //  måste ändra här sen för år och termin 
+                    inte generellt för alla terminer just nu då den läser det från Exjobb-engineers.json
+                    så göra en varient för denna sista termin där man kanske räknar ut året och terminen på nått sett
+                */}
                 {exjobb.semesters.map((semester) => (
                   <SemesterAccordion key={semester.name} semester={semester} />
                 ))}
@@ -98,13 +103,13 @@ export default function Page() {
       </main>
 
       <section>
-        <h2 className="text-2xl font-semibold">Meritvärde</h2>
+        <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
         <div className="mt-4 w-full h-50">
           <Card cardTitle=""></Card>
         </div>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold">Högskolepoäng</h2>
+        <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
         <div className="mt-4 w-full h-50">
           <Card cardTitle=""></Card>
         </div>
