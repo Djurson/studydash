@@ -9,6 +9,7 @@ import SemesterAccordion from "@/components/accordions/SemesterAccordion";
 import { GetStaticProps } from "next";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
+import exjobbData from "@/webscraping/Exjobb-engineers.json";
 
 interface Program {
   name: string;
@@ -30,8 +31,13 @@ interface ProgramData {
   programs: Program[];
 }
 
+interface exjobbData {
+  programs: Program[];
+}
+
 export default function Page() {
   const program = programData.programs[0];
+  const exjobb = exjobbData.programs[0];
 
   return (
     <>
@@ -70,9 +76,23 @@ export default function Page() {
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
           <div className="flex flex-col gap-4 mt-4">
-            {program.semesters.map((semester) => (
-              <SemesterAccordion key={semester.name} semester={semester} />
-            ))}
+            <div>
+              <p>Kandidat</p>
+              <div className="mt-2 flex flex-col gap-4">
+                {program.semesters.map((semester) => (
+                  <SemesterAccordion key={semester.name} semester={semester} />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="">Master</p>
+              <div className="mt-2 flex flex-col gap-4">
+                {exjobb.semesters.map((semester) => (
+                  <SemesterAccordion key={semester.name} semester={semester} />
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>
