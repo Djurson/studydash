@@ -1,0 +1,56 @@
+{
+    "programs": [
+        {
+            "name": " ",
+            "credits": " ",
+            "semesters":[ 
+                {
+                    "name": "Termin 10 VT 2027",
+                    "courses": [
+                        {
+                            "name": "Examensarbete",
+                            "course_code": "TQXX33",
+                            "credits": "30 hp",
+                            "VOF": "O",
+                            "url": "https://https://studieinfo.liu.se/kurs/TQXX33",
+                            "overview": {
+                                "main_subject": "se beslutade huvudområden",
+                                "education_level": "Avancerad nivå",
+                                "course_type": "Programkurs",
+                                "scheduled_hours": "0 h",
+                                "self_study_hours": "800 h"
+                            },
+                            "course_plan": {
+                                "learning_objectives": "Den studerande förväntas visa förmåga att: systematiskt  integrera sina kunskaper förvärvade under studietiden, visa väsentligt fördjupade metodkunskaper och ämnesmässiga kunskaper inom huvudområdet,kunna tillgodogöra sig innehållet i relevant facklitteratur och relatera sitt arbete till den",
+                                "course_content": "Bestäms individuellt för varje student i samråd med examinator och handledare. Arbetet skall utföras inom huvudområdet för examen.",
+                                "teaching_methods": "Kursen utgörs av ett av självständigt arbete. För varje studerande/grupp av studenter utses en handledare och examinator. Examensarbetet utgör det avslutande momentet på utbildningen.",
+                                "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                "institution": "Tekniska fakultetens kansli"
+                            },
+                            "examinations": [
+                                {
+                                    "code": "AUSK",
+                                    "name": "Tre auskultationer",
+                                    "credits": "0.5 hp",
+                                    "grading": "D"
+                                },
+                                {
+                                    "code": "OPPO",
+                                    "name": "Opposition",
+                                    "credits": "1.5 hp",
+                                    "grading": "U, G"
+                                },
+                                {
+                                    "code": "UPG1",
+                                    "name": "Planeringsrapport, halvtidskontroll, skriftlig rapport, framläggning samt reflektionsdokument",
+                                    "credits": "28 hp",
+                                    "grading": "U, G"
+                                }
+                            ],
+                            "literature": []
+                        }]
+                    }] 
+    }]
+    
+}
+
