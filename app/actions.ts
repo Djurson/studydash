@@ -4,6 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Provider } from "@supabase/supabase-js";
 
 /**
  * Sign up with email & password server action
@@ -37,11 +38,7 @@ export const SignUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
   } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link."
-    );
+    return encodedRedirect("success", "/sign-up", "Thanks for signing up! Please check your email for a verification link.");
   }
 };
 
@@ -80,16 +77,25 @@ export const SignInAction = async (formData: FormData) => {
  * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
  *
  */
-export const SignInActionGoogle = async () => {
+const SignInWithProvider = (provider: Provider) => async () => {
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
+  const auth_fallback_url = `${process.env.SITE_URL}/auth/fallback`;
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: auth_fallback_url,
+    },
+  });
 
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
   }
 
-  return redirect("/protected");
+  redirect(data.url);
 };
+
+export const SignInActionGoogle = SignInWithProvider("google");
 
 /**
  * Forgot password server action
@@ -124,11 +130,7 @@ export const ForgotPasswordAction = async (formData: FormData) => {
     return redirect(callbackUrl);
   }
 
-  return encodedRedirect(
-    "success",
-    "/forgot-password",
-    "Check your email for a link to reset your password."
-  );
+  return encodedRedirect("success", "/forgot-password", "Check your email for a link to reset your password.");
 };
 
 /**
@@ -148,11 +150,7 @@ export const ResetPasswordAction = async (formData: FormData) => {
   const confirmPassword = formData.get("confirmPassword") as string;
 
   if (!password || !confirmPassword) {
-    encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password and confirm password are required"
-    );
+    encodedRedirect("error", "/protected/reset-password", "Password and confirm password are required");
   }
 
   if (password !== confirmPassword) {
