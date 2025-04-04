@@ -5,8 +5,40 @@ import LiuImg from "@/assets/liu.png";
 import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 import { PencilLine } from "lucide-react";
+import SemesterAccordion from "@/components/accordions/SemesterAccordion";
+import { GetStaticProps } from "next";
+
+import programData from "@/webscraping/6CEMEN-2022.json";
+import exjobbData from "@/webscraping/Exjobb-engineers.json";
+
+interface Program {
+  name: string;
+  credits: string;
+  url: string;
+  semesters: Semester[];
+}
+
+interface Semester {
+  name: string;
+  courses: Course[];
+}
+
+interface Course {}
+
+interface Examination {}
+
+interface ProgramData {
+  programs: Program[];
+}
+
+interface exjobbData {
+  programs: Program[];
+}
 
 export default function Page() {
+  const program = programData.programs[0];
+  const exjobb = exjobbData.programs[0];
+
   return (
     <>
       <header>
@@ -43,14 +75,44 @@ export default function Page() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
+          <div className="flex flex-col gap-4 mt-4">
+            <div>
+              <p>Kandidat</p>
+              <div className="mt-2 flex flex-col gap-4">
+                {program.semesters.map((semester) => (
+                  <SemesterAccordion key={semester.name} semester={semester} />
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="">Master</p>
+              <div className="mt-2 flex flex-col gap-4">
+                {/*
+                //  måste ändra här sen för år och termin 
+                    inte generellt för alla terminer just nu då den läser det från Exjobb-engineers.json
+                    så göra en varient för denna sista termin där man kanske räknar ut året och terminen på nått sett
+                */}
+                {exjobb.semesters.map((semester) => (
+                  <SemesterAccordion key={semester.name} semester={semester} />
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
       <section>
-        <h2 className="text-2xl font-semibold">Meritvärde</h2>
+        <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
+        <div className="mt-4 w-full h-50">
+          <Card cardTitle=""></Card>
+        </div>
       </section>
       <section>
-        <h2 className="text-2xl font-semibold">Högskolepoäng</h2>
+        <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
+        <div className="mt-4 w-full h-50">
+          <Card cardTitle=""></Card>
+        </div>
       </section>
     </>
   );
