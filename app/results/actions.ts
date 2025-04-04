@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import PDFParser from "pdf2json";
 import path from "path";
 import os from "os";
-import { tryCatch } from "@/components/utils/trycatch";
-import { ParseCourses } from "@/components/utils/courseparsing";
+import { tryCatch } from "@/utils/trycatch";
+import { ParseCourses } from "@/utils/courseparsing";
 
 export async function HandleFileUpload(file: File) {
   let fileName = uuidv4();
