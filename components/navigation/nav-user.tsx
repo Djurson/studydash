@@ -7,28 +7,22 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { SignOutAction } from "@/app/actions";
+import { useAuth } from "../supabase/authcontext";
 
 /**
  * Navigation user dropdown component
- * 
+ *
  * @remarks
  * This component provides a user profile dropdown inside the sidebar menu.
  * It displays the user's avatar, name, and email, along with navigation options.
- * 
+ *
  * @param user - Object containing user information (name, email, and avatar URL)
- * 
+ *
  * @returns Returns a dropdown menu for user account options, including account settings and logout
  */
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const { user } = useAuth();
 
   return (
     <SidebarMenu>
