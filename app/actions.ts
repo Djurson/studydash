@@ -79,12 +79,12 @@ export const SignInAction = async (formData: FormData) => {
  */
 const SignInWithProvider = (provider: Provider) => async () => {
   const supabase = await createClient();
-  const auth_fallback_url = `${process.env.SITE_URL}/auth/fallback`;
+  const auth_callback_url = `${process.env.SITE_URL}/auth/callback`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: auth_fallback_url,
+      redirectTo: auth_callback_url,
     },
   });
 

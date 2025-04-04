@@ -1,4 +1,4 @@
-import { Course, Examination } from "./types";
+import { Course, Examination } from "@/utils/types";
 
 export async function ParseCourses(data: string): Promise<Course[]> {
   return await ExtractCoursesAndExaminations(data);
