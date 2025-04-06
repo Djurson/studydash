@@ -10,15 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ChangeHistory } from "@/components/edit/changehistory";
 
 export default function Page() {
   return (
     <>
       <header>
-        <h1 className="text-3xl font-semibold">Redigera kurser och moment.</h1>
+        <h1 className="text-3xl font-semibold mt-2">
+          Redigera kurser och moment.
+        </h1>
       </header>
-      <main className="w-full mt-4">
-        <section className="flex w-full gap-12 mt-4">
+      <main className="w-full h-[28.25rem] grid grid-cols-5 gap-4 mt-6">
+        <section className="col-start-1 col-span-3">
           <div className="flex flex-col flex-1 gap-4">
             <Select disabled>
               <SelectTrigger className="w-full">
@@ -60,11 +63,18 @@ export default function Page() {
               </Select>
             </div>
 
-            <h2 className="text-2xl font-semibold">Meritvärde</h2>
+            <div className="h-[100rem]"></div>
           </div>
+        </section>
+        <section className="col-start-4 col-span-2 ">
+          <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
+            <div>
+              <UploadPDFInput />
+            </div>
 
-          <div className="sticky flex-1 w-full">
-            <UploadPDFInput />
+            <div>
+              <ChangeHistory />
+            </div>
           </div>
         </section>
       </main>

@@ -22,24 +22,37 @@ import { HandleFileUpload } from "@/app/results/actions";
  * @returns A file upload input with a custom label, drag-and-drop area, and a hidden file input field.
  */
 
-export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
+export function UploadPDFInput({
+  ...props
+}: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   return (
     <>
       <Label
         htmlFor="PDF-Upload"
-        className="flex flex-col items-center justify-center px-12 py-12 text-sm transition duration-300 ease-in-out border-2 border-gray-900 border-dashed cursor-pointer bg-white-0 rounded-2xl hover:bg-blue-100 group">
-        <span className="transition duration-300 ease-in-out bg-blue-100 aspect-square p-7 rounded-2xl group-hover:bg-white-400">
-          <FileUp className="text-blue-900 aspect-square h-9 w-9" />
+        className="flex flex-col items-center justify-center p-4 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] text-sm transition duration-300 ease-in-out border-1 border-gray-900 border-dashed cursor-pointer bg-white-0 rounded-2xl hover:bg-blue-100 group">
+        <span className="transition duration-300 ease-in-out bg-blue-100 aspect-square p-4 rounded-2xl group-hover:bg-white-400 ">
+          <FileUp className="text-blue-900 aspect-square h-8.5 w-8.5" />
         </span>
-        <span>
-          <span className="text-blue-900">Klicka</span> eller dra och släpp för att ladda upp resultatintyg
-        </span>
-        <span className="text-gray-600">Format som stöds: PDF</span>
+        <p className="mt-2 text-sm">
+          <span className="text-blue-900">Klicka</span> eller dra och släpp för
+          att ladda upp resultatintyg
+        </p>
+        <p className="text-gray-600 font-light text-xs">
+          Format som stöds: PDF
+        </p>
       </Label>
       <Link href={"/"}>
         <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" />
       </Link>
-      <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" {...props} onChange={HandleFileInput} />
+      <Input
+        type="file"
+        accept=".pdf"
+        name="PDF-Upload"
+        id="PDF-Upload"
+        className="hidden appearance-none"
+        {...props}
+        onChange={HandleFileInput}
+      />
       {/* <FormButton>Ladda upp</FormButton> */}
     </>
   );
