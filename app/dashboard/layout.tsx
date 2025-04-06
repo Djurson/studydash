@@ -1,5 +1,4 @@
 import { PageTemplate } from "@/components/PageTemplate";
-import { AuthProvider } from "@/components/supabase/authcontext";
 
 /*
 
@@ -9,8 +8,6 @@ gör den med context så att alla child elements kan komma åt datan
 */
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <PageTemplate defaultPage={true}>{children}</PageTemplate>
-    </AuthProvider>
+    <PageTemplate defaultPage={true}>{children}</PageTemplate>
   );
 }
