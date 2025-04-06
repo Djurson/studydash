@@ -12,7 +12,25 @@ import {
 } from "@/components/ui/select";
 import { ChangeHistory } from "@/components/edit/changehistory";
 
+// Funktionerna för att generera och hämta terminer som inte mappas från json
+import {
+  generateAllSemesters,
+  getSemestersInRange,
+} from "@/utils/semesterDates";
+import EditMasterSemester from "@/components/edit/EditMasterSemester";
+
 export default function Page() {
+  // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
+  const startingSemester = "HT 2022";
+  const showFrom = 7;
+  const showTo = 9;
+  const allSemesters = generateAllSemesters(startingSemester);
+  const masterSemesters = getSemestersInRange(
+    startingSemester,
+    showFrom,
+    showTo
+  );
+
   return (
     <>
       <header>
@@ -63,7 +81,15 @@ export default function Page() {
               </Select>
             </div>
 
-            <div className="h-[100rem]"></div>
+            <div className="flex flex-col gap-4">
+              {masterSemesters.map((semester, index) => (
+                <EditMasterSemester
+                  key={semester.fullString}
+                  semester={semester}
+                  index={index + showFrom - 1}
+                />
+              ))}
+            </div>
           </div>
         </section>
         <section className="col-start-4 col-span-2 ">
