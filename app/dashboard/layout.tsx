@@ -1,16 +1,16 @@
 import { PageTemplate } from "@/components/PageTemplate";
-import { AuthProvider } from "@/components/supabase/authcontext";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-/*
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
-Implementera en auth context likt den förut för firebase som hämtar datan när det finns en användare,
-gör den med context så att alla child elements kan komma åt datan
+  if (!user) {
+    redirect('/sign-up')
+  }
 
-*/
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
-      <PageTemplate defaultPage={true}>{children}</PageTemplate>
-    </AuthProvider>
+    <PageTemplate defaultPage={true}>{children}</PageTemplate>
   );
 }
