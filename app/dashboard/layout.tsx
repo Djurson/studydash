@@ -1,12 +1,8 @@
 import { PageTemplate } from "@/components/PageTemplate";
+import { AuthProvider } from "@/components/supabase/authprovider";
+import { ReactNode } from "react";
 
-/*
-
-Implementera en auth context likt den förut för firebase som hämtar datan när det finns en användare,
-gör den med context så att alla child elements kan komma åt datan
-
-*/
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <PageTemplate defaultPage={true}>{children}</PageTemplate>
   );
