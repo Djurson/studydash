@@ -1,4 +1,4 @@
-import { ChevronDown, CornerDownRight } from "lucide-react";
+import { ChevronDown, CornerDownRight, CircleAlert } from "lucide-react";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -7,6 +7,12 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+
+import {
+  validateDate,
+  validateGrade,
+  getTodayFormatted,
+} from "@/utils/validateDateGrade";
 
 interface Course {
   name: string;
@@ -25,6 +31,24 @@ interface Examination {
 
 export default function EditCourses({ course }: { course: Course }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const [examInputs, setExamInputs] = useState<
+    Record<
+      string,
+      {
+        date: string;
+        grade: string;
+        dateError?: string;
+        gradeError?: string;
+      }
+    >
+  >({});
+
+  // Hårdkodat startdatum (YYYYMMDD format)
+  const programStartDate = "20220801";
+  const todayFormatted = getTodayFormatted();
+
+  console.log("todayFormatted", todayFormatted);
 
   return (
     <div className="overflow-hidden ">
@@ -66,41 +90,117 @@ export default function EditCourses({ course }: { course: Course }) {
                             {exam.name} - {exam.code}
                           </p>
                         </div>
-                        <div className="pl-16 flex items-center justify-between">
-                          <div className="flex items-center focus:outline-none">
-                            <p className="text-xs text-gray-600 mr-2">Datum:</p>
-                            <InputOTP maxLength={8}>
-                              <InputOTPGroup>
-                                <InputOTPSlot index={0} placeholder="y" />
-                                <InputOTPSlot index={1} placeholder="y" />
-                                <InputOTPSlot index={2} placeholder="y" />
-                                <InputOTPSlot index={3} placeholder="y" />
-                              </InputOTPGroup>
-                              <InputOTPSeparator />
-                              <InputOTPGroup>
-                                <InputOTPSlot index={4} placeholder="m" />
-                                <InputOTPSlot index={5} placeholder="m" />
-                              </InputOTPGroup>
-                              <InputOTPSeparator />
-                              <InputOTPGroup>
-                                <InputOTPSlot index={6} placeholder="d" />
-                                <InputOTPSlot index={7} placeholder="d" />
-                              </InputOTPGroup>
-                            </InputOTP>
-                          </div>
+                        <div>
+                          <div className="pl-16 flex items-center justify-between">
+                            <div>
+                              <div className="flex items-center focus:outline-none">
+                                <p className="text-xs text-gray-600 mr-2">
+                                  Datum:
+                                </p>
+                                <InputOTP
+                                  maxLength={8}
+                                  value={examInputs[exam.code]?.date || ""}
+                                  onChange={(value) => {
+                                    const dateError = validateDate(
+                                      value,
+                                      programStartDate,
+                                      todayFormatted
+                                    );
+                                    setExamInputs((prev) => ({
+                                      ...prev,
+                                      [exam.code]: {
+                                        ...prev[exam.code],
+                                        date: value,
+                                        dateError: dateError,
+                                      },
+                                    }));
+                                  }}>
+                                  <InputOTPGroup
+                                    className={
+                                      examInputs[exam.code]?.dateError
+                                        ? "border-red-500"
+                                        : ""
+                                    }>
+                                    <InputOTPSlot index={0} placeholder="y" />
+                                    <InputOTPSlot index={1} placeholder="y" />
+                                    <InputOTPSlot index={2} placeholder="y" />
+                                    <InputOTPSlot index={3} placeholder="y" />
+                                  </InputOTPGroup>
+                                  <InputOTPSeparator />
+                                  <InputOTPGroup
+                                    className={
+                                      examInputs[exam.code]?.dateError
+                                        ? "border-red-500"
+                                        : ""
+                                    }>
+                                    <InputOTPSlot index={4} placeholder="m" />
+                                    <InputOTPSlot index={5} placeholder="m" />
+                                  </InputOTPGroup>
+                                  <InputOTPSeparator />
+                                  <InputOTPGroup
+                                    className={
+                                      examInputs[exam.code]?.dateError
+                                        ? "border-red-500"
+                                        : ""
+                                    }>
+                                    <InputOTPSlot index={6} placeholder="d" />
+                                    <InputOTPSlot index={7} placeholder="d" />
+                                  </InputOTPGroup>
+                                </InputOTP>
+                              </div>
+                              {examInputs[exam.code]?.dateError && (
+                                <div className="flex items-center gap-1 text-xs text-red-500 mt-1 col-start-1 col-span-5">
+                                  <CircleAlert size={14} />
+                                  <p>{examInputs[exam.code]?.dateError}</p>
+                                </div>
+                              )}
+                            </div>
 
-                          <div className="flex items-center">
-                            <p className="text-xs text-gray-600 mr-2">Betyg:</p>
-                            <InputOTP maxLength={1}>
-                              <InputOTPGroup>
-                                <InputOTPSlot index={0} />
-                              </InputOTPGroup>
-                            </InputOTP>
-                          </div>
+                            <div>
+                              <div className="flex items-center">
+                                <p className="text-xs text-gray-600 mr-2">
+                                  Betyg:
+                                </p>
+                                <InputOTP
+                                  maxLength={1}
+                                  value={examInputs[exam.code]?.grade || ""}
+                                  onChange={(value) => {
+                                    const gradeError = validateGrade(
+                                      value,
+                                      exam
+                                    );
+                                    setExamInputs((prev) => ({
+                                      ...prev,
+                                      [exam.code]: {
+                                        ...prev[exam.code],
+                                        grade: value,
+                                        gradeError: gradeError,
+                                      },
+                                    }));
+                                  }}>
+                                  <InputOTPGroup
+                                    className={
+                                      examInputs[exam.code]?.gradeError
+                                        ? "border-red-500"
+                                        : ""
+                                    }>
+                                    <InputOTPSlot index={0} />
+                                  </InputOTPGroup>
+                                </InputOTP>
+                              </div>
+                              {examInputs[exam.code]?.gradeError && (
+                                <div className="flex items-center gap-1 text-xs text-red-500 mt-1 col-start-1 col-span-5">
+                                  <CircleAlert size={14} />
+                                  <p>{examInputs[exam.code]?.gradeError}</p>
+                                </div>
+                              )}
+                            </div>
 
-                          <p className="text-xs text-gray-600">
-                            {parseFloat(exam.credits) > 0 && `${exam.credits}`}
-                          </p>
+                            <p className="text-xs text-gray-600">
+                              {parseFloat(exam.credits) > 0 &&
+                                `${exam.credits}`}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
