@@ -18,6 +18,33 @@ import {
   getSemestersInRange,
 } from "@/utils/semesterDates";
 import EditMasterSemester from "@/components/edit/EditMasterSemester";
+import EditSemesters from "@/components/edit/EditSemesters";
+
+import programData from "@/webscraping/6CEMEN-2022.json";
+
+interface Program {
+  name: string;
+  credits: string;
+  url: string;
+  semesters: Semester[];
+}
+
+interface Semester {
+  name: string;
+  courses: Course[];
+}
+
+interface Course {}
+
+interface Examination {}
+
+interface ProgramData {
+  programs: Program[];
+}
+
+interface exjobbData {
+  programs: Program[];
+}
 
 export default function Page() {
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
@@ -30,6 +57,8 @@ export default function Page() {
     showFrom,
     showTo
   );
+
+  const program = programData.programs[0];
 
   return (
     <>
@@ -79,6 +108,11 @@ export default function Page() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex flex-col gap-4">
+              {program.semesters.map((semester) => (
+                <EditSemesters key={semester.name} semester={semester} />
+              ))}
             </div>
 
             <div className="flex flex-col gap-4">
