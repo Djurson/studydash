@@ -55,7 +55,8 @@ function InputOTPSlot({
       data-active={isActive}
       className={cn(
         "data-[active=true]:ring-ring data-[active=true]:aria-invalid:-destructive/20 dark:data-[active=true]:aria-invalid:ring-destructive/40 aria-invalid:border-destructive data-[active=true]:aria-invalid:border-destructive dark:bg-input/30 border-input relative flex h-7 w-6 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[2px]",
-        className
+        className,
+        className?.includes("border-red-500") && "border-red-500" // Add this line
       )}
       {...props}>
       {showPlaceholder ? (

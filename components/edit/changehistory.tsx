@@ -9,12 +9,12 @@ export function ChangeHistory() {
         <div className="w-5 h-5 rounded-sm bg-blue-200 flex items-center justify-center">
           <p className="text-center">0</p>
         </div>
-        <p className="text-lg">Ändradringar gjorda</p>
+        <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator />
       <section className="px-4">
         {" "}
-        <p className="text-center p-20">Inga ändraingar har gjorts</p>
+        <p className="text-center p-20">Inga ändringar har gjorts</p>
       </section>
       <Separator />
       <footer className="flex flex-col p-4 gap-4">
