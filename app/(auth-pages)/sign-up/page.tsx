@@ -22,9 +22,6 @@ export default async function Signup(props: { searchParams: Promise<Message> }) 
     );
   }
 
-  const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
-  const startYear = currentYear - 8;
-
   return (
     <>
       <div className="flex flex-col gap-12">
