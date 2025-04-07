@@ -4,6 +4,11 @@ Studenter vid Linköpings universitets medieteknikprogram stöter ofta på utman
 
 ---
 
+## Bytt från Firebase till Supabase
+
+Vi har nu bytt från Firebase till supabase, detta för att Firebase fungerar bättre för att endast köras på frontenden och inte lika mycket på backend delar utav webbprojekt. För en bättre över blick se följande illustration:
+![alt text](readme-imgs/System-kommunikation.drawio.png)
+
 ## Installationsguide (första gången)
 
 För att komma igång med projektet, kör följande kommandon:
