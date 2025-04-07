@@ -36,10 +36,6 @@ export default function EditMasterSemester({
           {semester.fullString.slice(-7)}
         </p>
 
-        <p className="col-start-7 col-span-1 text-xs text-gray-600 text-left ">
-          0/30 hp
-        </p>
-
         <ChevronDown
           size={24}
           className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${
