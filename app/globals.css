@@ -5,44 +5,41 @@
 
 @utility no-scrollbar {
   ms-overflow-style: none;
- scrollbar-width: none;
- &::-webkit-scrollbar {
-   display: none;
- }
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @theme {
-
   --gap-x1: 0.5rem;
 
   --h-x3: 1.5rem;
 
+  --color-gray-100: #d8d8dc;
+  --color-gray-200: #d2d2d7;
+  --color-gray-600: #6e6e73;
+  --color-gray-900: #1d1d1f;
 
-  --color-gray-100: #D8D8DC;
-  --color-gray-200: #D2D2D7;
-  --color-gray-600: #6E6E73;
-  --color-gray-900: #1D1D1F;
+  --color-white-0: #ffffff;
+  --color-white-100: #fafafa;
+  --color-white-400: #f5f5f7;
+  --color-white-600: #f3f3f6;
+  --color-white-900: #f1f1f4;
 
-  --color-white-0: #FFFFFF;
-  --color-white-100: #FAFAFA;
-  --color-white-400: #F5F5F7;
-  --color-white-600: #F3F3F6;
-  --color-white-900: #F1F1F4;
-
-  --color-blue-100: #D9EBFF;
-  --color-blue-400: #73ABE7;
-  --color-blue-900: #0071E3;
+  --color-blue-100: #d9ebff;
+  --color-blue-400: #73abe7;
+  --color-blue-900: #0071e3;
 
   --color-green-900: #529839;
 
-  --color-red-900: #F36961;
+  --color-red-900: #f36961;
 
-  --color-yellow-900: #F8AB5E;
+  --color-yellow-900: #f8ab5e;
 
   --animate-text-pule: colorChange 2s ease-in-out infinite;
 
   @keyframes colorChange {
-
     0%,
     100% {
       color: var(--color-gray-900);
@@ -112,7 +109,7 @@
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #D2D2D7;
+  --border: #d2d2d7;
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -121,11 +118,11 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: #F5F5F7;
+  --sidebar: #f5f5f7;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #FFFFFF;
+  --sidebar-accent: #ffffff;
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
@@ -182,7 +179,6 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -209,7 +205,4 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
-
-
 }

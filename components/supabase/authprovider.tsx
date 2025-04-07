@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Session, User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import AlertPopupWindow from "../main/alert-popup";
 
 type AuthContextType = {
   session: Session | null;
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const [alertPopup, setAlertPopup] = useState<boolean>(true);
 
   useEffect(() => {
     // Hämtar initial session
@@ -37,6 +39,21 @@ export const AuthProvider = ({ children }: any) => {
       setSession(data.session);
       setUser(data.session?.user ?? null);
       setLoading(false);
+
+      let userId = data.session?.user?.id;
+
+      if (userId) {
+        const { data, error } = await supabaseClient.from("usertable").select("*").eq("user-uid", userId);
+
+        if (error) {
+          setAlertPopup(true);
+        }
+
+        if (!data || data.length === 0) {
+          setAlertPopup(true);
+          console.log(alertPopup);
+        }
+      }
     };
 
     fetchSession();
@@ -64,7 +81,17 @@ export const AuthProvider = ({ children }: any) => {
     return null; // eller t.ex. <div>Laddar...</div>
   }
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>
+      <AlertPopupWindow
+        defaultOpen={alertPopup}
+        title="Saknad studieinfo"
+        description={"Det verkar som att vi saknar din studieinformation. Vänligen fyll i din studieinformation för att kunna använda tjänsten"}
+        actiontext="Ta mig till informations sidan"
+        actionlink="/results"></AlertPopupWindow>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 // export the useAuth hook
