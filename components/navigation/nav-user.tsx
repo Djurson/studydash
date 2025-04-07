@@ -1,19 +1,12 @@
 "use client";
 
 import { UserRound, Settings, ChevronsUpDown, LogOut } from "lucide-react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { SignOutAction } from "@/app/actions";
 import { useAuth } from "../supabase/authprovider";
 
-type User = {
-  name: string;
-  email: string;
-  avatar: string;
-}
 /**
  * Navigation user dropdown component
  *
@@ -25,7 +18,7 @@ type User = {
  *
  * @returns Returns a dropdown menu for user account options, including account settings and logout
  */
-export function NavUser(user: User) {
+export function NavUser() {
   const { isMobile } = useSidebar();
   let fallback = "";
 
