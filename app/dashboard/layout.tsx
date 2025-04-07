@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <PageTemplate defaultPage={true}>{children}</PageTemplate>
-  );
+    <AuthProvider>
+      <PageTemplate defaultPage={true}>{children}</PageTemplate>
+    </AuthProvider>);
 }
