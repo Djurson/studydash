@@ -8,7 +8,7 @@ interface Examination {
   }
   
   export const validateDate = (date: string, programStartDate: string, todayFormatted: string) => {
-    if (date.length !== 8) return "Datum måste vara 8 siffror (YYYYMMDD)";
+    if (date.length !== 8) return "Ange giltigt datum (YYYYMMDD)";
     if (!/^\d+$/.test(date)) return "Endast siffror tillåtna";
     
     if (date < programStartDate) return "Datum kan inte vara före programmets startdatum";
@@ -25,7 +25,7 @@ interface Examination {
     const allowedGrades = gradingString.split(/\s*,\s*/).map(g => g.trim());
     
     if (!allowedGrades.includes(grade.toUpperCase())) {
-      return `Ogiltigt betyg. Tillåtna värden: ${allowedGrades.join(", ")}`;
+      return `Ange giltigt betyg (${allowedGrades.join(", ")})`;
     }
     
     return "";

@@ -40,6 +40,8 @@ export default function EditCourses({ course }: { course: Course }) {
         grade: string;
         dateError?: string;
         gradeError?: string;
+        dateTouched?: boolean;
+        gradeTouched?: boolean;
       }
     >
   >({});
@@ -86,12 +88,20 @@ export default function EditCourses({ course }: { course: Course }) {
                           <div className="flex pl-8">
                             <div className="border-1 border-gray-900 rounded-sm h-[1rem] aspect-square"></div>
                           </div>
-                          <p className="text-xs">
-                            {exam.name} - {exam.code}
-                          </p>
+                          <div className="flex justify-between items-center w-full">
+                            <p className="text-xs">
+                              {exam.name} - {exam.code}
+                            </p>
+                            <div className="flex h-[1.75rem] items-center">
+                              <p className="text-xs   text-gray-600">
+                                {parseFloat(exam.credits) > 0 &&
+                                  `${exam.credits}`}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                         <div>
-                          <div className="pl-16 flex items-center justify-between">
+                          <div className="pl-16 flex gap-12">
                             <div>
                               <div className="flex items-center focus:outline-none">
                                 <p className="text-xs text-gray-600 mr-2">
@@ -111,52 +121,112 @@ export default function EditCourses({ course }: { course: Course }) {
                                       [exam.code]: {
                                         ...prev[exam.code],
                                         date: value,
-                                        dateError: dateError,
+                                        dateError: prev[exam.code]?.dateTouched
+                                          ? dateError
+                                          : undefined,
+                                      },
+                                    }));
+                                  }}
+                                  onBlur={() => {
+                                    const dateError = validateDate(
+                                      examInputs[exam.code]?.date || "",
+                                      programStartDate,
+                                      todayFormatted
+                                    );
+
+                                    setExamInputs((prev) => ({
+                                      ...prev,
+                                      [exam.code]: {
+                                        ...prev[exam.code],
+                                        dateTouched: true,
+                                        dateError,
                                       },
                                     }));
                                   }}>
-                                  <InputOTPGroup
-                                    className={
-                                      examInputs[exam.code]?.dateError
-                                        ? "border-red-500"
-                                        : ""
-                                    }>
-                                    <InputOTPSlot index={0} placeholder="y" />
-                                    <InputOTPSlot index={1} placeholder="y" />
-                                    <InputOTPSlot index={2} placeholder="y" />
-                                    <InputOTPSlot index={3} placeholder="y" />
+                                  <InputOTPGroup>
+                                    <InputOTPSlot
+                                      index={0}
+                                      placeholder="y"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
+                                    <InputOTPSlot
+                                      index={1}
+                                      placeholder="y"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
+                                    <InputOTPSlot
+                                      index={2}
+                                      placeholder="y"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
+                                    <InputOTPSlot
+                                      index={3}
+                                      placeholder="y"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
                                   </InputOTPGroup>
                                   <InputOTPSeparator />
-                                  <InputOTPGroup
-                                    className={
-                                      examInputs[exam.code]?.dateError
-                                        ? "border-red-500"
-                                        : ""
-                                    }>
-                                    <InputOTPSlot index={4} placeholder="m" />
-                                    <InputOTPSlot index={5} placeholder="m" />
+                                  <InputOTPGroup>
+                                    <InputOTPSlot
+                                      index={4}
+                                      placeholder="m"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
+                                    <InputOTPSlot
+                                      index={5}
+                                      placeholder="m"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
                                   </InputOTPGroup>
                                   <InputOTPSeparator />
-                                  <InputOTPGroup
-                                    className={
-                                      examInputs[exam.code]?.dateError
-                                        ? "border-red-500"
-                                        : ""
-                                    }>
-                                    <InputOTPSlot index={6} placeholder="d" />
-                                    <InputOTPSlot index={7} placeholder="d" />
+                                  <InputOTPGroup>
+                                    <InputOTPSlot
+                                      index={6}
+                                      placeholder="d"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
+                                    <InputOTPSlot
+                                      index={7}
+                                      placeholder="d"
+                                      hasError={
+                                        !!examInputs[exam.code]?.dateTouched &&
+                                        !!examInputs[exam.code]?.dateError
+                                      }
+                                    />
                                   </InputOTPGroup>
                                 </InputOTP>
                               </div>
-                              {examInputs[exam.code]?.dateError && (
-                                <div className="flex items-center gap-1 text-xs text-red-500 mt-1 col-start-1 col-span-5">
-                                  <CircleAlert size={14} />
-                                  <p>{examInputs[exam.code]?.dateError}</p>
-                                </div>
-                              )}
+                              {examInputs[exam.code]?.dateTouched &&
+                                examInputs[exam.code]?.dateError && (
+                                  <div className="text-red-500 text-xs flex items-center gap-1 mt-1">
+                                    <CircleAlert size={14} />
+                                    <p>{examInputs[exam.code]?.dateError}</p>
+                                  </div>
+                                )}
                             </div>
 
-                            <div>
+                            <div className="pr-4">
                               <div className="flex items-center">
                                 <p className="text-xs text-gray-600 mr-2">
                                   Betyg:
@@ -174,32 +244,46 @@ export default function EditCourses({ course }: { course: Course }) {
                                       [exam.code]: {
                                         ...prev[exam.code],
                                         grade: value,
-                                        gradeError: gradeError,
+                                        gradeError: prev[exam.code]
+                                          ?.gradeTouched
+                                          ? gradeError
+                                          : undefined,
+                                      },
+                                    }));
+                                  }}
+                                  onBlur={() => {
+                                    const gradeError = validateGrade(
+                                      examInputs[exam.code]?.grade || "",
+                                      exam
+                                    );
+                                    setExamInputs((prev) => ({
+                                      ...prev,
+                                      [exam.code]: {
+                                        ...prev[exam.code],
+                                        gradeTouched: true,
+                                        gradeError,
                                       },
                                     }));
                                   }}>
-                                  <InputOTPGroup
-                                    className={
-                                      examInputs[exam.code]?.gradeError
-                                        ? "border-red-500"
-                                        : ""
-                                    }>
-                                    <InputOTPSlot index={0} />
+                                  <InputOTPGroup>
+                                    <InputOTPSlot
+                                      index={0}
+                                      hasError={
+                                        !!examInputs[exam.code]?.gradeTouched &&
+                                        !!examInputs[exam.code]?.gradeError
+                                      }
+                                    />
                                   </InputOTPGroup>
                                 </InputOTP>
                               </div>
-                              {examInputs[exam.code]?.gradeError && (
-                                <div className="flex items-center gap-1 text-xs text-red-500 mt-1 col-start-1 col-span-5">
-                                  <CircleAlert size={14} />
-                                  <p>{examInputs[exam.code]?.gradeError}</p>
-                                </div>
-                              )}
+                              {examInputs[exam.code]?.gradeTouched &&
+                                examInputs[exam.code]?.gradeError && (
+                                  <div className="flex items-center gap-1 text-xs text-red-500 mt-1 col-start-1 col-span-5">
+                                    <CircleAlert size={14} />
+                                    <p>{examInputs[exam.code]?.gradeError}</p>
+                                  </div>
+                                )}
                             </div>
-
-                            <p className="text-xs text-gray-600">
-                              {parseFloat(exam.credits) > 0 &&
-                                `${exam.credits}`}
-                            </p>
                           </div>
                         </div>
                       </div>
