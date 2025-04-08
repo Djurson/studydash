@@ -15,7 +15,9 @@ type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof 
 
 /**
  * En komponent för att ladda upp PDF-dokument.
- *
+ * 
+ * @param courseResults - Kursresultat
+ * @param setCourseResults - SetStateAction för att sätta kursresultat
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
