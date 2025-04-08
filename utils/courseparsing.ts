@@ -1,9 +1,24 @@
 import { Course, Examination } from "@/utils/types";
+import { tryCatch } from "./trycatch";
 
-export async function ParseCourses(data: string): Promise<Course[]> {
-  return await ExtractCoursesAndExaminations(data);
+/** Funktion för att parsea studie information från textData
+ * @param textData - text data från pdf:en
+ * @returns Studieinformation om klarade kurser i en array | Error
+ */
+export async function ParseCourses(textData: string): Promise<Course[] | Error> {
+  const { data, error } = await tryCatch(ExtractCoursesAndExaminations(textData));
+
+  if (error) {
+    return error;
+  }
+
+  return await data;
 }
 
+/** Splittar upp text datan i en array och loopar igenom den för att extrahera data
+ * @param text - textdatan som extraherats ur PDF filen
+ * @returns En array med Course objekt
+ */
 async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
   let courses: Course[] = [];
   let currentCourse: Course | null = null;
@@ -12,14 +27,17 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
   const textSplit = text.split(/\r?\n/);
 
   // Regex för att identifiera kurser (3-4 bokstäver följt av 2-3 siffror)
+  // TNA001, TFYA65
   const courseRegex = /^([A-Z]{3,4}\d{2,3})/;
   // Regex för att identifiera examinationsmoment (3 bokstäver + 1 siffra eller 4 bokstäver)
+  // UPG1, UPGA
   const examinationRegex = /^([A-Z]{3}\d{1}|UPG[A-Z0-9])/;
 
+  // Loopar igenom hela text array:en
   for (let i = 0; i < textSplit.length - 2; i++) {
     const line = textSplit[i].trim();
 
-    // Kontrollera om vi har nått "ej avslutade kurser"
+    // Kontrollera om vi har nått "ej avslutade kurser" blocket
     if (line.includes("ej avslutade kurser")) {
       unfinishedCourses = true;
       continue;
@@ -36,11 +54,11 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       // Skapa ny kurs
       currentCourse = CreateEmptyCourse();
 
-      // Parsa kursdata
+      // Extrahera kurskod
       const courseCode = courseMatch[1];
       currentCourse.code = courseCode;
 
-      // Extrahera resten av raden för att hitta namn, hp, betyg och datum
+      // Ta ut resten utav raden
       const restOfLine = line.substring(courseCode.length).trim();
 
       // Om raden innehåller "hp", är det troligen en kurs med alla detaljer på samma rad
@@ -64,7 +82,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       const exam = CreateEmptyExamination();
       exam.code = examMatch[1];
 
-      // Extrahera resten av raden för att hitta namn
+      // Extrahera resten av raden för att hitta namn, och annan examinations information
       const restOfLine = line.substring(examMatch[1].length).trim();
 
       // Om raden innehåller "hp", är det troligen ett examinationsmoment med alla detaljer på samma rad
@@ -75,13 +93,15 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
         continue;
       }
 
-      // Om det är ett examinationsmoment över flera rader
+      // Om det är ett examinationsmoment över flera rader tilldelar vi det som finns på resten utav raden
       exam.name = restOfLine;
 
-      // Nästa rad kan innehålla resten av informationen
+      // Hoppar till nästa rad
       i++;
+      // Tar ut hela raden
       const nextLine = textSplit[i].trim();
 
+      // Kollar om den innehåller "hp"
       if (nextLine.includes("hp")) {
         ParseExaminationDetailsLine(nextLine, exam);
         // Lägg till examinationsmomentet i aktuell kurs
@@ -94,6 +114,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
 
       i++;
       const detailsLine = textSplit[i].trim();
+      // Kollar igenom om det finns "hp på denna rad"
       if (detailsLine.includes("hp")) {
         ParseExaminationDetailsLine(detailsLine, exam);
         // Lägg till examinationsmomentet i aktuell kurs
@@ -120,6 +141,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       let restOfLine = line.substring(courseCode.length).trim();
 
       // Om raden innehåller "hp", är det troligen en kurs med alla detaljer på samma rad
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (restOfLine.includes("hp")) {
         restOfLine = restOfLine.replace("(", "");
         restOfLine = restOfLine.replace(")", "");
@@ -131,6 +153,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       currentCourse.name = restOfLine + " " + textSplit[i + 1].trim();
       let detailsLine = textSplit[i + 2].trim();
 
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (detailsLine.includes("(") && detailsLine.includes(")")) {
         detailsLine = detailsLine.replace("(", "");
         detailsLine = detailsLine.replace(")", "");
@@ -150,6 +173,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       let restOfLine = line.substring(examMatch[1].length).trim();
 
       // Om raden innehåller "hp", är det troligen ett examinationsmoment med alla detaljer på samma rad
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (restOfLine.includes("hp")) {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationSingleLine(formattedStr, exam);
@@ -165,6 +189,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       i++;
       const nextLine = textSplit[i].trim();
 
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (nextLine.includes("hp")) {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationDetailsLine(formattedStr, exam);
@@ -178,6 +203,8 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
 
       i++;
       const detailsLine = textSplit[i].trim();
+
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (detailsLine.includes("hp")) {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationDetailsLine(formattedStr, exam);
