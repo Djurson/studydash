@@ -28,7 +28,8 @@ type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof 
  * @returns A file upload input with a custom label, drag-and-drop area, and a hidden file input field.
  */
 export function UploadPDFInput({ courseResults, setCourseResults, ...props }: UploadPDFInputProps) {
-  async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
+
+  async function UploadFile(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
     const file = e.target.files?.[0];
@@ -37,12 +38,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
     if (!file) return;
     if (!fileName?.toLowerCase().endsWith(".pdf")) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    HandleFileUpload(file).then((res) => {
-      console.log(res);
-    });
+    HandleFileInput(file, setCourseResults);
   }
 
   return (
@@ -71,8 +67,17 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
         id="PDF-Upload"
         className="hidden appearance-none"
         {...props}
-        onChange={HandleFileInput}
+        onChange={UploadFile}
       />
     </>
   );
+}
+
+async function HandleFileInput(file: File, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  HandleFileUpload(file).then((res) => {
+    console.log(res);
+  });
 }
