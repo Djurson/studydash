@@ -1,5 +1,11 @@
 import { ChevronDown, CornerDownRight, CircleAlert } from "lucide-react";
-import { ChangeEvent, Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  InputHTMLAttributes,
+  SetStateAction,
+  useState,
+} from "react";
 import { Separator } from "@/components/ui/separator";
 import {
   InputOTP,
@@ -21,16 +27,24 @@ type CourseProps = {
   credits: string;
   VOF: string;
   examinations: ExaminationProps[];
-}
+};
 
 type ExaminationProps = {
   code: string;
   name: string;
   credits: string;
   grading: string;
-}
+};
 
-export default function EditCourses({ course, courseResults, setCourseResults }: { course: CourseProps; courseResults: Course[] | undefined, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>> }) {
+export default function EditCourses({
+  course,
+  courseResults,
+  setCourseResults,
+}: {
+  course: CourseProps;
+  courseResults: Course[] | undefined;
+  setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>;
+}) {
   // courseResults innehåller alla kurs grejer man fyllt i är tanken och man använder setCourseResults för att sätta den till ett visst värde,
   // Måste vara på samma form som när man läser in en pdf
 
@@ -46,9 +60,22 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
         gradeError?: string;
         dateTouched?: boolean;
         gradeTouched?: boolean;
+        isComplete?: boolean;
       }
     >
   >({});
+
+  const isInputValid = (code: string) => {
+    const input = examInputs[code];
+    return (
+      input?.gradeTouched &&
+      input?.dateTouched &&
+      input.grade &&
+      !input.gradeError &&
+      input.date &&
+      !input.dateError
+    );
+  };
 
   // Hårdkodat startdatum (YYYYMMDD format)
   const programStartDate = "20220801";
@@ -73,8 +100,9 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
 
         <ChevronDown
           size={24}
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
-            }`}
+          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${
+            isOpen ? "rotate-180" : "rotate-0"
+          }`}
         />
       </button>
       <section>
@@ -89,7 +117,12 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
                       <div className="flex flex-col gap-2 w-full">
                         <div className="flex gap-4 items-center">
                           <div className="flex pl-8">
-                            <div className="border-1 border-gray-900 rounded-sm h-[1rem] aspect-square"></div>
+                            <div
+                              className={`border-1 rounded-sm h-[1rem] aspect-square ${
+                                examInputs[exam.code]?.isComplete
+                                  ? "bg-green-500"
+                                  : "border-gray-900"
+                              }`}></div>
                           </div>
                           <div className="flex justify-between items-center w-full">
                             <p className="text-xs">
@@ -124,11 +157,24 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
                                     }));
                                   }}
                                   onBlur={() => {
+                                    const date =
+                                      examInputs[exam.code]?.date || "";
+                                    const grade =
+                                      examInputs[exam.code]?.grade || "";
+                                    const gradeError =
+                                      examInputs[exam.code]?.gradeError;
                                     const dateError = validateDate(
                                       examInputs[exam.code]?.date || "",
                                       programStartDate,
                                       todayFormatted
                                     );
+
+                                    const isComplete =
+                                      !!grade &&
+                                      !gradeError &&
+                                      !!date &&
+                                      !dateError &&
+                                      examInputs[exam.code]?.gradeTouched;
 
                                     setExamInputs((prev) => ({
                                       ...prev,
@@ -136,6 +182,7 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
                                         ...prev[exam.code],
                                         dateTouched: true,
                                         dateError,
+                                        isComplete,
                                       },
                                     }));
                                   }}>
@@ -241,16 +288,30 @@ export default function EditCourses({ course, courseResults, setCourseResults }:
                                     }));
                                   }}
                                   onBlur={() => {
+                                    const date =
+                                      examInputs[exam.code]?.date || "";
+                                    const grade =
+                                      examInputs[exam.code]?.grade || "";
+                                    const dateError =
+                                      examInputs[exam.code]?.gradeError;
                                     const gradeError = validateGrade(
                                       examInputs[exam.code]?.grade || "",
                                       exam
                                     );
+                                    const isComplete =
+                                      !!grade &&
+                                      !gradeError &&
+                                      !!date &&
+                                      !dateError &&
+                                      examInputs[exam.code]?.gradeTouched;
+
                                     setExamInputs((prev) => ({
                                       ...prev,
                                       [exam.code]: {
                                         ...prev[exam.code],
                                         gradeTouched: true,
                                         gradeError,
+                                        isComplete,
                                       },
                                     }));
                                   }}>
