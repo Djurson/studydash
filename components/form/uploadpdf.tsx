@@ -66,12 +66,15 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
         onDrop={handleDrop}>
         <Label
           htmlFor="PDF-Upload"
-          className="flex flex-col items-center justify-center px-12 py-12 text-sm transition duration-300 ease-in-out border-2 border-gray-900 border-dashed cursor-pointer bg-white-0 rounded-2xl hover:bg-blue-100 group">
-          <span className="transition duration-300 ease-in-out bg-blue-100 aspect-square p-7 rounded-2xl group-hover:bg-white-400">
+          className={`flex flex-col items-center justify-center px-12 py-12 text-sm transition duration-300 ease-in-out border-2 
+          border-gray-900 border-dashed cursor-pointer rounded-2xl group
+          ${isDragging ? 'bg-blue-100' : 'hover:bg-blue-100 bg-white-0'}`}>
+          <span className={`transition duration-300 ease-in-out aspect-square p-7 rounded-2xl
+            ${isDragging ? 'bg-white-400' : 'bg-blue-100 group-hover:bg-white-400'}`}>
             <FileUp className="text-blue-900 aspect-square h-9 w-9" />
           </span>
           <span>
-            <span className="text-blue-900">Klicka</span> eller dra och släpp för att ladda upp resultatintyg
+            <span className="text-blue-900">Klicka</span> eller dra & släpp för att ladda upp resultatintyg
           </span>
           <span className="text-gray-600">Format som stöds: PDF</span>
         </Label>

@@ -133,6 +133,7 @@ export default function Page() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="h-1 bg-gray-100 rounded-lg my-1"></div>
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (
                 <EditSemesters key={semester.name} semester={semester} courseResults={courseResults} setCourseResults={setCourseResults} />
