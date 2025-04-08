@@ -1,11 +1,17 @@
 "use client";
 
-import { ChangeEvent, ComponentProps, DragEvent, useState } from "react";
+import { ChangeEvent, ComponentProps, Dispatch, SetStateAction, DragEvent, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileUp, Info } from "lucide-react";
 import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
+import { Course } from "@/utils/types";
+
+type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof Label> & {
+  courseResults: Course[] | undefined;
+  setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>;
+}
 
 /**
  * En komponent för att ladda upp PDF-dokument.

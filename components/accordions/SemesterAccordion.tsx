@@ -1,17 +1,17 @@
 "use client";
-import { Hedvig_Letters_Sans } from "next/font/google";
-import { useState } from "react";
-import Header from "../supabase-template/hero";
+
+import { Dispatch, SetStateAction, useState } from "react";
+
 import { ChevronDown } from "lucide-react";
 import CourseAccordion from "@/components/accordions/CourseAccordion";
 import { Separator } from "../ui/separator";
 
-interface Semester {
+type Semester = {
   name: string;
   courses: Course[];
 }
 
-interface Course {
+type Course = {
   name: string;
   course_code: string;
   credits: string;
@@ -19,18 +19,14 @@ interface Course {
   examinations: Examination[];
 }
 
-interface Examination {
+type Examination = {
   code: string;
   name: string;
   credits: string;
   grading: string;
 }
 
-export default function SemesterAccordion({
-  semester,
-}: {
-  semester: Semester;
-}) {
+export default function SemesterAccordion({ semester }: { semester: Semester; }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -53,9 +49,8 @@ export default function SemesterAccordion({
 
         <ChevronDown
           size={24}
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       <section>
