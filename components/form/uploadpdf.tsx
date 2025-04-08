@@ -14,7 +14,6 @@ import { HandleFileUpload } from "@/app/results/actions";
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
-
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -27,7 +26,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
 
     // Skapa en dummy event för att återanvända HandleFileInput
     const fakeEvent = {
-      preventDefault: () => {},
+      preventDefault: () => { },
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
