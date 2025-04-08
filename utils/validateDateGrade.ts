@@ -21,7 +21,8 @@ interface Examination {
     
     // Normalize grades by removing any "LiU," prefix and splitting by commas
     const gradingString = exam.grading.replace(/^LiU,\s*/, '');
-    const allowedGrades = gradingString.split(/\s*,\s*/).map(g => g.trim());
+    // tar bort första betyget, hoppas detinte leder till buggar om json formatet skiljer sig
+    const allowedGrades = gradingString.slice(2).split(/\s*,\s*/).map(g => g.trim()); 
     
     if (!allowedGrades.includes(grade.toUpperCase())) {
       return `Ange giltigt betyg (${allowedGrades.join(", ")})`;
