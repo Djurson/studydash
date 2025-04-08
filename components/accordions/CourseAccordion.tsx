@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 
-interface Course {
+type Course = {
   name: string;
   course_code: string;
   credits: string;
@@ -10,7 +10,7 @@ interface Course {
   examinations: Examination[];
 }
 
-interface Examination {
+type Examination = {
   code: string;
   name: string;
   credits: string;
@@ -50,9 +50,8 @@ export default function CourseAccordion({ course }: { course: Course }) {
         </div>
         <ChevronDown
           size={24}
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       <section>

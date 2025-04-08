@@ -6,16 +6,22 @@
 @utility no-scrollbar {
   ms-overflow-style: none;
   scrollbar-width: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
+
+
+
 
 @theme {
   --gap-x1: 0.5rem;
 
   --h-x3: 1.5rem;
 
+  --color-red-main: #F36961;
+  --color-red-secondary: #FFE6E6;
   --color-gray-100: #d8d8dc;
   --color-gray-200: #d2d2d7;
   --color-gray-600: #6e6e73;
@@ -39,7 +45,10 @@
 
   --animate-text-pule: colorChange 2s ease-in-out infinite;
 
+  --animate-caret-blink: caret-blink 1.5s ease-in-out infinite;
+
   @keyframes colorChange {
+
     0%,
     100% {
       color: var(--color-gray-900);
@@ -49,7 +58,25 @@
       color: var(--color-gray-100);
     }
   }
+
+  @keyframes caret-blink {
+
+    0%,
+    70%,
+    100% {
+      opacity: 1;
+    }
+
+    20%,
+    50% {
+      opacity: 0;
+    }
+  }
 }
+
+
+
+
 
 @theme inline {
   --color-background: var(--background);
@@ -111,7 +138,7 @@
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: #d2d2d7;
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: #0071E3;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

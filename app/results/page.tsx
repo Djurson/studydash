@@ -10,8 +10,57 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ChangeHistory } from "@/components/edit/changehistory";
+
+// Funktionerna för att generera och hämta terminer som inte mappas från json
+import {
+  generateAllSemesters,
+  getSemestersInRange,
+} from "@/utils/semesterDates";
+import EditMasterSemester from "@/components/edit/EditMasterSemester";
+import EditSemesters from "@/components/edit/EditSemesters";
+
+import programData from "@/webscraping/6CEMEN-2022.json";
+import { useState } from "react";
+import { Course } from "@/utils/types";
+
+interface Program {
+  name: string;
+  credits: string;
+  url: string;
+  semesters: Semester[];
+}
+
+interface Semester {
+  name: string;
+  courses: Course[];
+}
+
+interface Examination { }
+
+interface ProgramData {
+  programs: Program[];
+}
+
+interface exjobbData {
+  programs: Program[];
+}
 
 export default function Page() {
+  const [courseResults, setCourseResults] = useState<Course[]>();
+  // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
+  const startingSemester = "HT 2022";
+  const showFrom = 7;
+  const showTo = 9;
+  const allSemesters = generateAllSemesters(startingSemester);
+  const masterSemesters = getSemestersInRange(
+    startingSemester,
+    showFrom,
+    showTo
+  );
+
+  const program = programData.programs[0];
+
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 8;
@@ -19,10 +68,12 @@ export default function Page() {
   return (
     <>
       <header>
-        <h1 className="text-3xl font-semibold">Redigera kurser och moment.</h1>
+        <h1 className="text-3xl font-semibold mt-2">
+          Redigera kurser och moment.
+        </h1>
       </header>
-      <main className="w-full mt-4">
-        <form className="flex w-full gap-12 mt-4">
+      <main className="w-full h-[28.25rem] grid grid-cols-5 gap-4 mt-6">
+        <section className="col-start-1 col-span-3">
           <div className="flex flex-col flex-1 gap-4">
             <Select disabled>
               <SelectTrigger className="w-full">
@@ -82,14 +133,34 @@ export default function Page() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="flex flex-col gap-4">
+              {program.semesters.map((semester) => (
+                <EditSemesters key={semester.name} semester={semester} courseResults={courseResults} setCourseResults={setCourseResults} />
+              ))}
+            </div>
 
-            <h2 className="text-2xl font-semibold">Meritvärde</h2>
+            <div className="flex flex-col gap-4">
+              {masterSemesters.map((semester, index) => (
+                <EditMasterSemester
+                  key={semester.fullString}
+                  semester={semester}
+                  index={index + showFrom - 1}
+                />
+              ))}
+            </div>
           </div>
+        </section>
+        <section className="col-start-4 col-span-2 ">
+          <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
+            <div>
+              <UploadPDFInput courseResults={courseResults} setCourseResults={setCourseResults} />
+            </div>
 
-          <div className="sticky flex-1 w-full">
-            <UploadPDFInput />
+            <div>
+              <ChangeHistory />
+            </div>
           </div>
-        </form>
+        </section>
       </main>
     </>
   );
