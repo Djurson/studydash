@@ -61,6 +61,10 @@ export default function Page() {
 
   const program = programData.programs[0];
 
+
+  const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
+  const startYear = currentYear - 8;
+
   return (
     <>
       <header>
@@ -98,14 +102,33 @@ export default function Page() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <Select disabled>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="HT 2022"></SelectValue>
+              <Select name="studyYear" required>
+                <SelectTrigger className="w-full text-gray-900 bg-white-0">
+                  <SelectValue placeholder="När påbörjade du dina studier?" className="text-gray-900"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Antagningstillfälle</SelectLabel>
-                    <SelectItem value="HT 2022">HT 2022</SelectItem>
+                    <SelectLabel>När påbörjade du dina studier?</SelectLabel>
+                    {Array.from({ length: currentYear - startYear + 1 }, (_, index) => {
+                      const year = startYear + index;
+                      return (
+                        <SelectItem key={year} value={year.toString()}>
+                          HT {year}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <Select name="prev-funds" required>
+                <SelectTrigger className="w-full text-gray-900 bg-white-0">
+                  <SelectValue placeholder="Har du sökt CSN tidigare?" className="text-gray-900"></SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Har du sökt CSN tidigare?</SelectLabel>
+                    <SelectItem value={"yes"}>Ja</SelectItem>
+                    <SelectItem value={"no"}>Nej</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
