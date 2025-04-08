@@ -1,4 +1,3 @@
-// src/utils/validation.ts
 
 interface Examination {
     code: string;
@@ -8,7 +7,7 @@ interface Examination {
   }
   
   export const validateDate = (date: string, programStartDate: string, todayFormatted: string) => {
-    if (date.length !== 8) return "Ange giltigt datum (YYYYMMDD)";
+    if (date.length !== 8) return "Ange giltigt datum (YYYY-MM-DD)";
     if (!/^\d+$/.test(date)) return "Endast siffror tillåtna";
     
     if (date < programStartDate) return "Datum kan inte vara före programmets startdatum";

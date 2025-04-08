@@ -111,19 +111,12 @@ export default function EditCourses({ course }: { course: Course }) {
                                   maxLength={8}
                                   value={examInputs[exam.code]?.date || ""}
                                   onChange={(value) => {
-                                    const dateError = validateDate(
-                                      value,
-                                      programStartDate,
-                                      todayFormatted
-                                    );
                                     setExamInputs((prev) => ({
                                       ...prev,
                                       [exam.code]: {
                                         ...prev[exam.code],
                                         date: value,
-                                        dateError: prev[exam.code]?.dateTouched
-                                          ? dateError
-                                          : undefined,
+                                        dateError: undefined,
                                       },
                                     }));
                                   }}
@@ -148,7 +141,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={0}
                                       placeholder="y"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -156,7 +149,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={1}
                                       placeholder="y"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -164,7 +157,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={2}
                                       placeholder="y"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -172,7 +165,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={3}
                                       placeholder="y"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -183,7 +176,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={4}
                                       placeholder="m"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -191,7 +184,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={5}
                                       placeholder="m"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -202,7 +195,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={6}
                                       placeholder="d"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -210,7 +203,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                       index={7}
                                       placeholder="d"
                                       hasError={
-                                        !!examInputs[exam.code]?.dateTouched &&
+                                        examInputs[exam.code]?.dateTouched &&
                                         !!examInputs[exam.code]?.dateError
                                       }
                                     />
@@ -235,19 +228,12 @@ export default function EditCourses({ course }: { course: Course }) {
                                   maxLength={1}
                                   value={examInputs[exam.code]?.grade || ""}
                                   onChange={(value) => {
-                                    const gradeError = validateGrade(
-                                      value,
-                                      exam
-                                    );
                                     setExamInputs((prev) => ({
                                       ...prev,
                                       [exam.code]: {
                                         ...prev[exam.code],
                                         grade: value,
-                                        gradeError: prev[exam.code]
-                                          ?.gradeTouched
-                                          ? gradeError
-                                          : undefined,
+                                        gradeError: undefined,
                                       },
                                     }));
                                   }}
@@ -269,7 +255,7 @@ export default function EditCourses({ course }: { course: Course }) {
                                     <InputOTPSlot
                                       index={0}
                                       hasError={
-                                        !!examInputs[exam.code]?.gradeTouched &&
+                                        examInputs[exam.code]?.gradeTouched &&
                                         !!examInputs[exam.code]?.gradeError
                                       }
                                     />
