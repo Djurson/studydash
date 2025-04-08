@@ -1,32 +1,29 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import EditCourses from "./EditCourses";
+import { Course } from "@/utils/types";
 
 interface Semester {
   name: string;
-  courses: Course[];
+  courses: CourseProps[];
 }
 
-interface Course {
+interface CourseProps {
   name: string;
   course_code: string;
   credits: string;
   VOF: string;
-  examinations: Examination[];
+  examinations: ExaminationProps[];
 }
 
-interface Examination {
+interface ExaminationProps {
   code: string;
   name: string;
   credits: string;
   grading: string;
 }
 
-export default function SemesterAccordion({
-  semester,
-}: {
-  semester: Semester;
-}) {
+export default function SemesterAccordion({ semester, courseResults, setCourseResults, }: { semester: Semester; courseResults: Course[] | undefined, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>> }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -45,16 +42,15 @@ export default function SemesterAccordion({
 
         <ChevronDown
           size={24}
-          className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${
-            isOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
+            }`}
         />
       </button>
       <section>
         {isOpen && (
           <div className=" bg-white mt-4">
             {semester.courses.map((course) => (
-              <EditCourses key={course.course_code} course={course} />
+              <EditCourses key={course.course_code} course={course} courseResults={courseResults} setCourseResults={setCourseResults} />
             ))}
           </div>
         )}

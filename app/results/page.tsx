@@ -21,6 +21,8 @@ import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
+import { useState } from "react";
+import { Course } from "@/utils/types";
 
 interface Program {
   name: string;
@@ -34,9 +36,7 @@ interface Semester {
   courses: Course[];
 }
 
-interface Course {}
-
-interface Examination {}
+interface Examination { }
 
 interface ProgramData {
   programs: Program[];
@@ -47,6 +47,7 @@ interface exjobbData {
 }
 
 export default function Page() {
+  const [courseResults, setCourseResults] = useState<Course[]>();
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
   const startingSemester = "HT 2022";
   const showFrom = 7;
@@ -111,7 +112,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} />
+                <EditSemesters key={semester.name} semester={semester} courseResults={courseResults} setCourseResults={setCourseResults} />
               ))}
             </div>
 
@@ -129,7 +130,7 @@ export default function Page() {
         <section className="col-start-4 col-span-2 ">
           <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
             <div>
-              <UploadPDFInput />
+              <UploadPDFInput courseResults={courseResults} setCourseResults={setCourseResults} />
             </div>
 
             <div>
