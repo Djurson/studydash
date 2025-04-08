@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, ComponentProps, useState } from "react";
+import { ChangeEvent, ComponentProps, Dispatch, SetStateAction, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileUp, Info } from "lucide-react";
@@ -8,6 +8,12 @@ import Link from "next/link";
 import FormButton from "./formbutton";
 import { tryCatch } from "@/utils/trycatch";
 import { HandleFileUpload } from "@/app/results/actions";
+import { Course } from "@/utils/types";
+
+type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof Label> & {
+  courseResults: Course[] | undefined;
+  setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>;
+}
 
 /**
  * A file upload input for uploading PDF documents.
@@ -21,10 +27,24 @@ import { HandleFileUpload } from "@/app/results/actions";
  *
  * @returns A file upload input with a custom label, drag-and-drop area, and a hidden file input field.
  */
+export function UploadPDFInput({ courseResults, setCourseResults, ...props }: UploadPDFInputProps) {
+  async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
 
-export function UploadPDFInput({
-  ...props
-}: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
+    const file = e.target.files?.[0];
+    const fileName = file?.name;
+
+    if (!file) return;
+    if (!fileName?.toLowerCase().endsWith(".pdf")) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    HandleFileUpload(file).then((res) => {
+      console.log(res);
+    });
+  }
+
   return (
     <>
       <Label
@@ -53,24 +73,6 @@ export function UploadPDFInput({
         {...props}
         onChange={HandleFileInput}
       />
-      {/* <FormButton>Ladda upp</FormButton> */}
     </>
   );
-}
-
-async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
-  e.preventDefault();
-
-  const file = e.target.files?.[0];
-  const fileName = file?.name;
-
-  if (!file) return;
-  if (!fileName?.toLowerCase().endsWith(".pdf")) return;
-
-  const formData = new FormData();
-  formData.append("file", file);
-
-  HandleFileUpload(file).then((res) => {
-    console.log(res);
-  });
 }
