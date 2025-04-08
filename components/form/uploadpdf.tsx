@@ -16,11 +16,10 @@ type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof 
 /**
  * En komponent för att ladda upp PDF-dokument.
  *
- * @param {ComponentProps<typeof Input> & ComponentProps<typeof Label>} props - Egenskaper som skickas vidare till både input- och label-komponenterna, för att anpassa beteendet och utseendet för filuppladdningen.
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
-export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
+export function UploadPDFInput({ courseResults, setCourseResults, ...props }: UploadPDFInputProps) {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -36,8 +35,21 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
-    HandleFileInput(fakeEvent);
+    HandleFileInput(file, setCourseResults);
   };
+
+  async function UploadFile(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+
+    const file = e.target.files?.[0];
+    const fileName = file?.name;
+
+    if (!file) return;
+    if (!fileName?.toLowerCase().endsWith(".pdf")) return;
+
+    HandleFileInput(file, setCourseResults);
+  }
+
   return (
     <>
       <div
@@ -64,7 +76,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
         <Link href={"/"}>
           <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" />
         </Link>
-        <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" {...props} onChange={HandleFileInput} />
+        <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" {...props} onChange={UploadFile} />
       </div>
     </>
   );
@@ -78,26 +90,14 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
  * Om så är fallet paketeras filen i ett `FormData`-objekt och skickas vidare till `HandleFileUpload`.
  * Resultatet loggas i konsolen. Ytterligare felhantering kan läggas till vid behov.
  *
- * @param {ChangeEvent<HTMLInputElement>} e - Händelsen som triggas när användaren väljer en fil via ett input-fält.
- *
  * @returns {Promise<void>} Returnerar inget värde, men kör asynkrona åtgärder för filuppladdning.
  */
 
-async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
-  e.preventDefault();
-
-  const file = e.target.files?.[0];
-  const fileName = file?.name;
-
-  if (!file) return;
-  if (!fileName?.toLowerCase().endsWith(".pdf")) return;
-
+async function HandleFileInput(file: File, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>) {
   const formData = new FormData();
   formData.append("file", file);
 
   HandleFileUpload(file).then((res) => {
     console.log(res);
-    // TODO:
-    // Lägg till ifall res har retunerats som error
   });
 }
