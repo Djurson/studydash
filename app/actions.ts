@@ -7,14 +7,15 @@ import { redirect } from "next/navigation";
 import { Provider } from "@supabase/supabase-js";
 
 /**
- * Sign up with email & password server action
+ * Registrering med e-post och lösenord (server action)
  *
- * @param formData - The form data (passed automatically by the form)
+ * @param formData - Formulärdata (skickas automatiskt från formuläret)
  *
- * @remarks Automatically sends a confirm email message to the user, redirects the user to /sign-up on success
+ * @description
+ * Skickar automatiskt ett bekräftelsemail till användaren vid registrering.
+ * Vid lyckad registrering omdirigeras användaren till startsidan med ett meddelande.
  *
- * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
- *
+ * @returns Returnerar olika resultat beroende på om registreringen lyckades eller om ett fel inträffade (t.ex. ogiltig e-post eller lösenord, eller Supabase-fel).
  */
 export const SignUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -38,23 +39,19 @@ export const SignUpAction = async (formData: FormData) => {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/", error.message);
   } else {
-    return encodedRedirect(
-      "success",
-      "/",
-      "Thanks for signing up! Please check your email for a verification link."
-    );
+    return encodedRedirect("success", "/", "Thanks for signing up! Please check your email for a verification link.");
   }
 };
 
 /**
- * Sign in with email & password server action
+ * Inloggning med e-post och lösenord (server action)
  *
- * @param formData - The form data (passed automatically by the form)
+ * @param formData - Formulärdata (skickas automatiskt från formuläret)
  *
- * @remarks Redirects the user to /protected on success
+ * @description
+ * Vid lyckad inloggning omdirigeras användaren till en skyddad sida.
  *
- * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
- *
+ * @returns Returnerar antingen ett felmeddelande (t.ex. felaktiga uppgifter eller tekniska fel via Supabase) eller omdirigerar användaren.
  */
 export const SignInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
@@ -74,12 +71,16 @@ export const SignInAction = async (formData: FormData) => {
 };
 
 /**
- * Sign up with google server action
+ * Genererar en serverfunktion för inloggning via en extern leverantör (OAuth).
  *
- * @remarks Redirects the user to /protected on success
+ * @param provider - Namnet på den leverantör som ska användas (t.ex. "google", "github" m.fl.)
  *
- * @returns There are several returns, either with an error (email/password criterias were not satisfied, or other errors through supabase) or success
+ * @description
+ * Skapar en asynkron funktion som påbörjar inloggning via vald OAuth-leverantör med Supabase.
+ * Vid fel returneras ett felmeddelande och användaren omdirigeras.
+ * Vid lyckad begäran omdirigeras användaren till leverantörens inloggningssida.
  *
+ * @returns En asynkron funktion som hanterar OAuth-inloggning och omdirigerar användaren.
  */
 const SignInWithProvider = (provider: Provider) => async () => {
   const supabase = await createClient();
@@ -99,17 +100,25 @@ const SignInWithProvider = (provider: Provider) => async () => {
   redirect(data.url);
 };
 
+/**
+ * Inloggning med Google (OAuth via Supabase)
+ *
+ * @description
+ * Startar inloggningsflödet via Google. Vid lyckad autentisering omdirigeras användaren till en skyddad sida.
+ *
+ * @returns Returnerar ett felmeddelande om något går fel eller omdirigerar användaren till Google för inloggning.
+ */
 export const SignInActionGoogle = SignInWithProvider("google");
 
 /**
- * Forgot password server action
+ * Glömt lösenord (server action)
  *
- * @param formData - The form data (passed automatically by the form)
+ * @param formData - Formulärdata (skickas automatiskt från formuläret)
  *
- * @remarks Redirects the user to /forgot-password on success
+ * @description
+ * Skickar ett återställningsmail till angiven e-postadress. Vid lyckat utskick visas ett meddelande eller sker omdirigering.
  *
- * @returns There are several returns, either with an error (email criterias were not satisfied, or other errors through supabase) or success
- *
+ * @returns Returnerar fel vid ogiltig e-post eller andra problem, eller visar ett bekräftelsemeddelande om instruktioner skickats.
  */
 export const ForgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -134,22 +143,18 @@ export const ForgotPasswordAction = async (formData: FormData) => {
     return redirect(callbackUrl);
   }
 
-  return encodedRedirect(
-    "success",
-    "/forgot-password",
-    "Check your email for a link to reset your password."
-  );
+  return encodedRedirect("success", "/forgot-password", "Check your email for a link to reset your password.");
 };
 
 /**
- * Reset password server action
+ * Återställ lösenord (server action)
  *
- * @param formData - The form data (passed automatically by the form)
+ * @param formData - Formulärdata (skickas automatiskt från formuläret)
  *
- * @remarks Redirects the user to /protected/reset-password on success
+ * @description
+ * Uppdaterar användarens lösenord efter att ha bekräftat att båda lösenorden matchar. Vid lyckad uppdatering visas ett bekräftelsemeddelande.
  *
- * @returns There are several returns, either with an error (password criterias were not satisfied, or other errors through supabase) or success
- *
+ * @returns Returnerar fel vid ogiltiga lösenord eller mismatch, eller visar ett meddelande vid lyckad uppdatering.
  */
 export const ResetPasswordAction = async (formData: FormData) => {
   const supabase = await createClient();
@@ -158,11 +163,7 @@ export const ResetPasswordAction = async (formData: FormData) => {
   const confirmPassword = formData.get("confirmPassword") as string;
 
   if (!password || !confirmPassword) {
-    encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password and confirm password are required"
-    );
+    encodedRedirect("error", "/protected/reset-password", "Password and confirm password are required");
   }
 
   if (password !== confirmPassword) {
@@ -181,10 +182,9 @@ export const ResetPasswordAction = async (formData: FormData) => {
 };
 
 /**
- * Sign out server action
+ * Logga ut (server action)
  *
- * @remarks Redirects the user to /sign-in on success
- *
+ * @description Loggar ut användaren från sessionen och omdirigerar till startsidan.
  */
 export const SignOutAction = async () => {
   const supabase = await createClient();

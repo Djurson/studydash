@@ -8,16 +8,11 @@ import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
 
 /**
- * A file upload input for uploading PDF documents.
+ * En komponent för att ladda upp PDF-dokument.
  *
- * @remarks
- * This component renders a styled label with an icon that acts as a file upload area. Users can either click to select a file or drag and drop a file into the area.
- * The input accepts only PDF files.
- * An info icon is also provided for additional instructions or information.
+ * @param {ComponentProps<typeof Input> & ComponentProps<typeof Label>} props - Egenskaper som skickas vidare till både input- och label-komponenterna, för att anpassa beteendet och utseendet för filuppladdningen.
  *
- * @param {ComponentProps<typeof Input> & ComponentProps<typeof Label>} props - The input and label component props to customize the file input behavior and appearance.
- *
- * @returns A file upload input with a custom label, drag-and-drop area, and a hidden file input field.
+ * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
 
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
@@ -69,6 +64,19 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
     </>
   );
 }
+
+/**
+ * Hanterar filinmatning från användaren och skickar PDF-filen till servern.
+ *
+ * @description
+ * Funktionen validerar att en fil har valts och att det är en PDF.
+ * Om så är fallet paketeras filen i ett `FormData`-objekt och skickas vidare till `HandleFileUpload`.
+ * Resultatet loggas i konsolen. Ytterligare felhantering kan läggas till vid behov.
+ *
+ * @param {ChangeEvent<HTMLInputElement>} e - Händelsen som triggas när användaren väljer en fil via ett input-fält.
+ *
+ * @returns {Promise<void>} Returnerar inget värde, men kör asynkrona åtgärder för filuppladdning.
+ */
 
 async function HandleFileInput(e: ChangeEvent<HTMLInputElement>) {
   e.preventDefault();
