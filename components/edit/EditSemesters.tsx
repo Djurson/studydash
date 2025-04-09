@@ -1,29 +1,15 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import EditCourses from "./EditCourses";
-import { Course } from "@/utils/types";
+import { Course, CourseJSON } from "@/utils/types";
+import { EditCourse } from "./editcourse";
 
 interface Semester {
   name: string;
-  courses: CourseProps[];
+  courses: CourseJSON[];
 }
 
-interface CourseProps {
-  name: string;
-  course_code: string;
-  credits: string;
-  VOF: string;
-  examinations: ExaminationProps[];
-}
-
-interface ExaminationProps {
-  code: string;
-  name: string;
-  credits: string;
-  grading: string;
-}
-
-export default function SemesterAccordion({ semester, courseResults, setCourseResults, }: { semester: Semester; courseResults: Course[] | undefined, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>> }) {
+export default function SemesterAccordion({ semester }: { semester: Semester; }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -50,7 +36,7 @@ export default function SemesterAccordion({ semester, courseResults, setCourseRe
         {isOpen && (
           <div className=" bg-white mt-4">
             {semester.courses.map((course) => (
-              <EditCourses key={course.course_code} course={course} courseResults={courseResults} setCourseResults={setCourseResults} />
+              <EditCourse key={course.course_code} course={course} />
             ))}
           </div>
         )}

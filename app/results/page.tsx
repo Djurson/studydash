@@ -21,33 +21,9 @@ import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
-import { useState } from "react";
-import { Course } from "@/utils/types";
-
-interface Program {
-  name: string;
-  credits: string;
-  url: string;
-  semesters: Semester[];
-}
-
-interface Semester {
-  name: string;
-  courses: Course[];
-}
-
-interface Examination { }
-
-interface ProgramData {
-  programs: Program[];
-}
-
-interface exjobbData {
-  programs: Program[];
-}
+import { EditCourseProvider } from "@/components/edit/editcontext";
 
 export default function Page() {
-  const [courseResults, setCourseResults] = useState<Course[]>();
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
   const startingSemester = "HT 2022";
   const showFrom = 7;
@@ -66,7 +42,7 @@ export default function Page() {
   const startYear = currentYear - 8;
 
   return (
-    <>
+    <EditCourseProvider>
       <header>
         <h1 className="text-3xl font-semibold mt-2">
           Redigera kurser och moment.
@@ -136,7 +112,7 @@ export default function Page() {
             <div className="h-1 bg-gray-100 rounded-lg my-1"></div>
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} courseResults={courseResults} setCourseResults={setCourseResults} />
+                <EditSemesters key={semester.name} semester={semester} />
               ))}
             </div>
 
@@ -163,6 +139,6 @@ export default function Page() {
           </div>
         </section>
       </main>
-    </>
+    </EditCourseProvider>
   );
 }
