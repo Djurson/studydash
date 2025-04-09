@@ -7,21 +7,18 @@ import { FileUp, Info } from "lucide-react";
 import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
 import { Course } from "@/utils/types";
-
-type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof Label> & {
-  courseResults: Course[] | undefined;
-  setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>;
-}
+import { useStudyResult } from "../edit/editcontext";
 
 /**
  * En komponent för att ladda upp PDF-dokument.
- * 
+ *
  * @param courseResults - Kursresultat
  * @param setCourseResults - SetStateAction för att sätta kursresultat
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
-export function UploadPDFInput({ courseResults, setCourseResults, ...props }: UploadPDFInputProps) {
+export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
+  const { studyResults, setStudyResults } = useStudyResult();
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -33,11 +30,11 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
 
     // Skapa en dummy event för att återanvända HandleFileInput
     const fakeEvent = {
-      preventDefault: () => { },
+      preventDefault: () => {},
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
-    HandleFileInput(file, setCourseResults);
+    HandleFileInput(file);
   };
 
   async function UploadFile(e: ChangeEvent<HTMLInputElement>) {
@@ -49,7 +46,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
     if (!file) return;
     if (!fileName?.toLowerCase().endsWith(".pdf")) return;
 
-    HandleFileInput(file, setCourseResults);
+    HandleFileInput(file);
   }
 
   return (
@@ -66,17 +63,18 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
         onDrop={handleDrop}>
         <Label
           htmlFor="PDF-Upload"
-          className={`flex flex-col items-center justify-center px-12 py-12 text-sm transition duration-300 ease-in-out border-2 
-          border-gray-900 border-dashed cursor-pointer rounded-2xl group
-          ${isDragging ? 'bg-blue-100' : 'hover:bg-blue-100 bg-white-0'}`}>
-          <span className={`transition duration-300 ease-in-out aspect-square p-7 rounded-2xl
-            ${isDragging ? 'bg-white-400' : 'bg-blue-100 group-hover:bg-white-400'}`}>
-            <FileUp className="text-blue-900 aspect-square h-9 w-9" />
+          className={`flex flex-col items-center justify-center px-4 py-4 text-sm transition duration-300 ease-in-out border-1 
+          border-gray-900 border-dashed cursor-pointer rounded-2xl group shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)]
+          ${isDragging ? "bg-blue-100" : "hover:bg-blue-100 bg-white-0"}`}>
+          <span
+            className={`transition duration-300 ease-in-out aspect-square p-4 rounded-2xl
+            ${isDragging ? "bg-white-400" : "bg-blue-100 group-hover:bg-white-400"}`}>
+            <FileUp className="text-blue-900 aspect-square h-8.5 w-8.5" />
           </span>
-          <span>
-            <span className="text-blue-900">Klicka</span> eller dra & släpp för att ladda upp resultatintyg
-          </span>
-          <span className="text-gray-600">Format som stöds: PDF</span>
+          <p className="mt-2 text-sm text-center">
+            <span className="text-blue-900">Klicka</span> eller dra och släpp för att ladda upp resultatintyg
+          </p>
+          <p className="text-gray-600 font-light text-xs">Format som stöds: PDF</p>
         </Label>
         <Link href={"/"}>
           <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" />
@@ -98,7 +96,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
  * @returns {Promise<void>} Returnerar inget värde, men kör asynkrona åtgärder för filuppladdning.
  */
 
-async function HandleFileInput(file: File, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>) {
+async function HandleFileInput(file: File) {
   const formData = new FormData();
   formData.append("file", file);
 

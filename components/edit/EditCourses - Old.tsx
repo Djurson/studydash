@@ -36,7 +36,7 @@ type ExaminationProps = {
   grading: string;
 };
 
-export default function EditCourses({ course, courseResults, setCourseResults, }: { course: CourseProps; courseResults: Course[] | undefined; setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>; }) {
+export default function EditCourses({ course }: { course: CourseProps }) {
   // courseResults innehåller alla kurs grejer man fyllt i är tanken och man använder setCourseResults för att sätta den till ett visst värde,
   // Måste vara på samma form som när man läser in en pdf
 
@@ -92,7 +92,9 @@ export default function EditCourses({ course, courseResults, setCourseResults, }
 
         <ChevronDown
           size={24}
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`}
+          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${
+            isOpen ? "rotate-180" : "rotate-0"
+          }`}
         />
       </button>
       <section>
@@ -108,10 +110,11 @@ export default function EditCourses({ course, courseResults, setCourseResults, }
                         <div className="flex gap-4 items-center">
                           <div className="flex pl-8">
                             <div
-                              className={`border-1 rounded-sm h-[1rem] aspect-square ${examInputs[exam.code]?.isComplete
-                                ? "bg-green-500"
-                                : "border-gray-900"
-                                }`}></div>
+                              className={`border-1 rounded-sm h-[1rem] aspect-square ${
+                                examInputs[exam.code]?.isComplete
+                                  ? "bg-green-500"
+                                  : "border-gray-900"
+                              }`}></div>
                           </div>
                           <div className="flex justify-between items-center w-full">
                             <p className="text-xs">

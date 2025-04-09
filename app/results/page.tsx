@@ -23,6 +23,9 @@ import EditSemesters from "@/components/edit/EditSemesters";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import { useState } from "react";
 import { Course } from "@/utils/types";
+import { EditCourseProvider } from "@/components/edit/editcontext";
+import { FlipHorizontal } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 interface Program {
   name: string;
@@ -36,7 +39,7 @@ interface Semester {
   courses: Course[];
 }
 
-interface Examination { }
+interface Examination {}
 
 interface ProgramData {
   programs: Program[];
@@ -47,7 +50,6 @@ interface exjobbData {
 }
 
 export default function Page() {
-  const [courseResults, setCourseResults] = useState<Course[]>();
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
   const startingSemester = "HT 2022";
   const showFrom = 7;
@@ -61,12 +63,14 @@ export default function Page() {
 
   const program = programData.programs[0];
 
-
-  const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
+  const currentYear =
+    new Date().getMonth() < 8
+      ? new Date().getFullYear() - 1
+      : new Date().getFullYear();
   const startYear = currentYear - 8;
 
   return (
-    <>
+    <EditCourseProvider>
       <header>
         <h1 className="text-3xl font-semibold mt-2">
           Redigera kurser och moment.
@@ -104,25 +108,32 @@ export default function Page() {
               </Select>
               <Select name="studyYear" required>
                 <SelectTrigger className="w-full text-gray-900 bg-white-0">
-                  <SelectValue placeholder="När påbörjade du dina studier?" className="text-gray-900"></SelectValue>
+                  <SelectValue
+                    placeholder="När påbörjade du dina studier?"
+                    className="text-gray-900"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>När påbörjade du dina studier?</SelectLabel>
-                    {Array.from({ length: currentYear - startYear + 1 }, (_, index) => {
-                      const year = startYear + index;
-                      return (
-                        <SelectItem key={year} value={year.toString()}>
-                          HT {year}
-                        </SelectItem>
-                      );
-                    })}
+                    {Array.from(
+                      { length: currentYear - startYear + 1 },
+                      (_, index) => {
+                        const year = startYear + index;
+                        return (
+                          <SelectItem key={year} value={year.toString()}>
+                            HT {year}
+                          </SelectItem>
+                        );
+                      }
+                    )}
                   </SelectGroup>
                 </SelectContent>
               </Select>
               <Select name="prev-funds" required>
                 <SelectTrigger className="w-full text-gray-900 bg-white-0">
-                  <SelectValue placeholder="Har du sökt CSN tidigare?" className="text-gray-900"></SelectValue>
+                  <SelectValue
+                    placeholder="Har du sökt CSN tidigare?"
+                    className="text-gray-900"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -133,13 +144,14 @@ export default function Page() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="h-1 bg-gray-100 rounded-lg my-1"></div>
+            <Separator orientation="horizontal" />
+
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} courseResults={courseResults} setCourseResults={setCourseResults} />
+                <EditSemesters key={semester.name} semester={semester} />
               ))}
             </div>
-
+            <Separator orientation="horizontal" />
             <div className="flex flex-col gap-4">
               {masterSemesters.map((semester, index) => (
                 <EditMasterSemester
@@ -149,12 +161,13 @@ export default function Page() {
                 />
               ))}
             </div>
+            <Separator orientation="horizontal" />
           </div>
         </section>
         <section className="col-start-4 col-span-2 ">
           <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
             <div>
-              <UploadPDFInput courseResults={courseResults} setCourseResults={setCourseResults} />
+              <UploadPDFInput />
             </div>
 
             <div>
@@ -163,6 +176,6 @@ export default function Page() {
           </div>
         </section>
       </main>
-    </>
+    </EditCourseProvider>
   );
 }
