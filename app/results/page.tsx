@@ -154,7 +154,7 @@ export default function Page() {
         <section className="col-start-4 col-span-2 ">
           <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
             <div>
-              <UploadPDFInput courseResults={courseResults} setCourseResults={setCourseResults} />
+              <UploadPDFInput />
             </div>
 
             <div>

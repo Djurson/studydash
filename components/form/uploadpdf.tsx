@@ -8,11 +8,6 @@ import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
 import { Course } from "@/utils/types";
 
-type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof Label> & {
-  courseResults: Course[] | undefined;
-  setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>;
-}
-
 /**
  * En komponent för att ladda upp PDF-dokument.
  * 
@@ -21,7 +16,7 @@ type UploadPDFInputProps = ComponentProps<typeof Input> & ComponentProps<typeof 
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
-export function UploadPDFInput({ courseResults, setCourseResults, ...props }: UploadPDFInputProps) {
+export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -37,7 +32,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
-    HandleFileInput(file, setCourseResults);
+    HandleFileInput(file);
   };
 
   async function UploadFile(e: ChangeEvent<HTMLInputElement>) {
@@ -49,7 +44,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
     if (!file) return;
     if (!fileName?.toLowerCase().endsWith(".pdf")) return;
 
-    HandleFileInput(file, setCourseResults);
+    HandleFileInput(file);
   }
 
   return (
@@ -98,7 +93,7 @@ export function UploadPDFInput({ courseResults, setCourseResults, ...props }: Up
  * @returns {Promise<void>} Returnerar inget värde, men kör asynkrona åtgärder för filuppladdning.
  */
 
-async function HandleFileInput(file: File, setCourseResults: Dispatch<SetStateAction<Course[] | undefined>>) {
+async function HandleFileInput(file: File) {
   const formData = new FormData();
   formData.append("file", file);
 
