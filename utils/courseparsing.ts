@@ -89,7 +89,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       if (restOfLine.includes("hp")) {
         ParseExaminationSingleLine(restOfLine, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
 
@@ -105,7 +105,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       if (nextLine.includes("hp")) {
         ParseExaminationDetailsLine(nextLine, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
 
@@ -118,7 +118,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
       if (detailsLine.includes("hp")) {
         ParseExaminationDetailsLine(detailsLine, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
     }
@@ -178,7 +178,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationSingleLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
 
@@ -194,7 +194,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationDetailsLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
 
@@ -209,7 +209,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
         let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "( $1 )");
         ParseExaminationDetailsLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
-        currentCourse.examinations.push(exam);
+        currentCourse.examinations.set(exam.code, exam);
         continue;
       }
     }
@@ -224,7 +224,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
 }
 
 function CreateEmptyCourse(): Course {
-  return { code: "", name: "", date: "", examinations: [], hp: 0, grade: 0 };
+  return { code: "", name: "", date: "", examinations: new Map(), hp: 0, grade: 0 };
 }
 
 function CreateEmptyExamination(): Examination {
