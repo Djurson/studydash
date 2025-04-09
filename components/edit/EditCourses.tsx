@@ -92,17 +92,8 @@ export default function EditCourses({ course, courseResults, setCourseResults, }
 
         <ChevronDown
           size={24}
-<<<<<<< Updated upstream:components/edit/EditCourses.tsx
-<<<<<<< Updated upstream:components/edit/EditCourses.tsx
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`}
-=======
           className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
             }`}
->>>>>>> Stashed changes:components/edit/EditCourses - Old.tsx
-=======
-          className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
-            }`}
->>>>>>> Stashed changes:components/edit/EditCourses - Old.tsx
         />
       </button>
       <section>
