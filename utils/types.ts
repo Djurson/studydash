@@ -68,3 +68,18 @@ export type ExaminationJSON = {
   credits: string;
   grading: string;
 };
+
+export type CourseJSON = {
+  name: string;
+  course_code: string;
+  credits: string;
+  VOF: string;
+  examinations: ExaminationJSON[];
+};
+
+export type ExaminationJSON = {
+  code: string;
+  name: string;
+  credits: string;
+  grading: string;
+};

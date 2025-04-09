@@ -25,6 +25,7 @@ export const validateGrade = (grade: string, exam: ExaminationJSON) => {
     return `Ange giltigt betyg (${allowedGrades.join(", ")})`;
   }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   
   export const validateDate = (date: string, programStartDate: string, todayFormatted: string) => {
     if (date.length !== 8) return "Ange giltigt datum (YYYY-MM-DD)";
@@ -57,6 +58,8 @@ export const validateGrade = (grade: string, exam: ExaminationJSON) => {
     return `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
   };
 =======
+=======
+>>>>>>> Stashed changes
 
   return "";
 };
@@ -66,4 +69,7 @@ export const getTodayFormatted = () => {
   const today = new Date();
   return `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, "0")}${String(today.getDate()).padStart(2, "0")}`;
 };
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
