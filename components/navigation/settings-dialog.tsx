@@ -1,5 +1,9 @@
 "use client";
 import { Switch } from "@/components/ui/switch"
+import { ThemeProvider } from "next-themes";
+import { useTheme } from "next-themes";
+import React from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -15,6 +19,18 @@ interface SettingsDialogProps {
 }
 
 export function SettingsDialog({ children }: SettingsDialogProps) {
+    const { theme, setTheme } = useTheme();
+    const [isDark, setIsDark] = useState(false);
+  
+    useEffect(() => {
+      setIsDark(theme === "dark");
+    }, [theme]);
+  
+    const handleToggle = (checked: boolean) => {
+      setIsDark(checked);
+      setTheme(checked ? "dark" : "light");
+    };
+  
     return (
       <Dialog>
         <DialogTrigger asChild>{children}</DialogTrigger>
@@ -28,7 +44,7 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
   
           <div className="mt-6 flex items-center justify-between">
             <span className="text-sm">Mörkt läge</span>
-            <Switch />
+            <Switch checked={isDark} onCheckedChange={handleToggle} />
           </div>
   
           <DialogClose className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
@@ -37,4 +53,3 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
       </Dialog>
     );
   }
-
