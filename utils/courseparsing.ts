@@ -3,13 +3,13 @@ import { tryCatch } from "./trycatch";
 
 /** Funktion för att parsea studie information från textData
  * @param textData - text data från pdf:en
- * @returns Studieinformation om klarade kurser i en array | Error
+ * @returns Studieinformation om klarade kurser i en hashmap | Error
  */
-export async function ParseCourses(textData: string): Promise<Course[] | Error> {
+export async function ParseCourses(textData: string): Promise<Map<string, Course> | string> {
   const { data, error } = await tryCatch(ExtractCoursesAndExaminations(textData));
 
   if (error) {
-    return error;
+    return error.message;
   }
 
   return await data;
@@ -17,10 +17,10 @@ export async function ParseCourses(textData: string): Promise<Course[] | Error> 
 
 /** Splittar upp text datan i en array och loopar igenom den för att extrahera data
  * @param text - textdatan som extraherats ur PDF filen
- * @returns En array med Course objekt
+ * @returns En hashmap av kurser, där key:n är kurskoden
  */
-async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
-  let courses: Course[] = [];
+async function ExtractCoursesAndExaminations(text: string): Promise<Map<string, Course>> {
+  let courses: Map<string, Course> = new Map();
   let currentCourse: Course | null = null;
   let unfinishedCourses = false;
 
@@ -48,7 +48,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
     if (courseMatch && !unfinishedCourses) {
       // Om vi redan har en kurs, spara den innan vi skapar en ny
       if (currentCourse) {
-        courses.push(currentCourse);
+        courses.set(currentCourse.code, currentCourse);
       }
 
       // Skapa ny kurs
@@ -127,7 +127,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
     if (courseMatch) {
       // Om vi redan har en kurs, spara den innan vi skapar en ny
       if (currentCourse) {
-        courses.push(currentCourse);
+        courses.set(currentCourse.code, currentCourse);
       }
 
       // Skapa ny kurs
@@ -217,7 +217,7 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Course[]> {
 
   // Lägg till den sista kursen om den finns
   if (currentCourse) {
-    courses.push(currentCourse);
+    courses.set(currentCourse.code, currentCourse);
   }
 
   return courses;
@@ -241,6 +241,11 @@ function ParseHP(hpStr: string): number {
   // Extrahera tal från t.ex. "6,0hp" eller "( 1,5hp )"
   const match = hpStr.match(/(\d+,\d+)hp/);
   return match ? parseFloat(match[1].replace(",", ".")) : 0;
+}
+
+function ParseDate(date: string): string {
+  date = date.slice(0, 4) + date.slice(5, 7) + date.slice(8, 10);
+  return date;
 }
 
 function ParseCourseSingleLine(line: string, course: Course): void {
@@ -270,7 +275,7 @@ function ParseCourseSingleLine(line: string, course: Course): void {
   // Extrahera betyg och datum - de kommer efter hp
   course.grade = ParseGrade(restOfLine[0]);
 
-  course.date = restOfLine.substring(1, 11).trim();
+  course.date = ParseDate(restOfLine.substring(1, 11).trim());
 }
 
 function ParseCourseDetailsLine(line: string, course: Course): void {
@@ -296,7 +301,7 @@ function ParseCourseDetailsLine(line: string, course: Course): void {
   }
 
   course.grade = ParseGrade(restOfLine[0]);
-  course.date = restOfLine.substring(1, 11).trim();
+  course.date = ParseDate(restOfLine.substring(1, 11).trim());
 }
 
 function ParseExaminationSingleLine(line: string, exam: Examination): void {
@@ -308,7 +313,7 @@ function ParseExaminationSingleLine(line: string, exam: Examination): void {
     exam.name = match[1].trim();
     exam.hp = parseFloat(match[2].replace(",", "."));
     exam.grade = ParseGrade(match[3]);
-    exam.date = match[4];
+    exam.date = ParseDate(match[4]);
     return;
   }
 
@@ -341,7 +346,7 @@ function ParseExaminationSingleLine(line: string, exam: Examination): void {
 
   // Extrahera betyg och datum - de kommer efter hp och parenteser
   exam.grade = ParseGrade(restOfLine[0]);
-  exam.date = restOfLine.substring(1, 11).trim();
+  exam.date = ParseDate(restOfLine.substring(1, 11).trim());
 }
 
 function ParseExaminationDetailsLine(line: string, exam: Examination): void {
@@ -352,7 +357,7 @@ function ParseExaminationDetailsLine(line: string, exam: Examination): void {
   if (match) {
     exam.hp = parseFloat(match[1].replace(",", "."));
     exam.grade = ParseGrade(match[2]);
-    exam.date = match[3];
+    exam.date = ParseDate(match[3]);
     return;
   }
 
@@ -381,5 +386,5 @@ function ParseExaminationDetailsLine(line: string, exam: Examination): void {
 
   // Extrahera betyg och datum - de kommer efter hp och parenteser
   exam.grade = ParseGrade(restOfLine[0]);
-  exam.date = restOfLine.substring(1, 11).trim();
+  exam.date = ParseDate(restOfLine.substring(1, 11).trim());
 }

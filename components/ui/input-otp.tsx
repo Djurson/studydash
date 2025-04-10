@@ -9,17 +9,16 @@ import { cn } from "@/lib/utils";
 function InputOTP({
   className,
   containerClassName,
+  error,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
+  error?: string | null;
 }) {
   return (
     <OTPInput
       data-slot="input-otp"
-      containerClassName={cn(
-        "flex items-center gap-2 has-disabled:opacity-50",
-        containerClassName
-      )}
+      containerClassName={cn("flex items-center gap-2 has-disabled:opacity-50", containerClassName)}
       className={cn("disabled:cursor-not-allowed", className)}
       {...props}
     />
@@ -27,13 +26,7 @@ function InputOTP({
 }
 
 function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="input-otp-group"
-      className={cn("flex items-center", className)}
-      {...props}
-    />
-  );
+  return <div data-slot="input-otp-group" className={cn("flex items-center", className)} {...props} />;
 }
 
 function InputOTPSlot({
@@ -61,21 +54,10 @@ function InputOTPSlot({
         hasError && "border-red-500 bg-red-50 text-red-600"
       )}
       {...props}>
-      {showPlaceholder ? (
-        <span className={cn("text-gray-200", hasError && "text-red-300")}>
-          {placeholder}
-        </span>
-      ) : (
-        char
-      )}
+      {showPlaceholder ? <span className={cn("text-gray-200", hasError && "text-red-300")}>{placeholder}</span> : char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div
-            className={cn(
-              "animate-caret-blink h-4 w-px duration-1000",
-              hasError ? "bg-red-500" : "bg-foreground"
-            )}
-          />
+          <div className={cn("animate-caret-blink h-4 w-px duration-1000", hasError ? "bg-red-500" : "bg-foreground")} />
         </div>
       )}
     </div>

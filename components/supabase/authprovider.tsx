@@ -15,7 +15,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
-  signOut: async () => { },
+  signOut: async () => {},
   popup: false,
 });
 

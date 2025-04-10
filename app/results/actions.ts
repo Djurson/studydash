@@ -7,12 +7,13 @@ import path from "path";
 import os from "os";
 import { tryCatch } from "@/utils/trycatch";
 import { ParseCourses } from "@/utils/courseparsing";
+import { Course } from "@/utils/types";
 
 /** Funktion för att hantera uppladdning av PDF
  * @param file - Filen som laddats upp
  * @returns Ett objekt med studieinformation
  */
-export async function HandleFileUpload(file: File) {
+export async function HandleFileUpload(file: File): Promise<Map<string, Course> | string> {
   let fileName = uuidv4();
 
   // Skapar en filväg till operativsystemets temporära sparnings plats
@@ -25,14 +26,13 @@ export async function HandleFileUpload(file: File) {
   // Om error, stäng filestream och returnera error.
   if (error) {
     await fs.unlink(tempFilePath).catch(() => {});
-    console.error("Error processing PDF:", error);
+    return "Error processing PDF:" + error;
   }
 
   // Om data inte finns, stäng filestream och returnera error.
   if (!data) {
     await fs.unlink(tempFilePath).catch(() => {});
-    console.error("Error when reading file!");
-    return;
+    return "Error when reading file!";
   }
 
   // Om det finns data/text i PDF:en skicka in den till ParseCourses funktionen
@@ -61,7 +61,7 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
   // Om det blir error, skriv ut den och returnera
   pdfParser.on("pdfParser_dataError", (errData: any) => {
     console.error("PDF Parser Error:", errData.parserError);
-    return;
+    return; // This only returns from the event handler, not from the function
   });
 
   // Extrahera texten från PDF filen

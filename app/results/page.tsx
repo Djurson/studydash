@@ -1,27 +1,15 @@
 "use client";
 
 import { UploadPDFInput } from "@/components/form/uploadpdf";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChangeHistory } from "@/components/edit/changehistory";
 
 // Funktionerna för att generera och hämta terminer som inte mappas från json
-import {
-  generateAllSemesters,
-  getSemestersInRange,
-} from "@/utils/semesterDates";
+import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
 import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
-import { EditCourseProvider } from "@/components/edit/editcontext";
 
 export default function Page() {
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
@@ -29,24 +17,17 @@ export default function Page() {
   const showFrom = 7;
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);
-  const masterSemesters = getSemestersInRange(
-    startingSemester,
-    showFrom,
-    showTo
-  );
+  const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
 
   const program = programData.programs[0];
-
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 8;
 
   return (
-    <EditCourseProvider>
+    <>
       <header>
-        <h1 className="text-3xl font-semibold mt-2">
-          Redigera kurser och moment.
-        </h1>
+        <h1 className="text-3xl font-semibold mt-2">Redigera kurser och moment.</h1>
       </header>
       <main className="w-full h-[28.25rem] grid grid-cols-5 gap-4 mt-6">
         <section className="col-start-1 col-span-3">
@@ -58,9 +39,7 @@ export default function Page() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Universitet</SelectLabel>
-                  <SelectItem value="Linköpings universitet">
-                    Linköpings universitet
-                  </SelectItem>
+                  <SelectItem value="Linköpings universitet">Linköpings universitet</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -72,9 +51,7 @@ export default function Page() {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Program/utbildning</SelectLabel>
-                    <SelectItem value="Civilingenjör i medieteknik">
-                      Civilingenjör i medieteknik
-                    </SelectItem>
+                    <SelectItem value="Civilingenjör i medieteknik">Civilingenjör i medieteknik</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -118,11 +95,7 @@ export default function Page() {
 
             <div className="flex flex-col gap-4">
               {masterSemesters.map((semester, index) => (
-                <EditMasterSemester
-                  key={semester.fullString}
-                  semester={semester}
-                  index={index + showFrom - 1}
-                />
+                <EditMasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
               ))}
             </div>
           </div>
@@ -132,13 +105,12 @@ export default function Page() {
             <div>
               <UploadPDFInput />
             </div>
-
             <div>
               <ChangeHistory />
             </div>
           </div>
         </section>
       </main>
-    </EditCourseProvider>
+    </>
   );
 }
