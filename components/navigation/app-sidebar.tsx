@@ -74,7 +74,9 @@ const data = {
   user: {
     name: "John Doe",
     email: "johndoe@example.com",
+    url:"/profil",
     avatar: "",
+    
   },
 };
 
