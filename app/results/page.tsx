@@ -10,6 +10,8 @@ import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
+import thesisData from "@/webscraping/Exjobb-engineers.json";
+import { Separator } from "@/components/ui/separator";
 
 export default function Page() {
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
@@ -18,8 +20,18 @@ export default function Page() {
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);
   const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
+  const finalThesisSemester = allSemesters[9];
 
   const program = programData.programs[0];
+
+  const thsesis = {
+    ...thesisData.programs[0],
+    semesters: thesisData.programs[0].semesters.map(semester => ({
+      ...semester,
+      name: `Termin 10 ${finalThesisSemester.fullString}`
+    }))
+  };
+
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 8;
@@ -86,16 +98,22 @@ export default function Page() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="h-1 bg-gray-100 rounded-lg my-1"></div>
+            <Separator />
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (
                 <EditSemesters key={semester.name} semester={semester} />
               ))}
             </div>
-
+            <Separator />
             <div className="flex flex-col gap-4">
               {masterSemesters.map((semester, index) => (
                 <EditMasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
+              ))}
+            </div>
+            <Separator />
+            <div className="flex flex-col gap-4">
+              {thsesis.semesters.map((semester) => (
+                <EditSemesters key={semester.name} semester={semester} />
               ))}
             </div>
           </div>

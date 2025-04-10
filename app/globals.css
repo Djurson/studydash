@@ -47,6 +47,8 @@
 
   --animate-caret-blink: caret-blink 1.5s ease-in-out infinite;
 
+  --animate-shake-forwards: shake 300ms ease-in-out forwards;
+
   @keyframes colorChange {
 
     0%,
@@ -72,8 +74,23 @@
       opacity: 0;
     }
   }
-}
 
+  @keyframes shake {
+
+    0%,
+    100% {
+      transform: translateX(0) translateY(0);
+    }
+
+    25% {
+      transform: translateX(calc(var(--spacing) * -2)) translateY(0);
+    }
+
+    75% {
+      transform: translateX(calc(var(--spacing) * 2)) translateY(0);
+    }
+  }
+}
 
 
 

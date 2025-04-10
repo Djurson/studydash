@@ -17,7 +17,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
 
   useEffect(() => {
     setGrade(studyResults.get(course.course_code)?.grade.toString());
-  }, [course.course_code, studyResults]);
+  }, [course.course_code, studyResults.get(course.course_code), course.examinations, status]);
   // TODO:
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
   return (
@@ -25,7 +25,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
       <div className="overflow-hidden flex flex-col items-end">
         <button className="grid grid-cols-10 grid-rows-1 w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
           <div className="col-start-1 col-span-8 flex gap-4 items-center pl-4">
-            <StatusSquare status="none" />
+            <StatusSquare status={grade ? "done" : "ongoing"} />
 
             <h4 className="font-medium text-sm">
               {course.name} - {course.course_code}
@@ -72,7 +72,6 @@ function CourseExaminationMapping({
   const [gradeError, setGradeError] = useState<string | null>(null);
   const [dateFocused, setDateFocused] = useState(false);
   const [gradeFocused, setGradeFocused] = useState(false);
-
   const [examDate, setExamDate] = useState<string | undefined>("");
   const [examGrade, setExamGrade] = useState<string | undefined>("");
 
@@ -115,7 +114,8 @@ function CourseExaminationMapping({
     setStudyResults((prev) => UpdateExamResult(prev, course, exam, gradeUpdate));
   };
 
-  const status: Status = (gradeError || dateError) && (dateFocused || gradeFocused) ? "error" : !gradeError && !dateError && examDate?.length === 8 && examGrade?.length === 1 ? "done" : "none";
+  const status: Status = (gradeError || dateError) ? "error" : examDate?.length === 8 && examGrade?.length === 1 ? "done" : "none";
+
   return (
     <>
       <div className="grid grid-cols-[auto_1fr_auto] grid-rows-2 gap-1">
@@ -134,25 +134,25 @@ function CourseExaminationMapping({
               <p>Datum:</p>
               <InputOTP
                 maxLength={8}
-                name="date"
                 onChange={HandleDateChange}
                 value={examDate}
                 onBlur={() => setDateFocused(true)}
                 onFocus={() => setDateFocused(false)}
-                error={dateFocused ? dateError : null}>
-                <InputOTPGroup>
+                error={dateFocused ? dateError : null}
+              >
+                <InputOTPGroup className={`${dateError && dateFocused ? 'animate-shake-forwards' : ''}`}>
                   <InputOTPSlot index={0} placeholder="Y" hasError={!!dateError && !!dateFocused} />
                   <InputOTPSlot index={1} placeholder="Y" hasError={!!dateError && !!dateFocused} />
                   <InputOTPSlot index={2} placeholder="Y" hasError={!!dateError && !!dateFocused} />
                   <InputOTPSlot index={3} placeholder="Y" hasError={!!dateError && !!dateFocused} />
                 </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
+                <InputOTPSeparator className={`${dateError && dateFocused ? 'animate-shake-forwards' : ''}`} />
+                <InputOTPGroup className={`${dateError && dateFocused ? 'animate-shake-forwards' : ''}`}>
                   <InputOTPSlot index={4} placeholder="M" hasError={!!dateError && !!dateFocused} />
                   <InputOTPSlot index={5} placeholder="M" hasError={!!dateError && !!dateFocused} />
                 </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
+                <InputOTPSeparator className={`${dateError && dateFocused ? 'animate-shake-forwards' : ''}`} />
+                <InputOTPGroup className={`${dateError && dateFocused ? 'animate-shake-forwards' : ''}`}>
                   <InputOTPSlot index={6} placeholder="D" hasError={!!dateError && !!dateFocused} />
                   <InputOTPSlot index={7} placeholder="D" hasError={!!dateError && !!dateFocused} />
                 </InputOTPGroup>
@@ -165,13 +165,12 @@ function CourseExaminationMapping({
               <p>Betyg:</p>
               <InputOTP
                 maxLength={1}
-                name="grade"
                 onChange={HandleGradeChange}
                 value={examGrade}
                 onBlur={() => setGradeFocused(true)}
                 onFocus={() => setGradeFocused(false)}
                 error={gradeFocused ? gradeError : null}>
-                <InputOTPGroup>
+                <InputOTPGroup className={`${gradeError && gradeFocused ? 'animate-shake-forwards' : ''}`}>
                   <InputOTPSlot index={0} placeholder="x" hasError={!!gradeError && !!gradeFocused} />
                 </InputOTPGroup>
               </InputOTP>

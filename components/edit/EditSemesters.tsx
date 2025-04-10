@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import EditCourses from "./EditCourses";
-import { Course, CourseJSON } from "@/utils/types";
+import { CourseJSON } from "@/utils/types";
 import { EditCourse } from "./editcourse";
 
 interface Semester {
