@@ -114,7 +114,7 @@ function CourseExaminationMapping({
     setStudyResults((prev) => UpdateExamResult(prev, course, exam, gradeUpdate));
   };
 
-  const status: Status = (gradeError || dateError) ? "error" : examDate?.length === 8 && examGrade?.length === 1 ? "done" : "none";
+  const status: Status = (gradeError || dateError) ? "error" : examDate?.length === 8 && examGrade?.length === 1 ? "done" : "ongoing";
 
   return (
     <>
