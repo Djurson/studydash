@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-**Viktigt:** Detta kommer inte att fungera utan filen **.local.env**!
+**Viktigt:** Detta kommer inte att fungera utan filen **.env.local**!
 
 ---
 
