@@ -1,5 +1,5 @@
 "use client";
-
+import { SettingsDialog } from "./settings-dialog";
 import {
   ChartNoAxesCombined,
   GraduationCap,
@@ -136,34 +136,17 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>Övrigt</SidebarGroupLabel>
-          <SidebarGroupContent>
+           <SidebarGroupContent>
             <SidebarMenu>
-            {others.map((item) => (
-  <SidebarMenuItem key={item.title}>
-    {item.title === "Inställningar" ? (
-      <Dialog>
-        <DialogTrigger asChild>
-          <SidebarMenuButton>
-            <item.icon />
-            <span>{item.title}</span>
-          </SidebarMenuButton>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Inställningar</DialogTitle>
-            <DialogDescription>
-              Här kan du justera dina preferenser och kontoinställningar.
-            </DialogDescription>
-          </DialogHeader>
-          {/* Place your settings form or content here */}
-          <div className="mt-4">
-            <p className="text-sm text-muted-foreground">Innehåll för inställningar kommer här.</p>
-          </div>
-          <DialogClose className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-            ✕
-          </DialogClose>
-        </DialogContent>
-      </Dialog>
+             {others.map((item) => (
+            <SidebarMenuItem key={item.title}>
+            {item.title === "Inställningar" ? (
+            <SettingsDialog>
+           <SidebarMenuButton>
+          <item.icon />
+          <span>{item.title}</span>
+        </SidebarMenuButton>
+      </SettingsDialog>
     ) : (
       <SidebarMenuButton asChild>
         <a href={item.url}>
