@@ -9,6 +9,15 @@ import {
   MessageCircleQuestion,
   Settings,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "../ui/dialog";
 
 import {
   Sidebar,
@@ -129,16 +138,42 @@ export function AppSidebar() {
           <SidebarGroupLabel>Övrigt</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {others.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+            {others.map((item) => (
+  <SidebarMenuItem key={item.title}>
+    {item.title === "Inställningar" ? (
+      <Dialog>
+        <DialogTrigger asChild>
+          <SidebarMenuButton>
+            <item.icon />
+            <span>{item.title}</span>
+          </SidebarMenuButton>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Inställningar</DialogTitle>
+            <DialogDescription>
+              Här kan du justera dina preferenser och kontoinställningar.
+            </DialogDescription>
+          </DialogHeader>
+          {/* Place your settings form or content here */}
+          <div className="mt-4">
+            <p className="text-sm text-muted-foreground">Innehåll för inställningar kommer här.</p>
+          </div>
+          <DialogClose className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+            ✕
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
+    ) : (
+      <SidebarMenuButton asChild>
+        <a href={item.url}>
+          <item.icon />
+          <span>{item.title}</span>
+        </a>
+      </SidebarMenuButton>
+    )}
+  </SidebarMenuItem>
+))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
