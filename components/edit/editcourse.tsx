@@ -14,6 +14,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // TODO:
+  //
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
 
   return (
@@ -41,39 +42,44 @@ export function EditCourse({ course }: { course: CourseJSON }) {
         </button>
         <section className="flex flex-col w-[95%] gap-3">
           {isOpen &&
-            course.examinations.filter((e) => Number.parseFloat(e.credits.replace("hp", "").trim()) > 0).map((exam) => {
-              return <CourseExaminationMapping key={exam.code} exam={exam} course={course} />;
-            })}
+            course.examinations
+              .filter((e) => Number.parseFloat(e.credits.replace("hp", "").trim()) > 0)
+              .map((exam) => {
+                return <CourseExaminationMapping key={exam.code} exam={exam} course={course} />;
+              })}
         </section>
-        {!isOpen && (
-          <Separator />
-        )}
+        {!isOpen && <Separator />}
       </div>
     </>
   );
 }
 
-function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; course: CourseJSON; }) {
+function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; course: CourseJSON }) {
   const { studyResults, setStudyResults } = useStudyResult();
   const [dateError, setDateError] = useState<string | null>(null);
   const [gradeError, setGradeError] = useState<string | null>(null);
 
   const HandleDateChange = (value: string) => {
-    setDateError(null)
+    setDateError(null);
     const error = ValidateDate(value, "20220801", getTodayFormatted());
-    if (error) { setDateError(error); return; };
+    if (error) {
+      setDateError(error);
+      return;
+    }
 
     const dateUpdate: Partial<Examination> = {
-      date: value
-    }
-    setStudyResults(prev => UpdateExamResult(prev, course, exam, dateUpdate));
-  }
+      date: value,
+    };
+    setStudyResults((prev) => UpdateExamResult(prev, course, exam, dateUpdate));
+  };
 
   const HandleGradeChange = (value: string) => {
     setGradeError(null);
     const error = ValidateGrade(value, exam);
-    if (error) { setGradeError(error); return; };
-
+    if (error) {
+      setGradeError(error);
+      return;
+    }
 
     let examgrade: string | number;
     if (value === "G" || value === "D") examgrade = value;
@@ -82,12 +88,12 @@ function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; cou
     }
 
     const gradeUpdate: Partial<Examination> = {
-      grade: examgrade
-    }
-    setStudyResults(prev => UpdateExamResult(prev, course, exam, gradeUpdate));
-  }
+      grade: examgrade,
+    };
+    setStudyResults((prev) => UpdateExamResult(prev, course, exam, gradeUpdate));
+  };
 
-  console.log(studyResults)
+  console.log(studyResults);
 
   return (
     <>
@@ -105,10 +111,7 @@ function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; cou
           <div className="flex flex-col gap-1 items-start text-sm">
             <div className="flex gap-2 items-center justify-start text-sm">
               <p>Datum:</p>
-              <InputOTP maxLength={8}
-                name="date"
-                onChange={HandleDateChange}
-                value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.date}>
+              <InputOTP maxLength={8} name="date" onChange={HandleDateChange} value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.date}>
                 <InputOTPGroup>
                   <InputOTPSlot index={0} placeholder="Y" />
                   <InputOTPSlot index={1} placeholder="Y" />
@@ -132,10 +135,7 @@ function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; cou
           <div className="flex flex-col gap-1 items-start justify-start text-sm">
             <div className="flex gap-2 items-center justify-start text-sm">
               <p>Betyg:</p>
-              <InputOTP maxLength={1}
-                name="grade"
-                onChange={HandleGradeChange}
-                value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade.toString()}>
+              <InputOTP maxLength={1} name="grade" onChange={HandleGradeChange} value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade.toString()}>
                 <InputOTPGroup>
                   <InputOTPSlot index={0} placeholder="x" />
                 </InputOTPGroup>
@@ -145,7 +145,7 @@ function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; cou
           </div>
           <p className="text-gray-100 self-center text-sm font-light text-right">{exam.credits}</p>
         </div>
-      </div >
+      </div>
       <Separator />
     </>
   );
