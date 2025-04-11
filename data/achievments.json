@@ -12,25 +12,30 @@
           "TND012": [
             {
               "achievement": "Its a bird, its a plane, its BrotherPotato",
-              "result": "Completed labs"
+              "result": "Completed labs",
+              "icon":"Camera"
             },
             {
               "achievement": "Hello world!",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             },
             {
               "achievement": "Unnamed achievement",
-              "result": "Grade 4 or higher"
+              "result": "Grade 4 or higher",
+              "icon":"Camera"
             },
             {
               "achievement": "Reading Lines, Not Books",
-              "result": "Grade 5"
+              "result": "Grade 5",
+              "icon":"Camera"
             }
           ],
           "TNM088": [
             {
               "achievement": "The creative alchymist",
-              "result": "Completed labs"
+              "result": "Completed labs",
+              "icon":"Camera"
             },
             {
               "achievement": "Film Wizard",
@@ -41,45 +46,53 @@
           "TNG002": [
             {
               "achievement": "Heap Happens",
-              "result": "Completed labs"
+              "result": "Completed labs",
+              "icon":"Camera"
             },
             {
               "achievement": "Java the hutt",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             }
           ],
           "TNA002": [
             {
               "achievement": "Matrix Novice",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             }
           ],
           "TNA004": [
             {
               "achievement": "Taylor Swift Expansion",
-              "result": "Grade 4 or higher"
+              "result": "Grade 4 or higher",
+              "icon":"Camera"
             }
           ],
           "TNM040": [
             {
               "achievement": "The Picasso of Pixels",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             }
           ],
           "TNG033": [
             {
               "achievement": "Pointers and Prayers",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             },
             {
               "achievement": "Memory Leak Enthusiast",
-              "result": "Completed labs"
+              "result": "Completed labs",
+              "icon":"Camera"
             }
           ],
           "TNG032": [
             {
               "achievement": "Fast and Fourierous",
-              "result": "Grade 3 or higher"
+              "result": "Grade 3 or higher",
+              "icon":"Camera"
             }
           ]
         }

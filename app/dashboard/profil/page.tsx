@@ -77,11 +77,11 @@ export default function Page() {
             <h2>Användardata</h2>
           </div>
           <Card variant="no-header" cardTitle="">
-            <div className="grid grid-cols-1 grid-row2">
+            <div className="grid grid-cols-1 grid-row2 mt-[2rem]">
               <div className="flex items-center justify-center">
                 <p>Här kan du ladda ner din användardata som en PDF!</p>
               </div>
-              <div className="flex mt-[8rem]">
+              <div className="flex mt-[4rem]">
                 <Button size="lg" className="bg-green-900 w-full h-[5rem]" >
                   <Download color="white" size={200}></Download>
                 </Button>

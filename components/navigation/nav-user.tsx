@@ -9,11 +9,11 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../
 import { SignOutAction } from "@/app/actions";
 import { useAuth } from "../supabase/authprovider";
 
-/*type User = {
+type User = {
   name: string;
   email: string;
   avatar: string;
-}/*
+}
 /**
  * Navigation user dropdown component
  *
