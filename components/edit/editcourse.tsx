@@ -32,7 +32,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
     <>
       <div className="flex flex-col w-full">
         <div className="flex relative w-full">
-          <div className="absolute left-[0.563rem] top-0 bottom-0 w-px bg-gray-300 z-0" />
+          <div className="absolute left-[0.563rem] top-0 bottom-0 w-px bg-secondary z-0" />
           <div className="flex flex-col pl-[1.125rem] w-full">
             <button className=" w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
               <div className="flex justify-between flex-row gap-4 items-center">
@@ -48,7 +48,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                     <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
                       <p className="text-sm items-center text-green-900">Betyg 5</p>
                     </div>
-                    <p className="text-sm items-center text-gray-300 font-light">Slutbetyg: </p>
+                    <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
                     <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
@@ -67,7 +67,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                     return <CourseExaminationMapping key={exam.code} exam={exam} course={course} setStudyResults={setStudyResults} studyResults={studyResults} />;
                   })}
             </section>
-            <Separator />
+            <Separator className="bg-secondary" />
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ function CourseExaminationMapping({
     <>
       <div className="flex flex-col w-full">
         <div className="flex relative w-full">
-          <div className="absolute left-[0.469rem] top-0 bottom-0 w-px bg-gray-300 z-0" />
+          <div className="absolute left-[0.469rem] top-0 bottom-0 w-px bg-accent-foreground z-0" />
           <div className="flex flex-col pl-[1.125rem] w-full">
             <div className="w-full">
               <div className="flex gap-4 py-2">

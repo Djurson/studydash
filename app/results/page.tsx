@@ -26,12 +26,11 @@ export default function Page() {
 
   const thsesis = {
     ...thesisData.programs[0],
-    semesters: thesisData.programs[0].semesters.map(semester => ({
+    semesters: thesisData.programs[0].semesters.map((semester) => ({
       ...semester,
-      name: `Termin 10 ${finalThesisSemester.fullString}`
-    }))
+      name: `Termin 10 ${finalThesisSemester.fullString}`,
+    })),
   };
-
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 8;
@@ -45,7 +44,7 @@ export default function Page() {
         <section className="col-start-1 col-span-3">
           <div className="flex flex-col flex-1 gap-4">
             <Select disabled>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full bg-accent-disabled">
                 <SelectValue placeholder="Linköpings universitet"></SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -57,7 +56,7 @@ export default function Page() {
             </Select>
             <div className="flex w-full gap-4">
               <Select disabled>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-accent-disabled">
                   <SelectValue placeholder="Civilingenjör i medieteknik"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -68,8 +67,8 @@ export default function Page() {
                 </SelectContent>
               </Select>
               <Select name="studyYear" required>
-                <SelectTrigger className="w-full text-gray-900 bg-white-0">
-                  <SelectValue placeholder="När påbörjade du dina studier?" className="text-gray-900"></SelectValue>
+                <SelectTrigger className="w-full text-foreground bg-accent">
+                  <SelectValue placeholder="När påbörjade du dina studier?" className="text-foreground"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
@@ -86,8 +85,8 @@ export default function Page() {
                 </SelectContent>
               </Select>
               <Select name="prev-funds" required>
-                <SelectTrigger className="w-full text-gray-900 bg-white-0">
-                  <SelectValue placeholder="Har du sökt CSN tidigare?" className="text-gray-900"></SelectValue>
+                <SelectTrigger className="w-full text-foreground bg-accent">
+                  <SelectValue placeholder="Har du sökt CSN tidigare?" className="text-foreground"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>

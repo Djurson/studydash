@@ -7,7 +7,7 @@ export function StatusSquare({ status, defaultStatus = "none", className }: { st
   const baseStyles = "rounded-sm h-4 w-4 flex items-center justify-center border";
 
   const statusStyles = {
-    none: "border-gray-900 bg-transparent",
+    none: "border-foreground bg-transparent",
     done: "border-green-900 bg-green-900 text-primary-foreground",
     ongoing: "border-yellow-500 bg-yellow-900 text-yellow-foreground",
     error: "border-red-900 bg-transparent text-red-900 text-xs",
