@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       setSession(data.session);
       setUser(data.session?.user ?? null);
-      setLoading(false);
+      setLoading(true);
 
       let userId = data.session?.user?.id;
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
 
         if (!data || data.length === 0) {
-          setPopup(true);
+          setPopup(false);
         }
       }
     };

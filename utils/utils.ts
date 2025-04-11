@@ -101,3 +101,11 @@ export function ValidateDate(date: string, programStartDate: string, todayFormat
 
   return null;
 }
+
+export function CreateEmptyCourse(): Course {
+  return { code: "", name: "", date: "", examinations: new Map(), hp: 0, grade: 0 };
+}
+
+export function CreateEmptyExamination(): Examination {
+  return { code: "", name: "", date: "", hp: 0, grade: 0 };
+}

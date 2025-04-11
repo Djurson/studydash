@@ -1,5 +1,6 @@
 import { Course, Examination } from "@/utils/types";
 import { tryCatch } from "./trycatch";
+import {CreateEmptyExamination, CreateEmptyCourse} from "./utils"
 
 /** Funktion för att parsea studie information från textData
  * @param textData - text data från pdf:en
@@ -221,14 +222,6 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Map<string, 
   }
 
   return courses;
-}
-
-function CreateEmptyCourse(): Course {
-  return { code: "", name: "", date: "", examinations: new Map(), hp: 0, grade: 0 };
-}
-
-function CreateEmptyExamination(): Examination {
-  return { code: "", name: "", date: "", hp: 0, grade: 0 };
 }
 
 function ParseGrade(grade: string): number | string {

@@ -1,23 +1,39 @@
+// ClientEditCourseProvider.tsx
+"use client";
+
+import { createContext, useContext, useState } from "react";
 import { Course } from "@/utils/types";
-import { Dispatch, SetStateAction, createContext, useContext, ReactNode, useState } from "react";
 
 type EditContextType = {
   studyResults: Map<string, Course>;
-  setStudyResults: Dispatch<SetStateAction<Map<string, Course>>>;
+  setStudyResults: React.Dispatch<React.SetStateAction<Map<string, Course>>>;
 };
 
 const EditContext = createContext<EditContextType | undefined>(undefined);
 
 export function useStudyResult() {
   const context = useContext(EditContext);
-  if (context === undefined) {
-    throw new Error("useMyContext måste användas inom en MyProvider");
+  if (!context) {
+    throw new Error("useStudyResult must be used within a EditCourseProvider");
   }
   return context;
 }
 
-export function EditCourseProvider({ children }: { children: ReactNode }) {
+export function EditCourseContext({ children }: { children: React.ReactNode }) {
   const [studyResults, setStudyResults] = useState<Map<string, Course>>(new Map());
 
   return <EditContext.Provider value={{ studyResults, setStudyResults }}>{children}</EditContext.Provider>;
 }
+
+// // app/context/StudyResultsContext.tsx
+// ("use client");
+
+// export function StudyResultsProvider({ children }) {
+//   const [studyResults, setStudyResults] = useState(new Map());
+
+//   return <StudyResultsContext.Provider value={{ studyResults, setStudyResults }}>{children}</StudyResultsContext.Provider>;
+// }
+
+// export function useStudyResults() {
+//   return useContext(StudyResultsContext);
+// }
