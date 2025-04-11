@@ -1,18 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Switch } from "@/components/ui/switch"; 
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { useTheme } from "next-themes"; 
+import { ThemeSwitcher } from "@/components/supabase-template/theme-switcher";
 
 interface SettingsDialogProps {
   children: React.ReactNode;
 }
 
 export function SettingsDialog({ children }: SettingsDialogProps) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme(); // We only need theme for display purposes
   const [mounted, setMounted] = useState(false);
-
 
   useEffect(() => {
     setMounted(true);
@@ -21,11 +20,6 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
   if (!mounted) {
     return null;
   }
-
-  
-  const handleThemeChange = (checked: boolean) => {
-    setTheme(checked ? "dark" : "light"); 
-  };
 
   return (
     <Dialog>
@@ -39,11 +33,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
         </DialogHeader>
 
         <div className="mt-6 flex items-center justify-between">
-          <span className="text-sm">Mörkt läge</span>
-          <Switch
-            checked={theme === "dark"} 
-            onCheckedChange={handleThemeChange} 
-          />
+          <span className="text-sm">Tema</span>
+          <ThemeSwitcher /> {/* Replaced the Switch with your ThemeSwitcher */}
         </div>
 
         <DialogClose className="absolute top-4 right-4 text-muted-foreground hover:text-foreground" />
