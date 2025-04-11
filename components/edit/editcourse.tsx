@@ -16,6 +16,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   const { studyResults, setStudyResults } = useStudyResult();
   const [grade, setGrade] = useState<string | undefined>(undefined);
 
+  // Om användaren öppnar drawer:n så skapas kursen i studyresults (om det inte finns redan)
   useEffect(() => {
     if (!studyResults.has(course.course_code)) {
       studyResults.set(course.course_code, CreateEmptyCourse());
@@ -88,6 +89,7 @@ function CourseExaminationMapping({
   const [examDate, setExamDate] = useState<string | undefined>("");
   const [examGrade, setExamGrade] = useState<string | undefined>("");
 
+  // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
     if (!studyResults.get(course.course_code)?.examinations.has(exam.code)) {
       studyResults.get(course.course_code)?.examinations.set(exam.code, CreateEmptyExamination());

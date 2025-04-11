@@ -26,8 +26,8 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
         className={`border-1 px-4 py-1.5 rounded-2xl font-semibold text-sm transition duration-200 ease-in-out
                     cursor-pointer hover:text-blue-900 hover:border-blue-900
                       ${props.value === currentValue
-            ? "text-blue-900 border-blue-900 bg-blue-100"
-            : "text-gray-900 border-gray-100 bg-white"
+            ? "text-blue-900 border-blue-900 bg-highlight dark:text-foreground"
+            : "text-foreground border-muted bg-accent"
           }`}
         {...props}>
         {props.id}
