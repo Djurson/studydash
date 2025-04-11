@@ -1,51 +1,30 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { Switch } from "@/components/ui/switch";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch"; 
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
+import { useTheme } from "next-themes"; 
 
 interface SettingsDialogProps {
   children: React.ReactNode;
 }
 
 export function SettingsDialog({ children }: SettingsDialogProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  //behövs för att temat inte ska ändras vid byte av sida
+
   useEffect(() => {
-// kollar om det finns sparat temea
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
- 
-    const initialDarkMode = savedTheme 
-      ? savedTheme === 'dark' 
-      : systemPrefersDark;
-    
-    setIsDarkMode(initialDarkMode);
-    applyTheme(initialDarkMode);
+    setMounted(true);
   }, []);
 
-  const applyTheme = (darkMode: boolean) => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  if (!mounted) {
+    return null;
+  }
 
+  
   const handleThemeChange = (checked: boolean) => {
-    setIsDarkMode(checked);
-    applyTheme(checked);
+    setTheme(checked ? "dark" : "light"); 
   };
 
   return (
@@ -61,8 +40,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
 
         <div className="mt-6 flex items-center justify-between">
           <span className="text-sm">Mörkt läge</span>
-          <Switch 
-            checked={isDarkMode} 
+          <Switch
+            checked={theme === "dark"} 
             onCheckedChange={handleThemeChange} 
           />
         </div>
