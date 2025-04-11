@@ -42,11 +42,11 @@ export default function AlertPopupWindow({ open, title, description, actiontext,
             <AlertDialogDescription>{description}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="hover:text-red-900 border-2 border-red-900 transition duration-300 ease-in-out" onClick={signOut}>
+            <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={signOut}>
               Logga ut
             </AlertDialogCancel>
             <Link href={actionlink ?? "#"}>
-              <AlertDialogAction className="bg-foreground hover:bg-secondary transition duration-300 ease-in-out">{actiontext}</AlertDialogAction>
+              <AlertDialogAction className="bg-foreground hover:bg-muted transition duration-300 ease-in-out">{actiontext}</AlertDialogAction>
             </Link>
           </AlertDialogFooter>
         </AlertDialogContent>

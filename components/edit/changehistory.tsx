@@ -21,7 +21,7 @@ export function ChangeHistory() {
         <button type="button" disabled className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm text-sm cursor-pointer disabled:cursor-not-allowed">
           Bekräfta
         </button>
-        <button className="w-full px-4 py-3 bg-muted rounded-sm text-sm cursor-pointer">Avbryt</button>
+        <button className="w-full px-4 py-3 bg-secondary rounded-sm text-sm cursor-pointer">Avbryt</button>
       </footer>
     </main>
   );

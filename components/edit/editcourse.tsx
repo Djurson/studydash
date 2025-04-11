@@ -24,8 +24,45 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   }, []);
 
   useEffect(() => {
-    setGrade(studyResults.get(course.course_code)?.grade.toString());
-  }, [course.course_code, studyResults.get(course.course_code), course.examinations, status]);
+    let finalgrade = 0;
+    let total = 0;
+    let passedGrade = false;
+
+    if (course.examinations.length === 1) {
+      let grade = studyResults.get(course.course_code)?.examinations.get(course.examinations[0].code)?.grade;
+
+      if (!grade || grade == "") {
+        setGrade(undefined);
+        return;
+      }
+
+      setGrade(grade.toString());
+      return;
+    }
+    for (let i = 0; i < course.examinations.length; i++) {
+      let grade = studyResults.get(course.course_code)?.examinations.get(course.examinations[i].code)?.grade;
+
+      if (!grade) continue;
+
+      if (typeof grade === "string") {
+        if (grade === "G" || grade === "D") {
+          passedGrade = true;
+          continue;
+        }
+        passedGrade = false;
+        continue;
+      }
+
+      finalgrade += grade;
+      total++;
+    }
+
+    if (finalgrade != 0 && passedGrade) {
+      finalgrade = finalgrade / total;
+      setGrade(finalgrade.toString());
+      return;
+    }
+  }, [studyResults]);
   // TODO:
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
   return (
@@ -70,7 +107,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                     return <CourseExaminationMapping key={exam.code} exam={exam} course={course} setStudyResults={setStudyResults} studyResults={studyResults} />;
                   })}
             </section>
-            <Separator className="bg-secondary" />
+            <Separator />
           </div>
         </div>
       </div>
@@ -161,7 +198,7 @@ function CourseExaminationMapping({
     <>
       <div className="flex flex-col w-full">
         <div className="flex relative w-full">
-          <div className="absolute left-[0.469rem] top-0 bottom-0 w-px bg-accent-foreground z-0" />
+          <div className="absolute left-[0.469rem] top-0 bottom-0 w-px bg-secondary z-0" />
           <div className="flex flex-col pl-[1.125rem] w-full">
             <div className="w-full">
               <div className="flex gap-4 py-2">
@@ -221,7 +258,7 @@ function CourseExaminationMapping({
                       onFocus={() => setGradeFocused(false)}
                       error={gradeFocused ? gradeError : null}>
                       <InputOTPGroup className={`${gradeError && gradeFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={0} placeholder="x" hasError={!!gradeError && !!gradeFocused} />
+                        <InputOTPSlot index={0} placeholder="x" defaultValue="x" hasError={!!gradeError && !!gradeFocused} />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>

@@ -35,6 +35,8 @@
 
   --animate-shake-forwards: shake 300ms ease-in-out forwards;
 
+  --animate-typing: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
+
   @keyframes colorChange {
     0%,
     100% {
@@ -71,6 +73,25 @@
 
     75% {
       transform: translateX(calc(var(--spacing) * 2)) translateY(0);
+    }
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0%;
+      visibility: hidden;
+    }
+    50% {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: var(--transparent);
+    }
+    100% {
+      border-color: var(--color-gray-600);
     }
   }
 }
@@ -137,11 +158,11 @@
   --popover-foreground: var(--color-gray-900);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: var(--color-gray-100);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: var(--color-gray-600);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: var(--color-white-0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
@@ -163,6 +184,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --highlight: var(--color-blue-100);
+  --accent-disabled: var(--color-gray-100);
 }
 
 .dark {

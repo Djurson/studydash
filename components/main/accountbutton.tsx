@@ -13,8 +13,8 @@ export function UserAuthActionButton({ children, ...props }: ComponentProps<type
   return (
     <Button
       className={`px-6 py-5 font-medium border-2 rounded-md flex-1 text-base
-            bg-gray-900 text-white-400 border-gray-900 
-            transition ease-in-out hover:shadow-xl hover:shadow-gray-900/25 duration-400 hover:cursor-pointer hover:border-gray-900 hover:text-gray-900 hover:bg-background
+            bg-accent text-foreground border-accent
+            transition ease-in-out dark:hover:shadow-md dark:hover:shadow-foreground/5 hover:shadow-foreground/25 hover:shadow-xl hover:accent/25 duration-400 hover:cursor-pointer hover:border-foregroung hover:text-gray-600 hover:bg-background
             ${props.className}`}
       {...props}>
       {children}
