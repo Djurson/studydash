@@ -29,11 +29,11 @@ export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
 
   return (
     <nav
-      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-white-400 border-b border-gray- z-40
+      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-background border-b text-foreground border-border- z-40
       ${defaultPage ? "justify-end pr-4" : "justify-start pl-4"}`}>
       <div
         className={`h-8.5 flex justify-center items-center z-50
-        ${defaultPage ? "aspect-square rounded-md bg-white" : ""} `}>
+        ${defaultPage ? "aspect-square rounded-md bg-card" : ""} `}>
         {defaultPage ? (
           <>
             <Bell size={24} />
@@ -45,15 +45,15 @@ export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="cursor-pointer">
+                className="cursor-pointer text-foreground hover:text-foreground/80 transition-colorsrsor-pointer ">
                 <ChevronLeft size={24} />
               </button>
 
               <figure className="flex items-center gap-2">
                 <div className="h-6">
-                  <MainIcon className="h-full w-auto" />
+                  <MainIcon className="h-full w-auto text-foreground" />
                 </div>
-                <p className={`${azeret_mono.className} text-xl`}>Portalen</p>
+                <p className={`${azeret_mono.className} text-xl text-foreground`}>Portalen</p>
               </figure>
             </div>
           </>

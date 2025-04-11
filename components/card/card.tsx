@@ -36,7 +36,7 @@ export default function Card({
 }: CardProps) {
   return (
     <>
-      <main className="p-4 bg-white rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
+      <main className="p-4 bg-card text-card-foreground rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
         <header className="flex items-center">
           <p className="text-lg">{cardTitle}</p>
           {variant === "header" ? <ChevronRight size={24} /> : ""}

@@ -8,6 +8,7 @@ import React, { useState } from "react";
 export default function Page() {
   return (
     <>
+  
       <header className="flex items-center">
         <img src={LiuImg.src} alt="" className="h-[5.5rem]" />
         <div className="ml-4">
@@ -40,5 +41,6 @@ export default function Page() {
         <h2 className="text-2xl font-semibold">Dina prestationer</h2>
       </section>
     </>
+    
   );
 }

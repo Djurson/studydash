@@ -20,6 +20,7 @@
   --color-gray-200: #d2d2d7;
   --color-gray-600: #6e6e73;
   --color-gray-900: #1d1d1f;
+  --color-gray-800: #2f2f30;
 
   --color-white-0: #ffffff;
   --color-white-100: #fafafa;
@@ -52,6 +53,7 @@
 }
 
 @theme inline {
+  --color-backgroundsurface: var(--background-surface);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -92,7 +94,9 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+
 :root {
+  --background-surface: var(--color-white-400);
   --background: var(--color-white-400);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -129,6 +133,7 @@
 }
 
 .dark {
+  --background-surface: var(--color-gray-800);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
