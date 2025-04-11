@@ -7,33 +7,32 @@ import { useRouter } from "next/navigation";
 
 type NavbarProps = {
   defaultPage: boolean;
-  backLink: string;
 };
 
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
 
 /**
  * Top navigation bar component
- * 
+ *
  * @remarks
  * This component renders a fixed top navigation bar with different layouts
  * depending on whether it's the default page or a subpage.
- * 
+ *
  * @param defaultPage - Determines if the navigation bar is for the default page layout
  * @param backLink - URL for the back button navigation
- * 
+ *
  * @returns Returns a navigation bar with either a notification bell or a back button and logo
  */
-export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
+export function TopNavBar({ defaultPage }: NavbarProps) {
   const router = useRouter();
 
   return (
     <nav
-      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-white-400 border-b border-gray- z-40
+      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-background border-b border-gray- z-40
       ${defaultPage ? "justify-end pr-4" : "justify-start pl-4"}`}>
       <div
         className={`h-8.5 flex justify-center items-center z-50
-        ${defaultPage ? "aspect-square rounded-md bg-white" : ""} `}>
+        ${defaultPage ? "aspect-square rounded-md bg-accent" : ""} `}>
         {defaultPage ? (
           <>
             <Bell size={24} />
@@ -42,10 +41,7 @@ export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
           <>
             {/*<Link href={backLink} className="flex gap-4"></Link>*/}
             <div className="flex gap-4">
-              <button
-                type="button"
-                onClick={() => router.back()}
-                className="cursor-pointer">
+              <button type="button" onClick={() => router.back()} className="cursor-pointer">
                 <ChevronLeft size={24} />
               </button>
 
