@@ -29,30 +29,34 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex relative">
+      <div className="flex flex-col w-full">
+        <div className="flex relative w-full">
           <div className="absolute left-[0.563rem] top-0 bottom-0 w-px bg-gray-300 z-0" />
-          <div className="flex flex-col pl-[1.125rem]">
-            <button className="grid grid-cols-10 grid-rows-1 w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
-              <div className="col-start-1 col-span-8 flex gap-4 items-center">
-                <StatusSquare status={!grade ? "ongoing" : grade != "0" ? "done" : "ongoing"} />
+          <div className="flex flex-col pl-[1.125rem] w-full">
+            <button className=" w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
+              <div className="flex justify-between flex-row gap-4 items-center">
+                <div className="flex gap-4 items-center">
+                  <StatusSquare status={!grade ? "ongoing" : grade != "0" ? "done" : "ongoing"} />
 
-                <h4 className="font-medium text-sm">
-                  {course.name} - {course.course_code}
-                </h4>
+                  <h4 className="font-medium text-sm">
+                    {course.name} - {course.course_code}
+                  </h4>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="flex gap-2 items-center">
+                    <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
+                      <p className="text-sm items-center text-green-900">Betyg 5</p>
+                    </div>
+                    <p className="text-sm items-center text-gray-300 font-light">Slutbetyg: </p>
+                    <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                  <ChevronDown size={24} className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
+                </div>
               </div>
-
-              <div className="flex gap-2 text-sm items-center text-gray-600 font-light">
-                {/*<div className="h-7 aspect-square border-1 border-green-900 rounded-sm"></div>*/}
-                <p>Slutbetyg: </p>
-                <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
-                  </InputOTPGroup>
-                </InputOTP>
-              </div>
-
-              <ChevronDown size={24} className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
             </button>
             <section className="flex flex-col w-full">
               {isOpen &&
