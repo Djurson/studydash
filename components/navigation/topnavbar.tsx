@@ -29,14 +29,11 @@ export function TopNavBar({ defaultPage, backLink }: NavbarProps) {
 
   return (
     <nav
-      className={`flex items-center w-full fixed top-0 h-[3.688rem] 
-  bg-white dark:bg-zinc-900 
-  border-b border-gray-200 dark:border-zinc-700 
-  z-40
+      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-white-400 border-b border-gray- z-40
       ${defaultPage ? "justify-end pr-4" : "justify-start pl-4"}`}>
       <div
         className={`h-8.5 flex justify-center items-center z-50
-        ${defaultPage ? "aspect-square rounded-md bg-white dark:bg-zinc-900": ""} `}>
+        ${defaultPage ? "aspect-square rounded-md bg-white" : ""} `}>
         {defaultPage ? (
           <>
             <Bell size={24} />

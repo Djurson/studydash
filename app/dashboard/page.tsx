@@ -12,7 +12,7 @@ export default function Page() {
         <img src={LiuImg.src} alt="" className="h-[5.5rem]" />
         <div className="ml-4">
           <p className="text-xl font-semibold text-gray-600">300hp</p>
-          <h1 className="text-3xl font-semibold text-slate-800">
+          <h1 className="text-3xl font-semibold">
             Civilingenjörsprogram i medieteknik.
           </h1>
         </div>
