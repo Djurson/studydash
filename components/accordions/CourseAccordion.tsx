@@ -32,7 +32,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
               size={16}
               color="#6E6E73"
             />
-            <div className="border-1 border-gray-900 rounded-sm h-[1rem] aspect-square"></div>
+            <div className="border-1 border-accent rounded-sm h-[1rem] aspect-square"></div>
           </div>
 
           <h4 className="font-medium text-sm">
@@ -56,7 +56,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
       </button>
       <section>
         {isOpen && (
-          <div className=" overflow-hidden bg-white">
+          <div className=" overflow-hidden bg-accent">
             {course.examinations.map((exam) => (
               <div key={exam.code}>
                 <div className="grid grid-cols-10 grid-rows-1 w-full text-left items-center py-2">
@@ -82,7 +82,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
                   </p>
                 </div>
                 <div className="pl-8 last:invisible">
-                  <Separator />
+                  <Separator className="text-secondary bg-secondary" />
                 </div>
               </div>
             ))}
@@ -91,7 +91,7 @@ export default function CourseAccordion({ course }: { course: Course }) {
       </section>
 
       <div className="pl-4">
-        <Separator />
+        <Separator className="text-secondary bg-secondary" />
       </div>
     </div>
   );
