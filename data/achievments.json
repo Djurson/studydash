@@ -1,0 +1,88 @@
+{
+    "achievements": {
+      "course_achievements": {
+        "course_codes": {
+          "TNA001": [
+            {
+              "achievement": "The Proof Prophet",
+              "result": "Grade 4 or higher",
+              "icon":"Camera"
+            }
+          ],
+          "TND012": [
+            {
+              "achievement": "Its a bird, its a plane, its BrotherPotato",
+              "result": "Completed labs"
+            },
+            {
+              "achievement": "Hello world!",
+              "result": "Grade 3 or higher"
+            },
+            {
+              "achievement": "Unnamed achievement",
+              "result": "Grade 4 or higher"
+            },
+            {
+              "achievement": "Reading Lines, Not Books",
+              "result": "Grade 5"
+            }
+          ],
+          "TNM088": [
+            {
+              "achievement": "The creative alchymist",
+              "result": "Completed labs"
+            },
+            {
+              "achievement": "Film Wizard",
+              "result": "Project approved",
+              "icon":"Film"
+            }
+          ],
+          "TNG002": [
+            {
+              "achievement": "Heap Happens",
+              "result": "Completed labs"
+            },
+            {
+              "achievement": "Java the hutt",
+              "result": "Grade 3 or higher"
+            }
+          ],
+          "TNA002": [
+            {
+              "achievement": "Matrix Novice",
+              "result": "Grade 3 or higher"
+            }
+          ],
+          "TNA004": [
+            {
+              "achievement": "Taylor Swift Expansion",
+              "result": "Grade 4 or higher"
+            }
+          ],
+          "TNM040": [
+            {
+              "achievement": "The Picasso of Pixels",
+              "result": "Grade 3 or higher"
+            }
+          ],
+          "TNG033": [
+            {
+              "achievement": "Pointers and Prayers",
+              "result": "Grade 3 or higher"
+            },
+            {
+              "achievement": "Memory Leak Enthusiast",
+              "result": "Completed labs"
+            }
+          ],
+          "TNG032": [
+            {
+              "achievement": "Fast and Fourierous",
+              "result": "Grade 3 or higher"
+            }
+          ]
+        }
+      }   
+    }
+  }

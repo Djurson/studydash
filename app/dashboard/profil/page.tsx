@@ -5,6 +5,9 @@ import Card from "@/components/card/card";
 import {SquareUserRound, ChartNoAxesCombined, FileUser, Download} from "lucide-react";
 import { PillButton_prest } from "@/components/main/pillbutton_prestationer";
 import CardCarousel from "@/components/card/card-carousel";
+import AchievementGrid from "./achievments";
+import { AchievementsCard } from "@/components/card/achievments-card";
+
 export default function Page() {
   return (
     <>
@@ -93,7 +96,9 @@ export default function Page() {
             <h2 className="text-2xl font-semibold">Prestationer</h2>
             <PillButton_prest />
           </section>
-          <Card variant="no-header" cardTitle=""></Card>
+          <AchievementsCard cardTitle="">
+            <AchievementGrid/>
+          </AchievementsCard>
         </div>
       </section>
       <section className="w-[20rem] h-[15rem]">

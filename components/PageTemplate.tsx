@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { TopNavBar } from "./navigation/topnavbar";
 import { ClientSidebar } from "./navigation/clientsidebar";
 
+
 type PageProps = {
   children: ReactNode;
   defaultPage: boolean;
