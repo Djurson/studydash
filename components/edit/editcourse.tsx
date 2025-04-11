@@ -44,17 +44,20 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                   </h4>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="flex gap-2 items-center">
-                    <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
-                      <p className="text-sm items-center text-green-900">Betyg 5</p>
+                  <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
+                    </InputOTPGroup>
+                  </InputOTP>
+                  {grade && grade !== "0" ? (
+                    <div className="flex gap-2 items-center">
+                      <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
+                        <p className="text-sm items-center text-green-900">Betyg {grade}</p>
+                      </div>
+                      <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
                     </div>
-                    <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
-                    <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
+                  ) : null}
+
                   <ChevronDown size={24} className={`col-start-10 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
                 </div>
               </div>
@@ -101,8 +104,18 @@ function CourseExaminationMapping({
   }, []);
 
   useEffect(() => {
-    setExamDate(studyResults.get(course.course_code)?.examinations.get(exam.code)?.date);
-    setExamGrade(studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade.toString());
+    const result = studyResults.get(course.course_code)?.examinations.get(exam.code);
+    setExamDate(result?.date ?? "");
+
+    const grade = result?.grade;
+    if (typeof grade === "number" || typeof grade === "string") {
+      setExamGrade(grade.toString());
+    } else {
+      setExamGrade("");
+    }
+    // Nån bugg med det här? blir NaN när man skriver in betyg i input fältet
+    //setExamDate(studyResults.get(course.course_code)?.examinations.get(exam.code)?.date);
+    //setExamGrade(studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade?.toString() ?? "");
   }, [exam.code, course.course_code, studyResults]);
 
   const HandleDateChange = (value: string) => {
@@ -129,8 +142,10 @@ function CourseExaminationMapping({
 
     let examgrade: string | number;
     if (value === "G" || value === "D") examgrade = value;
-    else {
+    else if (!isNaN(Number(value))) {
       examgrade = Number(value);
+    } else {
+      examgrade = "";
     }
 
     const gradeUpdate: Partial<Examination> = {
@@ -201,7 +216,7 @@ function CourseExaminationMapping({
                     <InputOTP
                       maxLength={1}
                       onChange={HandleGradeChange}
-                      value={examGrade}
+                      value={examGrade && examGrade !== "0" ? examGrade : undefined}
                       onBlur={() => setGradeFocused(true)}
                       onFocus={() => setGradeFocused(false)}
                       error={gradeFocused ? gradeError : null}>
