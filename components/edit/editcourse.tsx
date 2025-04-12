@@ -5,17 +5,17 @@ import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
-import { useStudyResult } from "@/hooks/editcontext";
+import { useStudyResults } from "@/hooks/editcontext";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
 
 export function EditCourse({ course }: { course: CourseJSON }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { studyResults } = useStudyResult();
+  const { getCourse } = useStudyResults();
   const [grade, setGrade] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<Status>("none");
 
-  const courseResults = studyResults.get(course.course_code);
+  const courseResults = getCourse(course.course_code);
   const { returnGrade, returnStatus } = useMemo(() => {
     return CheckGradeAndStatus(course, courseResults);
   }, [course, courseResults]);
@@ -83,7 +83,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
 }
 
 function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefined): { returnGrade: string | number | undefined; returnStatus: Status } {
-  if (!resultsCourse) {
+  if (!resultsCourse || !resultsCourse.examinations) {
     return {
       returnGrade: undefined,
       returnStatus: "ongoing",
@@ -117,10 +117,6 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
 
     let grade = resultsCourse.examinations.get(course.examinations[i].code)?.grade;
 
-    if (course.course_code === "TND012") {
-      console.log(grade);
-    }
-
     if (typeof grade === "undefined") {
       return {
         returnGrade: undefined,
@@ -144,7 +140,7 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
   }
 
   if (finalgrade != 0) {
-    finalgrade = finalgrade / total;
+    finalgrade = Math.round(finalgrade / total);
     return {
       returnGrade: finalgrade,
       returnStatus: "done",

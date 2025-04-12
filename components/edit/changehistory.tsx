@@ -3,17 +3,18 @@
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import { CircleOff } from "lucide-react";
-import { useStudyResult } from "@/hooks/editcontext";
+import { useStudyResults } from "@/hooks/editcontext";
 import { Course } from "@/utils/types";
 import { StatusChangeHistory } from "./statuschangehistory";
 
 export function ChangeHistory() {
-  const { studyResults } = useStudyResult();
+  const { studyResults } = useStudyResults();
+
   return (
     <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
       <header className="p-4 flex gap-4 items-center justify-center">
         <div className="text-center bg-blue-200 dark:bg-highlight w-6 aspect-square rounded-md">
-          <p>{studyResults.size}</p>
+          <p>{studyResults.current.size}</p>
         </div>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
@@ -28,13 +29,13 @@ export function ChangeHistory() {
           <StatusChangeHistory status="added" defaultStatus="none" className="ml-6" />
         </div>
         <Separator />
-        {studyResults.size === 0 ? (
+        {studyResults.current.size === 0 ? (
           <div className="flex flex-col justify-center items-center py-2">
             <CircleOff className="h-8 aspect-square" />
             <p className="text-sm">Inga ändringar gjorda</p>
           </div>
         ) : (
-          Array.from(studyResults.entries()).map(([key, course]) => (
+          [...studyResults.current.entries()].map(([key, course]) => (
             <p key={key}>
               {course.code} - {course.name}
             </p>

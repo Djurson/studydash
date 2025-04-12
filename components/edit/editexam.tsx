@@ -1,11 +1,11 @@
 import { Course, CourseJSON, Examination, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination, UpdateExamResult, ValidateDate, ValidateGrade } from "@/utils/utils";
 import { getTodayFormatted } from "@/utils/validateDateGrade";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Status, StatusSquare } from "./statussquare";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../ui/input-otp";
 import { AlertCircle } from "lucide-react";
-import { useStudyResult } from "@/hooks/editcontext";
+import { useStudyResults } from "@/hooks/editcontext";
 
 type ExamError = {
   dateError: string | null;
@@ -19,18 +19,18 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
   });
   const [dateFocused, setDateFocused] = useState(false);
   const [gradeFocused, setGradeFocused] = useState(false);
-  const { studyResults, setStudyResults } = useStudyResult();
+  const { updateCourse, hasExamination, hasCourse, getExamination, getCourse, updateExamination, updateExamResult } = useStudyResults();
 
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
-    if (!studyResults.has(course.course_code)) {
+    if (!hasCourse(course.course_code)) {
       const tempCourse: Course = CreateCourse(course.name, course.course_code, Number.parseFloat(course.credits.replace("hp", "").replace(",", ".").trim()));
-      studyResults.set(course.course_code, tempCourse);
+      updateCourse(course.course_code, tempCourse);
     }
 
-    if (!studyResults.get(course.course_code)?.examinations.has(exam.code)) {
-      const examination: Examination = CreateExamination(exam.name, exam.code, Number.parseFloat(exam.credits.replace("hp", "").replace(",", ".").trim()));
-      studyResults.get(course.course_code)?.examinations.set(exam.code, examination);
+    if (!hasExamination(course.course_code, exam.code)) {
+      const tempExamination: Examination = CreateExamination(exam.name, exam.code, Number.parseFloat(exam.credits.replace("hp", "").replace(",", ".").trim()));
+      updateExamination(course.course_code, exam.code, tempExamination);
     }
   }, []);
 
@@ -48,7 +48,7 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
       });
     }
     const dateUpdate: Partial<Examination> = { date: value };
-    setStudyResults((prev) => UpdateExamResult(prev, course, exam, dateUpdate));
+    updateExamResult(course, exam, dateUpdate);
   };
 
   const HandleGradeChange = (value: string) => {
@@ -68,13 +68,13 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
     else if (!isNaN(Number(value))) examgrade = Number.parseFloat(value);
     else examgrade = "";
     const gradeUpdate: Partial<Examination> = { grade: examgrade };
-    setStudyResults((prev) => UpdateExamResult(prev, course, exam, gradeUpdate));
+    updateExamResult(course, exam, gradeUpdate);
   };
 
   const status: Status =
     errors.gradeError || errors.dateError
       ? "error"
-      : studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade.toString()?.length === 1 && studyResults.get(course.course_code)?.examinations.get(exam.code)?.date?.length === 8
+      : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
       ? "done"
       : "ongoing";
 
@@ -102,7 +102,7 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
                     <InputOTP
                       maxLength={8}
                       onChange={HandleDateChange}
-                      value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.date}
+                      value={getExamination(course.course_code, exam.code)?.date}
                       onBlur={() => setDateFocused(true)}
                       onFocus={() => setDateFocused(false)}
                       error={dateFocused ? errors.dateError : null}>
@@ -137,7 +137,7 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
                     <InputOTP
                       maxLength={1}
                       onChange={HandleGradeChange}
-                      value={studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade.toString() ?? undefined}
+                      value={getExamination(course.course_code, exam.code)?.grade.toString() ?? undefined}
                       onBlur={() => setGradeFocused(true)}
                       onFocus={() => setGradeFocused(false)}
                       error={gradeFocused ? errors.gradeError : null}>

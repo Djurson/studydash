@@ -224,7 +224,7 @@
   --sidebar-border: var(--color-gray-800);
   --sidebar-ring: oklch(0.439 0 0);
   --highlight: var(--color-blue-950);
-  --highlight-2: var(--color-gray-900);
+  --highlight-2: color-mix(in oklab, var(--color-gray-600) 50%, transparent);
   --accent-disabled: color-mix(in oklab, var(--accent) 90%, transparent);
 }
 

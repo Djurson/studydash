@@ -7,7 +7,7 @@ import { FileUp, Info } from "lucide-react";
 import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
 import { Course } from "@/utils/types";
-import { useStudyResult } from "@/hooks/editcontext";
+import { useStudyResults } from "@/hooks/editcontext";
 
 /**
  * En komponent för att ladda upp PDF-dokument.
@@ -20,7 +20,7 @@ import { useStudyResult } from "@/hooks/editcontext";
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string>("");
-  const { setStudyResults } = useStudyResult();
+  const { studyResults, updateMap } = useStudyResults();
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
-    HandleFileInput(file, setError, setStudyResults);
+    HandleFileInput(file, setError, updateMap);
   };
 
   async function UploadFile(e: ChangeEvent<HTMLInputElement>) {
@@ -47,7 +47,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
     if (!file) return;
     if (!fileName?.toLowerCase().endsWith(".pdf")) return;
 
-    HandleFileInput(file, setError, setStudyResults);
+    HandleFileInput(file, setError, updateMap);
   }
 
   return (
@@ -98,7 +98,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
  * @returns {Promise<void>} Returnerar inget värde, men kör asynkrona åtgärder för filuppladdning.
  */
 
-async function HandleFileInput(file: File, setError: Dispatch<SetStateAction<string>>, setStudyResults: Dispatch<SetStateAction<Map<string, Course>>>) {
+async function HandleFileInput(file: File, setError: Dispatch<SetStateAction<string>>, updateMap: (inputMap: Map<string, Course>) => void) {
   try {
     const response = await HandleFileUpload(file);
 
@@ -108,7 +108,7 @@ async function HandleFileInput(file: File, setError: Dispatch<SetStateAction<str
     }
 
     // Skapa en ny Map för att säkerställa att React upptäcker förändringen
-    setStudyResults(new Map(response));
+    updateMap(response);
   } catch (error) {
     console.error("Fel vid filuppladdning:", error);
     setError(`Ett fel uppstod vid filuppladdning: ${error}`);
