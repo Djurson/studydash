@@ -16,11 +16,16 @@ export function ChangeHistory() {
         <div className="text-center bg-blue-200 dark:bg-highlight w-6 aspect-square rounded-md">
           <p>{studyResults.current.size}</p>
         </div>
+        <p className="text-center bg-blue-200 dark:bg-highlight px-1 py-1 rounded-md">{studyResults.current.size}</p>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator className="bg-secondary" />
       <section className="px-4 overflow-auto">
         {/*Mapa ändringar nedan, tänker formatet: /Termin/Kursnamn... */}
+        {/* Kommer ej kunna lösa termin, men kurskod/Kursnamn osv går :) */}
+        {/* Examinations moment kommer också vara för "dyrt" att loopa igenom för att displaya alla dem så tänker 
+            om kurser innehåller ett betyg -> done, om den inte innehåller ett betyg -> eventuellt loopa igenom examinationsmoment
+            hoppa över de som är oklarade */}
         <div className="py-2.5 flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
@@ -29,18 +34,6 @@ export function ChangeHistory() {
           <StatusChangeHistory status="added" defaultStatus="none" className="ml-6" />
         </div>
         <Separator />
-        {studyResults.current.size === 0 ? (
-          <div className="flex flex-col justify-center items-center py-2">
-            <CircleOff className="h-8 aspect-square" />
-            <p className="text-sm">Inga ändringar gjorda</p>
-          </div>
-        ) : (
-          [...studyResults.current.entries()].map(([key, course]) => (
-            <p key={key}>
-              {course.code} - {course.name}
-            </p>
-          ))
-        )}
       </section>
       <Separator />
       <footer className="flex flex-col p-4 gap-4">
