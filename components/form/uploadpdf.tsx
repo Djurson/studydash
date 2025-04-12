@@ -20,7 +20,7 @@ import { useStudyResult } from "@/hooks/editcontext";
 export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string>("");
-  const { studyResults, setStudyResults } = useStudyResult();
+  const { setStudyResults } = useStudyResult();
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();

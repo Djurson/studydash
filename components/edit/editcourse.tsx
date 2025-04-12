@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Course, CourseJSON } from "@/utils/types";
@@ -15,7 +15,10 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   const [grade, setGrade] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<Status>("none");
 
-  const { returnGrade, returnStatus } = CheckGradeAndStatus(course, studyResults.get(course.course_code));
+  const courseResults = studyResults.get(course.course_code);
+  const { returnGrade, returnStatus } = useMemo(() => {
+    return CheckGradeAndStatus(course, courseResults);
+  }, [course, courseResults]);
 
   useEffect(() => {
     setStatus(returnStatus);
@@ -105,11 +108,15 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
   }
 
   for (let i = 0; i < course.examinations.length; i++) {
-    if (course.examinations[i].grading === "D") {
+    if (course.examinations[i].credits === "0 hp") {
       continue;
     }
 
     let grade = resultsCourse.examinations.get(course.examinations[i].code)?.grade;
+
+    if (course.course_code === "TND012") {
+      console.log(grade);
+    }
 
     if (typeof grade === "undefined") {
       return {
@@ -153,3 +160,5 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
     returnStatus: "ongoing",
   };
 }
+
+export default memo(EditCourse);

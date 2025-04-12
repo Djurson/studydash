@@ -12,15 +12,16 @@ import EditSemesters from "@/components/edit/EditSemesters";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
+import { useMemo } from "react";
 
 export default function Page() {
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
   const startingSemester = "HT 2022";
   const showFrom = 7;
   const showTo = 9;
-  const allSemesters = generateAllSemesters(startingSemester);
-  const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
-  const finalThesisSemester = allSemesters[9];
+  const allSemesters = useMemo(() => generateAllSemesters(startingSemester), [startingSemester]);
+  const masterSemesters = useMemo(() => getSemestersInRange(startingSemester, showFrom, showTo), [startingSemester, showFrom, showTo]);
+  const finalThesisSemester = useMemo(() => allSemesters[9], [allSemesters]);
 
   const program = programData.programs[0];
 
