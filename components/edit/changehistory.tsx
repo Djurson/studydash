@@ -3,14 +3,15 @@
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import { CircleOff } from "lucide-react";
+import { useStudyResult } from "@/hooks/editcontext";
+import { Course } from "@/utils/types";
 
 export function ChangeHistory() {
+  const { studyResults } = useStudyResult();
   return (
     <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
       <header className="p-4 flex gap-4 items-center justify-center">
-        <div className="w-5 h-5 rounded-sm bg-blue-200 dark:bg-highlight flex items-center justify-center">
-          <p className="text-center">0</p>
-        </div>
+        <p className="text-center bg-blue-200 dark:bg-highlight px-1 py-1 rounded-md">{studyResults.size}</p>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator className="bg-secondary" />
@@ -23,20 +24,23 @@ export function ChangeHistory() {
             <p className="text-sm">Ändring 1</p>
           </div>
         </div>
-        {/*Om ändringar inte gjorts*/}
         <Separator />
-        <div className="flex flex-col justify-center items-center py-2">
-          <CircleOff className="h-8 aspect-square" />
-          <p className="text-sm">Inga ändringar gjorda</p>
-        </div>
-        <Separator />
-        <p className="text-center p-20">Inga ändringar har gjorts</p>
-        <Separator />
-        <p className="text-center p-20">Inga ändringar har gjorts</p>
-        <Separator />
-        <p className="text-center p-20">Inga ändringar har gjorts</p>
       </section>
-      <Separator className="bg-secondary" />
+      <section className="px-4">
+        {studyResults.size === 0 ? (
+          <div className="flex flex-col justify-center items-center py-2">
+            <CircleOff className="h-8 aspect-square" />
+            <p className="text-sm">Inga ändringar gjorda</p>
+          </div>
+        ) : (
+          Array.from(studyResults.entries()).map(([key, course]) => (
+            <p key={key}>
+              {course.code} - {course.name}
+            </p>
+          ))
+        )}
+      </section>
+      <Separator />
       <footer className="flex flex-col p-4 gap-4">
         <div className="flex flex-col gap-2">
           {/*Denna div ska dyka upp om ändringar gjorts*/}
