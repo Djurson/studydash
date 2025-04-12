@@ -12,12 +12,6 @@ export function encodedRedirect(type: "error" | "success", path: string, message
   return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
 }
 
-export function UpdateMap<K, V>(map: Map<K, V>, key: K, value: V): Map<K, V> {
-  const copy = new Map(map);
-  copy.set(key, value);
-  return copy;
-}
-
 /**
  * @description
  * Returnerar en ny Map där en specifik examination i en kurs uppdaterats.
@@ -37,31 +31,18 @@ export function UpdateExamResult(map: Map<string, Course>, courseJSON: CourseJSO
   let course = newCourseMap.get(courseJSON.course_code);
   // Om kursen inte finns, skapa en basic kurs
   if (!course) {
-    course = {
-      code: courseJSON.course_code,
-      name: courseJSON.name,
-      hp: Number.parseFloat(courseJSON.credits.replace("hp", "").trim().replace(",", ".")),
-      grade: "",
-      date: "",
-      examinations: new Map(),
-    };
+    course = CreateCourse(courseJSON.name, courseJSON.course_code, Number.parseFloat(courseJSON.credits.replace("hp", "").trim().replace(",", ".")));
     newCourseMap.set(courseJSON.course_code, course);
   }
 
   // Skapa ny kopia av examinations map
-  const newExaminations = new Map(course.examinations);
+  const newExaminations = new Map<string, Examination>(course.examinations);
 
   // Hämta examination om den finns
   let exam = newExaminations.get(examJSON.code);
   // Om examination inte finns, skapa en basic examination
   if (!exam) {
-    exam = {
-      code: examJSON.code,
-      name: examJSON.name,
-      hp: Number.parseFloat(courseJSON.credits.replace("hp", "").trim().replace(",", ".")),
-      grade: "",
-      date: "",
-    };
+    exam = CreateExamination(examJSON.name, examJSON.code, Number.parseFloat(courseJSON.credits.replace("hp", "").trim().replace(",", ".")));
   }
 
   newExaminations.set(examJSON.code, { ...exam, ...updates });
@@ -103,9 +84,17 @@ export function ValidateDate(date: string, programStartDate: string, todayFormat
 }
 
 export function CreateEmptyCourse(): Course {
-  return { code: "", name: "", date: "", examinations: new Map(), hp: 0, grade: 0 };
+  return { code: "", name: "", date: "", examinations: new Map<string, Examination>(), hp: 0, grade: "" };
 }
 
 export function CreateEmptyExamination(): Examination {
-  return { code: "", name: "", date: "", hp: 0, grade: 0 };
+  return { code: "", name: "", date: "", hp: 0, grade: "" };
+}
+
+export function CreateExamination(inputName: string, inputCode: string, inputHP: number, inputDate?: string, inputGrade?: string | number): Examination {
+  return { code: inputCode, name: inputName, hp: inputHP, date: inputDate ?? "", grade: inputGrade ?? "" };
+}
+
+export function CreateCourse(inputName: string, inputCode: string, inputHP: number, inputDate?: string, inputGrade?: string | number, inputExaminations?: Map<string, Examination>): Course {
+  return { code: inputCode, name: inputName, hp: inputHP, date: inputDate ?? "", grade: inputGrade ?? "", examinations: inputExaminations ?? new Map<string, Examination>() };
 }

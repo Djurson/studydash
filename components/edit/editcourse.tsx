@@ -1,68 +1,29 @@
 "use client";
 
-import { useState, Dispatch, SetStateAction, useEffect } from "react";
-import { ChevronDown, Minus, CircleAlert, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
-import { Course, CourseJSON, Examination, ExaminationJSON } from "@/utils/types";
+import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
 import { useStudyResult } from "@/hooks/editcontext";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../ui/input-otp";
-import { UpdateExamResult, ValidateDate, ValidateGrade } from "@/utils/utils";
-import { getTodayFormatted } from "@/utils/validateDateGrade";
-import { CreateEmptyExamination, CreateEmptyCourse } from "@/utils/utils";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
+import { CourseExaminationMapping } from "./editexam";
 
 export function EditCourse({ course }: { course: CourseJSON }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { studyResults, setStudyResults } = useStudyResult();
+  const { studyResults } = useStudyResult();
   const [grade, setGrade] = useState<string | undefined>(undefined);
+  const [status, setStatus] = useState<Status>("none");
 
-  // Om användaren öppnar drawer:n så skapas kursen i studyresults (om det inte finns redan)
-  useEffect(() => {
-    if (!studyResults.has(course.course_code)) {
-      studyResults.set(course.course_code, CreateEmptyCourse());
-    }
-  }, []);
+  const { returnGrade, returnStatus } = CheckGradeAndStatus(course, studyResults.get(course.course_code));
 
   useEffect(() => {
-    let finalgrade = 0;
-    let total = 0;
-    let passedGrade = false;
-
-    if (course.examinations.length === 1) {
-      let grade = studyResults.get(course.course_code)?.examinations.get(course.examinations[0].code)?.grade;
-
-      if (!grade || grade == "") {
-        setGrade(undefined);
-        return;
-      }
-
-      setGrade(grade.toString());
-      return;
+    setStatus(returnStatus);
+    if (returnGrade !== undefined) {
+      setGrade(returnGrade.toString());
     }
-    for (let i = 0; i < course.examinations.length; i++) {
-      let grade = studyResults.get(course.course_code)?.examinations.get(course.examinations[i].code)?.grade;
+  }, [returnGrade, returnStatus]);
 
-      if (!grade) continue;
-
-      if (typeof grade === "string") {
-        if (grade === "G" || grade === "D") {
-          passedGrade = true;
-          continue;
-        }
-        passedGrade = false;
-        continue;
-      }
-
-      finalgrade += grade;
-      total++;
-    }
-
-    if (finalgrade != 0 && passedGrade) {
-      finalgrade = finalgrade / total;
-      setGrade(finalgrade.toString());
-      return;
-    }
-  }, [studyResults]);
   // TODO:
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
   return (
@@ -74,19 +35,19 @@ export function EditCourse({ course }: { course: CourseJSON }) {
             <button className=" w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
               <div className="flex justify-between flex-row gap-4 items-center">
                 <div className="flex gap-4 items-center">
-                  <StatusSquare status={!grade ? "ongoing" : grade != "0" ? "done" : "ongoing"} />
+                  <StatusSquare status={status} />
 
                   <h4 className="font-medium text-sm">
                     {course.name} - {course.course_code}
                   </h4>
                 </div>
                 <div className="flex items-center gap-4">
-                  <InputOTP maxLength={1} disabled value={grade === "0" ? "x" : grade}>
+                  <InputOTP maxLength={1} disabled value={grade === "" ? "x" : grade}>
                     <InputOTPGroup>
                       <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
                     </InputOTPGroup>
                   </InputOTP>
-                  {grade && grade !== "0" ? (
+                  {grade && grade !== "" ? (
                     <div className="flex gap-2 items-center">
                       <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
                         <p className="text-sm items-center text-green-900">Betyg {grade}</p>
@@ -102,9 +63,9 @@ export function EditCourse({ course }: { course: CourseJSON }) {
             <section className="flex flex-col w-full">
               {isOpen &&
                 course.examinations
-                  .filter((e) => Number.parseFloat(e.credits.replace("hp", "").trim()) > 0)
+                  .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => {
-                    return <CourseExaminationMapping key={exam.code} exam={exam} course={course} setStudyResults={setStudyResults} studyResults={studyResults} />;
+                    return <CourseExaminationMapping key={exam.code} exam={exam} course={course} />;
                   })}
             </section>
             <Separator />
@@ -115,165 +76,80 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   );
 }
 
-function CourseExaminationMapping({
-  exam,
-  course,
-  setStudyResults,
-  studyResults,
-}: {
-  exam: ExaminationJSON;
-  course: CourseJSON;
-  setStudyResults: Dispatch<SetStateAction<Map<string, Course>>>;
-  studyResults: Map<string, Course>;
-}) {
-  const [dateError, setDateError] = useState<string | null>(null);
-  const [gradeError, setGradeError] = useState<string | null>(null);
-  const [dateFocused, setDateFocused] = useState(false);
-  const [gradeFocused, setGradeFocused] = useState(false);
-  const [examDate, setExamDate] = useState<string | undefined>("");
-  const [examGrade, setExamGrade] = useState<string | undefined>("");
-
-  // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
-  useEffect(() => {
-    if (!studyResults.get(course.course_code)?.examinations.has(exam.code)) {
-      studyResults.get(course.course_code)?.examinations.set(exam.code, CreateEmptyExamination());
-    }
-  }, []);
-
-  useEffect(() => {
-    const result = studyResults.get(course.course_code)?.examinations.get(exam.code);
-    setExamDate(result?.date ?? "");
-
-    const grade = result?.grade;
-    if (typeof grade === "number" || typeof grade === "string") {
-      setExamGrade(grade.toString());
-    } else {
-      setExamGrade("");
-    }
-    // Nån bugg med det här? blir NaN när man skriver in betyg i input fältet
-    //setExamDate(studyResults.get(course.course_code)?.examinations.get(exam.code)?.date);
-    //setExamGrade(studyResults.get(course.course_code)?.examinations.get(exam.code)?.grade?.toString() ?? "");
-  }, [exam.code, course.course_code, studyResults]);
-
-  const HandleDateChange = (value: string) => {
-    setDateError(null);
-    const error = ValidateDate(value, "20220801", getTodayFormatted());
-
-    if (error) {
-      setDateError(error);
-    }
-
-    const dateUpdate: Partial<Examination> = {
-      date: value,
+function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefined): { returnGrade: string | number | undefined; returnStatus: Status } {
+  if (!resultsCourse) {
+    return {
+      returnGrade: undefined,
+      returnStatus: "ongoing",
     };
-    setStudyResults((prev) => UpdateExamResult(prev, course, exam, dateUpdate));
-  };
+  }
 
-  const HandleGradeChange = (value: string) => {
-    setGradeError(null);
-    const error = ValidateGrade(value, exam);
+  let finalgrade = 0;
+  let total = 0;
+  let stringGradePassed = false;
 
-    if (error) {
-      setGradeError(error);
+  if (course.examinations.length === 1) {
+    let grade = resultsCourse.examinations.get(course.examinations[0].code)?.grade;
+
+    if (!grade || grade == "") {
+      return {
+        returnGrade: undefined,
+        returnStatus: "ongoing",
+      };
     }
 
-    let examgrade: string | number;
-    if (value === "G" || value === "D") examgrade = value;
-    else if (!isNaN(Number(value))) {
-      examgrade = Number(value);
-    } else {
-      examgrade = "";
-    }
-
-    const gradeUpdate: Partial<Examination> = {
-      grade: examgrade,
+    return {
+      returnGrade: grade,
+      returnStatus: "done",
     };
+  }
 
-    setStudyResults((prev) => UpdateExamResult(prev, course, exam, gradeUpdate));
+  for (let i = 0; i < course.examinations.length; i++) {
+    if (course.examinations[i].grading === "D") {
+      continue;
+    }
+
+    let grade = resultsCourse.examinations.get(course.examinations[i].code)?.grade;
+
+    if (typeof grade === "undefined") {
+      return {
+        returnGrade: undefined,
+        returnStatus: "ongoing",
+      };
+    }
+
+    if (typeof grade === "string") {
+      if (grade === "G" || grade === "D") {
+        stringGradePassed = true;
+        continue;
+      }
+      return {
+        returnGrade: undefined,
+        returnStatus: "ongoing",
+      };
+    }
+
+    finalgrade += grade;
+    total++;
+  }
+
+  if (finalgrade != 0) {
+    finalgrade = finalgrade / total;
+    return {
+      returnGrade: finalgrade,
+      returnStatus: "done",
+    };
+  }
+
+  if (stringGradePassed && finalgrade === 0) {
+    return {
+      returnGrade: "G",
+      returnStatus: "done",
+    };
+  }
+
+  return {
+    returnGrade: undefined,
+    returnStatus: "ongoing",
   };
-
-  const status: Status = gradeError || dateError ? "error" : examDate?.length === 8 && examGrade?.length === 1 ? "done" : "ongoing";
-
-  return (
-    <>
-      <div className="flex flex-col w-full">
-        <div className="flex relative w-full">
-          <div className="absolute left-[0.469rem] top-0 bottom-0 w-px bg-secondary z-0" />
-          <div className="flex flex-col pl-[1.125rem] w-full">
-            <div className="w-full">
-              <div className="flex gap-4 py-2">
-                <div className=" flex items-center">
-                  <StatusSquare status={status} />
-                </div>
-                <p className="text-sm font-normal">
-                  {exam.name} - {exam.code}
-                </p>
-                <p className="text-gray-600 self-center text-sm font-light text-right flex-2 pr-8">{exam.credits}</p>
-              </div>
-
-              <div className="flex gap-18 justify-between py-2 px-8 w-full">
-                <div className="flex flex-col gap-1 items-start text-sm">
-                  <div className="flex gap-2 items-center justify-start text-sm">
-                    <p>Datum:</p>
-                    <InputOTP
-                      maxLength={8}
-                      onChange={HandleDateChange}
-                      value={examDate}
-                      onBlur={() => setDateFocused(true)}
-                      onFocus={() => setDateFocused(false)}
-                      error={dateFocused ? dateError : null}>
-                      <InputOTPGroup className={`${dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={0} placeholder="Y" hasError={!!dateError && !!dateFocused} />
-                        <InputOTPSlot index={1} placeholder="Y" hasError={!!dateError && !!dateFocused} />
-                        <InputOTPSlot index={2} placeholder="Y" hasError={!!dateError && !!dateFocused} />
-                        <InputOTPSlot index={3} placeholder="Y" hasError={!!dateError && !!dateFocused} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator className={`${dateError && dateFocused ? "animate-shake-forwards" : ""}`} />
-                      <InputOTPGroup className={`${dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={4} placeholder="M" hasError={!!dateError && !!dateFocused} />
-                        <InputOTPSlot index={5} placeholder="M" hasError={!!dateError && !!dateFocused} />
-                      </InputOTPGroup>
-                      <InputOTPSeparator className={`${dateError && dateFocused ? "animate-shake-forwards" : ""}`} />
-                      <InputOTPGroup className={`${dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={6} placeholder="D" hasError={!!dateError && !!dateFocused} />
-                        <InputOTPSlot index={7} placeholder="D" hasError={!!dateError && !!dateFocused} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                  {dateError && dateFocused && (
-                    <div className="flex items-center gap-2">
-                      <AlertCircle size={15} color="#f36961" />
-                      <p className="text-red-900">{dateError}</p>
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-col gap-1 items-end justify-start text-sm">
-                  <div className="flex gap-2 items-center justify-start text-sm">
-                    <p>Betyg:</p>
-                    <InputOTP
-                      maxLength={1}
-                      onChange={HandleGradeChange}
-                      value={examGrade && examGrade !== "0" ? examGrade : undefined}
-                      onBlur={() => setGradeFocused(true)}
-                      onFocus={() => setGradeFocused(false)}
-                      error={gradeFocused ? gradeError : null}>
-                      <InputOTPGroup className={`${gradeError && gradeFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={0} placeholder="x" defaultValue="x" hasError={!!gradeError && !!gradeFocused} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                  {gradeError && gradeFocused && (
-                    <div className="flex items-center gap-2">
-                      <AlertCircle size={15} color="#f36961" />
-                      <p className="text-red-900">{gradeError}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
 }

@@ -24,16 +24,3 @@ export function EditCourseContext({ children }: { children: React.ReactNode }) {
 
   return <EditContext.Provider value={{ studyResults, setStudyResults }}>{children}</EditContext.Provider>;
 }
-
-// // app/context/StudyResultsContext.tsx
-// ("use client");
-
-// export function StudyResultsProvider({ children }) {
-//   const [studyResults, setStudyResults] = useState(new Map());
-
-//   return <StudyResultsContext.Provider value={{ studyResults, setStudyResults }}>{children}</StudyResultsContext.Provider>;
-// }
-
-// export function useStudyResults() {
-//   return useContext(StudyResultsContext);
-// }
