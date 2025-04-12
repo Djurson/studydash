@@ -14,7 +14,15 @@ export function ChangeHistory() {
       </header>
       <Separator />
       <section className="px-4">
-        {studyResults.size === 0 ? <p className="text-center p-20">Inga ändringar har gjorts</p> : Array.from(studyResults.entries()).map(([key, course]) => <p key={key}>{course.code}</p>)}
+        {studyResults.size === 0 ? (
+          <p className="text-center p-20">Inga ändringar har gjorts</p>
+        ) : (
+          Array.from(studyResults.entries()).map(([key, course]) => (
+            <p key={key}>
+              {course.code} - {course.name}
+            </p>
+          ))
+        )}
       </section>
       <Separator />
       <footer className="flex flex-col p-4 gap-4">
