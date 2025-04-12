@@ -111,19 +111,19 @@ export default function Page() {
               ))}
             </div>
             <Separator />
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pb-4">
               {thsesis.semesters.map((semester) => (
                 <EditSemesters key={semester.name} semester={semester} />
               ))}
             </div>
           </div>
         </section>
-        <section className="col-start-4 col-span-2 ">
-          <div className="sticky top-[4.688rem] flex flex-col w-full h-[88.5vh] gap-4">
+        <section className="col-start-4 col-span-2">
+          <div className="sticky top-[4.688rem] flex flex-col w-full max-h-[88.5vh] gap-4">
             <div>
               <UploadPDFInput />
             </div>
-            <div>
+            <div className="">
               <ChangeHistory />
             </div>
           </div>

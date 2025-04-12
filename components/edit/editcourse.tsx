@@ -35,7 +35,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
         <div className="flex relative w-full">
           <div className="absolute left-[0.563rem] top-0 bottom-0 w-px bg-secondary z-0" />
           <div className="flex flex-col pl-[1.125rem] w-full">
-            <button className=" w-full text-left items-center py-2" onClick={() => setIsOpen(!isOpen)}>
+            <button className=" w-full text-left items-center py-2 hover:bg-highlight-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <div className="flex justify-between flex-row gap-4 items-center">
                 <div className="flex gap-4 items-center">
                   <StatusSquare status={status} />
@@ -44,18 +44,20 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                     {course.name} - {course.course_code}
                   </h4>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  {/*
+                  <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
                   <InputOTP maxLength={1} disabled value={grade === "" ? "x" : grade}>
                     <InputOTPGroup>
                       <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
                     </InputOTPGroup>
                   </InputOTP>
+                  */}
                   {grade && grade !== "" ? (
-                    <div className="flex gap-2 items-center">
+                    <div className="flex items-center">
                       <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
                         <p className="text-sm items-center text-green-900">Betyg {grade}</p>
                       </div>
-                      <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
                     </div>
                   ) : null}
 
@@ -63,14 +65,15 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                 </div>
               </div>
             </button>
-            <section className="flex flex-col w-full">
-              {isOpen &&
-                course.examinations
+            {isOpen && (
+              <section className="flex flex-col w-full pb-2">
+                {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
-                  .map((exam) => {
-                    return <CourseExaminationMapping key={exam.code} exam={exam} course={course} />;
-                  })}
-            </section>
+                  .map((exam) => (
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} />
+                  ))}
+              </section>
+            )}
             <Separator />
           </div>
         </div>

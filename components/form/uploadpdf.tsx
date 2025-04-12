@@ -66,7 +66,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
           htmlFor="PDF-Upload"
           className={`flex flex-col items-center justify-center p-4 text-sm transition duration-300 ease-in-out border-1 
           border-foreground border-dashed cursor-pointer rounded-2xl group shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full
-          ${isDragging ? "bg-highlight" : "hover:bg-highlight bg-background"}`}>
+          ${isDragging ? "bg-highlight" : "hover:bg-highlight bg-accent"}`}>
           <span
             className={`transition duration-300 ease-in-out aspect-square p-4 rounded-2xl
             ${isDragging ? "bg-background" : "bg-highlight group-hover:bg-background"}`}>

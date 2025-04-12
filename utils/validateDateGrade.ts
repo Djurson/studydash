@@ -15,7 +15,7 @@ export const validateGrade = (grade: string, exam: ExaminationJSON) => {
 
   // Normalize grades by removing any "LiU," prefix and splitting by commas
   const gradingString = exam.grading.replace(/^LiU,\s*/, "");
-  // tar bort första betyget, hoppas detinte leder till buggar om json formatet skiljer sig
+  // tar bort första betyget, hoppas det inte leder till buggar om json formatet skiljer sig
   const allowedGrades = gradingString
     .slice(2)
     .split(/\s*,\s*/)
