@@ -1,0 +1,2102 @@
+{
+    "programs": [
+        {
+            "name": "Civilingenjörsprogram i medieteknik",
+            "credits": "300 hp",
+            "url": "https://studieinfo.liu.se/program/6CMEN/5143#curriculum",
+            "semesters": [
+                {
+                    "name": "Termin 7 HT 2025",
+                    "periods": [
+                        {
+                            "name": "Period 1",
+                            "courses": [
+                                {
+                                    "name": "Projektledning",
+                                    "course_code": "TEIO87",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TEIO87/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Industriell, ekonomi",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Dzamila Bienkowska",
+                                        "study_director": "Dzamila Bienkowska",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter genomgången kurs ska studenten: självständigt kunna redogöra för och förklara begrepp, modeller och teorier relaterade till planering och utvärdering av projekt samt ledarskap och grupputveckling uppvisa förmåga att gemensamt i grupp analysera en projektledares erfarenheter genom att tillämpa relevanta teorier och modeller uppvisa förmåga att reflektera över egna ledarbeteenden",
+                                        "course_content": "grundläggande verktyg för projektplanering och analys organisation och roller i projekt grupputveckling och gruppsykologi ledarskap med beteendefokus - teorier och praktiska verktyg coachande ledarskap hantering av svåra samtal och konflikter utvärdering och uppföljning av projekt",
+                                        "teaching_methods": "Kursen är organiserad i: föreläsningar, projektarbete i grupp, samt handledningsmöten.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för ekonomisk och industriell utveckling"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "KTR1",
+                                            "name": "Kontrollskrivning",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Uppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Andersson, Leif E.,  (2019)",
+                                            "title": "OBM-boken : psykologi för ledare.",
+                                            "edition": "OBM-boken : psykologi för ledare. Första upplagan Stockholm : Sanoma utbildning, [2019] ISBN: 9789152353790"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Hallin, Anette, Karrbom Gustavsson, Tina, Gustavsson, Tomas,  (2024)",
+                                            "title": "Projektledning.",
+                                            "edition": "Projektledning. 4:e upplagan Stockholm : Liber, [2024] ISBN: 9789147152001"
+                                        },
+                                        {
+                                            "type": "Artiklar",
+                                            "title": "Vetenskapliga artiklar kan tillkomma i samband med projektarbete."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Teknik och etik",
+                                    "course_code": "TGTU94",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TGTU94/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Inget, huvudområde",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Elin Palm",
+                                        "study_director": "Martin Berzell",
+                                        "scheduled_hours": "30 h",
+                                        "self_study_hours": "130 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursens övergripande mål är att den studerande ska utveckla sin förmåga till etisk reflektion med hjälp av etikämnets olika analysverktyg och med särskilt fokus på teknik- och ingenjörsetiska utmaningar. \nEfter fullgjord kurs ska deltagaren kunna: Beskriva och förklara centrala normativa etiska teorier, principer och begrepp. Beskriva och förklara etiska utmaningar kopplade till ingenjörsyrket och till teknisk utveckling och tillämpning. Muntligt diskutera, analysera och ta ställning till olika etiska synsätt. Tillämpa etiska teorier, principer och begrepp på konkreta fall och situationer. Kunna ta ställning i etiska frågor på ett konstruktivt och argumentbaserat sätt. I samarbete med andra skriftligt utreda, analysera och problematisera en etisk fråga i form av ett kortare papperarbete.",
+                                        "course_content": "Föreläsningar och seminarier behandlar dels generell etisk teori, dels specifika teknik- och ingenjörsetiska områden. Urval av fall för diskussion och analys varierar delvis efter aktuell kurslitteratur. Områden som behandlas: Att arbeta med etiska problem: metodfrågor, analysverktyg och grundbegrepp. Centrala normativa etiska teorier, principer och begrepp: ansvar, rättvisa, rättigheter, konsekvensetik, deontologi, människovärde. Teknik och etik: teknisk utveckling och moraliskt ansvar, teknikvärdering, övervakning och integritet, risk Yrkesetik och ingenjörsetik: konkreta fall och problem, yrkesetiska koder.",
+                                        "teaching_methods": "Kursens schemalagda moment består av föreläsningar, seminarier, handledning för papperarbete samt seminarium för papperarbete.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för kultur och samhälle"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "TEN2",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "4.5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Mindre uppsats, seminarie",
+                                            "credits": "1.5 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Kompendier",
+                                            "title": "Fastställs senare Kompendium med kortare texter."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Advanced English",
+                                    "course_code": "THEN09",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/THEN09/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Inget, huvudområde",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Nandita Mishra",
+                                        "study_director": "Olle Linge",
+                                        "scheduled_hours": "30 h",
+                                        "self_study_hours": "130 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Syftet med kursen är att hjälpa eleverna att utveckla sina språkkunskaper i engelska, både skriftligt och muntligt och kunna tillämpa dem på interkulturella sammanhang, både akademiskt och professionellt. Efter genomgången kurs förväntas studenten ha ökat sin språkliga och kulturella medvetenhet,  sitt ordförråd och bli mer exakt i både tal och skrift. Studenten ska kunna: Känna igen, använda och definiera olika termer inom ekonomi, vetenskap och teknik Kunna förklara det politiska systemet och beskriva olika kulturinstitutioner i landet Identifiera och sammanfatta de viktigaste punkterna i en längre text Granska, rapportera och diskutera artiklar och texter som berör företagen och ekonomi, vetenskap och teknik samt mer allmänna områden Fungera effektivt i ett team Visa kulturell medvetenhet Formulera tankar och idéer på ett korrekt och professionellt sätt Organisera skriftligt arbete och presentationer effektivt och på ett lämpligt professionellt sätt Välja och tillämpa den korrekta terminologin i olika sammanhang Bedöma hans / hennes eget språk styrkor och svagheter och kunna planera och genomföra korrigerande åtgärder",
+                                        "course_content": "Alla deltagare kommer att:",
+                                        "teaching_methods": "Lektioner eller seminarieform, och aktivt deltagande på den del av varje enskild student krävs.Kursen pågår hela höstterminen.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för ekonomisk och industriell utveckling"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "TEN1",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Muntliga och skriftliga uppgifter",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Advanced Global Illumination and Rendering",
+                                    "course_code": "TNCG15",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNCG15/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Mark E Dieckmann",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "36 h",
+                                        "self_study_hours": "124 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Syftet med denna kurs är att ge studenten fördjupad kunskap om globala belysningsmodeller. Efter kursen ska studenten kunna: förklara konceptet med ”raytracing” för belysning av scener som innehåller speglar och genomskinliga ytor. förstå idén bakom ”Monte-Carlo-integration” och hur den används för att belysa diffusa ytor i Monte-Carlo-”raytracing”. förklara vad fotonmappning är och hur den kan användas för att återge kaustik.",
+                                        "course_content": "Kursens innehåll är: optik och ljus, algoritmer för “raytracing”, Monte Carlo sampling och integration, metoder för att lösa en renderingsekvation, stokastisk \"path tracing\".",
+                                        "teaching_methods": "Förläsningar, en studentpresentation av en vetenskaplig artikel och ett programmeringsprojekt.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Projektarbete med muntlig och skriftlig presentation",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Dutre, Advanced Global   Illumination"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Jensen, Photon Mapping"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Pharr and Humphreys, Physically Based Rendering: From Theory to   Implementation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Nätverksprogrammering och säkerhet",
+                                    "course_code": "TNM031",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM031/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Pierangelo Dellacqua",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "44 h",
+                                        "self_study_hours": "116 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen ska ge studenterna grundläggande men ändå fundamentala kunskaper i nätverk och säkerhet. Kursen ska ge praktisks färdigheter i att designa, analysera och implementera säkra applikationer.\nEfter kursen ska studenten kunna: diskutera olika typer av attacker och försvar. redogöra för internetprotokollen IP, TCP, UDP och ICMP, och deras säkerhets implikationer. beskriva typiska steg i inbrottsattacker, denial-of-service (DoS) attacker och malwareattacker. formulera grundläggande kryptografiska begrepp såsom symmetriska och offentliga key encryption, digitala certifikat för verifiering av meddelande och offentlig nyckel infrastruktur. redogöra för det kryptograpfiska systemet SSL/TLS och Javas secure-socket extension (JSSE). beskriva de grundläggande filtreringsoperationer hos brandvägar och vanliga brandvägsarkitekturer.",
+                                        "course_content": "Översikt över datornät och Internet. Protokoll och nivåer. Klient-server-modellen. Översikt över nätnivåer och routing. Brandväggar, autenticering och moment inom kryptografi: kryptering och tekniker för dataintegritet. Översikt över applikationers säkerhetsfrågor, speciellt web-service and e-handelsäkerhet.",
+                                        "teaching_methods": "Föreläsningar, laborationer, projektuppgift och enskild fördjupningsuppgift",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Enskild uppgift",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "LAB2",
+                                            "name": "Laborationskurs",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Frivillig muntlig tentamen för högre betyg",
+                                            "credits": "0 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Utdelat kursmaterial"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Vetenskaplig visualisering",
+                                    "course_code": "TNM067",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM067/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Ingrid Hotz",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att ge fördjupade insikter i metoder för visualisering av vetenskapliga data från experiment och beräkningar samt genom programmeringsövningar belysa dessa metoders möjligheter och begränsningar. Kunskaperna som inhämtas är användbara i en rad existerande och nya tillämpningar inom näringsliv och samhälle, men kan också ligga till grund för forsknings- och utvecklingsarbete inom vetenskaplig visualisering både inom universitet och specialiserade företag.Efter kursen skall studenten kunna: Utifrån ett dataset välja en lämplig visualiseringsmetod. Med hjälp av tillgängliga mjukvarubibliotek implementera den valda metoden i ett användbart visualiseringsverktyg. Läsa och redogöra för innehåll i vetenskapliga artiklar inom området.",
+                                        "course_content": "Introduktion till visualisering: visualisering som forskningsfält, applikationer, uppgifter Visualiseringspipeline Datarepresentation och interpolation:Grundläggande datatyper: skalär-, vektor- och tensordataStrukturerade och ostrukturerade data Grundläggande datatyper: skalär-, vektor- och tensordata Strukturerade och ostrukturerade data Grundläggande visualiseringsalgoritmerför skalärfält, exempelvis avbildning via färg, konturlinjer och ytorför vektorfält, exempelvis flödeslinjer och flödesytor samt tidsanimationer av dessaför tensorfält, exempelvis glyfer, tensorlinjer för skalärfält, exempelvis avbildning via färg, konturlinjer och ytor för vektorfält, exempelvis flödeslinjer och flödesytor samt tidsanimationer av dessa för tensorfält, exempelvis glyfer, tensorlinjer Översikt över tekniker för volymsrendrering Introduktion till koncept för mer avancerad dataanalysdatautforskningdetektion och avbildning av egenskapertopologiska metoder datautforskning detektion och avbildning av egenskaper topologiska metoder Exempel på applikationsspecifika visualiseringstekniker",
+                                        "teaching_methods": "Kursen omfattar föreläsningar och laborationer. Dessutom kommer vetenskapliga artiklar inom området att inkluderas som självstudiematerial.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Muntlig examination",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Munzner T.,  (2014)",
+                                            "title": "Visualization Analysis and Design.",
+                                            "edition": "Visualization Analysis and Design. Taylor&Francis. Ytterligare relevant litteratur."
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Schroeder W., Martin K. & Lorensen B.",
+                                            "title": "The Visualization Toolkit, An Object-Oriented Approach To 3D Graphics.",
+                                            "edition": "The Visualization Toolkit, An Object-Oriented Approach To 3D Graphics. ISBN: -930934-12-2 Ytterligare relevant litteratur."
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Telea, A. C.,  (2008)",
+                                            "title": "Data Visualization: Principles and Practice.",
+                                            "edition": "Data Visualization: Principles and Practice. AK Peters, Ltd."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ljudteknik",
+                                    "course_code": "TNM103",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM103/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Niklas Rönnberg",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "50 h",
+                                        "self_study_hours": "110 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Ljudteknik av analog och digital karaktär är idag en viktig del i många olika medieproduktioner, från datorspel och immersiv medieproduktion via användargränssnitt till renodlad ljud- och musikredigering. Kursen syftar till att ge studenterna fördjupade kunskaper om metoder för ljudteknik, audioeffekter och signalbehandling, samt bearbetning, analys och syntes av ljud och vågformer. Studenten ska efter genomgången kurs kunna tillämpa kunskaper om design av analoga och digitala signalbehandlingstillämpningar för exempelvis professionell audio, musikproduktion, film, spel och virtuella miljöer, samt visualisering och forensiskt arbete.",
+                                        "course_content": "Introduktion till digital audio, ljud- och musikbearbetning. Översikt över tekniker för signalbehandling och audioeffekter. Förändring av dynamiskt innehåll i en signal som kompression respektive expansion. Filtrering och utjämning av signaler, olika användningsområden för filter, olika typer av filter. Digitala fördröjningsledningar samt analoga alternativ för simulering av rumsakustik och eko. Digitala och analoga audioeffekter (som exempelvis wha-wha, phaser, flanger). Fas-vocodning för tonhöjds- och tempoförändring av en signal. Additiv och subtraktiv syntes, samt analoga och digitala syntesmetoder. Amplitud- och frekvensmodulering av signaler.",
+                                        "teaching_methods": "Kursen omfattar föreläsningar, föreläsningar/seminarier givna av studenten själv, samt programmeringsinriktade och praktiskt ljudtekniska laborationer. En skriftlig tentamen i form av en hemtentamen, som utförs under begränsad mängd tid och går ut på att i skrift redogöra för hur en specifik signalbehandlingsuppgift skulle kunna lösas.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "HEM1",
+                                            "name": "Hemtentamen",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Föreläsningsanteckningar och utdelat material."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Maskininlärning för sociala medier",
+                                    "course_code": "TNM108",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM108/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Pierangelo Dellacqua",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursens övergripande mål är att ge kunskap om maskininlärning i en kontext av analys av data från sociala medier. Efter avslutad kurs skall den studerande kunna: använda maskininlärningstekniker för att formulera och lösa praktiska problem utvärdera och välja mellan maskininlärningsmodeller använda maskininlärningsmodeller för prediktion och beslutsfattande implementera maskininlärningsmodeller och algoritmer i ett programmeringsspråk använda grundläggande metoder för att extrahera information and hämta textbaserad social data använda tekniker för textbearbetning och förbereda dokument för statistisk modellering använda relevanta använda maskininlärningsmodeller  för analys av textuell data och korrekt tolkning av resultat grundläggande concept och mer avancerade tekniker för att producera rekommendationer demonstrera kunskap av grundläggande koncept i grafteori och informationsflöde",
+                                        "course_content": "Översikt av maskininlärningsområdet och dess tillämpningsområden. Maskininlärningsalgoritmer som används inom sociala medier. Textutvinning, natural language processing , sentiment analysis, recommender systems, aspekter inom sociologi (graf teori, informationsflöde)",
+                                        "teaching_methods": "Undervisningen består av föreläsningar och datorlaborationer. Föreläsningar används för att introducera begrepp och teori som studenterna sedan använder i praktisk problemlösning vid datorlaborationer. Under kursens gång genomförs också ett projektarbete.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Medieproduktion för immersiva miljöer",
+                                    "course_code": "TNM091",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM091/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Karljohan Lundin Palmerius",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "42 h",
+                                        "self_study_hours": "118 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter genomgången kurs ska studenten: kunna använda verktyg för att producera och hantera immersiva bilder, video och ljud samt programmera immersiv realtidsrendering, kunna självständigt eller i grupp planera, producera och presentera immersiva medieproduktioner där tekniken utnyttjas på ett effektivt sätt för att framföra ett budskap, samt kunna kritiskt såväl som professionellt analysera och reflektera över existerande teknik och praxis för produktion inom området",
+                                        "course_content": "I kursen studerar och utforskar vi de tekniska och artistiska villkoren vid medieproduktion för immersiva miljöer som VR-glasögon, domdisplayer, VR-kuber och krökta panoramadisplayer. Sådana miljöer erbjuder stora möjligheter att skapa spännande och ovanliga medieformer, men det innebär också både krav på speciella tekniska lösningar och ställer särskilda utmaningar för att designa och skapa innehållet. Kursen baseras på konkret användning av tekniskt avancerad medieteknik, så som kombinationer av (stereo)video, datorgrafik (interaktiv och förrenderad), immersivt ljud samt eventuella andra medier som är lämpliga för presentationen.",
+                                        "teaching_methods": "Några föreläsningar ges för att presentera principer och teknik för immersiva medier och produktion, samt att föreslå inriktning och angreppssätt för medieproduktionen. Några laborationer  ges för att bekanta deltagarna med utrustningen och några grundläggande produktionstekniker. Kursens huvudsakliga fokus ligger dock på studentens egen inlärning och projektarbete i grupp.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projekt",
+                                            "credits": "5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Området är förhållandevis nytt och saknar starkt stöd i läroböcker. Vissa referensverk kommer att användas, kompletterade med forskningsartiklar och lämpliga tutorials."
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Period 2",
+                            "courses": [
+                                {
+                                    "name": "Immaterialrätt",
+                                    "course_code": "TEAE11",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TEAE11/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Inget, huvudområde",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Kalle Ahlqvist",
+                                        "study_director": "Johannes Lerm",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att den studerande skall tillägna sig goda kunskaper om immaterialrätt och marknadsrätt. Den studerande skall erhålla goda kunskaper om vad som krävs för att lagligt skyddad ensamrätt skall uppnås/föreligga samt skapa sig förståelse för immaterialrättsliga reglers roll i en marknadsekonomi. Den studerande skall även förvärva god förmåga att identifiera, analysera och lösa praktiskt inriktade problemställningar inom de angivna rättsområdena.Efter slutförd kurs skall den studerande kunna visa övergripande kännedom om immaterialrätt och marknadsförings- samt konkurrensrätt på nationell och EU-rättslig nivå, samt hur reglerna samverkar och påverkar relationen mellan marknadens aktörer och deras handlingsutrymme, visa övergripande färdighet i lagtolkning, rättsfallsanalys och rättstillämpning avseende ovan nämnda rättsområden, identifiera, analysera och lösa praktiskt inriktade juridiska problem inom de angivna rättsområden, reflektera över slutsatser avseende resultat från såväl lagtolkning och rättsfallsanalys som rättstillämpning, samt reflektera över nämnda reglers samspel.",
+                                        "course_content": "Kursens tyngdpunkt kommer att ligga på just immaterialrätten, men även marknadsrättsliga regler som avser att förhindra otillbörlig konkurrens samt konkurrensrätt kommer att behandlas.Immateriella rättigheter är bl.a. upphovs-, mönster-, varumärkes- och patenträtt. Immaterialrätten är till sin natur internationell varför framförallt EU-rättslig men även viss internationell reglering kommer att behandlas. Vidare görs en översikt över problemen med internationella tvister och jurisdiktionsfrågor.",
+                                        "teaching_methods": "Undervisningen sker i form av föreläsningar och övningar.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för ekonomisk och industriell utveckling"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "DIT1",
+                                            "name": "Digital salstentamen",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Hellstadius, Åsa,  (2020)",
+                                            "title": "Immaterialrätt och marknadsrätt : ur praktiskt perspektiv.",
+                                            "edition": "Immaterialrätt och marknadsrätt : ur praktiskt perspektiv. Andra upplagan Stockholm : Norstedts juridik , [2020] ISBN: 9789139209300"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Storr, Pam,  (2020)",
+                                            "title": "Regelsamling i immaterialrätt.",
+                                            "edition": "Regelsamling i immaterialrätt. Stockholm : LGG Publishing, 2020 ISBN: 9789198600827"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Övrigt material tex rättsfall och föreläsningsmaterial publiceras i kursrummet."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Matrismetoder för AI",
+                                    "course_code": "TNA010",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNA010/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Matematik, Tillämpad, matematik",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Berkant Savas",
+                                        "study_director": "George Baravdish",
+                                        "scheduled_hours": "40 h",
+                                        "self_study_hours": "120 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att ge praktiska och teoretiska kunskaper om matrismetoder som används för att lösa problem inom artificiell intelligens. En viktig aspekt av kursen är att behandla ett flertal specifika tillämpningsproblem i projektform och därigenom motivera, belysa och introducera matematisk teori kopplat till matriser och matrisberäkningar. Efter avslutat kurs skall kursdeltagaren uppnått följande mål. Ha kunskap om hur vektorer och matriser används inom AI-tillämpningar. Känna till viktiga koncept vid lösning av linjära ekvationssystem och minstakvadratproblem. Använda olika matrisfaktoriseringar (LU-, QR- och SVD-faktorisering) för att lösa praktiska och teoretiska problem. Känna till principerna för klustring och grafpartitionering, samt använda sådana metoder för att lösa praktiska problem. Ha kunskap om tensorer och tensorfaktoriseringar, samt använda sådana metoder för att lösa praktiska problem. Ha kunskap om icke-negativa matrisfaktoriseringar, samt använda sådana metoder för att lösa praktiska problem. Ha kunskap om felkällor i datorberäkningar, hur fel propagerar i beräkningar. Känna till kancellation och hur den kan undvikas. Kunna resonera kring, tolka och genomföra enkel känslighetsanalys. Ha kunskap om datoraritmetik och hur hårdvara och minneshierarki påverkar effektiviteten i datorprogram.",
+                                        "course_content": "Vektorer och matriser inom AI-tillämpningar, matristeori och matrisberäkningar, lösning av linjära ekvationssystem och minstakvadratproblem, matrisfaktoriseringar, LU-faktorisering, QR-faktorisering, egenvärden och egenvektorer, singulärvärdesfaktorisering (SVD), singulära värden och singulära vektorer, tensorer, klustring och grafpartitionering, icke-negativa matrisfaktoriseringar. Projektarbete i grupp där metod och teori används för att lösa ett tillämpningsproblem inom informationsteknologi, t.ex., klassificering av handskrivna siffror, text-mining för dokumentsökning, Page Rank för sökning i webbsidor, automatisk extrahering av nyckelord och nyckelmeningar, ansiktsigenkänning. Kursen introducerar även felanalys, känslighetsanalys, konditionstal, minneshierarki, design av programvara för beräkningar.",
+                                        "teaching_methods": "Undervisningen består av föreläsningar, datorlaborationer, och öppna seminarier. På föreläsningarna presenteras valda delar från kurslitteraturen. På datorlaborationerna ges handledning kopplat till implementering av tillämpningsprojekt. På de öppna seminarierna diskuteras frågor som studenterna förbereder och tar upp. Inlämningsuppgifter görs individuellt.",
+                                        "grade_scale": "Tvågradig skala, U, G",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Inlämningsuppgifter",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Implementering och redovisning av tillämpningsprojekt",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Lars Eldén,  (2019)",
+                                            "title": "Matrix Methods in Data Mining and Pattern Recognition",
+                                            "edition": "Matrix Methods in Data Mining and Pattern Recognition Second edition SIAM"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Avancerad bildbehandling",
+                                    "course_code": "TNM034",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM034/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Daniel Nyström",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "34 h",
+                                        "self_study_hours": "126 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen avser att ge de studerande avancerade kunskaper i bildbehandling och bildanalys, med koppling till forskning inom området. Efter genomgången kurs ska studenterna kunna: tillgodogöra sig innehållet i forskningsartiklar inom bildbehandling och bildanalys och applicera kunskapen i relevanta tillämpningar. identifiera och implementera relevanta lösningsmetoder i ett projekt av forskningskaraktär. använda matematiska uttryck och modern terminologi inom bildbehandling och bildanalys genom skriftlig presentation av teori, metoder och implementation i en rapport.",
+                                        "course_content": "Avancerade metoder för bildbehandling och bildanalys som ansluter till den aktuella projektuppgiften, vilken varierar mellan olika kursomgångar.",
+                                        "teaching_methods": "Kursen består av inledande föreläsningar, följt av en större projektuppgift. Projektarbetet består i att lösa en given uppgift inom bildbehandling och bildanalys, i grupper om 2 till 4 studenter. Tillfällen som schemaläggs som laboration avser regelbunden projekthandledning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Projektarbete",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Artiklar",
+                                            "title": "Litteraturen kommer till största delen att bestå i forskningsartiklar som meddelas vid kursstart."
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Forskningsartiklar inom området för den aktuella projektuppgiften."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Procedurella metoder för bilder",
+                                    "course_code": "TNM084",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM084/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Ingemar Ragnemalm",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "44 h",
+                                        "self_study_hours": "116 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Studenten skall efter genomgången kurs kunna: Mål 1: redogöra för bilder och geometrier som verktyg inom modern datorgrafik. Mål 2: redogöra för klassiska och moderna metoder för procedurell generering av bilder, speciellt texturer som avser att efterlikna komplicerade och visuellt detaljerade fenomen i naturen. Mål 3: kunna använda generella och speciella programspråk för att generera bilder och vissa typer av geometri Mål 4: kunna beskriva och implementera ett urval av klassiska metoder för procedurell generering av mönster. Mål 5: utföra ett projekt som löser ett verkligt problem som är formulerat i termer av önskat visuellt resultat, där studenten skall kunna välja, motivera, genomföra, beskriva och i någon mån utvärdera en egen lösning baserad på existerande, publicerade metoder.",
+                                        "course_content": "Principen för procedurella bilder, deras användning, fördelar och nackdelar vid texturering. Texturer i 2, 3 och 4 dimensioner. Regelbundna och oregelbundna mönster. Slumptalsgenerering. Brusfunktioner, speciellt \"Perlin noise\" och dess släktingar (lattice noises). Multifraktal syntes och simulering av turbulens. Metoder för animerade bilder. Fraktaler. Splines. Fractal Brownian Motion. Direkt Fouriersyntes.Programmering i generella programspråk för procedurella bilder. Shadingspråk. Funktioner för textursyntes och geometrisyntes i modern grafikhårdvara.",
+                                        "teaching_methods": "Kursen omfattar föreläsningar, programmeringsinriktade laborationer samt en projektuppgift. Projektuppgiften väljs relativt fritt i samråd med examinator. Den utförs individuellt eller i grupp beroende på antal kursdeltagare och kursdeltagarens preferens. Detta görs självständigt med viss handledning, samt avrapporteras skriftligt och muntligt för bedömning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Individuell projektuppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Texturing and Modeling: a Procedural Approach",
+                                            "title": "Texturing and Modeling: a Procedural Approach",
+                                            "edition": "Third edition Morgan Kaufmann publishers ISBN: ISBN 1-55860-848-6"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Ytterligare web-baserat material annonseras under kursens gång."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Grafisk design och kommunikation",
+                                    "course_code": "TNM110",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM110/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "42 h",
+                                        "self_study_hours": "118 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursens syfte är att fördjupa förståelsen för den kreativa designprocessen i tryckta och digitala medier samt betydelsen av målgruppsanpassad kommunikation. Studenten skall efter avslutad kurs: Förstå processen vid framtagande av trycksaker Känna till hur målgrupper definieras Förstå betydelsen av målgruppsanpassad kommunikation Ha kunskap om varumärkeskommunikation Kunna producera trycksaker för ett givet varumärke mot en given målgrupp",
+                                        "course_content": "Marknadskommunikation. Visuell kommunikation i ett marknadsperspektiv. Inlämningsuppgift i form av att producera en trycksak för marknadskommunikation.",
+                                        "teaching_methods": "Kursen består av föreläsningar, laborationer och en inlämningsuppgift i projektform.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB2",
+                                            "name": "Laborationskurs",
+                                            "credits": "1.5 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Inlämningsuppgifter, kan ge betyg 3 eller 4",
+                                            "credits": "4.5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "TEN1",
+                                            "name": "Skriftlig tentamen för höjning av slutbetyget med ett steg",
+                                            "credits": "0 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Bergström, Bo, Effektiv visuell kommunikation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Utvidgad verklighet (XR) - principer och programmering",
+                                    "course_code": "TNM116",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM116/ht-2025",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Karljohan Lundin Palmerius",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Målet med kursen är att studenterna skall få insikt om XR, VR, AR och andra relaterade principer, hur det används och hur det kan implementeras och utnyttjas. De skall även lära sig analysera behov och utmaningar, och lära sig att tillämpa teorier och principer för att realisera effektiva immersiva gränssnitt och interaktion. Efter avslutad kurs ska studenten kunna redogöra för principer för XR med avseende påmänskliga faktorer såsom perception, sociala aspekter och genusvisuella och multisensoriska display-system, tracking och annan interaktionsutrustningegocentrisk interaktion och haptikljud och ljudinteraktion mänskliga faktorer såsom perception, sociala aspekter och genus visuella och multisensoriska display-system, tracking och annan interaktionsutrustning egocentrisk interaktion och haptik ljud och ljudinteraktion skapa interaktiva, immersiva tillämpningar",
+                                        "course_content": "Kursen täcker ett brett område med olika aspekter associerade med utvidgad verklighet (eXtended Reality - XR), en samlingsterm för immersiva tillämpningar med virtuellt innehåll, såsom virtuell verklighet (Virtual Reality - VR), förstärkt verklighet (Augmented Reality - AR), blandad verklighet (Mixed Reality - MR) samt förstärkt virtualitet (Augmented Virtuality). Vi går igenom displaysystem och dess principer, från desktop till storskaliga VR-teatrar och domer, principer för effektiv implementation, metoder för interaktion och hur ljud och känsel används för att skapa en övertygande och användbar immersiv miljö för en rad olika tillämpningar.",
+                                        "teaching_methods": "Kursen ges på Campus Norrköping men stora delar kan vid behov läsas på distans. Närvaro krävs för laboration med VR-utrustning samt examination av laboration med VR-utrustning. Teoretisk genomgång sker via föreläsningar som kompletteras med vetenskapliga publikationer för ytterligare fördjupning. Substantiellt med laboratoriearbete inkluderas också, där teorin omvandlas till praktik. Studenter som läser kursen ges tillgång till VR-laboratoriet och dess utrustning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Muntlig examination",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 8 VT 2026",
+                    "periods": [
+                        {
+                            "name": "Period 1",
+                            "courses": [
+                                {
+                                    "name": "Industriell ekonomi",
+                                    "course_code": "TEIE53",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TEIE53",
+                                    "overview": {
+                                        "main_subject": "Industriell, ekonomi",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Harald Brege",
+                                        "study_director": "Daniel Ellström",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att ge studenterna en helhetssyn av hur företag fungerar och styrs. Mer specifikt skall deltagaren efter genomgången kurs kunna: Förklara och tillämpa centrala begrepp och verktyg inom industriell ekonomi Analysera industriföretag och deras omvärld ur ett företagsekonomiskt perspektiv Diskutera kring grundläggande analyser av företag och deras ekonomi",
+                                        "course_content": "Kursens syfte är att ge studenterna kunskap och förståelse om hur företag fungerar och fattar beslut, med speciellt fokus på industriella företag (företag som ofta tillverkar produkter och säljer till andra företag). Kursen ger studenterna en orientering i de sammanhang företag verkar, hur företag sätter priser, hur företag bokför och redovisar, och hur företag kan analyseras från perspektiv såsom nyckeltal eller hållbarhet. Företaget och dess omvärld Kostnads- och intäktsbegrepp Produktkalkylering Investeringskalkylering Affärs- och hållbarhetsredovisning Budgetering Kassaflödesanalys Räkenskapsanalys",
+                                        "teaching_methods": "Föreläsningarna ger bakgrund till ekonomiska villkor för både företag och samhälle. Lektioner och seminarium ägnas åt problemlösning och praktikfallsdiskussioner. I kursen ingår ett projektarbete som utgör en analys av ett existerande företag alt. analys ur ett samhällsekonomiskt perspektiv.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för ekonomisk och industriell utveckling"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "TEN2",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "PRA2",
+                                            "name": "Projektuppgift som genomförs i grupp",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Interkulturell kompetens och interkulturell kommunikation",
+                                    "course_code": "TINT02",
+                                    "credits": "fortsättningskurs, 6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TINT02",
+                                    "overview": {
+                                        "main_subject": "Inget, huvudområde",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "",
+                                        "examiner": "Christoph Röcklinsberg",
+                                        "study_director": "Olle Linge",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Redogöra för kulturella, kommunikativa och kontrastiva studier inom interkulturell kommunikation Kritisk analysera kulturella skillnader från olika kulturella regioner i världen Redogöra och kritisk analysera kulturella och språkliga skillnader i olika språk- och kulturområden utifrån teoretiska modeller Analysera utifrån det antropologiska kulturbegreppet konkreta utformningar på t.ex. organisationer, reklam eller andra konkreta och praktiska exempel.",
+                                        "course_content": "Teorier och begrepp inom olika kulturella och kommunikativa teorier och modeller Enkla och multidimensionella modeller för kulturell analys Fördjupning och reflektion över olika språk- och kulturområden runtom i världen Analys av de egna erfarenheterna från utlandsåret Kulturens struktur och effekt på kommunikation Kulturens inverkan inom olika affärsområden samt t ex på organisationer och marknadsföring, m.m. Olika exempel och belysning av olika kulturella mönster inom olika regioner i världen ur ett kulturkontrastivt perspektiv",
+                                        "teaching_methods": "Undervisning sker genom föreläsningar och seminarier på plats på campus. Enstaka föreläsningar kan dock hållas på distans. De grundläggande teoretiska föreläsningarna om kultur och kommunikation exemplifieras och intensifieras med olika experter från olika kulturområden (Native Speaker) som föreläser och leder grupparbeten. Projektarbetet väljs och skrivs individuellt eller i par utifrån ett kultur- och/eller kommunikationsteoretiskt perspektiv (etnocentrism, olika kulturmodeller, interaktionsmodeller eller en kombination av dessa) eller ur ett kulturkontrastivt perspektiv. Projektarbeten kan även skrivas ur ett tillämpad perspektiv där den kulturella påverkan såsom i organisationer, marknadsföring, företagskulturen etc. behandlas och analyseras.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för ekonomisk och industriell utveckling"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Inlämningsuppgifter samt aktivt deltagande i seminarier",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Individuell skriftlig analys samt ventilation i grupp",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete med muntlig presentation och opposition",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Hofstede, Geert, Hofstede, Gert Jan, Minkov, Michael,  (2010)",
+                                            "title": "Cultures and organizations : software of the mind : intercultural cooperation and its importance for survival.",
+                                            "edition": "Cultures and organizations : software of the mind : intercultural cooperation and its importance for survival. 3. ed. New York : McGraw-Hill, ©2010 ISBN: 9780071664189, 0071664181"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Meyer, Erin,  (2015)",
+                                            "title": "The culture map : decoding how people think, lead, and get things done across cultures",
+                                            "edition": "The culture map : decoding how people think, lead, and get things done across cultures ISBN: 9781610392761, 1610392760"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Retorik i tal",
+                                    "course_code": "TNKA10",
+                                    "credits": "text och bild, 6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNKA10",
+                                    "overview": {
+                                        "main_subject": "Grafisk, design, och, kommunikation",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Maria Thunborg",
+                                        "study_director": "Birgitte Saxtrup Hermansson",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter avslutad kurs ska den studerande kunna: - tillämpa olika former av retoriska grepp och färdigheter i givna scenarier. - muntligt och skriftligt beskriva och analysera retorik med ett visst syfte och i en given kontext. - muntligt presentera och motivera val av språklig form och framställningssätt ur ett retoriskt perspektiv. - redogöra för olika bildmedias visuella retorik. - kunna presentera och argumentera för olika retoriska grepp inom visuell argumentation.",
+                                        "course_content": "Kursen består av två delar, en del som behandlar grunderna i praktisk muntlig retorik och en del som behandlar det visuella. Delkurs ett behandlar grunderna i retorik i olika former, med särskilt fokus på presentation och argumentation i arbetslivskontext. I denna del ingår också muntlig presentation med analys. Delkurs två behandlar historiska och teoretiska perspektiv på visuell kommunikation utifrån ett bildretoriskt perspektiv.",
+                                        "teaching_methods": "Föreläsningar, seminarier, individuellt arbete samt grupparbete. För GDK är sista delen av kursen på heltid under de två första veckorna i VT2. För övriga program gäller vanlig schemaläggning i VT2.",
+                                        "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                        "institution": "Institutionen för kultur och samhälle"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Muntliga presentationer och skriftlig utvärdering",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Seminarier och skriftlig uppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Aktuella artiklar och material tillhandahålls i kursrummet"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Bildreproduktion och bildkvalitet",
+                                    "course_code": "TNM097",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM097",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Sasan Gooran",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "94 h",
+                                        "self_study_hours": "66 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Studenten skall efter genomgången kurs kunna: Redogöra för skillnader och egenskaper hos olika färgsystem och färgrymder, samt identifiera och motivera optimala val för olika tillämningar samt implementera de viktigaste modellerna (matematiska och fysikaliska) för färgprediktion. Utföra kalibrering samt karakterisering av bildreproduktionsenheter för att säkerställa repeterbar och kontrollerbar färgreproduktion. Beskriva och implementera matematiska och fysikalisk modeller för bildreproduktion, färgprediktion och färgseparation. Identifiera och redogöra för de olika attribut som påverkar upplevd bildkvalitet samt utvärdera bildkvalitet hos reproducerade bilder genom att applicera modeller, inkl. modeller som inkluderar egenskaper hos vårt synsinne, för att beräkna objektiva kvalitetsmått.",
+                                        "course_content": "Bildreproduktion: Tekniska förutsättningar, begränsningar och möjligheter för olika tekniker inom modern bildreproduktion, för både elektroniska och konventionella medier. Översikt av det aktuella forskningsläget, inklusive exempelvis multikanalsdisplayer, flerkanalstryck och spektral bildreproduktion. Bildkvalitet: Attribut som påverkar upplevd bildkvalitet hos olika reproduktionsmetoder. Modeller, baserade på det mänskliga synsinnet, för att beräkna objektiva kvalitetsmått. Färgstyrning: Färgmätning, kalibrering och karakterisering av olika bildreproduktionsenheter. Färgrymder och färgsystem. Fysikaliska och matematiska modeller för färgprediktion och färgseparation.",
+                                        "teaching_methods": "Kursen består av föreläsningar och laborationer, följt av en större projektuppgift med muntlig och skriftlig redovisning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "1.5 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete",
+                                            "credits": "4.5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Frivillig muntlig tentamen för högre betyg",
+                                            "credits": "0 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Strukturerade metoder för användarupplevelse (UX)",
+                                    "course_code": "TNM100",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM100",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Camilla Forsell",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "42 h",
+                                        "self_study_hours": "118 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen avser att ge kunskaper om och färdigheter i tekniker och metoder för att strukturerat modellera, specificera och analysera egenskaper hos system, samt verktyg och metoder för att säkerställa att systemegenskaper relaterade till användarupplevelse implementeras och bevaras under utvecklingsprocessen.Efter avslutad kurs ska studenten kunna: Applicera strukturerade metoder och tekniker för att specificera, analysera, designa och utvärdera användarupplevelse (UX) i ett komplext system. Följa samt redogöra för typiska processer och aktiviteter inom användarcentrerad systemutveckling (UCD). Argumentera för val av metoder, tekniker och design samt presentera muntligt och skriftligt. Kritiskt granska tillämpningar av teorier, metoder och tekniker vid design av användarupplevelse och kunna identifiera och analysera vetenskapligt underbyggda resultat.",
+                                        "course_content": "Aspekter på användarupplevelser inom systemutveckling Strukturerade metoder inom människa-datorinteraktion Interaktionsdesign av komplexa system Användbarhet, användarcentrerad design (UCD), användarupplevelse och design (UXD)",
+                                        "teaching_methods": "Kursen omfattar föreläsningar (vissa i seminarieform), övningar/laborationer samt tre inlämningsuppgifter. Inlämningsuppgifterna bestäms i samråd med lärare och rapporteras skriftligt.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG7",
+                                            "name": "Grupparbete",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG5",
+                                            "name": "Grupparbete",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG4",
+                                            "name": "Grupparbete",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Mattias Arvola,  (2014)",
+                                            "title": "Interaktionsdesign och UX – om att skapa en god användarupplevelse",
+                                            "edition": "Interaktionsdesign och UX – om att skapa en god användarupplevelse ISBN: 978-91-44-09764-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Informationsvisualisering",
+                                    "course_code": "TNM111",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM111",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Andreas Kerren",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "51 h",
+                                        "self_study_hours": "109 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Studenten skall efter avslutad kurs kunna: Klassificera typiska uppgifter vid användning av visualiseringar inom olika domäner och sammanhang. Definiera och förklara visualiseringstekniker (angående interaktion och visuell representation) och typiska verktyg som diskuteras i kursen. Förklara validerings­ och utvärderingsmetoder för visualiseringsverktyg och metoder. Representera data genom uttrycksfulla och effektiva visualiseringar med hjälp av metoder, programvara och verktyg. Kritiskt reflektera över visualisering och interaktionsstrategier mot bakgrund av aktuella teorier och forskning. Göra välgrundade designval baserat på olika aspekter och databegränsningar.",
+                                        "course_content": "Informationsvisualisering fokuserar på abstrakt information som i de flesta fall inte kan kartläggas i den fysiska världen. Exempel på sådana abstrakta data är symboliska, tabulära, nätverksbaserade, hierarkiska eller textuella informationskällor. Kursen ger en översikt över de viktigaste informationsvisualiseringsteknikerna och applikationerna. Följande moment behandlas: Definition av området informationsvisualisering och hur det relaterar till områden som människa­datorinteraktion (HCI) och vetenskaplig visualisering Grunderna i visualisering och data samt hur de kan bearbetas Abstraktioner av data och taxonomier Interaktionskoncept och tekniker (t.ex. dynamiska frågor, zoom och panorering eller fokus och sammanhang) Visualiseringstekniker för 1D, 2D, 3D och multidimensionella data Visualiseringstekniker och ritkonventioner för träd/hierarkier, generella nätverksdata (grafer) och multivariata/dynamiska nätverk Validera och utvärdera visualiseringar Översikt över aktuella system och verktyg för informationsvisualisering",
+                                        "teaching_methods": "Kursen omfattar föreläsningar, teoretiska och praktiska (programmerings)uppgifter samt seminarietillfällen där inlämningsrapporter presenteras och diskuteras. Dessutom kommer vetenskapliga artiklar inom området att inkluderas som självstudiematerial.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Muntlig examination",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Inlämningsuppgifter med muntlig och skriftlig presentation",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Spence, Robert,  (2014)",
+                                            "title": "Information Visualization : An Introduction",
+                                            "edition": "Information Visualization : An Introduction 3 New York : Springer, 2014. ISBN: 978-3-319-07340-8 https://doi.org/10.1007/978-3-319-07341-5"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Vetenskapliga artiklar Kompendium med vetenskapliga artiklar"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Bild- och ljudkompression",
+                                    "course_code": "TSBK38",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TSBK38",
+                                    "overview": {
+                                        "main_subject": "Elektroteknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Harald Nautsch",
+                                        "study_director": "Lasse Alfredsson",
+                                        "scheduled_hours": "52 h",
+                                        "self_study_hours": "108 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen ska ge kunskap om metoder för komprimering av data, samt hur dessa metoder tillämpas på ljud-, stillbilds- och videosignaler. Efter genomförd kurs förväntas studenten kunna Sätta upp stokastiska modeller för källor Analysera stokastiska källmodeller Förstå källkodningsmetoder som huffmankodning och aritmetisk kodning. Förstå kvantisering. Förstå linjär prediktiv kodning. Förstå transformkodning. Förstå delbandskodning. Kunna beräkna prestanda för olika kodningsmetoder, givet stokastiska modeller för källorna. Känna till hur olika kodningsmetoder används för komprimering av stillbilds-, video- och ljuddata. Känna till vilka metoder som används i olika standarder (GIF, PNG, JPEG, MPEG, mp3, AAC, talkodning).",
+                                        "course_content": "",
+                                        "teaching_methods": "Undervisningen sker i form av föreläsningar, övningslektioner och laborationer. Alla föreläsningar är tillgängliga som förinspelade videor.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för systemteknik"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "En laborationskurs",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "TEN1",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "4 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Khalid Sayood",
+                                            "title": "Introduction to Data Compression",
+                                            "edition": "Introduction to Data Compression Morgan Kaufmann ISBN: 9780128094747 Finns som ebok via universitetsbibliioteket"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Period 2",
+                            "courses": [
+                                {
+                                    "name": "Avancerad webbprogrammering",
+                                    "course_code": "TDDD27",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDD27",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Erik Berglund",
+                                        "study_director": "Jalal Maleki",
+                                        "scheduled_hours": "40 h",
+                                        "self_study_hours": "120 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att ge kunskaper om praktiska och begreppsmässiga aspekter av att skapa avancerade webbapplikationer. Efter genomgången kurs ska studenten kunna: Använda programmeringsteknologier och system relaterade till webbapplikationer och fleranvändarapplikationer Planera och implementera ett medelstort programmeringsprojekt för 1-2 personer. Redovisa projekt på webben",
+                                        "course_content": "Kursen omfattar utveckling av avancerade multianvändarsystem över webbenmed ett fokus på återanvädning av systemkomponenter ochprogrameringsbibliotek.",
+                                        "teaching_methods": "Kursen består av seminarier och projektarbete.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Seminarier och projekt",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Modellering och animering",
+                                    "course_code": "TNM079",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM079",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Mark E Dieckmann",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "58 h",
+                                        "self_study_hours": "102 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen avser att ge kunskaper om aktuella och avancerade metoder inom datorgrafik för modellering och animering av virtuella objekt. Studenter lär sig: matematiska modeller vilka beskriva ytor i 3D. datastrukturer för ytor vilka består av triangler och hur man kan decimera den. metoder med vilka man kan förfina ytor. modellera ytor med level sets. vätskemodeller",
+                                        "course_content": "Modeller för ytor i 3D. Triangelnäta och deras förfining. Modellering av ytor med en implicit funktion. Level-set metoder. Indelningsytor. Vätskemodellering.",
+                                        "teaching_methods": "Kursen inleds med en föreläsningsserie som ger en överblick över området och belyser den aktuella teorin. Parallellt med föreläsningarna ges en laborationskurs med inlämningsuppgifter där teorin omsätts i praktik. Kursen avslutats med en skriftlig tentamen.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "TEN3",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB4",
+                                            "name": "Laborationer",
+                                            "credits": "4 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Artificiell intelligens - principer och tekniker",
+                                    "course_code": "TNM096",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM096",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Pierangelo Dellacqua",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "34 h",
+                                        "self_study_hours": "126 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen ska ge studenterna grundläggande kunskaper i artificiell intelligens. Kursen ska ge praktiska färdigheter i att designa och implementera intelligenta applikationer. Efter kursen ska studenten kunna: förklara och diskutera begrepp inom artificiell intelligens tillämpa välkända tekniker inom artificiell intelligens.",
+                                        "course_content": "Översikt av artificiell intelligens. Oinformerad och informerad sökning och problem med begränsningstillfredsställelse. Kunskapsrepresentation och resonemang. Intelligenta agenter. Resonera med ofullständig kunskap och beslutsfattande under osäkerhet. Handlingsplanering.",
+                                        "teaching_methods": "Föreläsningar och laborationer i Java eller i ett annat imperativt programspråk.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Avancerad visuell dataanalys",
+                                    "course_code": "TNM098",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM098",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Katerina Vrotsou",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Studenten skall efter avslutad kurs kunna Undersöka nya, komplexa datamängder och identifiera relevanta egenskaper som kan extraheras Välja och tillämpa avancerade algoritmiska metoder för analys av stora komplexa datamängder för att bestämma värdefulla resultat Visuellt presentera extraherad relevant information från sådana datamängder genom att använda state-of-the-art visualiseringsmetoder Föreslå dataanalysmetoder som kombinerar interaktiv visualiseringsteknik med algoritmiska metoder. Definiera och förklara visualiseringstekniker (avseende interaktion och visuell representation) och exempelverktyg för speciella datatyper och applikationsdomäner som diskuteras i kursen. Göra välgrundade designval med hänsyn till givna uppgifter och databegränsningar.",
+                                        "course_content": "Kursen bygger vidare på kursen Informationsvisualisering, med fokus på datamodellering, utvinning och analystekniker vilka är grunden för den moderna visuella dataanalysmetodiken. Sådana metoder håller på att bli mycket viktiga eftersom omfattningen av tillgängliga data för analys expanderar, vilket leder till så kallade ”big data”-problem som påverkar företag, sjukvård, vetenskap och industri. Ämnen som behandlas: Introduktion till området visuell dataanalys och relevanta begrepp, såsom visual analytics (VA), kunskapsgenereringsmodell för VA, human-in-the-loop och människocentrerad analys. Dataaspekter som påverkar analys. Visualiseringstekniker för rumslig, temporal, träd/nätverk, textdata och kombinationer av dessa. Interaktionskoncept som främjar människocentrerad analys. Översikt över tekniker för automatiskt analysstöd, såsom tekniker för abstraktion, jämförelse, mönsterupptäckt, dimensionsreduktion, textmining.",
+                                        "teaching_methods": "Kursen består av föreläsningar, laborationer, seminarietillfällen och ett omfattande projektarbete.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete",
+                                            "credits": "5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB2",
+                                            "name": "Laborationer",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Tominski, Christian, Verfasser, Schumann, Heidrun, Verfasser,  (2020)",
+                                            "title": "Interactive visual data analysis",
+                                            "edition": "Interactive visual data analysis ISBN: 9780367898755, 9781498753982, 0367898756, 1498753981"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Aktuella vetenskapliga artiklar"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Procedurell ljuddesign för användargränssnitt",
+                                    "course_code": "TNM113",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM113",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Niklas Rönnberg",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter avslutad kurs ska studenten kunna: utförligt kunna redogöra för hur ljud bör användas i interaktionsdesign samt i relation till visualisering utifrån utifrån sonifierings- och kommunikationsteorier. applicera kontemporära teorier för sonifiering och interaktionsdesign för att analysera och värdera ljud i användargränssnitt, visualisering och spel. skapa och implementera procedurell ljuddesign för att effektivt förmedla ett budskap/intryck",
+                                        "course_content": "Kursen syftar till att ge studenterna kunskap om ljud som kommunikationsform, principerna för att använda ljud i interaktionsdesign samt metoder för designa och skapa procedurellt ljud. Kortfattat är kursinnehållet: Ljud- och kommunikationsteori, ljuddesign, spelljud, sonifiering, ljudteknik, samt metoder för procedurellt ljud.",
+                                        "teaching_methods": "Föreläsningar, laborationer, seminarier, projektarbete i par samt muntlig presentation",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Projektuppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "K. Franinovic och S. Serafin,  (2013) Sonic Interaction Design"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 9 HT 2026",
+                    "periods": [
+                        {
+                            "name": "Period 1",
+                            "courses": [
+                                {
+                                    "name": "Avancerad programvarudesign",
+                                    "course_code": "TDDE45",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDE45",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Adrian Pop",
+                                        "study_director": "Martin Sjölund",
+                                        "scheduled_hours": "40 h",
+                                        "self_study_hours": "120 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter kursen ska studenten kunna: analysera struktur och organisation i ett större program kritiskt utvärdera designprinciper och -mönster i relation till önskvärda egenskaper hos program och gränssnitt konstruera program som hanterar internationalisering och lokalisering använda verktyg som hjälper användaren omstrukturera eller generera källkod tillämpa olika former av metaprogrammering tillämpa metoder och verktyg som hittar olika sorters problem i källkod både före och under körning av program, med till exempel parallel exekvering eller minnesläckor",
+                                        "course_content": "Designmönsters historia. Designmönster. Refactoring. Utvecklingsmiljöer. Generering av kod. Testbarhet. Domänspecifika språk. Metaprogrammering. Dependency injection. Ramverk och programmeringsgränssnitt. Felsöknings av minnesallokering och parallella program. Profilering.",
+                                        "teaching_methods": "Studenterna behandlar föreläsningsmaterial på nätet och studerar kurslitteraturen som förberedelse för laborationer i par och seminarier i grupp, där frågor kring kurslitteraturen behandlas. Laborationerna har olika djup för de olika övningarna där vissa laborationer lär ut grundläggande kunskap eller teknik i en färdighet med viss handledning och andra laborationer används för att utveckla ett större program med mindre handledning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Uppgift",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "DAT1",
+                                            "name": "Datortentamen",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Freeman & Freeman, Head First Design Patterns"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Gamma, Helm, et.al.,  (1995)",
+                                            "title": "Design Patterns: Elements of Object-Oriented Software",
+                                            "edition": "Design Patterns: Elements of Object-Oriented Software Addison Wesley"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Utvalda artiklar om programvarudesign och designmönster."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Advanced Global Illumination and Rendering",
+                                    "course_code": "TNCG15",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNCG15",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Mark E Dieckmann",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "36 h",
+                                        "self_study_hours": "124 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Syftet med denna kurs är att ge studenten fördjupad kunskap om globala belysningsmodeller. Efter kursen ska studenten kunna: förklara konceptet med ”raytracing” för belysning av scener som innehåller speglar och genomskinliga ytor. förstå idén bakom ”Monte-Carlo-integration” och hur den används för att belysa diffusa ytor i Monte-Carlo-”raytracing”. förklara vad fotonmappning är och hur den kan användas för att återge kaustik.",
+                                        "course_content": "Kursens innehåll är: optik och ljus, algoritmer för “raytracing”, Monte Carlo sampling och integration, metoder för att lösa en renderingsekvation, stokastisk \"path tracing\".",
+                                        "teaching_methods": "Förläsningar, en studentpresentation av en vetenskaplig artikel och ett programmeringsprojekt.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Projektarbete med muntlig och skriftlig presentation",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Dutre, Advanced Global   Illumination"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Jensen, Photon Mapping"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Pharr and Humphreys, Physically Based Rendering: From Theory to   Implementation"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Nätverksprogrammering och säkerhet",
+                                    "course_code": "TNM031",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM031",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Pierangelo Dellacqua",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "44 h",
+                                        "self_study_hours": "116 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen ska ge studenterna grundläggande men ändå fundamentala kunskaper i nätverk och säkerhet. Kursen ska ge praktisks färdigheter i att designa, analysera och implementera säkra applikationer.\nEfter kursen ska studenten kunna: diskutera olika typer av attacker och försvar. redogöra för internetprotokollen IP, TCP, UDP och ICMP, och deras säkerhets implikationer. beskriva typiska steg i inbrottsattacker, denial-of-service (DoS) attacker och malwareattacker. formulera grundläggande kryptografiska begrepp såsom symmetriska och offentliga key encryption, digitala certifikat för verifiering av meddelande och offentlig nyckel infrastruktur. redogöra för det kryptograpfiska systemet SSL/TLS och Javas secure-socket extension (JSSE). beskriva de grundläggande filtreringsoperationer hos brandvägar och vanliga brandvägsarkitekturer.",
+                                        "course_content": "Översikt över datornät och Internet. Protokoll och nivåer. Klient-server-modellen. Översikt över nätnivåer och routing. Brandväggar, autenticering och moment inom kryptografi: kryptering och tekniker för dataintegritet. Översikt över applikationers säkerhetsfrågor, speciellt web-service and e-handelsäkerhet.",
+                                        "teaching_methods": "Föreläsningar, laborationer, projektuppgift och enskild fördjupningsuppgift",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Enskild uppgift",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "LAB2",
+                                            "name": "Laborationskurs",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Frivillig muntlig tentamen för högre betyg",
+                                            "credits": "0 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Utdelat kursmaterial"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Vetenskaplig visualisering",
+                                    "course_code": "TNM067",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM067",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Ingrid Hotz",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att ge fördjupade insikter i metoder för visualisering av vetenskapliga data från experiment och beräkningar samt genom programmeringsövningar belysa dessa metoders möjligheter och begränsningar. Kunskaperna som inhämtas är användbara i en rad existerande och nya tillämpningar inom näringsliv och samhälle, men kan också ligga till grund för forsknings- och utvecklingsarbete inom vetenskaplig visualisering både inom universitet och specialiserade företag.Efter kursen skall studenten kunna: Utifrån ett dataset välja en lämplig visualiseringsmetod. Med hjälp av tillgängliga mjukvarubibliotek implementera den valda metoden i ett användbart visualiseringsverktyg. Läsa och redogöra för innehåll i vetenskapliga artiklar inom området.",
+                                        "course_content": "Introduktion till visualisering: visualisering som forskningsfält, applikationer, uppgifter Visualiseringspipeline Datarepresentation och interpolation:Grundläggande datatyper: skalär-, vektor- och tensordataStrukturerade och ostrukturerade data Grundläggande datatyper: skalär-, vektor- och tensordata Strukturerade och ostrukturerade data Grundläggande visualiseringsalgoritmerför skalärfält, exempelvis avbildning via färg, konturlinjer och ytorför vektorfält, exempelvis flödeslinjer och flödesytor samt tidsanimationer av dessaför tensorfält, exempelvis glyfer, tensorlinjer för skalärfält, exempelvis avbildning via färg, konturlinjer och ytor för vektorfält, exempelvis flödeslinjer och flödesytor samt tidsanimationer av dessa för tensorfält, exempelvis glyfer, tensorlinjer Översikt över tekniker för volymsrendrering Introduktion till koncept för mer avancerad dataanalysdatautforskningdetektion och avbildning av egenskapertopologiska metoder datautforskning detektion och avbildning av egenskaper topologiska metoder Exempel på applikationsspecifika visualiseringstekniker",
+                                        "teaching_methods": "Kursen omfattar föreläsningar och laborationer. Dessutom kommer vetenskapliga artiklar inom området att inkluderas som självstudiematerial.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Muntlig examination",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Munzner T.,  (2014)",
+                                            "title": "Visualization Analysis and Design.",
+                                            "edition": "Visualization Analysis and Design. Taylor&Francis. Ytterligare relevant litteratur."
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Schroeder W., Martin K. & Lorensen B.",
+                                            "title": "The Visualization Toolkit, An Object-Oriented Approach To 3D Graphics.",
+                                            "edition": "The Visualization Toolkit, An Object-Oriented Approach To 3D Graphics. ISBN: -930934-12-2 Ytterligare relevant litteratur."
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Telea, A. C.,  (2008)",
+                                            "title": "Data Visualization: Principles and Practice.",
+                                            "edition": "Data Visualization: Principles and Practice. AK Peters, Ltd."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Bildteknik",
+                                    "course_code": "TNM089",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM089",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Daniel Nyström",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "36 h",
+                                        "self_study_hours": "124 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen introducerar metoder inom “Computational Photography” som ligger i gränslandet mellan datorgrafik, datorseende och optik. Detta ämnesområde behandlar algoritmer och metoder som kombinerar traditionell signal- och bildbehandling med optiska system. Efter en fullgjord kurs förväntas studenten kunna: förklara och implementera tekniker och metoder för traditionellt digitalt foto. redogöra för grundläggande metoder för signal- och bildbehandling av färg. redogöra för faktorer som används för att beskriva och definiera bildkvalitet. beskriva och implementera grundläggande multimodala bildmetoder, som t.ex. high-dynamic-range (HDR) tekniker.",
+                                        "course_content": "Konventionella kameror, optik och sensorer. Signalbehandling nära sensorn: t.ex. “denoising”, ”demosaicing” och kvantisering. Digital representation av färg: vitpunktskorrigering och gamma-mapping. Multispektrala bilder och multikanalsbilder. Kalibrering och karakterisering av kameror och bildsystem. Multimodala bilder: “exposure bracketing” och “high dynamic range imaging” (HDR). Nya kameror och sensorer: överblick av nya och experimentella mätmetoder och tekniker för bildinfångning.",
+                                        "teaching_methods": "Föreläsningar och laborationer, följt av en projektuppgift med muntlig och skriftlig redovisning. Projektuppgiften väljs av studenterna och syftar till att djupare studera, implementera och utvärdera metoder och tekniker inom något av kursens huvudområden.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete med muntlig och skriftlig redovisning",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Sharma, Digital Color Imaging Handboo"
+                                        },
+                                        {
+                                            "type": "Böcker",
+                                            "title": "Szeliski, Computer Vision: Algorithms and Applications"
+                                        },
+                                        {
+                                            "type": "Artiklar",
+                                            "title": "Forskningsartiklar"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Medieproduktion för immersiva miljöer",
+                                    "course_code": "TNM091",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM091",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Karljohan Lundin Palmerius",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "42 h",
+                                        "self_study_hours": "118 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter genomgången kurs ska studenten: kunna använda verktyg för att producera och hantera immersiva bilder, video och ljud samt programmera immersiv realtidsrendering, kunna självständigt eller i grupp planera, producera och presentera immersiva medieproduktioner där tekniken utnyttjas på ett effektivt sätt för att framföra ett budskap, samt kunna kritiskt såväl som professionellt analysera och reflektera över existerande teknik och praxis för produktion inom området",
+                                        "course_content": "I kursen studerar och utforskar vi de tekniska och artistiska villkoren vid medieproduktion för immersiva miljöer som VR-glasögon, domdisplayer, VR-kuber och krökta panoramadisplayer. Sådana miljöer erbjuder stora möjligheter att skapa spännande och ovanliga medieformer, men det innebär också både krav på speciella tekniska lösningar och ställer särskilda utmaningar för att designa och skapa innehållet. Kursen baseras på konkret användning av tekniskt avancerad medieteknik, så som kombinationer av (stereo)video, datorgrafik (interaktiv och förrenderad), immersivt ljud samt eventuella andra medier som är lämpliga för presentationen.",
+                                        "teaching_methods": "Några föreläsningar ges för att presentera principer och teknik för immersiva medier och produktion, samt att föreslå inriktning och angreppssätt för medieproduktionen. Några laborationer  ges för att bekanta deltagarna med utrustningen och några grundläggande produktionstekniker. Kursens huvudsakliga fokus ligger dock på studentens egen inlärning och projektarbete i grupp.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "1 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projekt",
+                                            "credits": "5 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Området är förhållandevis nytt och saknar starkt stöd i läroböcker. Vissa referensverk kommer att användas, kompletterade med forskningsartiklar och lämpliga tutorials."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ljudteknik",
+                                    "course_code": "TNM103",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM103",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Niklas Rönnberg",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "50 h",
+                                        "self_study_hours": "110 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Ljudteknik av analog och digital karaktär är idag en viktig del i många olika medieproduktioner, från datorspel och immersiv medieproduktion via användargränssnitt till renodlad ljud- och musikredigering. Kursen syftar till att ge studenterna fördjupade kunskaper om metoder för ljudteknik, audioeffekter och signalbehandling, samt bearbetning, analys och syntes av ljud och vågformer. Studenten ska efter genomgången kurs kunna tillämpa kunskaper om design av analoga och digitala signalbehandlingstillämpningar för exempelvis professionell audio, musikproduktion, film, spel och virtuella miljöer, samt visualisering och forensiskt arbete.",
+                                        "course_content": "Introduktion till digital audio, ljud- och musikbearbetning. Översikt över tekniker för signalbehandling och audioeffekter. Förändring av dynamiskt innehåll i en signal som kompression respektive expansion. Filtrering och utjämning av signaler, olika användningsområden för filter, olika typer av filter. Digitala fördröjningsledningar samt analoga alternativ för simulering av rumsakustik och eko. Digitala och analoga audioeffekter (som exempelvis wha-wha, phaser, flanger). Fas-vocodning för tonhöjds- och tempoförändring av en signal. Additiv och subtraktiv syntes, samt analoga och digitala syntesmetoder. Amplitud- och frekvensmodulering av signaler.",
+                                        "teaching_methods": "Kursen omfattar föreläsningar, föreläsningar/seminarier givna av studenten själv, samt programmeringsinriktade och praktiskt ljudtekniska laborationer. En skriftlig tentamen i form av en hemtentamen, som utförs under begränsad mängd tid och går ut på att i skrift redogöra för hur en specifik signalbehandlingsuppgift skulle kunna lösas.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "HEM1",
+                                            "name": "Hemtentamen",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Föreläsningsanteckningar och utdelat material."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Artificiell intelligens för interaktiv media",
+                                    "course_code": "TNM114",
+                                    "credits": "projektkurs, 6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM114",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Pierangelo Dellacqua",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "12 h",
+                                        "self_study_hours": "148 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen fokuserar på att beskriva artificiell intelligens -tekniker som kan användas för metaverse och interaktiv media. Efter kursen kommer studenten kunna förklara och diskutera begrepp inom artificiell intelligens för interaktiva medieapplikationer på ett kritiskt sätt och välja, tillämpa och utvärdera några av de presenterade artificiella intelligensteknikerna i ett projektarbete",
+                                        "course_content": "Intelligenta metoder för att utforska virtuella världar Artificiellt liv för virtuella världar AI-tekniker för att bygga virtuella världar Behavioral animering Maskininlärning: reinforcement learning, decision trees Djupinlärning Språkteknologi Virtuella assistenter - Chatbots Genetiska algoritmer Swarm Intelligence Känslo- och kommunikationsapekter för Metaverse Gestigenkänning Ansvarsfull AI, maskin-etik Känslobaserat beslutsfattande",
+                                        "teaching_methods": "Föreläsningarna ägnas åt teorigenomgång av kursinnehållet. Studenterna kommer, enskilt eller i små grupper, att gå djupare i vissa utvalda moduler genom att genomföra en litteraturstudie och genom att implementera det inlärda konceptet i ett projektarbete. Studenterna ska presentera de inlärda koncepten (muntligt och skriftligt) på ett kritiskt sätt.",
+                                        "grade_scale": "Tvågradig skala, U, G",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete",
+                                            "credits": "6 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Kursen har inte någon lärobok. Kursmaterialet består av vetenskapliga artiklar och webbmaterial."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Teknik för avancerade datorspel",
+                                    "course_code": "TSBK03",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TSBK03",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Ingemar Ragnemalm",
+                                        "study_director": "Lasse Alfredsson",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "När du har gått kursen skall du kunna Mål 1: redogöra för aktuella metoder för avancerad datorgrafik, animation, fysik och artificiell intelligens relevant för spel och liknande tillämpningar Mål 2: redogör för grunderna i parallellprogrammering med GPU Mål 3: implementera ett urval av ovanstående metoder Mål 4: formulera och genomföra ett kursrelevant projekt på en avancerad nivå, som skall kunna relateras till signifikanta publikationer, och för högsta betyg bör vara baserat på aktuell forskning",
+                                        "course_content": "Kursen avser att ge kunskap om den teknik som krävs för att göra tekniskt avancerade datorspel, interaktiva utbildningssystem och simulatorer. Studenterna lär sig de viktigaste algoritmerna samt får genom projektet spetskunskap i något valt delområde. Datorgrafik: Stencilbuffer. Skuggor. HDR. Bump mapping. Stereoskopiska grafiksystem.Fysik: Kinetik och kinematik. Stela kroppar. Deformerbara kroppar. Animation. Skinning.AI: Sökning, beteenden, tillståndsmaskiner.Nätverk: Principer för spelnätverk. Netlag.Övrigt: Kvaternjoner för rotation. GPU computing.",
+                                        "teaching_methods": "Kursen är uppdelad i en föreläsningsserie, en laborationskurs och en projektuppgift som utförs i grupper om 2-3 personer.Kursen pågår två perioder, varav den första ägnas åt föreläsningar och laborationer, och den andra till projektarbete.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för systemteknik"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs med duggor",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektuppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "title": "I. Ragnemalm, So how can we make them scream?"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Design och programmering av datorspel",
+                                    "course_code": "TDDD23",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDD23",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Programmering",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Erik Berglund",
+                                        "study_director": "Jalal Maleki",
+                                        "scheduled_hours": "52 h",
+                                        "self_study_hours": "108 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Målet med kursen är att du ska förvärva kunskaper i hur datorspel är uppbyggda, vilka designparametrar som finns och hur dessa påverkar spelbarheten, samt principer för hur datorspel programmeras. Beskriva designparameterar i spel som game play, progression och variation, förmedling av spelets mekanismer, tempo, och perfektionism Analysera, välja och använda högnivåspråk/högnivåverktyg för spelutveckling Värdera högnivåverktyg för programmering av datorspel med avseende på utvecklingseffektivitet Implementera en fungerande spelprototyp Analysera och diskutera spelupplevelser",
+                                        "course_content": "Vad som kännetecknar spel Olika typer av spelupplevelser Drivkrafter i spel Designparametrar Spelanalys Högnivåverktyg och programmeringstekniker för datorspel",
+                                        "teaching_methods": "Kursen innehåller en föreläsningsserie om designparametrar och tekniska frågeställningar om design och programmering av datorspel. I främsta hand fokuserar designdelen på progression, variation och utlärning av spelmekanismer genom spelet. Grafisk form eller ljud är i denna mening inte del av design utan det är själva game play vi behandlar. I övrigt handleds studenterna i ett eget utvecklingsprojekt med en spelprototyp, inklusive eget val av högnivåverktyg för spelutveckling. En analys av grundläggande spelidé och testning av prototyp samt reflektion och återkoppling på implementerat spel genomförs och ligger till grund för den slutliga reflektionen över spelets designparametrar samt värdering av den valda tekniska plattformen.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA2",
+                                            "name": "Projekt",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Kurslitteratur presenteras på kurshemsidan."
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Period 2",
+                            "courses": [
+                                {
+                                    "name": "Vetenskaplig metod",
+                                    "course_code": "TNM107",
+                                    "credits": "6 hp",
+                                    "VOF": "O",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM107",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Niklas Rönnberg",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "36 h",
+                                        "self_study_hours": "124 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter genomgången kurs ska studenten kunna värdera texter med avseende på vetenskaplighet och ingenjörsmässighet. ha god kännedom om samt kunna välja och utvärdera vetenskapliga och ingenjörsmässiga metoder inom sitt huvudområde. kunna skriva vetenskaplig text enligt god akademisk standard. kunna utforma och kritisera en plan för en vetenskaplig studie. kunna kritisera vetenskapliga arbeten. kunna söka och kritiskt granska källor inom sitt huvudområde. kunna sammanställa vetenskaplig information. kunna bedöma och hantera etiska frågeställningar och samhälleliga aspekter av vetenskapligt arbete.",
+                                        "course_content": "Vetenskaplig metod: Syftet med vetenskapliga metoder, kvantitativa metoder, kvalitativa metoder. Ingenjörskonst och vetenskaplighet Vetenskapligt skrivande Litteratursökning och sammanställning Källkritik: reliabilitet och validitet Referenshantering: specificitet och fullständighet. Forskningsetik Samhälleliga aspekter av forskning och teknisk utveckling",
+                                        "teaching_methods": "Kursen är organiserad i föreläsningar, seminarier och inlämningsuppgifter. Kursen utförs som en förstudie till ett examensarbete, inklusive formulering av forskningsfrågor, litteratursökning och sammanställning av en teoretisk referensram, samt initial metodbeskrivning. I kursen analyseras också olika vetenskapliga aspekter av examensarbeten i seminarieform. Under kursen presenteras vetenskapliga metoder från huvudområden som är aktuella för studenternas examensarbeten.",
+                                        "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Inlämningsuppgifter",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Seminarier",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Interaktionsprogrammering",
+                                    "course_code": "TDDC73",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDC73",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap",
+                                        "education_level": "Grundnivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Anders Fröberg",
+                                        "study_director": "Jalal Maleki",
+                                        "scheduled_hours": "40 h",
+                                        "self_study_hours": "120 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen går ut på att du ska lära dig principer och programmeringstekniker för avancerade grafiska användargränssnitt. Vi kallar detta för interaktionsprogrammering. Mål för Kunskap och förståelse: Redogöra för arkitekturen hos ett händelsebaserat fönstersystem med grafiska komponenter (widgets). Redogöra för olika designprinciper för grafiska användargränssnitt Redogöra för hur interaktionsprogrammering ingår i utvecklingsarbete med användbara system. Mål för Färdighet och förmåga: Använda ett aktuellt programmeringsspråk och klassbibliotek för interaktionsprogrammering, t ex Flutter, React-Native och Kotlin. Skapa egna komponenter (widgets) som en utökning av ett befintligt klassbibliotek. Modellera och implementera ett enkelt fönstersystem. Tillämpa designmönster för interaktionstekniker. Arbeta med interaktionsprogrammering i kontexten av användbarhetsproblem.  Mål för Värderingsförmåga och förhållningssätt: Redogöra för kopplingen mellan klassbibliotek för interaktionsprogramming och principer för design av användargränssnitt.",
+                                        "course_content": "Arkitektur för händelsebaserade fönstersystem med widgets. Designmönster för interaktionsprogrammering (t.ex. MVC, Observer, Command, Decorator). Klassbibliotek för grafiska användargränssnitt. Programmering av egna widgets i Android. Omdesign och implementation av grafiska användargränssnitt baserat på kända användbarhetsproblem. Interaktionsprogrammering och designprinciper för grafiska användargränssnitt, t.ex. hur klassbibliotek kan stödja konventioner och interaktionsparadigm.",
+                                        "teaching_methods": "Undervisningen består av laborationer och projektarbete (i grupp och individuellt).",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "PRA1",
+                                            "name": "Projektarbete",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Jenifer Tidwell,  (2006)",
+                                            "title": "Designing Interfaces",
+                                            "edition": "Designing Interfaces O'Reilly. Samt aktuell information och artiklar på webben."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Multicore- och GPU-Programmering",
+                                    "course_code": "TDDD56",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDD56",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Christoph Kessler",
+                                        "study_director": "Martin Sjölund",
+                                        "scheduled_hours": "60 h",
+                                        "self_study_hours": "100 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Moderna datorer har processorer med flera kärnor och kraftfulla flerkärniga hårdvaruacceleratorer t ex Graphics Processing Unit (GPU) som kan användas för allmänna beräkningar (GPGPU eller GPU Computing). Prestandapotentialen hos sådana arkitekturer kan bara utnyttjas fullt ut om koden är ordentligt parallelliserad och omskriven för att utnyttja särskilda arkitektoniska detaljer.Efter kursen ska studenten: kunna skriva ny kod och skriva om kod för flerkärniga och GPGPU arkitekturer förstå parallella algoritmer och datastrukturer, och kunna analysera dem känna till allmänna principer för parallell databehandling och tekniker för parallellisering.",
+                                        "course_content": "Introduktion till multicore-, mångkärnig- och GPU-arkitektur.Teori för parallella beräkningar. Teori för parallellisering. Design och analys av parallella algoritmer. Översikt av parallella programmeringsspråk. Trådprogrammering för flerkärniga datorer. SIMD-programmering och data-parallell programmering. GPU-programmering med OpenCL och / eller CUDA. Icke-blockerande synkronisering och transaktionsminne. Schemaläggning för multicore- och operativsystem. Introduktion till heterogena multicore och parallell-DSP arkitekturkoncept och programmering av sådana.",
+                                        "teaching_methods": "En föreläsningsserie introducerar teorin och ger en överblick på arkitektoniska koncept och programmeringstekniker. En labbserie innehåller programmeringsuppgifter i multi-core trådprogrammering och GPU-programmering. På lektionerna introduceras programmeringsplattformarna som används för laborationerna.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "TEN1",
+                                            "name": "Skriftlig examination",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Datorlabbar",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Annonseras på kurshemsidan."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Procedurella metoder för bilder",
+                                    "course_code": "TNM084",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM084",
+                                    "overview": {
+                                        "main_subject": "Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Ingemar Ragnemalm",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "44 h",
+                                        "self_study_hours": "116 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Studenten skall efter genomgången kurs kunna: Mål 1: redogöra för bilder och geometrier som verktyg inom modern datorgrafik. Mål 2: redogöra för klassiska och moderna metoder för procedurell generering av bilder, speciellt texturer som avser att efterlikna komplicerade och visuellt detaljerade fenomen i naturen. Mål 3: kunna använda generella och speciella programspråk för att generera bilder och vissa typer av geometri Mål 4: kunna beskriva och implementera ett urval av klassiska metoder för procedurell generering av mönster. Mål 5: utföra ett projekt som löser ett verkligt problem som är formulerat i termer av önskat visuellt resultat, där studenten skall kunna välja, motivera, genomföra, beskriva och i någon mån utvärdera en egen lösning baserad på existerande, publicerade metoder.",
+                                        "course_content": "Principen för procedurella bilder, deras användning, fördelar och nackdelar vid texturering. Texturer i 2, 3 och 4 dimensioner. Regelbundna och oregelbundna mönster. Slumptalsgenerering. Brusfunktioner, speciellt \"Perlin noise\" och dess släktingar (lattice noises). Multifraktal syntes och simulering av turbulens. Metoder för animerade bilder. Fraktaler. Splines. Fractal Brownian Motion. Direkt Fouriersyntes.Programmering i generella programspråk för procedurella bilder. Shadingspråk. Funktioner för textursyntes och geometrisyntes i modern grafikhårdvara.",
+                                        "teaching_methods": "Kursen omfattar föreläsningar, programmeringsinriktade laborationer samt en projektuppgift. Projektuppgiften väljs relativt fritt i samråd med examinator. Den utförs individuellt eller i grupp beroende på antal kursdeltagare och kursdeltagarens preferens. Detta görs självständigt med viss handledning, samt avrapporteras skriftligt och muntligt för bedömning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Individuell projektuppgift",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        },
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Böcker",
+                                            "authors": "Texturing and Modeling: a Procedural Approach",
+                                            "title": "Texturing and Modeling: a Procedural Approach",
+                                            "edition": "Third edition Morgan Kaufmann publishers ISBN: ISBN 1-55860-848-6"
+                                        },
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Ytterligare web-baserat material annonseras under kursens gång."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Deep Learning för medieteknik",
+                                    "course_code": "TNM112",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM112",
+                                    "overview": {
+                                        "main_subject": "Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Gabriel Eilertsen",
+                                        "study_director": "Camilla Forsell",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursens mål är att lära ut grunderna i djupinlärning, såväl teoretiska som praktiska, samt att ge övergripande kunskaper om moderna tekniker och tillämpningar relaterade till djupinlärning för bild, grafik och ljud. Efter avslutad kurs ska deltagaren kunna: redogöra för grunderna i hur artificiella neuronnät konstrueras och optimeras, samt visa tydlig förståelse för hur teoretiska begrepp knyter an till praktiska situationer, demonstrera kunskap om moderna metoder för hur neuronnät kan konstrueras, optimeras och användas i olika sammanhang inom datorseende, bildbehandling, datorgrafik, språkförståelse och visualisering, använda existerande verktyg för att med djupinlärning lösa väldefinierade klassificerings- och regressionsproblem inom digital media, använda tekniker för att testa och förbättra prestanda i neuronnät, inklusive koncept såsom detektion av överpassning och tekniker för att öka generaliseringsförmåga, formulera och lösa enklare problem från grunden, inklusive datainsamling, val av teknik, samt analys av resultat, reflektera kring konsekvenserna av en ökande användning av djupinlärning i samhället, såväl möjligheter som potentiella problematiska frågeställningar.",
+                                        "course_content": "Översikt av maskininlärning. Artificiella neuronnät (ANN) och begreppet djupinlärning. Inlärningsparadigm (övervakad/oövervakad/semiövervakad/självövervakad/förstärkt inlärning). Optimering av ANN (back-propagation, stochastic gradient descent, momentum, batch normalization). Regularisering (augmentation, drop-out, early-stopping). Data (bilder/video/ljud/3D, representation, träning/test, bias, adversarial examples). Arkitekturer (faltningsnät, auto-encoders, återkopplade nät, residual-nät). Generativ djupinlärning. Tillämpningar (datorseende, bildbehandling, datorgrafik, språkförståelse, visualisering) och omvärld (inverkan på samhälle, etik, bias).",
+                                        "teaching_methods": "Undervisningen består av föreläsningar, lektioner och laborationer. Föreläsningarna lär ut teori och förklarar delar av den intensiva forskning som ägt rum inom djupinlärning det senaste årtiondet. Lektionerna behandlar de praktiska aspekterna kring användning av verktyg för att lösa problem med djupinlärning; kunskap som sedan används i laborationerna för att konstruera och optimera neuronnät.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationskurs",
+                                            "credits": "3 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "TEN1",
+                                            "name": "Skriftlig tentamen",
+                                            "credits": "3 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Utvidgad verklighet (XR) - principer och programmering",
+                                    "course_code": "TNM116",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TNM116",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Medieteknik",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Karljohan Lundin Palmerius",
+                                        "study_director": "Daniel Nyström",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "160 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Målet med kursen är att studenterna skall få insikt om XR, VR, AR och andra relaterade principer, hur det används och hur det kan implementeras och utnyttjas. De skall även lära sig analysera behov och utmaningar, och lära sig att tillämpa teorier och principer för att realisera effektiva immersiva gränssnitt och interaktion. Efter avslutad kurs ska studenten kunna redogöra för principer för XR med avseende påmänskliga faktorer såsom perception, sociala aspekter och genusvisuella och multisensoriska display-system, tracking och annan interaktionsutrustningegocentrisk interaktion och haptikljud och ljudinteraktion mänskliga faktorer såsom perception, sociala aspekter och genus visuella och multisensoriska display-system, tracking och annan interaktionsutrustning egocentrisk interaktion och haptik ljud och ljudinteraktion skapa interaktiva, immersiva tillämpningar",
+                                        "course_content": "Kursen täcker ett brett område med olika aspekter associerade med utvidgad verklighet (eXtended Reality - XR), en samlingsterm för immersiva tillämpningar med virtuellt innehåll, såsom virtuell verklighet (Virtual Reality - VR), förstärkt verklighet (Augmented Reality - AR), blandad verklighet (Mixed Reality - MR) samt förstärkt virtualitet (Augmented Virtuality). Vi går igenom displaysystem och dess principer, från desktop till storskaliga VR-teatrar och domer, principer för effektiv implementation, metoder för interaktion och hur ljud och känsel används för att skapa en övertygande och användbar immersiv miljö för en rad olika tillämpningar.",
+                                        "teaching_methods": "Kursen ges på Campus Norrköping men stora delar kan vid behov läsas på distans. Närvaro krävs för laboration med VR-utrustning samt examination av laboration med VR-utrustning. Teoretisk genomgång sker via föreläsningar som kompletteras med vetenskapliga publikationer för ytterligare fördjupning. Substantiellt med laboratoriearbete inkluderas också, där teorin omvandlas till praktik. Studenter som läser kursen ges tillgång till VR-laboratoriet och dess utrustning.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för teknik och naturvetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "LAB1",
+                                            "name": "Laborationer",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "MUN1",
+                                            "name": "Muntlig examination",
+                                            "credits": "2 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                },
+                                {
+                                    "name": "Vetenskaplig metod",
+                                    "course_code": "TDDD89",
+                                    "credits": "6 hp",
+                                    "VOF": "O/V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDD89",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Christoph Kessler",
+                                        "study_director": "Martin Sjölund",
+                                        "scheduled_hours": "36 h",
+                                        "self_study_hours": "124 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Efter genomgången kurs ska studenten kunna värdera texter med avseende på vetenskaplighet och ingenjörsmässighet. ha god kännedom om och välja relevanta ingenjörsmässiga och vetenskapliga metoder inom sitt huvudområde. kunna välja och utvärdera vetenskapliga och ingenjörsmässiga metoder inom sitt huvudområde. kunna skriva vetenskaplig text enligt god akademisk standard. kunna utforma och kritisera en plan för en vetenskaplig studie. kunna kritisera vetenskapliga arbeten. kunna söka och kritiskt granska källor inom sitt huvudområde. kunna sammanställa vetenskaplig information. kunna bedöma och hantera etiska frågeställningar och samhälleliga aspekter av vetenskapligt arbete. kunna visa insikt om att det finns flera olika former, fält och karriärvägar för professionellt arbete inom datavetenskap och ingenjörsrelaterade områden, särskilt inom forskning och utveckling i ett internationellt sammanhang, inom både industri, forskningsorganisationer och akademiska institutioner.",
+                                        "course_content": "Vetenskaplig metod: Syftet med vetenskapliga metoder, kvantitativa metoder, kvalitativa metoder. Ingenjörskonst och vetenskaplighet Vetenskapligt skrivande Litteratursökning och sammanställning Källkritik: reliabilitet och validitet Referenshantering: specificitet och fullständighet. Forskningsetik Samhälleliga aspekter av forskning och teknisk utveckling Perspektiv på professionellt arbete inom datavetenskap och ingenjörsrelaterade områden, särskilt inom forskning och utveckling i ett internationellt sammanhang, i både industri, forskningsorganisationer och akademiska institutioner",
+                                        "teaching_methods": "Kursen är organiserad i föreläsningar, seminarier och inlämningsuppgifter.Kursen utförs som en förstudie till ett examensarbete, inklusive formulering av forskningsfrågor, litteratursökning och sammanställning av en teoretisk referensram, samt initial metodbeskrivning. I kursen analyseras också olika vetenskapliga aspekter av examensarbeten i seminarieform. Under kursen presenteras vetenskapliga metoder från huvudområden som är aktuella för studenternas examensarbeten. Alla obligatoriska gruppseminarier och ett par föreläsningar kommer att ges på distans.",
+                                        "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Inlämningsuppgifter",
+                                            "credits": "4 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "UPG2",
+                                            "name": "Seminarier",
+                                            "credits": "2 hp",
+                                            "grading": "U, G"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Anslås på kurswebbplatsen."
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mjukvarutekniskt entreprenörskap",
+                                    "course_code": "TDDE02",
+                                    "credits": "6 hp",
+                                    "VOF": "V",
+                                    "url": "https://studieinfo.liu.se/kurs/TDDE02",
+                                    "overview": {
+                                        "main_subject": "Informationsteknologi, Datateknik, Datavetenskap",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "Aseel Berglund",
+                                        "study_director": "Martin Sjölund",
+                                        "scheduled_hours": "48 h",
+                                        "self_study_hours": "112 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Kursen syftar till att studenterna ska tillägna sig kunskaper och förmågor inom områdena entreprenörskap och mjukvaruutveckling, med särskilt fokus på formulering, kvalificering och realisering av idéer till entreprenöriella verksamheter.Efter avslutad kurs skall den studerande kunna: Kunna använda metodik för utveckling av innovativa mjukvaruprodukter Kunna använda affärsmodeller för mjukvara Kunna använda metoder för spridning och marknadsföring av mjukvara Kunna använda affärsanalysmodeller som kan utvärdera IT-systems påverkan på omgivande ekonomiska, sociala och ekologiska system relaterade till mjukvaruinriktat entreprenörskap Ha förmåga att kommunicera ett förslag till en mjukvaruorienterad affärsidé skriftligen och muntligen Ha god kännedom om tjänsteperspektiv på mjukvara Ha god kännedom om finansiering för realisering av en mjukvaruorienterad affärsidé Ha god kännedom om immaterialrätt Ha god kännedom om vad som krävs av en själv och andra för att lyckas som entreprenör.",
+                                        "course_content": "Metodik för utveckling av innovativa mjukvaruprodukter Affärsmodeller för mjukvara Metoder för spridning och marknadsföring av mjukvara Analysmodeller för mjukvaruinriktat entreprenörskap Muntlig och skriftlig presentation av mjukvaruorienterade affärsidéer Tjänsteperspektiv på mjukvara Bemanning Finansiering Immaterialrätt",
+                                        "teaching_methods": "Undervisningen består av föreläsningar, seminarier och projektarbete i grupp. Föreläsningar introducerar delar av kursinnehållet. Seminarier används för diskussion av fallstudier och specifika moment i projektarbetet. Projektet mynnar ut i en kundverifierad idé som löser ett äkta problem.",
+                                        "grade_scale": "Fyrgradig skala, LiU, U, 3, 4, 5",
+                                        "institution": "Institutionen för datavetenskap"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Projektarbete",
+                                            "credits": "6 hp",
+                                            "grading": "U, 3, 4, 5"
+                                        }
+                                    ],
+                                    "literature": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Termin 10 VT 2027",
+                    "periods": [
+                        {
+                            "name": "Period 1",
+                            "courses": [
+                                {
+                                    "name": "Examensarbete",
+                                    "course_code": "TQXX33",
+                                    "credits": "30 hp",
+                                    "VOF": "O",
+                                    "url": "https://studieinfo.liu.se/kurs/TQXX33",
+                                    "overview": {
+                                        "main_subject": "se, beslutade, huvudområden",
+                                        "education_level": "Avancerad nivå",
+                                        "course_type": "Programkurs",
+                                        "examiner": "",
+                                        "study_director": "",
+                                        "scheduled_hours": "0 h",
+                                        "self_study_hours": "800 h"
+                                    },
+                                    "course_plan": {
+                                        "learning_objectives": "Den studerande förväntas visa förmåga att: systematiskt  integrera sina kunskaper förvärvade under studietiden visa väsentligt fördjupade metodkunskaper och ämnesmässiga kunskaper inom huvudområdet kunna tillgodogöra sig innehållet i relevant facklitteratur och relatera sitt arbete till den Den studerande förväntas visa förmåga att: planera, genomföra och redovisa ett självständigt arbete formulera frågeställningar samt avgränsa dessa inom givna tidsramar söka och värdera vetenskaplig litteratur redovisa ett självständigt arbete genom att professionellt uttrycka sig skriftligt och muntligt kritiskt granska och diskutera ett i tal och i skrift framlagt examensarbete av annan student kunna skapa, analysera och/eller utvärdera tekniska lösningar i form av system, teorier eller metoder göra bedömningar med hänsyn till tillämpliga etiska och samhälleliga villkor såsom ekonomiskt, socialt och ekologiskt hållbar utveckling",
+                                        "course_content": "Bestäms individuellt för varje student i samråd med examinator och handledare. Arbetet skall utföras inom huvudområdet för examen.",
+                                        "teaching_methods": "Kursen utgörs av ett av självständigt arbete. För varje studerande/grupp av studenter utses en handledare och examinator. Examensarbetet utgör det avslutande momentet på utbildningen.",
+                                        "grade_scale": "Tvågradig skala, äldre version, U, G",
+                                        "institution": "Tekniska fakultetens kansli"
+                                    },
+                                    "examinations": [
+                                        {
+                                            "code": "UPG1",
+                                            "name": "Planeringsrapport, halvtidskontroll, skriftlig rapport, framläggning samt reflektionsdokument",
+                                            "credits": "28 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "OPPO",
+                                            "name": "Opposition",
+                                            "credits": "1.5 hp",
+                                            "grading": "U, G"
+                                        },
+                                        {
+                                            "code": "AUSK",
+                                            "name": "Tre auskultationer",
+                                            "credits": "0.5 hp",
+                                            "grading": "D"
+                                        }
+                                    ],
+                                    "literature": [
+                                        {
+                                            "type": "Övrigt",
+                                            "title": "Bestäms individuellt för varje student i samråd med examinator och handledare."
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

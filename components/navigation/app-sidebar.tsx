@@ -52,7 +52,7 @@ const help = [
   },
   {
     title: "Master builder",
-    url: "#",
+    url: "/dashboard/masterbuilder",
     icon: Hammer,
   },
 ];
