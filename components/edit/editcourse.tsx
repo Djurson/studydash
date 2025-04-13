@@ -15,6 +15,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   const [grade, setGrade] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<Status>("none");
 
+  // Det innebär att vi måste ändra det här
   const courseResults = getCourse(course.course_code);
   const { returnGrade, returnStatus } = useMemo(() => {
     return CheckGradeAndStatus(course, courseResults);
@@ -29,6 +30,8 @@ export function EditCourse({ course }: { course: CourseJSON }) {
 
   // TODO:
   // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
+  // Separera så att kurs betyg, examinationer endast är ett objekt här som vi sedan skickar ner genom props till editexam.tsx
+  // För att endast rerendera de kurser som ändras och INTE alla kurser som är beroende av study results
   return (
     <>
       <div className="flex flex-col w-full">

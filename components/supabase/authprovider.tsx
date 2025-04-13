@@ -15,7 +15,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
-  signOut: async () => {},
+  signOut: async () => { },
   popup: false,
 });
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
 
         if (!data || data.length === 0) {
-          setPopup(false);
+          setPopup(true);
         }
       }
     };
