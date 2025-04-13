@@ -3,6 +3,7 @@
 import { UploadPDFInput } from "@/components/form/uploadpdf";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChangeHistory } from "@/components/edit/changehistory";
+import { Checkbox } from "@/components/ui/checkbox";
 
 // Funktionerna för att generera och hämta terminer som inte mappas från json
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
@@ -42,62 +43,84 @@ export default function Page() {
         <h1 className="text-3xl font-semibold mt-2">Redigera kurser och moment.</h1>
       </header>
       <main className="w-full h-[28.25rem] grid grid-cols-5 gap-4 mt-6">
-        <section className="col-start-1 col-span-3">
-          <div className="flex flex-col flex-1 gap-4">
-            <Select disabled>
-              <SelectTrigger className="w-full bg-accent-disabled">
-                <SelectValue placeholder="Linköpings universitet"></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Universitet</SelectLabel>
-                  <SelectItem value="Linköpings universitet">Linköpings universitet</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <div className="flex w-full gap-4">
-              <Select disabled>
-                <SelectTrigger className="w-full bg-accent-disabled">
-                  <SelectValue placeholder="Civilingenjör i medieteknik"></SelectValue>
+        <section className="col-start-1 col-span-3 w-full">
+          <div className="flex flex-col flex-1 gap-4 w-full">
+            <div className="flex flex-col gap-1">
+              <label className="flex text-xs font-light">
+                Universitet/högskola <p className="text-red-900">*</p>
+              </label>
+              <Select>
+                <SelectTrigger className="w-full bg-accent cursor-pointer">
+                  <SelectValue placeholder="Välj"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Program/utbildning</SelectLabel>
-                    <SelectItem value="Civilingenjör i medieteknik">Civilingenjör i medieteknik</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <Select name="studyYear" required>
-                <SelectTrigger className="w-full text-foreground bg-accent">
-                  <SelectValue placeholder="När påbörjade du dina studier?" className="text-foreground"></SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>När påbörjade du dina studier?</SelectLabel>
-                    {Array.from({ length: currentYear - startYear + 1 }, (_, index) => {
-                      const year = startYear + index;
-                      return (
-                        <SelectItem key={year} value={year.toString()}>
-                          HT {year}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <Select name="prev-funds" required>
-                <SelectTrigger className="w-full text-foreground bg-accent">
-                  <SelectValue placeholder="Har du sökt CSN tidigare?" className="text-foreground"></SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Har du sökt CSN tidigare?</SelectLabel>
-                    <SelectItem value={"yes"}>Ja</SelectItem>
-                    <SelectItem value={"no"}>Nej</SelectItem>
+                    {/* <SelectLabel>Universitet</SelectLabel>*/}
+                    <SelectItem value="Linköpings universitet">Linköpings universitet</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
+
+            <div className="flex w-full gap-4">
+              <div className="flex flex-col w-3/4 gap-1">
+                <label className="flex text-xs font-light">
+                  Program/utbildning <p className="text-red-900">*</p>
+                </label>
+                <Select>
+                  <SelectTrigger className="w-full bg-accent cursor-pointer">
+                    <SelectValue placeholder="Välj"></SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {/* <SelectLabel>Program/utbildning</SelectLabel>*/}
+
+                      <SelectItem value="Civilingenjörsprogram i medieteknik">Civilingenjörsprogram i medieteknik</SelectItem>
+                      <SelectItem value="Civilingenjörsprogram i elektronikdesign" disabled>
+                        Civilingenjörsprogram i elektronikdesign
+                      </SelectItem>
+                      <SelectItem value="Civilingenjörsprogram i kommunikation, transport och samhälle" disabled>
+                        Civilingenjörsprogram i kommunikation, transport och samhälle
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex flex-col w-1/4 gap-1">
+                <label className="flex text-xs font-light">
+                  Antagningstillfälle <p className="text-red-900">*</p>
+                </label>
+                <Select name="studyYear" required>
+                  <SelectTrigger className="w-full text-foreground bg-accent cursor-pointer">
+                    <SelectValue placeholder="Välj" className="text-foreground"></SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {/* <SelectLabel>Antagningstillfälle</SelectLabel>*/}
+
+                      {Array.from({ length: currentYear - startYear + 1 }, (_, index) => {
+                        const year = startYear + index;
+                        return (
+                          <SelectItem key={year} value={year.toString()}>
+                            HT {year}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <Checkbox id="terms1" className="bg-accent" />
+              <div className="grid gap-1.5 leading-none">
+                <label htmlFor="terms1" className="text-sm font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Jag sökte CSN för första gången i samband med denna utbildning.
+                </label>
+              </div>
+            </div>
+
             <Separator />
             <div className="flex flex-col gap-4">
               {program.semesters.map((semester) => (

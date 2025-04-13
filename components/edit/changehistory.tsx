@@ -5,7 +5,7 @@ import { Separator } from "../ui/separator";
 import { CircleOff } from "lucide-react";
 import { useStudyResults } from "@/hooks/editcontext";
 import { Course } from "@/utils/types";
-import { StatusChangeHistory } from "./statuschangehistory";
+import { StatusSquare } from "./statussquare";
 
 export function ChangeHistory() {
   const { studyResults } = useStudyResults();
@@ -16,24 +16,30 @@ export function ChangeHistory() {
         <div className="text-center bg-blue-200 dark:bg-highlight w-6 aspect-square rounded-md">
           <p>{studyResults.current.size}</p>
         </div>
-        <p className="text-center bg-blue-200 dark:bg-highlight px-1 py-1 rounded-md">{studyResults.current.size}</p>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator className="bg-secondary" />
       <section className="px-4 overflow-auto">
-        {/*Mapa ändringar nedan, tänker formatet: /Termin/Kursnamn... */}
-        {/* Kommer ej kunna lösa termin, men kurskod/Kursnamn osv går :) */}
-        {/* Examinations moment kommer också vara för "dyrt" att loopa igenom för att displaya alla dem så tänker 
-            om kurser innehåller ett betyg -> done, om den inte innehåller ett betyg -> eventuellt loopa igenom examinationsmoment
-            hoppa över de som är oklarade */}
+        {/*Mapa ändringar nedan, tänker formatet: Kursnam/kurskod  */}
+        {/* Ok, tänker att bara kursnamn behövs i så fall:
+            ändrat i kurs som saknar ifyllda värden -> status="added"
+            ändrat i kurs som har ifyllda värden -> status="changed"
+            tagit bort värden i en kurs som har ifylda värden -> status="removed"
+            om det går att göra på det här sättet.
+        */}
         <div className="py-2.5 flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
-            <p className="text-sm">Termin/Kursnamn...</p>
+            <p className="text-sm">Kursnamn</p>
           </div>
-          <StatusChangeHistory status="added" defaultStatus="none" className="ml-6" />
+          <StatusSquare status="added" defaultStatus="none" />
         </div>
         <Separator />
+        {/*Om ändringar inte gjorts*/}
+        <div className="flex flex-col justify-center items-center py-2">
+          <CircleOff className="h-8 aspect-square" />
+          <p className="text-sm">Inga ändringar gjorda</p>
+        </div>
       </section>
       <Separator />
       <footer className="flex flex-col p-4 gap-4">
