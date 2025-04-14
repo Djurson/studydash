@@ -13,7 +13,6 @@ interface Semester {
 function SemesterAccordion({ semester }: { semester: Semester }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCourse } = useStudyResultsListener();
-  const [statusMap, setStatusMap] = useState<Map<string, Status>>(new Map());
 
   // Beräkna status direkt utan att använda en separat state
   const status = CheckStatus(semester, getCourse);
