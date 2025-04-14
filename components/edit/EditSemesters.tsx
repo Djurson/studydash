@@ -10,7 +10,7 @@ interface Semester {
   courses: CourseJSON[];
 }
 
-function SemesterAccordion({ semester }: { semester: Semester }) {
+export default function SemesterAccordion({ semester }: { semester: Semester }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCourse } = useStudyResultsListener();
 
@@ -52,5 +52,3 @@ function CheckStatus(semester: Semester, getCourse: (courseCode: string) => Cour
   }
   return "done";
 }
-
-export default memo(SemesterAccordion);

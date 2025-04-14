@@ -5,20 +5,18 @@ import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
-import { useStudyResults } from "@/hooks/editcontext";
+import { useStudyResultsListener } from "@/hooks/editcontext";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
 
 export function EditCourse({ course }: { course: CourseJSON }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { updateCourseResult, getCourse } = useStudyResults();
+  const { updateCourseResult, getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<Status>("none");
 
   const courseResults = getCourse(course.course_code);
-  const { returnGrade, returnStatus } = useMemo(() => {
-    return CheckGradeAndStatus(course, courseResults, updateCourseResult);
-  }, [course, courseResults]);
+  const { returnGrade, returnStatus } = CheckGradeAndStatus(course, courseResults, updateCourseResult)
 
   useEffect(() => {
     setStatus(returnStatus);
@@ -26,11 +24,6 @@ export function EditCourse({ course }: { course: CourseJSON }) {
       setGrade(returnGrade.toString());
     }
   }, [returnGrade, returnStatus]);
-
-  // TODO:
-  // Uppdatera date i kursen beroende på vilken examination som lades till senast om alla examinationer finns med
-  // Separera så att kurs betyg, examinationer endast är ett objekt här som vi sedan skickar ner genom props till editexam.tsx
-  // För att endast rerendera de kurser som ändras och INTE alla kurser som är beroende av study results
   return (
     <>
       <div className="flex flex-col w-full">
@@ -181,6 +174,7 @@ function CheckGradeAndStatus(
       };
       updateCourse(course, updates);
     }
+
     return {
       returnGrade: "G",
       returnStatus: "done",

@@ -20,9 +20,9 @@ export default function Page() {
   const startingSemester = "HT 2022";
   const showFrom = 7;
   const showTo = 9;
-  const allSemesters = useMemo(() => generateAllSemesters(startingSemester), [startingSemester]);
-  const masterSemesters = useMemo(() => getSemestersInRange(startingSemester, showFrom, showTo), [startingSemester, showFrom, showTo]);
-  const finalThesisSemester = useMemo(() => allSemesters[9], [allSemesters]);
+  const allSemesters = generateAllSemesters(startingSemester);
+  const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
+  const finalThesisSemester = allSemesters[9];
 
   const program = programData.programs[0];
 

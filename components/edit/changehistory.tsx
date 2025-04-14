@@ -57,7 +57,7 @@ export function ChangeHistory() {
                     </p>
                     <div className="flex flex-col">
                       {[...course.examinations.entries()].map(([keyexam, examination]) => (
-                        <p key={keyexam}>{examination.code} - {examination.name}</p>
+                        <p key={keyexam} className="text-sm">{examination.code} - {examination.name}</p>
                       ))}
                     </div>
                   </div>
