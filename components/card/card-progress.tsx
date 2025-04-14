@@ -14,61 +14,60 @@ export default function CardProgress({
     startyear,
     hp,
     year,
-    complete,
 }: any) {
 
-    var progress = hp;
-
-    const data = [
-        { name: "Completed", value: progress, fill: "#3b82f6" },
-        { name: "Remaining", value: 100 - progress, fill: "#e5e7eb" }
-    ];
-
+    var progress = 0;
+    var completed = false;
+    
+    
     if (year == "1") {
         if (hp >= 37) {
-            return (
-                <>
-                    <div className={`${complete == 'true' ? 'border-2 border-green-900 rounded-2xl' : ''} row-span-1, col-span-1 `}>
-                        <Card variant="compact" cardTitle="">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <h3>{"Årskurs " + year}</h3>
-                                    <p>{startyear + " - " + [startyear + 1]}</p>
-                                </div>
-                                <div className="w-3/4 flex items-center justify between">
-                                    <div className="flex justify-center bg-green-900 rounded-full p-2">
-                                        <Check style={{color: 'white'}}/>
-                                    </div>
-                                    <div>
-                                        
-                                        <Progress value={progress} className="mt-4 bg-green-900" />
-                                    </div>
-                                </div>
-                            </div>
-                        </Card>
-                    </div>
-                </>
-            );
+           completed = true
+           progress = 100;
         }
-        else{
-            return
+        else {
+            progress = (hp/37)*100;
         }
-
     }
-    else if (hp >= 45) {
+    if (hp >= 45) {
+       completed = true;
+       progress = 100;
+    }
+    else{
+        progress = (hp/45)*100;
+    }
+
+    const data = [
+        { name: "Completed", value: progress, fill: "#0071e3" },
+        { name: "Remaining", value: 100 - progress, fill: "#6e6e73" }
+    ];
+
+
+    if(completed == true){
         return (
             <>
-                <div className={`${complete == 'true' ? 'border-2 border-green-900 rounded-2xl' : ''} row-span-1, col-span-1 `}>
+                <div className=" border-2 border-green-900 rounded-2xl row-span-1, col-span-1">
                     <Card variant="compact" cardTitle="">
                         <div className="flex items-center justify-between">
-                            <div>
-                                <h3>{"Årskurs " + year}</h3>
-                                <p>{startyear + " - " + [startyear + 1]}</p>
+                            <div className="w-50">
+                                <h2 className="text-xl font-semibold">{"Årskurs " + year}</h2>
+                                <p className="text-gray-600">{startyear + " - " + [startyear + 1]}</p>
                             </div>
                             <div className="w-3/4 flex items-center justify between">
-                                <div className="flex justify-center">
+                                <div className="pr-2 w-50px h-50px">
+                                    <div className="flex justify-center bg-green-900 rounded-full p-3 ">
+                                        <Check style={{color: 'white'}}/>
+                                    </div>
                                 </div>
-                                <Progress value={progress} className="mt-4" />
+                                <div className="w-full">
+                                    <div className="w-full flex items-center">
+                                        <h3 className="font-bold pr-2">{progress + "%"}</h3>
+                                        <p className="text-gray-600">Uppfyllt ({hp}/{(year == "1") ? "37": "45"})</p>
+                                    </div>
+                                    <div className="w-[40vw]">
+                                        <Progress value={progress} color="bg-green-900" className="mt-4"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </Card>
@@ -79,16 +78,16 @@ export default function CardProgress({
     else {
         return (
             <>
-        <div className={`${complete == 'true' ? 'border-2 border-green-900 rounded-2xl' : ''} row-span-1, col-span-1 `}>
+        <div className="row-span-1, col-span-1">
             <Card variant="compact" cardTitle="">
                 <div className="flex items-center justify-between">
-                    <div>
-                        <h3>{"Årskurs " + year}</h3>
-                        <p>{startyear + " - " + [startyear + 1]}</p>
+                    <div className="w-50">
+                        <h2 className="text-xl font-semibold">{"Årskurs " + year}</h2>
+                        <p className="text-gray-600">{startyear + " - " + [startyear + 1]}</p>
                     </div>
                     <div className="w-3/4 flex items-center justify between">
-                        <div className="flex justify-center">
-                            <PieChart width={80} height={80}>
+                        <div className="flex justify-center pr-2">
+                            <PieChart width={50} height={50}>
                                 <Tooltip />
                                 <Pie
                                     data={data}
@@ -96,8 +95,8 @@ export default function CardProgress({
                                     nameKey="name"
                                     cx="50%"
                                     cy="50%"
-                                    innerRadius={25}
-                                    outerRadius={30}
+                                    innerRadius={16}
+                                    outerRadius={22}
                                     strokeWidth={4}
                                     stroke="none"
                                 >
@@ -116,7 +115,6 @@ export default function CardProgress({
                                                             y={viewBox.cy}
                                                             className="fill-foreground text-m font-bold"
                                                         >
-                                                            {progress + "%"}
                                                         </tspan>
                                                     </text>
                                                 )
@@ -126,7 +124,15 @@ export default function CardProgress({
                                 </Pie>
                             </PieChart>
                         </div>
-                        <Progress value={progress} className="mt-4" />
+                        <div className="w-full flex-row justify-center">
+                            <div className="w-full flex items-center">
+                                <h3 className="font-bold pr-2">{progress + "%"}</h3>
+                                <p className="text-gray-600">Uppfyllt ({hp}/{(year == "1") ? "37": "45"})</p>
+                            </div>
+                            <div className="w-[40vw]">
+                                <Progress value={progress} color="bg-blue-900" className="mt-4" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Card>
