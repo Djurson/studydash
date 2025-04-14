@@ -19,18 +19,18 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
   });
   const [dateFocused, setDateFocused] = useState(false);
   const [gradeFocused, setGradeFocused] = useState(false);
-  const { updateCourse, hasExamination, hasCourse, getExamination, getCourse, updateExamination, updateExamResult } = useStudyResults();
+  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult } = useStudyResults();
 
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
     if (!hasCourse(course.course_code)) {
       const tempCourse: Course = CreateCourse(course.name, course.course_code, Number.parseFloat(course.credits.replace("hp", "").replace(",", ".").trim()));
-      updateCourse(course.course_code, tempCourse);
+      setCourse(course.course_code, tempCourse);
     }
 
     if (!hasExamination(course.course_code, exam.code)) {
       const tempExamination: Examination = CreateExamination(exam.name, exam.code, Number.parseFloat(exam.credits.replace("hp", "").replace(",", ".").trim()));
-      updateExamination(course.course_code, exam.code, tempExamination);
+      setExamination(course.course_code, exam.code, tempExamination);
     }
   }, []);
 

@@ -11,14 +11,13 @@ import { CourseExaminationMapping } from "./editexam";
 
 export function EditCourse({ course }: { course: CourseJSON }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { getCourse } = useStudyResults();
+  const { updateCourseResult, getCourse } = useStudyResults();
   const [grade, setGrade] = useState<string | undefined>(undefined);
   const [status, setStatus] = useState<Status>("none");
 
-  // Det innebär att vi måste ändra det här
   const courseResults = getCourse(course.course_code);
   const { returnGrade, returnStatus } = useMemo(() => {
-    return CheckGradeAndStatus(course, courseResults);
+    return CheckGradeAndStatus(course, courseResults, updateCourseResult);
   }, [course, courseResults]);
 
   useEffect(() => {
@@ -85,7 +84,11 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   );
 }
 
-function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefined): { returnGrade: string | number | undefined; returnStatus: Status } {
+function CheckGradeAndStatus(
+  course: CourseJSON,
+  resultsCourse: Course | undefined,
+  updateCourse: (CourseJSON: CourseJSON, updates: Partial<Course>) => void
+): { returnGrade: string | number | undefined; returnStatus: Status } {
   if (!resultsCourse || !resultsCourse.examinations) {
     return {
       returnGrade: undefined,
@@ -107,12 +110,23 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
       };
     }
 
+    let dateExam = resultsCourse.examinations.get(course.examinations[0].code)?.date;
+
+    if (dateExam && Number.parseInt(dateExam) > Number.parseInt(resultsCourse.date)) {
+      const updates: Partial<Course> = {
+        date: dateExam,
+      };
+
+      updateCourse(course, updates);
+    }
+
     return {
       returnGrade: grade,
       returnStatus: "done",
     };
   }
 
+  let date = 0;
   for (let i = 0; i < course.examinations.length; i++) {
     if (course.examinations[i].credits === "0 hp") {
       continue;
@@ -129,6 +143,10 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
 
     if (typeof grade === "string") {
       if (grade === "G" || grade === "D") {
+        let dateExam = resultsCourse.examinations.get(course.examinations[i].code)?.date;
+        if (dateExam && Number.parseInt(dateExam) > date) {
+          date = Number.parseInt(dateExam);
+        }
         stringGradePassed = true;
         continue;
       }
@@ -144,6 +162,12 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
 
   if (finalgrade != 0) {
     finalgrade = Math.round(finalgrade / total);
+    if (date > Number.parseInt(resultsCourse.date)) {
+      const updates: Partial<Course> = {
+        date: date.toString(),
+      };
+      updateCourse(course, updates);
+    }
     return {
       returnGrade: finalgrade,
       returnStatus: "done",
@@ -151,6 +175,12 @@ function CheckGradeAndStatus(course: CourseJSON, resultsCourse: Course | undefin
   }
 
   if (stringGradePassed && finalgrade === 0) {
+    if (date > Number.parseInt(resultsCourse.date)) {
+      const updates: Partial<Course> = {
+        date: date.toString(),
+      };
+      updateCourse(course, updates);
+    }
     return {
       returnGrade: "G",
       returnStatus: "done",
