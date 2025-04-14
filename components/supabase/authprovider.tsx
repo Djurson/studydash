@@ -15,7 +15,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
-  signOut: async () => { },
+  signOut: async () => {},
   popup: false,
 });
 
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       setSession(data.session);
       setUser(data.session?.user ?? null);
-      setLoading(false);
+      setLoading(true);
 
       let userId = data.session?.user?.id;
 
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
 
         if (!data || data.length === 0) {
-          setPopup(true);
+          setPopup(false);
         }
       }
     };
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       listener?.subscription.unsubscribe();
     };
-  }, [supabaseClient]);
+  }, []);
 
   const signOut = async () => {
     await supabaseClient.auth.signOut();
