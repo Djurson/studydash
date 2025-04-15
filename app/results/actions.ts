@@ -1,60 +1,88 @@
 "use server";
 
-import { promises as fs } from "fs";
+import { promises as fs, writeFile } from "fs";
 import { v4 as uuidv4 } from "uuid";
 import PDFParser from "pdf2json";
 import path from "path";
 import os from "os";
-import { tryCatch } from "@/components/utils/trycatch";
+import { tryCatch } from "@/utils/trycatch";
+import { ParseCourses } from "@/utils/courseparsing";
+import { Course } from "@/utils/types";
 
-export async function HandleFileUpload(file: File) {
+/** Funktion för att hantera uppladdning av PDF
+ * @param file - Filen som laddats upp
+ * @returns Ett objekt med studieinformation
+ */
+export async function HandleFileUpload(file: File): Promise<Map<string, Course> | string> {
   let fileName = uuidv4();
 
-  // Use the OS temp directory instead of hardcoded path
+  // Skapar en filväg till operativsystemets temporära sparnings plats
   const tempDir = os.tmpdir();
   const tempFilePath = path.join(tempDir, `${fileName}.pdf`);
 
+  // Försöker läsa PDF:en genom den temporära filen genom operativsystemets temporära plats
   const { data, error } = await tryCatch(ReadWritePDF(tempFilePath, file));
 
+  // Om error, stäng filestream och returnera error.
   if (error) {
-    fs.unlink(tempFilePath).catch(() => {});
-    console.error("Error processing PDF:", error);
+    await fs.unlink(tempFilePath).catch(() => {});
+    return "Error processing PDF:" + error;
   }
 
-  console.log(tempFilePath);
+  // Om data inte finns, stäng filestream och returnera error.
+  if (!data) {
+    await fs.unlink(tempFilePath).catch(() => {});
+    return "Error when reading file!";
+  }
 
-  console.log(data);
+  // Om det finns data/text i PDF:en skicka in den till ParseCourses funktionen
+  const parsed = await ParseCourses(data);
 
-  return data;
+  return parsed;
 }
 
+/** Funktion för att läsa in PDF:en
+ * @param tempFilePath - Filväg till den temporära filen
+ * @param file - Filen som laddats upp
+ */
 async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
   let parsedText = "";
   const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-  // Make sure directory exists
-  await fs.writeFile(tempFilePath, fileBuffer);
+  // Skriver en ny fil till den temporärara filvägen
+  // Returnerar på error
+  await fs.writeFile(tempFilePath, fileBuffer).catch((error) => {
+    console.error(error);
+    return;
+  });
 
   const pdfParser = new (PDFParser as any)(null, 1);
 
+  // Om det blir error, skriv ut den och returnera
   pdfParser.on("pdfParser_dataError", (errData: any) => {
     console.error("PDF Parser Error:", errData.parserError);
+    return; // This only returns from the event handler, not from the function
   });
 
-  // Get parsed text
+  // Extrahera texten från PDF filen
   const result = await new Promise((resolve, reject) => {
     pdfParser.loadPDF(tempFilePath);
 
     pdfParser.on("pdfParser_dataReady", () => {
-      parsedText = (pdfParser as any).getRawTextContent() + " ";
+      parsedText = (pdfParser as any).getRawTextContent();
       resolve(parsedText);
     });
 
     pdfParser.on("pdfParser_dataError", reject);
   });
 
-  // Clean up the temp file after parsing
+  // "Rensa" den temporära filen
   await fs.unlink(tempFilePath).catch((err) => console.error("Error deleting temp file:", err));
 
   return parsedText;
+}
+
+async function saveToFile(filename: string, text: string) {
+  fs.writeFile(filename, text, "utf8");
+  console.log(`Fil sparad som: ${filename}`);
 }
