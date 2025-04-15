@@ -1,48 +1,67 @@
 "use client";
 
-import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 import { CircleOff } from "lucide-react";
 import { useStudyResultsListener } from "@/hooks/editcontext";
-import { Course } from "@/utils/types";
 import { StatusSquare } from "./statussquare";
+import { Course } from "@/utils/types";
 
 export function ChangeHistory() {
   const { studyResults } = useStudyResultsListener();
 
   let plusHp = 0;
-  let minusHp = 0;
 
-  const filteredStudies = Array.from(studyResults.current.entries()).filter(([coursecode, course]) => Array.from(course.examinations.values()).some((exam) => exam.grade !== ""));
-  console.log(filteredStudies);
+  const filteredStudies = new Map(
+    Array.from(studyResults.current.entries()).map(([courseCode, course]) => {
+      // Om kursen själv har ett giltigt betyg, behåll hela kursen
+      if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
+        return [courseCode, { ...course }];
+      }
+      // Annars, filtrera examinationerna
+      else {
+        // Skapa en ny map med bara godkända examinationer
+        const filteredExaminations = new Map(
+          Array.from(course.examinations.entries()).filter(([_, exam]) =>
+            exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date
+          )
+        );
+
+        // Returnera kursen med filtrerade examinationer om det finns några
+        if (filteredExaminations.size > 0) {
+          return [courseCode, { ...course, examinations: filteredExaminations }];
+        }
+
+        // Returnera null om kursen inte har några godkända examinationer
+        return null;
+      }
+    }).filter(entry => entry !== null) as [string, Course][]
+  );
   return (
     <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
       <header className="p-4 flex gap-4 items-center justify-center">
         <div className="text-center bg-blue-200 dark:bg-highlight px-1.5 rounded-md ">
-          <p>{filteredStudies.length}</p>
+          <p>{filteredStudies.size}</p>
         </div>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator className="bg-secondary" />
       <section className="px-4 overflow-auto">
-        {filteredStudies.length !== 0 && (
+        {filteredStudies.size !== 0 && (
           <>
             <div className="py-2.5 flex flex-col justify-between items-start gap-2">
-              {filteredStudies.length !== 0 &&
-                filteredStudies.map(([coursecode, course]) => {
-                  return [...course.examinations.entries()]
-                    .filter(([examkey, exam]) => exam.grade !== "")
-                    .map(([examcode, examination]) => {
-                      plusHp += examination.hp;
-                      return (
-                        <div className="flex gap-2 items-center" key={examcode}>
-                          <StatusSquare status="added" />
-                          <p className="text-sm">
-                            {coursecode}/{examination.code}/{examination.name}
-                          </p>
-                        </div>
-                      );
-                    });
+              {filteredStudies.size !== 0 &&
+                [...filteredStudies.entries()].map(([coursecode, course]) => {
+                  return [...course.examinations.entries()].map(([examcode, exam]) => {
+                    plusHp += exam.hp;
+                    return (
+                      <div className="flex gap-2 items-center" key={examcode}>
+                        <StatusSquare status="added" />
+                        <p className="text-sm">
+                          {coursecode}/{exam.code}/{exam.name}
+                        </p>
+                      </div>
+                    )
+                  })
                 })}
             </div>
           </>
@@ -50,7 +69,7 @@ export function ChangeHistory() {
         {/* <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
           <p className="text-sm">Kursnamn</p>
           <StatusSquare status="added" defaultStatus="none" /> */}
-        {filteredStudies.length === 0 && (
+        {filteredStudies.size === 0 && (
           <>
             {/* <Separator /> */}
             <div className="flex flex-col justify-center items-center py-2">
@@ -64,7 +83,7 @@ export function ChangeHistory() {
       <footer className="flex flex-col p-4 gap-4">
         <div className="flex flex-col gap-2">
           {/*Denna div ska dyka upp om ändringar gjorts*/}
-          {filteredStudies.length !== 0 && (
+          {filteredStudies.size !== 0 && (
             <div className="flex justify-between text-sm ">
               <p>Tillagt:</p>
               <p className="text-green-900">+{plusHp} hp</p>
