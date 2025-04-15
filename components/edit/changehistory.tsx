@@ -12,80 +12,64 @@ export function ChangeHistory() {
 
   let plusHp = 0;
   let minusHp = 0;
+
+  const filteredStudies = Array.from(studyResults.current.entries()).filter(([coursecode, course]) => Array.from(course.examinations.values()).some((exam) => exam.grade !== ""));
+  console.log(filteredStudies);
   return (
     <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
       <header className="p-4 flex gap-4 items-center justify-center">
         <div className="text-center bg-blue-200 dark:bg-highlight px-1.5 rounded-md ">
-          <p>{studyResults.current.size}</p>
+          <p>{filteredStudies.length}</p>
         </div>
         <p className="text-lg">Ändringar gjorda</p>
       </header>
       <Separator className="bg-secondary" />
       <section className="px-4 overflow-auto">
-        {/*Mapa ändringar nedan, tänker formatet: Kursnam/kurskod  */}
-        {/* Ok, tänker att bara kursnamn behövs i så fall:
-            ändrat i kurs som saknar ifyllda värden -> status="added"
-            ändrat i kurs som har ifyllda värden -> status="changed"
-            tagit bort värden i en kurs som har ifylda värden -> status="removed"
-            om det går att göra på det här sättet.
-        */}
-        {/* //  */}
-        <div className="py-2.5 flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
-            <p className="text-sm">Kursnamn</p>
-          </div>
-          <StatusSquare status="added" defaultStatus="none" />
-        </div>
-        <Separator />
-        <div className="flex flex-col justify-center items-center py-2">
-          {studyResults.current.size === 0
-            ? (
-              <>
-                <CircleOff className="h-8 aspect-square" />
-                <p className="text-sm">Inga ändringar gjorda</p>
-              </>
-            )
-            : (
-              [...studyResults.current.entries()].map(([key, course]) => {
-                plusHp += course.hp
-                return (
-                  <div key={key} className="flex gap-4 justify-start">
-                    <StatusSquare status="added" />
-                    <p className="text-sm font-bold">
-                      {course.code} - {course.name}
-                    </p>
-                    <div className="flex flex-col">
-                      {[...course.examinations.entries()].map(([keyexam, examination]) => (
-                        <p key={keyexam} className="text-sm">{examination.code} - {examination.name}</p>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })
-            )}
-        </div>
+        {filteredStudies.length !== 0 && (
+          <>
+            <div className="py-2.5 flex flex-col justify-between items-start gap-2">
+              {filteredStudies.length !== 0 &&
+                filteredStudies.map(([coursecode, course]) => {
+                  return [...course.examinations.entries()]
+                    .filter(([examkey, exam]) => exam.grade !== "")
+                    .map(([examcode, examination]) => {
+                      plusHp += examination.hp;
+                      return (
+                        <div className="flex gap-2 items-center" key={examcode}>
+                          <StatusSquare status="added" />
+                          <p className="text-sm">
+                            {coursecode}/{examination.code}/{examination.name}
+                          </p>
+                        </div>
+                      );
+                    });
+                })}
+            </div>
+          </>
+        )}
+        {/* <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
+          <p className="text-sm">Kursnamn</p>
+          <StatusSquare status="added" defaultStatus="none" /> */}
+        {filteredStudies.length === 0 && (
+          <>
+            {/* <Separator /> */}
+            <div className="flex flex-col justify-center items-center py-2">
+              <CircleOff className="h-8 aspect-square" />
+              <p className="text-sm">Inga ändringar gjorda</p>
+            </div>
+          </>
+        )}
       </section>
       <Separator />
       <footer className="flex flex-col p-4 gap-4">
         <div className="flex flex-col gap-2">
           {/*Denna div ska dyka upp om ändringar gjorts*/}
-          {studyResults.current.size === 0
-            ? <></>
-            : <>
-              <div className="flex justify-between text-xs ">
-                <p className="text-gray-600">Tillagt:</p>
-                <p className="text-green-900">+{plusHp} hp</p>
-              </div>
-              <div className="flex justify-between text-xs">
-                <p className="text-gray-600">Borttaget:</p>
-                <p className="text-red-600">-{minusHp} hp</p>
-              </div>
-              <Separator />
-              <div className="flex justify-between text-sm ">
-                <p>Totalt:</p>
-                <p>+{plusHp - minusHp} hp</p>
-              </div></>}
+          {filteredStudies.length !== 0 && (
+            <div className="flex justify-between text-sm ">
+              <p>Tillagt:</p>
+              <p className="text-green-900">+{plusHp} hp</p>
+            </div>
+          )}
         </div>
         <button type="button" disabled className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm font-medium text-sm cursor-pointer disabled:cursor-not-allowed">
           Bekräfta
