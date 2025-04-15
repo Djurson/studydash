@@ -110,6 +110,7 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
 
     const updatedCourse = { ...course, ...updates };
     studyResultsRef.current.set(courseCode, updatedCourse);
+    notify()
   };
 
   const value = useMemo(

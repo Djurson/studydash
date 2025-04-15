@@ -20,9 +20,8 @@ export function EditCourse({ course }: { course: CourseJSON }) {
 
   useEffect(() => {
     setStatus(returnStatus);
-    if (returnGrade !== undefined) {
-      setGrade(returnGrade.toString());
-    }
+    if (returnGrade === undefined) return
+    setGrade(returnGrade.toString());
   }, [returnGrade, returnStatus]);
   return (
     <>
@@ -103,15 +102,25 @@ function CheckGradeAndStatus(
       };
     }
 
-    let dateExam = resultsCourse.examinations.get(course.examinations[0].code)?.date;
+    // let dateExam = resultsCourse.examinations.get(course.examinations[0].code)?.date;
 
-    if (dateExam && Number.parseInt(dateExam) > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: dateExam,
-      };
+    // if (dateExam && Number.parseInt(dateExam) > Number.parseInt(resultsCourse.date)) {
+    //   const updates: Partial<Course> = {
+    //     date: dateExam,
+    //   };
 
-      updateCourse(course, updates);
-    }
+    //   updateCourse(course, updates);
+    // }
+
+    // let courseGrade = resultsCourse.grade;
+
+    // if (courseGrade !== grade) {
+    //   const updates: Partial<Course> = {
+    //     grade: grade,
+    //   };
+
+    //   updateCourse(course, updates);
+    // }
 
     return {
       returnGrade: grade,
@@ -155,12 +164,19 @@ function CheckGradeAndStatus(
 
   if (finalgrade != 0) {
     finalgrade = Math.round(finalgrade / total);
-    if (date > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: date.toString(),
-      };
-      updateCourse(course, updates);
-    }
+    // if (date > Number.parseInt(resultsCourse.date)) {
+    //   const updates: Partial<Course> = {
+    //     date: date.toString(),
+    //   };
+    //   updateCourse(course, updates);
+    // }
+
+    // if (finalgrade !== resultsCourse.grade) {
+    //   const updates: Partial<Course> = {
+    //     grade: finalgrade,
+    //   };
+    //   updateCourse(course, updates);
+    // }
     return {
       returnGrade: finalgrade,
       returnStatus: "done",
@@ -168,12 +184,20 @@ function CheckGradeAndStatus(
   }
 
   if (stringGradePassed && finalgrade === 0) {
-    if (date > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: date.toString(),
-      };
-      updateCourse(course, updates);
-    }
+    // let updates: Partial<Course> = {
+    //   date: undefined,
+    //   grade: undefined,
+    // };
+
+    // if (date > Number.parseInt(resultsCourse.date)) {
+    //   updates.date = date.toString();
+    // }
+
+    // if (resultsCourse.grade !== "G") {
+    //   updates.grade = "G";
+    // }
+
+    // if (updates.grade !== "" || updates.date !== "")
 
     return {
       returnGrade: "G",

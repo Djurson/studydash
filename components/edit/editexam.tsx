@@ -10,12 +10,14 @@ import { useStudyResults } from "@/hooks/editcontext";
 type ExamError = {
   dateError: string | null;
   gradeError: string | null;
+  dateFakeError: string | null;
 };
 
 export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; course: CourseJSON }) {
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
     gradeError: null,
+    dateFakeError: null,
   });
   const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult } = useStudyResults();
 
@@ -37,16 +39,23 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
     setErrors({
       ...errors,
       dateError: null,
+      dateFakeError: null,
     });
     const error = ValidateDate(value, "20220801", getTodayFormatted());
     if (error && value.length === 8) {
-      const dateUpdate: Partial<Examination> = { date: "" };
       setErrors({
         ...errors,
         dateError: error,
+        dateFakeError: null,
       });
+      const dateUpdate: Partial<Examination> = { date: "" };
       updateExamResult(course, exam, dateUpdate);
       return;
+    } else if (error && value.length < 8) {
+      setErrors({
+        ...errors,
+        dateFakeError: error,
+      });
     }
     const dateUpdate: Partial<Examination> = { date: value };
     updateExamResult(course, exam, dateUpdate);
@@ -77,7 +86,7 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
   };
 
   const status: Status =
-    errors.gradeError || errors.dateError
+    errors.gradeError || errors.dateError || errors.dateFakeError
       ? "error"
       : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
         ? "done"
@@ -131,6 +140,12 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
                     <div className="flex items-center gap-2">
                       <AlertCircle size={15} color="#f36961" />
                       <p className="text-red-900">{errors.dateError}</p>
+                    </div>
+                  )}
+                  {!errors.dateError && errors.dateFakeError && (
+                    <div className="flex items-center gap-2">
+                      <AlertCircle size={15} color="#f36961" />
+                      <p className="text-red-900">{errors.dateFakeError}</p>
                     </div>
                   )}
                 </div>
