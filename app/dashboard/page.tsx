@@ -24,9 +24,7 @@ export default function Page() {
         <Card variant="header" cardTitle="Medelmerit"></Card>
         <div className="row-span-2 ">
           <Card variant="header" cardTitle="Mina kurser">
-            <a href="/program">
-              <ProgramWindow></ProgramWindow>
-            </a>
+            <ProgramWindow currentTerm="Termin 2 VT 2023"></ProgramWindow>
           </Card>
         </div>
         <div className="col-span-2 ">
