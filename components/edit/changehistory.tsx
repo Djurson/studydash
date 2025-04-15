@@ -12,29 +12,29 @@ export function ChangeHistory() {
   let plusHp = 0;
 
   const filteredStudies = new Map(
-    Array.from(studyResults.current.entries()).map(([courseCode, course]) => {
-      // Om kursen själv har ett giltigt betyg, behåll hela kursen
-      if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
-        return [courseCode, { ...course }];
-      }
-      // Annars, filtrera examinationerna
-      else {
-        // Skapa en ny map med bara godkända examinationer
-        const filteredExaminations = new Map(
-          Array.from(course.examinations.entries()).filter(([_, exam]) =>
-            exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date
-          )
-        );
-
-        // Returnera kursen med filtrerade examinationer om det finns några
-        if (filteredExaminations.size > 0) {
-          return [courseCode, { ...course, examinations: filteredExaminations }];
+    Array.from(studyResults.current.entries())
+      .map(([courseCode, course]) => {
+        // Om kursen själv har ett giltigt betyg, behåll hela kursen
+        if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
+          return [courseCode, { ...course }];
         }
+        // Annars, filtrera examinationerna
+        else {
+          // Skapa en ny map med bara godkända examinationer
+          const filteredExaminations = new Map(
+            Array.from(course.examinations.entries()).filter(([_, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
+          );
 
-        // Returnera null om kursen inte har några godkända examinationer
-        return null;
-      }
-    }).filter(entry => entry !== null) as [string, Course][]
+          // Returnera kursen med filtrerade examinationer om det finns några
+          if (filteredExaminations.size > 0) {
+            return [courseCode, { ...course, examinations: filteredExaminations }];
+          }
+
+          // Returnera null om kursen inte har några godkända examinationer
+          return null;
+        }
+      })
+      .filter((entry) => entry !== null) as [string, Course][]
   );
   return (
     <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
@@ -54,14 +54,17 @@ export function ChangeHistory() {
                   return [...course.examinations.entries()].map(([examcode, exam]) => {
                     plusHp += exam.hp;
                     return (
-                      <div className="flex gap-2 items-center" key={examcode}>
-                        <StatusSquare status="added" />
-                        <p className="text-sm">
-                          {coursecode}/{exam.code}/{exam.name}
-                        </p>
+                      <div className="flex flex-col gap-2 w-full" key={examcode}>
+                        <div className="flex gap-2 items-center">
+                          <StatusSquare status="added" />
+                          <p className="text-sm">
+                            {coursecode}/{exam.name} - {exam.code}
+                          </p>
+                        </div>
+                        <Separator />
                       </div>
-                    )
-                  })
+                    );
+                  });
                 })}
             </div>
           </>
@@ -80,20 +83,22 @@ export function ChangeHistory() {
         )}
       </section>
       <Separator />
-      <footer className="flex flex-col p-4 gap-4">
+      <footer className="flex flex-col p-4 ">
         <div className="flex flex-col gap-2">
           {/*Denna div ska dyka upp om ändringar gjorts*/}
           {filteredStudies.size !== 0 && (
-            <div className="flex justify-between text-sm ">
+            <div className="flex justify-between text-sm pb-4">
               <p>Tillagt:</p>
               <p className="text-green-900">+{plusHp} hp</p>
             </div>
           )}
         </div>
-        <button type="button" disabled className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm font-medium text-sm cursor-pointer disabled:cursor-not-allowed">
-          Bekräfta
-        </button>
-        <button className="w-full px-4 py-3 bg-background hover:bg-highlight-2 hover:text-red-900 font-medium rounded-sm text-sm cursor-pointer">Avbryt</button>
+        <div className="flex flex-col gap-4">
+          <button type="button" disabled className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm font-medium text-sm cursor-pointer disabled:cursor-not-allowed">
+            Bekräfta
+          </button>
+          <button className="w-full px-4 py-3 bg-background hover:bg-highlight-2 hover:text-red-900 font-medium rounded-sm text-sm cursor-pointer">Avbryt</button>
+        </div>
       </footer>
     </main>
   );
