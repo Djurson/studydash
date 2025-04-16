@@ -5,6 +5,7 @@ import LiuImg from "@/assets/liu.png";
 import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 import { StudyFunds } from "@/components/charts/studyfunds";
+import { MeritPoints } from "@/components/charts/meritpoints";
 
 export default function Page() {
   return (
@@ -23,7 +24,9 @@ export default function Page() {
         <Card variant="header" cardTitle="Studiemedelskrav">
           <StudyFunds />
         </Card>
-        <Card variant="header" cardTitle="Medelmerit"></Card>
+        <Card variant="header" cardTitle="Medelmerit">
+          <MeritPoints />
+        </Card>
         <div className="row-span-2 ">
           <Card variant="header" cardTitle="Mina kurser"></Card>
         </div>

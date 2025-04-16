@@ -1,24 +1,28 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-const chartData = [{ type: "studydunds", credits: 26, fill: "var(--color-blue-900)" }];
+const chartData = [{ timeframe: "År 2", credits: 26, fill: "var(--color-blue-900)" }];
 
 const chartConfig = {
   credits: {
     label: "hp",
   },
-  type: {
-    label: "studyfunds",
+  timeframe: {
+    label: "År 2",
     color: "hsl(var(--color-background))",
   },
 } satisfies ChartConfig;
 
 export function StudyFunds() {
+  // TODO: hantera ifall man har mer intjänat hp än kravet på 45
+
+  //Räkna ut graderna där radiallinjerna ska vara med avseende på hp
+  // TODO: hantera uträkning för om kravet är på 45 hp eller 37.5 hp
+  const endingAngle = (chartData[0].credits / 45) * 360;
+
   //Räkna ut bredden på main taggen för att polarRadius kan vara responsiv (den tillåter bara pixelvärden)
   const mainRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState(0);
@@ -37,9 +41,9 @@ export function StudyFunds() {
     return () => resizeObserver.disconnect();
   }, []);
   return (
-    <main className="flex items-center justify-center aspect-square w-full h-full relative" ref={mainRef}>
+    <main className="flex items-center justify-center aspect-square w-full h-full" ref={mainRef}>
       <ChartContainer config={chartConfig} className=" w-full h-full transform -translate-y-2.5">
-        <RadialBarChart data={chartData} startAngle={0} endAngle={250} innerRadius="77%" outerRadius="125.5%">
+        <RadialBarChart data={chartData} startAngle={0} endAngle={endingAngle} innerRadius="77%" outerRadius="125.5%">
           <PolarGrid gridType="circle" radialLines={false} stroke="none" className="first:fill-background last:fill-card" polarRadius={[containerSize * 0.41, containerSize * 0.32]} />
           <RadialBar dataKey="credits" cornerRadius={10} />
           <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
