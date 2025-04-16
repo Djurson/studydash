@@ -4,6 +4,7 @@ import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
 import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
+import { StudyFunds } from "@/components/charts/studyfunds";
 
 export default function Page() {
   return (
@@ -19,7 +20,9 @@ export default function Page() {
         <div className="row-span-2 col-span-2">
           <Card variant="header" cardTitle="Intjänade högskolepoäng"></Card>
         </div>
-        <Card variant="header" cardTitle="Studiemedelskrav"></Card>
+        <Card variant="header" cardTitle="Studiemedelskrav">
+          <StudyFunds />
+        </Card>
         <Card variant="header" cardTitle="Medelmerit"></Card>
         <div className="row-span-2 ">
           <Card variant="header" cardTitle="Mina kurser"></Card>
