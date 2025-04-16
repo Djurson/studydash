@@ -53,6 +53,7 @@ interface ChartLandingProps {
   }
   height?: number
   width?: string | number
+  defaultYear?: number | 'all' 
 
 }
 
@@ -64,11 +65,12 @@ export function ChartLanding({
   customStats,
   height = 250,
   width = "100%",
+  defaultYear = 'all'
 }: ChartLandingProps) {
-  const [selectedYear, setSelectedYear] = useState<number | 'all'>('all')
-  const filteredData = selectedYear === 'all' 
-    ? allChartData 
-    : allChartData.filter(item => item.year === selectedYear)
+    const [selectedYear, setSelectedYear] = useState<number | 'all'>(defaultYear)
+    const filteredData = selectedYear === 'all' 
+      ? allChartData 
+      : allChartData.filter(item => item.year === selectedYear)
 
   const getDateRange = () => {
     const dates = filteredData.map(item => new Date(item.date))
@@ -88,13 +90,15 @@ export function ChartLanding({
     pending: "6"
   }
 
-/* kalla på den         <div className="mt-4 w-full">
+/* kalla på den för att få hela grafen       
+ <div className="mt-4 w-full">
   <Card cardTitle="">
     <div style={{ width: "100%", height: 300 }}>
       <ChartLanding height={300} width="100%" showStats={false} />
     </div>
   </Card>
-</div> för att få hela grafen */
+</div>  
+*/
 
   return (
     <div className="p-4" style={{ width, height }}>

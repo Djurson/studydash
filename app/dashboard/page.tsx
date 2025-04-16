@@ -2,7 +2,7 @@ import Card from "@/components/card/card";
 import ExamCard from "@/components/card/exam-card";
 import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
-import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
+import {PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 import {ChartLanding} from "@/components/chartLanding";
 import { StudyProgress } from "@/components/studieframsteg";
@@ -22,7 +22,7 @@ export default function Page() {
       
         <div className="row-span-2 col-span-2">
           <Card variant="header" cardTitle="Intjänade högskolepoäng">
-            <ChartLanding />
+            <ChartLanding defaultYear={3}/>
           </Card> 
         </div>
         <div>
