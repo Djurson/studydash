@@ -155,12 +155,20 @@ export default function Page() {
         </section>
         <section className="col-start-4 col-span-2">
           <div className="sticky top-[4.688rem] flex flex-col w-full max-h-[88.5vh] gap-4">
-            <div>
-              <UploadPDFInput />
-            </div>
-            <div className="">
-              <ChangeHistory />
-            </div>
+            {studyYear !== undefined ? (
+              <>
+                <div>
+                  <UploadPDFInput />
+                </div>
+                <div className="">
+                  <ChangeHistory />
+                </div>
+              </>
+            ) : (
+              <>
+                <p>Inget studieår valt</p>
+              </>
+            )}
           </div>
         </section>
       </main>
