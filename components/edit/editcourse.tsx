@@ -16,11 +16,11 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   const [status, setStatus] = useState<Status>("none");
 
   const courseResults = getCourse(course.course_code);
-  const { returnGrade, returnStatus } = CheckGradeAndStatus(course, courseResults, updateCourseResult)
+  const { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults);
 
   useEffect(() => {
     setStatus(returnStatus);
-    if (returnGrade === undefined) return
+    if (returnGrade === undefined) return;
     setGrade(returnGrade.toString());
   }, [returnGrade, returnStatus]);
   return (
@@ -76,138 +76,24 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   );
 }
 
-function CheckGradeAndStatus(
-  course: CourseJSON,
-  resultsCourse: Course | undefined,
-  updateCourse: (CourseJSON: CourseJSON, updates: Partial<Course>) => void
-): { returnGrade: string | number | undefined; returnStatus: Status } {
-  if (!resultsCourse || !resultsCourse.examinations) {
+function CheckGradeAndStatus(resultsCourse: Course | undefined): { returnGrade: string | number | undefined; returnStatus: Status } {
+  if (!resultsCourse) {
+    return {
+      returnGrade: undefined,
+      returnStatus: "none",
+    };
+  }
+
+  if (resultsCourse.grade === "" || resultsCourse.date === "") {
     return {
       returnGrade: undefined,
       returnStatus: "ongoing",
     };
   }
 
-  let finalgrade = 0;
-  let total = 0;
-  let stringGradePassed = false;
-
-  if (course.examinations.length === 1) {
-    let grade = resultsCourse.examinations.get(course.examinations[0].code)?.grade;
-
-    if (!grade || grade == "") {
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    // let dateExam = resultsCourse.examinations.get(course.examinations[0].code)?.date;
-
-    // if (dateExam && Number.parseInt(dateExam) > Number.parseInt(resultsCourse.date)) {
-    //   const updates: Partial<Course> = {
-    //     date: dateExam,
-    //   };
-
-    //   updateCourse(course, updates);
-    // }
-
-    // let courseGrade = resultsCourse.grade;
-
-    // if (courseGrade !== grade) {
-    //   const updates: Partial<Course> = {
-    //     grade: grade,
-    //   };
-
-    //   updateCourse(course, updates);
-    // }
-
-    return {
-      returnGrade: grade,
-      returnStatus: "done",
-    };
-  }
-
-  let date = 0;
-  for (let i = 0; i < course.examinations.length; i++) {
-    if (course.examinations[i].credits === "0 hp") {
-      continue;
-    }
-
-    let grade = resultsCourse.examinations.get(course.examinations[i].code)?.grade;
-
-    if (typeof grade === "undefined") {
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    if (typeof grade === "string") {
-      if (grade === "G" || grade === "D") {
-        let dateExam = resultsCourse.examinations.get(course.examinations[i].code)?.date;
-        if (dateExam && Number.parseInt(dateExam) > date) {
-          date = Number.parseInt(dateExam);
-        }
-        stringGradePassed = true;
-        continue;
-      }
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    finalgrade += grade;
-    total++;
-  }
-
-  if (finalgrade != 0) {
-    finalgrade = Math.round(finalgrade / total);
-    // if (date > Number.parseInt(resultsCourse.date)) {
-    //   const updates: Partial<Course> = {
-    //     date: date.toString(),
-    //   };
-    //   updateCourse(course, updates);
-    // }
-
-    // if (finalgrade !== resultsCourse.grade) {
-    //   const updates: Partial<Course> = {
-    //     grade: finalgrade,
-    //   };
-    //   updateCourse(course, updates);
-    // }
-    return {
-      returnGrade: finalgrade,
-      returnStatus: "done",
-    };
-  }
-
-  if (stringGradePassed && finalgrade === 0) {
-    // let updates: Partial<Course> = {
-    //   date: undefined,
-    //   grade: undefined,
-    // };
-
-    // if (date > Number.parseInt(resultsCourse.date)) {
-    //   updates.date = date.toString();
-    // }
-
-    // if (resultsCourse.grade !== "G") {
-    //   updates.grade = "G";
-    // }
-
-    // if (updates.grade !== "" || updates.date !== "")
-
-    return {
-      returnGrade: "G",
-      returnStatus: "done",
-    };
-  }
-
   return {
-    returnGrade: undefined,
-    returnStatus: "ongoing",
+    returnGrade: resultsCourse.grade,
+    returnStatus: "done",
   };
 }
 

@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { Course, CourseJSON } from "@/utils/types";
 import { EditCourse } from "./editcourse";
 import { Status, StatusSquare } from "./statussquare";
-import { useStudyResults } from "@/hooks/editcontext";
+import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
 import { useEffect, useState, memo, RefObject } from "react";
 
 interface Semester {
@@ -12,7 +12,7 @@ interface Semester {
 
 export default function SemesterAccordion({ semester }: { semester: Semester }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { getCourse } = useStudyResults();
+  const { getCourse } = useStudyResultsListener();
 
   // Beräkna status direkt utan att använda en separat state
   const status = CheckStatus(semester, getCourse);
@@ -48,6 +48,10 @@ function CheckStatus(semester: Semester, getCourse: (courseCode: string) => Cour
       continue;
     }
     const courseResults = getCourse(semester.courses[i].course_code);
+
+    if (courseResults?.code === "TNA001") {
+      console.log(courseResults);
+    }
 
     if (!courseResults || !courseResults.grade || courseResults.grade === "") {
       return "ongoing";
