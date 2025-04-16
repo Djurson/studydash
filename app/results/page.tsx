@@ -160,7 +160,7 @@ export default function Page() {
                 <div>
                   <UploadPDFInput />
                 </div>
-                <div className="">
+                <div>
                   <ChangeHistory />
                 </div>
               </>
