@@ -15,7 +15,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
-  signOut: async () => {},
+  signOut: async () => { },
   popup: false,
 });
 
@@ -85,7 +85,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         title="Saknad studieinfo"
         description={"Det verkar som att vi saknar din studieinformation. Vänligen fyll i din studieinformation för att kunna använda tjänsten"}
         actiontext="Fyll i studieinfo"
-        actionlink="/results"></AlertPopupWindow>
+        actionlink="/results">
+      </AlertPopupWindow>
       {children}
     </AuthContext.Provider>
   );

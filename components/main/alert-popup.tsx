@@ -27,26 +27,26 @@ type AlertPopupWindowProps = {
  * @returns Returns an alert dialog with the specified content and action button
  */
 
-export default function AlertPopupWindow({ open, title, description, actiontext, actionlink }: AlertPopupWindowProps) {
+export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
   const { signOut } = useAuth();
 
   return (
     <>
-      <AlertDialog open={open ?? false}>
+      <AlertDialog open={props.open ?? false}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex gap-2 items-center">
               <Info className="stroke-red-900 stroke-2 size-4" />
-              {title}
+              {props.title}
             </AlertDialogTitle>
-            <AlertDialogDescription>{description}</AlertDialogDescription>
+            <AlertDialogDescription>{props.description}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={signOut}>
               Logga ut
             </AlertDialogCancel>
-            <Link href={actionlink ?? "#"}>
-              <AlertDialogAction className="bg-foreground hover:bg-muted transition duration-300 ease-in-out">{actiontext}</AlertDialogAction>
+            <Link href={props.actionlink ?? ""}>
+              <AlertDialogAction className="bg-foreground hover:bg-muted transition duration-300 ease-in-out">{props.actiontext}</AlertDialogAction>
             </Link>
           </AlertDialogFooter>
         </AlertDialogContent>

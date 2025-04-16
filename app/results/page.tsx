@@ -20,6 +20,7 @@ export default function Page() {
   const [studyYear, setStudyYear] = useState<string | undefined>(undefined);
   const [studyProgram, setStudyProgram] = useState<string | undefined>(undefined);
   const [studyUniversity, setStudyUniversity] = useState<string | undefined>(undefined);
+  const [previousFounds, setPreviousFunds] = useState<boolean>(false);
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -54,7 +55,7 @@ export default function Page() {
               <label className="flex text-xs font-light">
                 Universitet/högskola <p className="text-red-900">*</p>
               </label>
-              <Select onValueChange={(value) => setStudyUniversity(value)}>
+              <Select onValueChange={(value) => setStudyUniversity(value)} required>
                 <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyUniversity}>
                   <SelectValue placeholder="Välj"></SelectValue>
                 </SelectTrigger>
@@ -72,7 +73,7 @@ export default function Page() {
                 <label className="flex text-xs font-light">
                   Program/utbildning <p className="text-red-900">*</p>
                 </label>
-                <Select onValueChange={(value) => setStudyProgram(value)}>
+                <Select onValueChange={(value) => setStudyProgram(value)} required>
                   <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyProgram}>
                     <SelectValue placeholder="Välj"></SelectValue>
                   </SelectTrigger>
@@ -118,10 +119,10 @@ export default function Page() {
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <Checkbox id="terms1" className="!bg-foreground/20" />
+              <Checkbox id="terms1" className="!bg-foreground/20 aspect-square size-5" onClick={() => setPreviousFunds(!previousFounds)} value={previousFounds.valueOf.toString()} />
               <div className="grid gap-1.5 leading-none">
                 <label htmlFor="terms1" className="text-sm font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Jag sökte CSN för första gången i samband med denna utbildning.
+                  Jag har tidigare sökt CSN
                 </label>
               </div>
             </div>
@@ -161,7 +162,7 @@ export default function Page() {
                   <UploadPDFInput />
                 </div>
                 <div>
-                  <ChangeHistory />
+                  <ChangeHistory studyProgram={studyProgram} studyYear={studyYear} studyUniversity={studyUniversity} previousFounds={previousFounds} />
                 </div>
               </>
             ) : (

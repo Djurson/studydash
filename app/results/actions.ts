@@ -86,3 +86,5 @@ async function saveToFile(filename: string, text: string) {
   fs.writeFile(filename, text, "utf8");
   console.log(`Fil sparad som: ${filename}`);
 }
+
+async function WriteToDatabase() {}
