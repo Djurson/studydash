@@ -118,7 +118,7 @@ export default function Page() {
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <Checkbox id="terms1" className="!bg-accent-disabled" />
+              <Checkbox id="terms1" className="!bg-foreground/20" />
               <div className="grid gap-1.5 leading-none">
                 <label htmlFor="terms1" className="text-sm font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Jag sökte CSN för första gången i samband med denna utbildning.
