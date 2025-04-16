@@ -5,6 +5,8 @@ import LiuImg from "@/assets/liu.png";
 import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
 import {ChartLanding} from "@/components/chartLanding";
+import { StudyProgress } from "@/components/studieframsteg";
+
 
 export default function Page() {
   return (
@@ -18,19 +20,23 @@ export default function Page() {
       </header>
       <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-4 ">
       
-      <div className="row-span-2 col-span-2">
+        <div className="row-span-2 col-span-2">
           <Card variant="header" cardTitle="Intjänade högskolepoäng">
-              <ChartLanding />
-              
+            <ChartLanding />
           </Card> 
-          </div>
-        <Card variant="header" cardTitle="Studiemedelskrav"></Card>
+        </div>
+        <div>
+        <Card variant="header" cardTitle="Studiemedelskrav">
+      
+        </Card></div>
         <Card variant="header" cardTitle="Medelmerit"></Card>
         <div className="row-span-2 ">
           <Card variant="header" cardTitle="Mina kurser"></Card>
         </div>
         <div className="col-span-2 ">
-          <Card variant="header" cardTitle="Mina studieframsteg"></Card>
+          <Card variant="header" cardTitle="Mina studieframsteg">
+            <StudyProgress/>
+          </Card>
         </div>
       </main>
       <section className="mt-4">
