@@ -127,24 +127,30 @@ export default function Page() {
             </div>
 
             <Separator />
-            <div className="flex flex-col gap-4">
-              {program.semesters.map((semester) => {
-                semesterCount += 1;
-                return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
-              })}
-            </div>
-            <Separator />
-            <div className="flex flex-col gap-4">
-              {masterSemesters.map((semester, index) => (
-                <EditMasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
-              ))}
-            </div>
-            <Separator />
-            <div className="flex flex-col gap-4 pb-4">
-              {thsesis.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[9]} />
-              ))}
-            </div>
+            {studyYear !== undefined ? (
+              <>
+                <div className="flex flex-col gap-4">
+                  {program.semesters.map((semester) => {
+                    semesterCount += 1;
+                    return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
+                  })}
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-4">
+                  {masterSemesters.map((semester, index) => (
+                    <EditMasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
+                  ))}
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-4 pb-4">
+                  {thsesis.semesters.map((semester) => (
+                    <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[9]} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p>Välj ett studieår</p>
+            )}
           </div>
         </section>
         <section className="col-start-4 col-span-2">
