@@ -6,7 +6,7 @@ import { CheckCheck, GraduationCap, BookOpenCheck, ScrollText } from "lucide-rea
 import React from "react"
 
 export function StudyProgress() {
-  const currentPoints = 110 // Example - replace with your actual points
+  const currentPoints = 200
   const totalPoints = 300
   
   const milestones = [
@@ -22,51 +22,56 @@ export function StudyProgress() {
 
   return (
     <div className="col-span-2">
-        <div className="p-4">
-          <div className="relative mb-8">
-            <div className="absolute inset-0 flex items-center">
-              {milestones.map((milestone) => (
-                <div 
-                  key={milestone.points}
-                  className="absolute flex flex-col items-center"
-                  style={{ left: `${(milestone.points / totalPoints) * 100}%` }}>
-                  <span className="text-xs mt-1 text-muted-foreground">
-                    {milestone.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+      
 
-          
-          <div className="mb-8">
-            <Progress 
-              value={(currentPoints / totalPoints) * 100} 
-              className="h-3 bg-gray-100" 
-            />
+        {/* Stats section */}
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <p className="text-lg font-semibold">
+              {currentPoints} / {totalPoints} hp
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {Math.round((currentPoints / totalPoints) * 100)}% slutfört
+            </p>
           </div>
-
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Framsteg</p>
-              <p className="text-lg font-semibold">
-                {currentPoints} / {totalPoints} hp
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {Math.round((currentPoints / totalPoints) * 100)}% slutfört
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">Nästa milstolpe</p>
-              <p className="text-lg font-semibold">
-                {nextMilestone?.label || "Alla klara"}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {nextMilestone ? `${pointsRemaining} hp kvar` : "Grattis!"}
-              </p>
-            </div>
+          <div className="text-right">
+            <p className="text-sm text-muted-foreground">Nästa milstolpe</p>
+            <p className="text-lg font-semibold">
+              {nextMilestone?.label}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {nextMilestone ? `${pointsRemaining} hp kvar` : ""}
+            </p>
           </div>
         </div>
+        <div className="p-4">
+        <div className="relative mb-4">
+          <div className="absolute inset-0 flex items-center">
+            {milestones.map((milestone) => (
+              <div 
+                key={milestone.points}
+                className="absolute flex flex-col items-center"
+                style={{
+                    left: `${(milestone.points / totalPoints) * 100}%`,
+                    transform: 'translateX(-100%)' 
+                  }}
+              >
+                <span className="text-xs text-muted-foreground">
+                  {milestone.label}
+                </span>
+                <div className="w-2 h-2 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="mb-4">
+          <Progress 
+            value={(currentPoints / totalPoints) * 100} 
+            className="h-4 bg-gray-100" 
+          />
+        </div>
+      </div>
     </div>
   )
 }
