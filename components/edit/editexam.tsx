@@ -13,7 +13,7 @@ type ExamError = {
   dateFakeError: string | null;
 };
 
-export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; course: CourseJSON }) {
+export function CourseExaminationMapping({ exam, course, semesterStatus }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status }) {
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
     gradeError: null,
@@ -21,8 +21,11 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
   });
   const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult } = useStudyResults();
 
-  const currentCourseResults = getCourse(course.course_code);
+  let currentCourseResults: Course | undefined = undefined;
 
+  if (semesterStatus !== "none") {
+    currentCourseResults = getCourse(course.course_code);
+  }
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
     if (!hasCourse(course.course_code)) {
@@ -38,6 +41,9 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
 
   // Använd useCallback för att memoizera funktionerna
   const HandleDateChange = (value: string) => {
+    if (semesterStatus === "none") {
+      return;
+    }
     setErrors({
       ...errors,
       dateError: null,
@@ -72,6 +78,9 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
   };
 
   const HandleGradeChange = (value: string) => {
+    if (semesterStatus === "none") {
+      return;
+    }
     setErrors({
       ...errors,
       gradeError: null,
@@ -109,7 +118,7 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
       ? "error"
       : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
       ? "done"
-      : "ongoing";
+      : semesterStatus;
 
   return (
     <>

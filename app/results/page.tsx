@@ -13,17 +13,25 @@ import EditSemesters from "@/components/edit/EditSemesters";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useMemo } from "react";
+import { useState } from "react";
 
 export default function Page() {
   // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
-  const startingSemester = "HT 2022";
+  const [studyYear, setStudyYear] = useState<string | undefined>(undefined);
+  const [studyProgram, setStudyProgram] = useState<string | undefined>(undefined);
+  const [studyUniversity, setStudyUniversity] = useState<string | undefined>(undefined);
+
+  const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
+  const startYear = currentYear - 4;
+
+  const startingSemester = studyYear ? `HT ${studyYear}` : `HT ${currentYear}`;
   const showFrom = 7;
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);
   const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
   const finalThesisSemester = allSemesters[9];
 
+  let semesterCount = -1;
   const program = programData.programs[0];
 
   const thsesis = {
@@ -33,9 +41,6 @@ export default function Page() {
       name: `Termin 10 ${finalThesisSemester.fullString}`,
     })),
   };
-
-  const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
-  const startYear = currentYear - 8;
 
   return (
     <>
@@ -49,8 +54,8 @@ export default function Page() {
               <label className="flex text-xs font-light">
                 Universitet/högskola <p className="text-red-900">*</p>
               </label>
-              <Select>
-                <SelectTrigger className="w-full bg-accent cursor-pointer">
+              <Select onValueChange={(value) => setStudyUniversity(value)}>
+                <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyUniversity}>
                   <SelectValue placeholder="Välj"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -67,8 +72,8 @@ export default function Page() {
                 <label className="flex text-xs font-light">
                   Program/utbildning <p className="text-red-900">*</p>
                 </label>
-                <Select>
-                  <SelectTrigger className="w-full bg-accent cursor-pointer">
+                <Select onValueChange={(value) => setStudyProgram(value)}>
+                  <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyProgram}>
                     <SelectValue placeholder="Välj"></SelectValue>
                   </SelectTrigger>
                   <SelectContent>
@@ -91,8 +96,8 @@ export default function Page() {
                 <label className="flex text-xs font-light">
                   Antagningstillfälle <p className="text-red-900">*</p>
                 </label>
-                <Select name="studyYear" required>
-                  <SelectTrigger className="w-full text-foreground bg-accent cursor-pointer">
+                <Select name="studyYear" required onValueChange={(value) => setStudyYear(value)}>
+                  <SelectTrigger className="w-full text-foreground bg-accent cursor-pointer" value={studyYear}>
                     <SelectValue placeholder="Välj" className="text-foreground"></SelectValue>
                   </SelectTrigger>
                   <SelectContent>
@@ -123,9 +128,10 @@ export default function Page() {
 
             <Separator />
             <div className="flex flex-col gap-4">
-              {program.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} />
-              ))}
+              {program.semesters.map((semester) => {
+                semesterCount += 1;
+                return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
+              })}
             </div>
             <Separator />
             <div className="flex flex-col gap-4">
@@ -136,7 +142,7 @@ export default function Page() {
             <Separator />
             <div className="flex flex-col gap-4 pb-4">
               {thsesis.semesters.map((semester) => (
-                <EditSemesters key={semester.name} semester={semester} />
+                <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[9]} />
               ))}
             </div>
           </div>

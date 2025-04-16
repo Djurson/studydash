@@ -1,11 +1,9 @@
-// editcontext.tsx
-import React, { createContext, useContext, useMemo, useRef } from "react";
+import React, { createContext, Dispatch, SetStateAction, useContext, useMemo, useRef, useState } from "react";
 import { Course, Examination, CourseJSON, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination } from "@/utils/utils";
-import { useEffect } from "react";
 
 export interface StudyResultContextType {
-  studyResults: React.RefObject<Map<string, Course>>; // TS infererar rätt typ vid useRef
+  studyResults: React.RefObject<Map<string, Course>>;
   setCourse: (key: string, course: Course) => void;
   setExamination: (courseCode: string, examCode: string, examination: Examination) => void;
   updateMap: (inputMap: Map<string, Course>) => void;
@@ -110,7 +108,7 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
 
     const updatedCourse = { ...course, ...updates };
     studyResultsRef.current.set(courseCode, updatedCourse);
-    notify()
+    notify();
   };
 
   const value = useMemo(

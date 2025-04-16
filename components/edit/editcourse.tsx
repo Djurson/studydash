@@ -9,14 +9,18 @@ import { useStudyResultsListener } from "@/hooks/editcontext";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
 
-export function EditCourse({ course }: { course: CourseJSON }) {
+export function EditCourse({ course, semesterStatus }: { course: CourseJSON; semesterStatus: Status }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { updateCourseResult, getCourse } = useStudyResultsListener();
+  const { getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
-  const [status, setStatus] = useState<Status>("none");
+  const [status, setStatus] = useState<Status>(semesterStatus);
 
-  const courseResults = getCourse(course.course_code);
-  const { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults);
+  let courseResults: Course | undefined = undefined;
+  if (semesterStatus !== "none") {
+    courseResults = getCourse(course.course_code);
+  }
+
+  let { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults, semesterStatus);
 
   useEffect(() => {
     setStatus(returnStatus);
@@ -64,7 +68,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                 {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => (
-                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} />
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} />
                   ))}
               </section>
             )}
@@ -76,11 +80,11 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   );
 }
 
-function CheckGradeAndStatus(resultsCourse: Course | undefined): { returnGrade: string | number | undefined; returnStatus: Status } {
+function CheckGradeAndStatus(resultsCourse: Course | undefined, semesterStatus: Status): { returnGrade: string | number | undefined; returnStatus: Status } {
   if (!resultsCourse) {
     return {
       returnGrade: undefined,
-      returnStatus: "none",
+      returnStatus: semesterStatus,
     };
   }
 
