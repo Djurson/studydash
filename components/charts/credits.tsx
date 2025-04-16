@@ -216,6 +216,12 @@ export function Credits() {
             <SelectItem value="7d" className="rounded-lg">
               Last 7 days
             </SelectItem>
+            <SelectItem value="7d" className="rounded-lg">
+              Last 7 days
+            </SelectItem>
+            <SelectItem value="Alla" className="rounded-lg">
+              Alla
+            </SelectItem>
           </SelectContent>
         </Select>
       </header>
