@@ -41,15 +41,34 @@ const allChartData = [
     { date: "2024-12-20", hp: 15, year: 3, status: "completed" }
 ]
 
-const stats = {
-    Avklarade: "26",
-    Total: "32",
-    Släpande: "6"
+interface ChartLandingProps {
+  showYearSelector?: boolean
+  showStats?: boolean
+  showDateRange?: boolean
+  customHeader?: React.ReactNode
+  customStats?: {
+    total: string | number
+    completed: string | number
+    pending: string | number
+  }
+  height?: number
+  width?: string | number
+
 }
 
-export function ChartLanding() {
-  const [selectedYear, setSelectedYear] = useState<number>(1)
-  const filteredData = allChartData.filter(item => item.year === selectedYear)
+export function ChartLanding({
+  showYearSelector = true,
+  showStats = true,
+  showDateRange = true,
+  customHeader,
+  customStats,
+  height = 250,
+  width = "100%",
+}: ChartLandingProps) {
+  const [selectedYear, setSelectedYear] = useState<number | 'all'>('all')
+  const filteredData = selectedYear === 'all' 
+    ? allChartData 
+    : allChartData.filter(item => item.year === selectedYear)
 
   const getDateRange = () => {
     const dates = filteredData.map(item => new Date(item.date))
@@ -63,50 +82,74 @@ export function ChartLanding() {
   }
 
   const dateRange = getDateRange()
+  const stats = customStats || {
+    total: "32",
+    completed: "26",
+    pending: "6"
+  }
+
+/* kalla på den         <div className="mt-4 w-full">
+  <Card cardTitle="">
+    <div style={{ width: "100%", height: 300 }}>
+      <ChartLanding height={300} width="100%" showStats={false} />
+    </div>
+  </Card>
+</div> för att få hela grafen */
 
   return (
-    <div className="w-full h-full p-4">
-      <div className="flex justify-between mb-2">
-        <div>
-          <p className="text-sm text-muted-foreground">
-            {dateRange.start} - {dateRange.end}
-          </p>
+    <div className="p-4" style={{ width, height }}>
+      {customHeader ? (
+        customHeader
+      ) : (
+        <div className="flex justify-between mb-2">
+          {showDateRange && (
+            <div>
+              <p className="text-sm text-muted-foreground">
+                {dateRange.start} - {dateRange.end}
+              </p>
+            </div>
+          )}
+          {showYearSelector && (
+            <Select
+              value={selectedYear.toString()}
+              onValueChange={(value) => setSelectedYear(value === 'all' ? 'all' : parseInt(value))}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Alla år</SelectItem>
+                {[1, 2, 3].map(year => (
+                  <SelectItem key={year} value={year.toString()}>
+                    Årskurs {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
         </div>
-        <Select
-          value={selectedYear.toString()}
-          onValueChange={(value) => setSelectedYear(parseInt(value))}
-        >
-          <SelectTrigger className="w-[120px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {[1, 2, 3].map(year => (
-              <SelectItem key={year} value={year.toString()}>
-                Årskurs {year}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      )}
 
-    
-      <div className="grid grid-cols-3 gap-4 mb-4">
-        <div>
-          <p className="text-2xl font-bold">{stats.Total} hp</p>
-          <p className="text-sm text-muted-foreground">Totalt</p> 
+      {showStats && (
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div>
+            <p className="text-2xl font-bold">{stats.total} hp</p>
+            <p className="text-sm text-muted-foreground">Totalt</p> 
+          </div>
+          <div>
+            <p className="text-2xl font-bold">{stats.completed} hp</p> 
+            <p className="text-sm text-muted-foreground">Avklarade</p>   
+          </div>
+          <div>
+            <p className="text-2xl font-bold">{stats.pending} hp</p>
+            <p className="text-sm text-muted-foreground">Släpande</p>         
+          </div>
         </div>
-        <div>
-          <p className="text-2xl font-bold">{stats.Avklarade} hp</p> 
-          <p className="text-sm text-muted-foreground">Avklarade</p>   
-        </div>
-        <div>
-          <p className="text-2xl font-bold">{stats.Släpande} hp</p>
-          <p className="text-sm text-muted-foreground">Släpande</p>         
-        </div>
-      </div>
+      )}
 
+      {/* Chart */}
       <div className="w-full h-[250px]">
-      <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={filteredData}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}

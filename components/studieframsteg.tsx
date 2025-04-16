@@ -10,7 +10,7 @@ export function StudyProgress() {
   const totalPoints = 300
   
   const milestones = [
-    { points: 45, label: "Kandidat", icon: <BookOpenCheck className="h-4 w-4" /> },
+    { points: 70, label: "Kandidat", icon: <BookOpenCheck className="h-4 w-4" /> },
     { points: 150, label: "Kd. projekt", icon: <ScrollText className="h-4 w-4" /> },
     { points: 225, label: "Master", icon: <GraduationCap className="h-4 w-4" /> },
     { points: 300, label: "Exjobb", icon: <CheckCheck className="h-4 w-4" /> }
