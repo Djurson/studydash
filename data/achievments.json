@@ -1,101 +1,101 @@
 {
-    "achievements": {
-      "course_achievements": {
-        "course_codes": {
-          "TNA001": [
-            {
-              "achievement": "The Proof Prophet",
-              "result": "Grade 4 or higher",
-              "icon":"Camera"
-            }
-          ],
-          "TND012": [
-            {
-              "achievement": "Its a bird, its a plane, its BrotherPotato",
-              "result": "Completed labs",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Hello world!",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Unnamed achievement",
-              "result": "Grade 4 or higher",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Reading Lines, Not Books",
-              "result": "Grade 5",
-              "icon":"Camera"
-            }
-          ],
-          "TNM088": [
-            {
-              "achievement": "The creative alchymist",
-              "result": "Completed labs",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Film Wizard",
-              "result": "Project approved",
-              "icon":"Film"
-            }
-          ],
-          "TNG002": [
-            {
-              "achievement": "Heap Happens",
-              "result": "Completed labs",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Java the hutt",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            }
-          ],
-          "TNA002": [
-            {
-              "achievement": "Matrix Novice",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            }
-          ],
-          "TNA004": [
-            {
-              "achievement": "Taylor Swift Expansion",
-              "result": "Grade 4 or higher",
-              "icon":"Camera"
-            }
-          ],
-          "TNM040": [
-            {
-              "achievement": "The Picasso of Pixels",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            }
-          ],
-          "TNG033": [
-            {
-              "achievement": "Pointers and Prayers",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            },
-            {
-              "achievement": "Memory Leak Enthusiast",
-              "result": "Completed labs",
-              "icon":"Camera"
-            }
-          ],
-          "TNG032": [
-            {
-              "achievement": "Fast and Fourierous",
-              "result": "Grade 3 or higher",
-              "icon":"Camera"
-            }
-          ]
-        }
-      }   
+  "achievements": {
+    "course_achievements": {
+      "course_codes": {
+        "TNA001": [
+          {
+            "achievement": "The Proof Prophet",
+            "result": "Grade 4 or higher",
+            "icon": "Scroll"
+          }
+        ],
+        "TND012": [
+          {
+            "achievement": "Its a bird, its a plane, its BrotherPotato",
+            "result": "Completed labs",
+            "icon": "Rocket"
+          },
+          {
+            "achievement": "Hello world!",
+            "result": "Grade 3 or higher",
+            "icon": "Terminal"
+          },
+          {
+            "achievement": "Unnamed achievement",
+            "result": "Grade 4 or higher",
+            "icon": "HelpCircle"
+          },
+          {
+            "achievement": "Reading Lines, Not Books",
+            "result": "Grade 5",
+            "icon": "BookOpen"
+          }
+        ],
+        "TNM088": [
+          {
+            "achievement": "The creative alchymist",
+            "result": "Completed labs",
+            "icon": "FlaskConical"
+          },
+          {
+            "achievement": "Film Wizard",
+            "result": "Project approved",
+            "icon": "Film"
+          }
+        ],
+        "TNG002": [
+          {
+            "achievement": "Heap Happens",
+            "result": "Completed labs",
+            "icon": "Stack"
+          },
+          {
+            "achievement": "Java the hutt",
+            "result": "Grade 3 or higher",
+            "icon": "Coffee"
+          }
+        ],
+        "TNA002": [
+          {
+            "achievement": "Matrix Novice",
+            "result": "Grade 3 or higher",
+            "icon": "Grid"
+          }
+        ],
+        "TNA004": [
+          {
+            "achievement": "Taylor Swift Expansion",
+            "result": "Grade 4 or higher",
+            "icon": "Music"
+          }
+        ],
+        "TNM040": [
+          {
+            "achievement": "The Picasso of Pixels",
+            "result": "Grade 3 or higher",
+            "icon": "Palette"
+          }
+        ],
+        "TNG033": [
+          {
+            "achievement": "Pointers and Prayers",
+            "result": "Grade 3 or higher",
+            "icon": "Pointer"
+          },
+          {
+            "achievement": "Memory Leak Enthusiast",
+            "result": "Completed labs",
+            "icon": "Brain"
+          }
+        ],
+        "TNG032": [
+          {
+            "achievement": "Fast and Fourierous",
+            "result": "Grade 3 or higher",
+            "icon": "Waveform"
+          }
+        ]
+      }
     }
   }
+}
