@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { SignOutAction } from "@/app/actions";
 import { useAuth } from "../supabase/authprovider";
+import { WithAuthProps } from "@/utils/types";
 
 /**
  * Navigation user dropdown component
@@ -18,11 +19,9 @@ import { useAuth } from "../supabase/authprovider";
  *
  * @returns Returns a dropdown menu for user account options, including account settings and logout
  */
-export function NavUser() {
+export function NavUser({ user }: WithAuthProps) {
   const { isMobile } = useSidebar();
   let fallback = "";
-
-  const { user } = useAuth();
 
   if (!user) return null;
 
