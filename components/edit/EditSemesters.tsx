@@ -34,7 +34,7 @@ export default function SemesterAccordion({ semester, semsterSeason }: { semeste
         {isOpen && (
           <div className="bg-accent px-4 pb-4">
             {semester.courses.map((course) => (
-              <EditCourse key={course.course_code} course={course} semesterStatus={status} />
+              <EditCourse key={course.course_code} course={course} semesterStatus={status} semesterSeason={semsterSeason} />
             ))}
           </div>
         )}

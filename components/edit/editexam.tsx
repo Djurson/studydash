@@ -6,6 +6,7 @@ import { Status, StatusSquare } from "./statussquare";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../ui/input-otp";
 import { AlertCircle } from "lucide-react";
 import { useStudyResults } from "@/hooks/editcontext";
+import { SemesterInfo } from "@/utils/semesterDates";
 
 type ExamError = {
   dateError: string | null;
@@ -13,13 +14,13 @@ type ExamError = {
   dateFakeError: string | null;
 };
 
-export function CourseExaminationMapping({ exam, course, semesterStatus }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status }) {
+export function CourseExaminationMapping({ exam, course, semesterStatus, semesterSeason }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
     gradeError: null,
     dateFakeError: null,
   });
-  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult } = useStudyResults();
+  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult, updateCourseResult } = useStudyResults();
 
   let currentCourseResults: Course | undefined = undefined;
 
@@ -44,73 +45,83 @@ export function CourseExaminationMapping({ exam, course, semesterStatus }: { exa
     if (semesterStatus === "none") {
       return;
     }
-    setErrors({
-      ...errors,
-      dateError: null,
-      dateFakeError: null,
-    });
-    const error = ValidateDate(value, "20220801", getTodayFormatted());
+
+    // Nollställer alla errors
+    setErrors({ ...errors, dateError: null, dateFakeError: null });
+
+    // Validera datumet
+    const error = ValidateDate(value, `${semesterSeason.year}0801`, getTodayFormatted());
     if (error && value.length === 8) {
-      setErrors({
-        ...errors,
-        dateError: error,
-        dateFakeError: null,
-      });
+      // Om det finns errors visar vi dem och tar bort inputen
+      setErrors({ ...errors, dateError: error, dateFakeError: null });
+
+      // Uppdaterar så att datumet tas bort ur examinationen
       const dateUpdate: Partial<Examination> = { date: "" };
       updateExamResult(course, exam, dateUpdate);
+
+      // Uppdatera kursen
+      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      updateCourseResult(course, courseGradeDateUpdate);
       return;
     } else if (error && value.length < 8) {
-      setErrors({
-        ...errors,
-        dateFakeError: error,
-      });
+      // Om datumet inte är tillräckligt långt visar vi bara errors
+      setErrors({ ...errors, dateFakeError: error });
     }
+
+    // Om inputen är bra uppdaterar vi examinationen
     const dateUpdate: Partial<Examination> = { date: value };
     updateExamResult(course, exam, dateUpdate);
-    const { finalGrade, finalDate } = CalculateFinalGradeAndDate(course, exam, getExamination, getExamination(course.course_code, exam.code)?.grade, value);
 
-    if (!finalGrade || !finalDate || !currentCourseResults) {
-      return;
+    // Kalkulera slutbetyg och slutdatum för kursen
+    const { finalGrade, finalDate } = CalculateFinalGradeAndDate(course, exam, getExamination, getExamination(course.course_code, exam.code)?.grade, value);
+    let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+    if (finalDate && finalGrade) {
+      courseGradeDateUpdate = { date: finalDate, grade: finalGrade };
     }
 
-    currentCourseResults["date"] = finalDate;
-    currentCourseResults["grade"] = finalGrade;
+    updateCourseResult(course, courseGradeDateUpdate);
   };
 
   const HandleGradeChange = (value: string) => {
     if (semesterStatus === "none") {
       return;
     }
-    setErrors({
-      ...errors,
-      gradeError: null,
-    });
+
+    // Nollställer alla errors
+    setErrors({ ...errors, gradeError: null });
+
+    // Validera betyg inputen
     const error = ValidateGrade(value, exam);
     if (error || value === "") {
+      // Uppdatera examinationen
       const gradeUpdate: Partial<Examination> = { grade: "" };
       updateExamResult(course, exam, gradeUpdate);
-      setErrors({
-        ...errors,
-        gradeError: error,
-      });
+      setErrors({ ...errors, gradeError: error });
+
+      // Uppdatera kursen
+      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      updateCourseResult(course, courseGradeDateUpdate);
       return;
     }
 
-    let examgrade: string | number;
-    if (value === "G" || value === "D") examgrade = value;
-    else if (!isNaN(Number(value))) examgrade = Number.parseFloat(value);
-    else examgrade = "";
-    const gradeUpdate: Partial<Examination> = { grade: examgrade };
+    // Kontrollera inputen om det är en bokstav eller ett nummer
+    let examgrade: string | number = value === "G" || value === "D" ? value : !isNaN(Number(value)) ? Number.parseInt(value) : "";
 
+    // Uppdatera examinationen
+    const gradeUpdate: Partial<Examination> = { grade: examgrade };
     updateExamResult(course, exam, gradeUpdate);
+
+    // Kalkulera slutbetyg och slutdatum för kursen
     const { finalGrade, finalDate } = CalculateFinalGradeAndDate(course, exam, getExamination, examgrade, getExamination(course.course_code, exam.code)?.date);
 
-    if (!finalGrade || !finalDate || !currentCourseResults) {
-      return;
+    let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+
+    if (finalDate && finalGrade) {
+      courseGradeDateUpdate = { date: finalDate, grade: finalGrade };
     }
 
-    currentCourseResults["date"] = finalDate;
-    currentCourseResults["grade"] = finalGrade;
+    // Uppdatera slutbetyg/slutdatum för kursen
+    updateCourseResult(course, courseGradeDateUpdate);
   };
 
   const status: Status =

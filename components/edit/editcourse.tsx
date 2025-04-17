@@ -8,8 +8,9 @@ import { Status, StatusSquare } from "./statussquare";
 import { useStudyResultsListener } from "@/hooks/editcontext";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
+import { SemesterInfo } from "@/utils/semesterDates";
 
-export function EditCourse({ course, semesterStatus }: { course: CourseJSON; semesterStatus: Status }) {
+export function EditCourse({ course, semesterStatus, semesterSeason }: { course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
@@ -24,7 +25,10 @@ export function EditCourse({ course, semesterStatus }: { course: CourseJSON; sem
 
   useEffect(() => {
     setStatus(returnStatus);
-    if (returnGrade === undefined) return;
+    if (returnGrade === undefined) {
+      setGrade(undefined);
+      return;
+    }
     setGrade(returnGrade.toString());
   }, [returnGrade, returnStatus]);
   return (
@@ -68,7 +72,7 @@ export function EditCourse({ course, semesterStatus }: { course: CourseJSON; sem
                 {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => (
-                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} />
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} semesterSeason={semesterSeason} />
                   ))}
               </section>
             )}
@@ -101,4 +105,4 @@ function CheckGradeAndStatus(resultsCourse: Course | undefined, semesterStatus: 
   };
 }
 
-export default memo(EditCourse);
+export default EditCourse;
