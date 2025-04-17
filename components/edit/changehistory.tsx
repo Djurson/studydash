@@ -5,19 +5,30 @@ import { CircleOff, Info } from "lucide-react";
 import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
 import { StatusSquare } from "./statussquare";
 import { Course } from "@/utils/types";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { toast } from "sonner";
+import { WriteToDatabase } from "@/app/results/actions";
 
 type ChangeHistoryProps = {
   studyYear: string | undefined;
   studyProgram: string | undefined;
   studyUniversity: string | undefined;
   previousFounds: boolean;
-}
+};
 
 export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   const { studyResults } = useStudyResultsListener();
-  const { clearMap } = useStudyResults();
+  const { clearMap, studyResultsToJSON } = useStudyResults();
 
   let plusHp = 0;
 
@@ -48,10 +59,14 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   );
 
   function HandleSubmit() {
-    const error = SubmitToServer(filteredStudies, { ...props })
+    const error = SubmitToServer(filteredStudies, studyResultsToJSON, { ...props });
 
     if (error) {
-      toast(<div className="flex gap-4 items-center"><Info className="stroke-red-900" /> <p className="text-red-900">{error}</p></div>)
+      toast(
+        <div className="flex gap-4 items-center">
+          <Info className="stroke-red-900" /> <p className="text-red-900">{error}</p>
+        </div>
+      );
     }
   }
   return (
@@ -113,15 +128,12 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
             )}
           </div>
           <div className="flex flex-col gap-4">
-            <button type="button" className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm font-medium text-sm cursor-pointer disabled:cursor-not-allowed"
-              onClick={HandleSubmit}>
+            <button type="button" className="w-full px-4 py-3 bg-blue-900 text-white rounded-sm font-medium text-sm cursor-pointer disabled:cursor-not-allowed" onClick={HandleSubmit}>
               Bekräfta
             </button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <button className="w-full px-4 py-3 bg-background hover:bg-highlight-2 hover:text-red-900 font-medium rounded-sm text-sm cursor-pointer">
-                  Avbryt
-                </button>
+                <button className="w-full px-4 py-3 bg-background hover:bg-highlight-2 hover:text-red-900 font-medium rounded-sm text-sm cursor-pointer">Avbryt</button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -133,7 +145,9 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel className="bg-foreground transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>
-                  <AlertDialogAction className="bg-foreground hover:bg-red-900 transition hover:text-foreground duration-300 ease-in-out" onClick={clearMap}>Ta bort</AlertDialogAction>
+                  <AlertDialogAction className="bg-foreground hover:bg-red-900 transition hover:text-foreground duration-300 ease-in-out" onClick={clearMap}>
+                    Ta bort
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -144,20 +158,24 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   );
 }
 
-function SubmitToServer(filteredStudies: Map<string, Course>, { studyProgram, studyYear, studyUniversity, previousFounds }: ChangeHistoryProps): string | undefined {
+function SubmitToServer(filteredStudies: Map<string, Course>, studyResultsToJSON: (studyResults: Map<string, Course>) => string, { ...props }: ChangeHistoryProps): string | undefined {
   if (filteredStudies.size === 0) {
-    return "Vänligen fyll i studieresultat"
+    return "Vänligen fyll i studieresultat";
   }
 
-  if (studyProgram === "") {
-    return "Vänligen välj ett program"
+  if (props.studyProgram === "") {
+    return "Vänligen välj ett program";
   }
 
-  if (studyYear === "") {
-    return "Vänligen välj ett studieår"
+  if (props.studyYear === "") {
+    return "Vänligen välj ett studieår";
   }
 
-  if (studyUniversity === "") {
-    return "Vänligen välj ett universitet"
+  if (props.studyUniversity === "") {
+    return "Vänligen välj ett universitet";
   }
+
+  const jsonResults = studyResultsToJSON(filteredStudies);
+
+  WriteToDatabase(jsonResults, { ...props });
 }

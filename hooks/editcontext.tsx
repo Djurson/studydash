@@ -14,6 +14,8 @@ export interface StudyResultContextType {
   updateExamResult: (courseJSON: CourseJSON, examJSON: ExaminationJSON, updates: Partial<Examination>) => void;
   updateCourseResult: (CourseJSON: CourseJSON, updates: Partial<Course>) => void;
   clearMap: () => void;
+  studyResultsToJSON: (studyResults: Map<string, Course>) => string;
+  jsonToStudyResults: (json: string) => Map<string, Course>;
   subscribe: (listener: () => void) => () => void;
 }
 
@@ -81,7 +83,7 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
   const clearMap = () => {
     studyResultsRef.current.clear();
     notify();
-  }
+  };
 
   const studyResultsToJSON = (studyResults: Map<string, Course>): string => {
     const coursesObj = Object.fromEntries(
@@ -89,13 +91,13 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
         key,
         {
           ...course,
-          examinations: Object.fromEntries(course.examinations)
-        }
+          examinations: Object.fromEntries(course.examinations),
+        },
       ])
     );
 
     return JSON.stringify(coursesObj);
-  }
+  };
 
   const jsonToStudyResults = (json: string): Map<string, Course> => {
     const parsed = JSON.parse(json);
@@ -105,11 +107,11 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
         key,
         {
           ...courseObj,
-          examinations: new Map(Object.entries(courseObj.examinations))
-        }
+          examinations: new Map(Object.entries(courseObj.examinations)),
+        },
       ])
     );
-  }
+  };
 
   const updateExamResult = (courseJSON: CourseJSON, examJSON: ExaminationJSON, updates: Partial<Examination>) => {
     const courseCode = courseJSON.course_code;
@@ -160,7 +162,7 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
       clearMap,
       subscribe,
       studyResultsToJSON,
-      jsonToStudyResults
+      jsonToStudyResults,
     }),
     []
   );

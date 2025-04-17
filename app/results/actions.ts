@@ -9,6 +9,13 @@ import { tryCatch } from "@/utils/trycatch";
 import { ParseCourses } from "@/utils/courseparsing";
 import { Course } from "@/utils/types";
 
+type ChangeHistoryProps = {
+  studyYear: string | undefined;
+  studyProgram: string | undefined;
+  studyUniversity: string | undefined;
+  previousFounds: boolean;
+};
+
 /** Funktion för att hantera uppladdning av PDF
  * @param file - Filen som laddats upp
  * @returns Ett objekt med studieinformation
@@ -87,4 +94,4 @@ async function saveToFile(filename: string, text: string) {
   console.log(`Fil sparad som: ${filename}`);
 }
 
-async function WriteToDatabase() {}
+export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYear, studyUniversity, previousFounds }: ChangeHistoryProps) {}
