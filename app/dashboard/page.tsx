@@ -22,7 +22,7 @@ export default function Page() {
         </div>
         <Card variant="header" cardTitle="Studiemedelskrav"></Card>
         <Card variant="header" cardTitle="Medelmerit"></Card>
-        <div className="row-span-2 ">
+        <div className="row-span-2">
           <Card variant="header" cardTitle="Mina kurser">
             <ProgramWindow currentTerm="Termin 2 VT 2023"></ProgramWindow>
           </Card>
