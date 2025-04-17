@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
 import { useStudyResultsListener } from "@/hooks/editcontext";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
 import { SemesterInfo } from "@/utils/semesterDates";
 
@@ -17,6 +16,9 @@ export function EditCourse({ course, semesterStatus, semesterSeason }: { course:
   const [status, setStatus] = useState<Status>(semesterStatus);
 
   let courseResults: Course | undefined = undefined;
+
+  // Om kursen är inom "studieåret"/har varit hämtar vi endast information kring kursen
+  // Går på termin statusen
   if (semesterStatus !== "none") {
     courseResults = getCourse(course.course_code);
   }
@@ -47,14 +49,6 @@ export function EditCourse({ course, semesterStatus, semesterSeason }: { course:
                   </h4>
                 </div>
                 <div className="flex items-center gap-2">
-                  {/*
-                  <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
-                  <InputOTP maxLength={1} disabled value={grade === "" ? "x" : grade}>
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
-                    </InputOTPGroup>
-                  </InputOTP>
-                  */}
                   {grade && grade !== "" ? (
                     <div className="flex items-center">
                       <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
@@ -104,5 +98,3 @@ function CheckGradeAndStatus(resultsCourse: Course | undefined, semesterStatus: 
     returnStatus: "done",
   };
 }
-
-export default EditCourse;

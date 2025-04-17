@@ -61,6 +61,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   function HandleSubmit() {
     const error = SubmitToServer(filteredStudies, studyResultsToJSON, { ...props });
 
+    // Om det blir en error, visa den error:n med en toaster
     if (error) {
       toast(
         <div className="flex gap-4 items-center">
@@ -103,9 +104,6 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
               </div>
             </>
           )}
-          {/* <Checkbox className="h-[1.188rem] w-[1.188rem]"></Checkbox>
-          <p className="text-sm">Kursnamn</p>
-          <StatusSquare status="added" defaultStatus="none" /> */}
           {filteredStudies.size === 0 && (
             <>
               {/* <Separator /> */}
@@ -175,6 +173,7 @@ function SubmitToServer(filteredStudies: Map<string, Course>, studyResultsToJSON
     return "Vänligen välj ett universitet";
   }
 
+  // Om det inte finns några errors, konvertera från hashmap till JSON
   const jsonResults = studyResultsToJSON(filteredStudies);
 
   WriteToDatabase(jsonResults, { ...props });

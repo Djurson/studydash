@@ -15,6 +15,7 @@ type ExamError = {
 };
 
 export function CourseExaminationMapping({ exam, course, semesterStatus, semesterSeason }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
+  // Definera "errors" som ska ge användaren "feedback" medan den skriver in
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
     gradeError: null,
@@ -27,6 +28,7 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
   if (semesterStatus !== "none") {
     currentCourseResults = getCourse(course.course_code);
   }
+
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
     if (!hasCourse(course.course_code)) {
@@ -128,8 +130,8 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
     errors.gradeError || errors.dateError || errors.dateFakeError
       ? "error"
       : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
-      ? "done"
-      : semesterStatus;
+        ? "done"
+        : semesterStatus;
 
   return (
     <>
@@ -251,6 +253,7 @@ function CalculateFinalGradeAndDate(
     }
 
     // Om det är den aktuella examinationen som håller på att uppdateras
+    // Vet ej om detta ens behövs längre men vågar inte tabort 2025-04-17
     if (examRes.code === examJSON.code) {
       examRes = {
         ...examRes,

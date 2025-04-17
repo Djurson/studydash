@@ -7,8 +7,11 @@ import path from "path";
 import os from "os";
 import { tryCatch } from "@/utils/trycatch";
 import { ParseCourses } from "@/utils/courseparsing";
-import { Course } from "@/utils/types";
+import { Course, UserData } from "@/utils/types";
 import { createClient } from "@/utils/supabase/server";
+import { encodedRedirect } from "@/utils/utils";
+import { getUserCache, getUserRowCache } from "@/serverhooks/cachehelpers";
+import { jsonToStudyResults } from "@/utils/converters";
 
 type ChangeHistoryProps = {
   studyYear: string | undefined;
@@ -99,11 +102,33 @@ export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYe
   const supabase = await createClient();
   const userID = (await supabase.auth.getUser()).data.user?.id;
 
-  const { data, error } = await supabase
+  // Request att skriva till databasen
+  const { error } = await supabase
     .from("user-datatable")
     .upsert({ user_id: userID, studyinfo: studyinfo, studyyear: studyYear, university: studyUniversity, program: studyProgram, previousfunds: previousFounds });
 
+  // Om det blev en error, skicka tillbaka användaren
   if (error) {
-    console.log(error);
+    return encodedRedirect("error", "/results", error.message);
   }
+
+  // Om upsert:en lyckades, skicka vidare användaren
+  return encodedRedirect("success", "/dashboard", "");
+}
+
+export async function GetUserData(): Promise<UserData | undefined> {
+  const supabase = await createClient();
+  const user = await getUserCache(supabase);
+  if (!user) {
+    return encodedRedirect("error", "/", "No user");
+  }
+
+  const userData = await getUserRowCache(user.id, supabase);
+
+  const { user_id, studyinfo, ...restProps } = userData;
+
+  // Konvertera studyinfo från JSON-sträng till Map
+  const studyinfoMap = studyinfo ? jsonToStudyResults(studyinfo) : new Map();
+
+  return { ...restProps, studyinfo: studyinfoMap };
 }

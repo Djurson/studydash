@@ -2,8 +2,8 @@ import { ChevronDown } from "lucide-react";
 import { Course, CourseJSON } from "@/utils/types";
 import { EditCourse } from "./editcourse";
 import { Status, StatusSquare } from "./statussquare";
-import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
-import { useEffect, useState, memo, RefObject } from "react";
+import { useStudyResultsListener } from "@/hooks/editcontext";
+import { useState } from "react";
 import { SemesterInfo } from "@/utils/semesterDates";
 
 interface Semester {

@@ -1,7 +1,8 @@
-import React, { createContext, Dispatch, SetStateAction, useContext, useMemo, useRef, useState } from "react";
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Course, Examination, CourseJSON, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination } from "@/utils/utils";
 import { useAuth } from "@/components/supabase/authprovider";
+import { GetUserData } from "@/app/results/actions";
 
 export interface StudyResultContextType {
   studyResults: React.RefObject<Map<string, Course>>;
@@ -30,10 +31,21 @@ export function useStudyResults() {
   return context;
 }
 
-export function StudyResultProvider({ children }: { children: React.ReactNode }) {
-  const { userData } = useAuth();
-  const studyResultsRef = useRef<Map<string, Course>>(userData?.studyinfo ?? new Map());
+export function StudyResultProvider({ children }: { children: ReactNode }) {
+  const studyResultsRef = useRef<Map<string, Course>>(new Map());
   const listenersRef = useRef(new Set<() => void>());
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await GetUserData();
+      if (userData) {
+        studyResultsRef.current = userData.studyinfo;
+        notify(); // Meddela alla lyssnare om den nya datan
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const notify = () => {
     listenersRef.current.forEach((listener) => listener());

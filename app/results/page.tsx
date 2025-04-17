@@ -1,7 +1,7 @@
 "use client";
 
 import { UploadPDFInput } from "@/components/form/uploadpdf";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChangeHistory } from "@/components/edit/changehistory";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -13,19 +13,28 @@ import EditSemesters from "@/components/edit/EditSemesters";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GetUserData } from "./actions";
+
+type studyInformation = {
+  year: string | undefined;
+  program: string | undefined;
+  university: string | undefined;
+  previousFounds: boolean;
+}
 
 export default function Page() {
-  // Här får vi setta en variabel på startterminen som användaren valde. Hårdkodad för nu.
-  const [studyYear, setStudyYear] = useState<string | undefined>(undefined);
-  const [studyProgram, setStudyProgram] = useState<string | undefined>(undefined);
-  const [studyUniversity, setStudyUniversity] = useState<string | undefined>(undefined);
-  const [previousFounds, setPreviousFunds] = useState<boolean>(false);
+  const [studyInformation, setStudyInformation] = useState<studyInformation>({
+    year: undefined,
+    program: undefined,
+    university: undefined,
+    previousFounds: false,
+  })
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
 
-  const startingSemester = studyYear ? `HT ${studyYear}` : `HT ${currentYear}`;
+  const startingSemester = studyInformation.year ? `HT ${studyInformation.year}` : `HT ${currentYear}`;
   const showFrom = 7;
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);
@@ -43,6 +52,23 @@ export default function Page() {
     })),
   };
 
+  // Hämta data från servern
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await GetUserData();
+      if (userData) {
+        setStudyInformation({
+          year: userData.studyyear,
+          program: userData.program,
+          university: userData.university,
+          previousFounds: userData.previousfunds,
+        });
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
     <>
       <header>
@@ -55,8 +81,8 @@ export default function Page() {
               <label className="flex text-xs font-light">
                 Universitet/högskola <p className="text-red-900">*</p>
               </label>
-              <Select onValueChange={(value) => setStudyUniversity(value)} required>
-                <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyUniversity}>
+              <Select onValueChange={(value) => setStudyInformation({ ...studyInformation, university: value })} required value={studyInformation.university}>
+                <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyInformation.university}>
                   <SelectValue placeholder="Välj"></SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -73,8 +99,8 @@ export default function Page() {
                 <label className="flex text-xs font-light">
                   Program/utbildning <p className="text-red-900">*</p>
                 </label>
-                <Select onValueChange={(value) => setStudyProgram(value)} required>
-                  <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyProgram}>
+                <Select onValueChange={(value) => setStudyInformation({ ...studyInformation, program: value })} required value={studyInformation.program}>
+                  <SelectTrigger className="w-full bg-accent cursor-pointer" value={studyInformation.program}>
                     <SelectValue placeholder="Välj"></SelectValue>
                   </SelectTrigger>
                   <SelectContent>
@@ -97,8 +123,8 @@ export default function Page() {
                 <label className="flex text-xs font-light">
                   Antagningstillfälle <p className="text-red-900">*</p>
                 </label>
-                <Select name="studyYear" required onValueChange={(value) => setStudyYear(value)}>
-                  <SelectTrigger className="w-full text-foreground bg-accent cursor-pointer" value={studyYear}>
+                <Select name="studyYear" required onValueChange={(value) => setStudyInformation({ ...studyInformation, year: value })} value={studyInformation.year}>
+                  <SelectTrigger className="w-full text-foreground bg-accent cursor-pointer" value={studyInformation.year}>
                     <SelectValue placeholder="Välj" className="text-foreground"></SelectValue>
                   </SelectTrigger>
                   <SelectContent>
@@ -119,7 +145,7 @@ export default function Page() {
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <Checkbox id="terms1" className="!bg-foreground/20 aspect-square size-5" onClick={() => setPreviousFunds(!previousFounds)} value={previousFounds.valueOf.toString()} />
+              <Checkbox id="terms1" className="!bg-foreground/20 aspect-square size-5" onClick={() => setStudyInformation({ ...studyInformation, previousFounds: !studyInformation.previousFounds })} checked={studyInformation.previousFounds} />
               <div className="grid gap-1.5 leading-none">
                 <label htmlFor="terms1" className="text-sm font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Jag har tidigare sökt CSN
@@ -128,7 +154,7 @@ export default function Page() {
             </div>
 
             <Separator />
-            {studyYear !== undefined ? (
+            {studyInformation.year !== undefined ? (
               <>
                 <div className="flex flex-col gap-4">
                   {program.semesters.map((semester) => {
@@ -156,13 +182,13 @@ export default function Page() {
         </section>
         <section className="col-start-4 col-span-2">
           <div className="sticky top-[4.688rem] flex flex-col w-full max-h-[88.5vh] gap-4">
-            {studyYear !== undefined ? (
+            {studyInformation.year !== undefined ? (
               <>
                 <div>
                   <UploadPDFInput />
                 </div>
                 <div>
-                  <ChangeHistory studyProgram={studyProgram} studyYear={studyYear} studyUniversity={studyUniversity} previousFounds={previousFounds} />
+                  <ChangeHistory studyProgram={studyInformation.program} studyYear={studyInformation.year} studyUniversity={studyInformation.university} previousFounds={studyInformation.previousFounds} />
                 </div>
               </>
             ) : (
