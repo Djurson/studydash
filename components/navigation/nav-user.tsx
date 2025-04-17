@@ -1,6 +1,6 @@
 "use client";
 
-import { UserRound, Settings, ChevronsUpDown, LogOut } from "lucide-react";
+import { UserRound, Settings, ChevronsUpDown, LogOut, Key } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
