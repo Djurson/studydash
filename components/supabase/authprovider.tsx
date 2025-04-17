@@ -15,7 +15,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType>({
   session: null,
   user: null,
-  signOut: async () => { },
+  signOut: async () => {},
   popup: false,
 });
 
@@ -41,14 +41,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       let userId = data.session?.user?.id;
 
       if (userId) {
-        const { data, error } = await supabaseClient.from("usertable").select("*").eq("user-uid", userId);
+        const { data, error } = await supabaseClient.from("user-datatable").select("*").eq("user_id", userId);
 
         if (error) {
           console.error("Error fetching user data:", error);
         }
 
         if (!data || data.length === 0) {
-          setPopup(false);
+          setPopup(true);
         }
       }
     };
@@ -85,8 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         title="Saknad studieinfo"
         description={"Det verkar som att vi saknar din studieinformation. Vänligen fyll i din studieinformation för att kunna använda tjänsten"}
         actiontext="Fyll i studieinfo"
-        actionlink="/results">
-      </AlertPopupWindow>
+        actionlink="/results"></AlertPopupWindow>
       {children}
     </AuthContext.Provider>
   );

@@ -8,6 +8,7 @@ import os from "os";
 import { tryCatch } from "@/utils/trycatch";
 import { ParseCourses } from "@/utils/courseparsing";
 import { Course } from "@/utils/types";
+import { createClient } from "@/utils/supabase/server";
 
 type ChangeHistoryProps = {
   studyYear: string | undefined;
@@ -94,4 +95,15 @@ async function saveToFile(filename: string, text: string) {
   console.log(`Fil sparad som: ${filename}`);
 }
 
-export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYear, studyUniversity, previousFounds }: ChangeHistoryProps) {}
+export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYear, studyUniversity, previousFounds }: ChangeHistoryProps) {
+  const supabase = await createClient();
+  const userID = (await supabase.auth.getUser()).data.user?.id;
+
+  const { data, error } = await supabase
+    .from("user-datatable")
+    .upsert({ user_id: userID, studyinfo: studyinfo, studyyear: studyYear, university: studyUniversity, program: studyProgram, previousfunds: previousFounds });
+
+  if (error) {
+    console.log(error);
+  }
+}
