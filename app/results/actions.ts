@@ -113,6 +113,7 @@ export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYe
   }
 
   // Om upsert:en lyckades, skicka vidare användaren
+  // Implementera logik för att användare inte ska kunna "spam" ladda upp data
   return encodedRedirect("success", "/dashboard", "");
 }
 
