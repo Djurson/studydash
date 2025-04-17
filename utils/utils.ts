@@ -116,3 +116,17 @@ export function CreateExamination(inputName: string, inputCode: string, inputHP:
 export function CreateCourse(inputName: string, inputCode: string, inputHP: number, inputDate?: string, inputGrade?: string | number, inputExaminations?: Map<string, Examination>): Course {
   return { code: inputCode, name: inputName, hp: inputHP, date: inputDate ?? "", grade: inputGrade ?? "", examinations: inputExaminations ?? new Map<string, Examination>() };
 }
+
+export const jsonToStudyResults = (json: string): Map<string, Course> => {
+  const parsed = JSON.parse(json);
+
+  return new Map(
+    Object.entries(parsed).map(([key, courseObj]: [string, any]) => [
+      key,
+      {
+        ...courseObj,
+        examinations: new Map(Object.entries(courseObj.examinations)),
+      },
+    ])
+  );
+};

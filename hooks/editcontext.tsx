@@ -1,6 +1,7 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useMemo, useRef, useState } from "react";
 import { Course, Examination, CourseJSON, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination } from "@/utils/utils";
+import { useAuth } from "@/components/supabase/authprovider";
 
 export interface StudyResultContextType {
   studyResults: React.RefObject<Map<string, Course>>;
@@ -30,7 +31,8 @@ export function useStudyResults() {
 }
 
 export function StudyResultProvider({ children }: { children: React.ReactNode }) {
-  const studyResultsRef = useRef<Map<string, Course>>(new Map());
+  const { userData } = useAuth();
+  const studyResultsRef = useRef<Map<string, Course>>(userData?.studyinfo ?? new Map());
   const listenersRef = useRef(new Set<() => void>());
 
   const notify = () => {

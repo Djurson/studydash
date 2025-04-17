@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../ui/alert-dialog";
 import { Info } from "lucide-react";
 import { useAuth } from "../supabase/authprovider";
+import { createClient } from "@/utils/supabase/client";
 
 type AlertPopupWindowProps = {
   open?: boolean;
@@ -28,8 +29,7 @@ type AlertPopupWindowProps = {
  */
 
 export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
-  const { signOut } = useAuth();
-
+  const supabase = createClient();
   return (
     <>
       <AlertDialog open={props.open ?? false}>
@@ -42,7 +42,7 @@ export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
             <AlertDialogDescription>{props.description}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={signOut}>
+            <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={() => supabase.auth.signOut}>
               Logga ut
             </AlertDialogCancel>
             <Link href={props.actionlink ?? ""}>

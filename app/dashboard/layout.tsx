@@ -6,5 +6,6 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   return (
     <AuthProvider>
       <PageTemplate defaultPage={true}>{children}</PageTemplate>
-    </AuthProvider>);
+    </AuthProvider>
+  );
 }

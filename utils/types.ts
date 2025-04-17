@@ -1,3 +1,5 @@
+import { User } from "@supabase/supabase-js";
+
 export type Examination = {
   code: string;
   name: string;
@@ -28,4 +30,22 @@ export type ExaminationJSON = {
   name: string;
   credits: string;
   grading: string;
+};
+
+export type UserDataTableRow = {
+  user_id: string;
+  studyinfo: string; // JSON-sträng i databasen
+  studyyear: string;
+  university: string;
+  program: string;
+  previousfunds: boolean;
+};
+
+export type UserData = Omit<UserDataTableRow, "user_id" | "studyinfo"> & {
+  studyinfo: Map<string, Course>; // konverterad version i appen
+};
+
+export type WithAuthProps = {
+  user: User;
+  userData?: UserData;
 };
