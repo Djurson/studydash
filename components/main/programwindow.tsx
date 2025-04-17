@@ -2,7 +2,7 @@
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Program {
   name: string;
@@ -29,7 +29,8 @@ interface exjobbData {
 export default function ProgramWindow({ currentTerm }: any) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const [isOpenExam, setIsOpenExam] = useState(true);
 
   var coursesArray: any = [];
 
@@ -42,11 +43,15 @@ export default function ProgramWindow({ currentTerm }: any) {
   });
 
   return (
-    <div className="flex flex-col gap-4 mt-2 overflow-auto h-[24.25rem]">
+    <div className="flex flex-col gap-4 mt-2 overflow-scroll no-scrollbar h-[24.25rem]">
       <div className="flex flex-col gap-2">
         <h3 className="text-sm text-gray-600">Nuvarande</h3>
         <hr className="w-full bg-gray-600"></hr>
-        <div  className={`${isOpen ? "overflow-y-auto" : "overflow-hidden h-40"} flex flex-col gap-2 h-15`}>
+        <div
+          className={`${
+            isOpen ? "overflow-hidden" : "h-auto"
+          } flex flex-col gap-2 h-32`}
+        >
           {coursesArray.map((item: any, index: any) => (
             <a
               className="flex flex-col gap-2"
@@ -79,45 +84,62 @@ export default function ProgramWindow({ currentTerm }: any) {
             </a>
           ))}
         </div>
-        <button onClick={() => setIsOpen(!isOpen)} className="w-full ">
-          <ChevronDown size={20}></ChevronDown>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex justify-center border-2 border-gray-600 rounded-sm"
+        >
+          {!isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </button>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         <h3 className="text-gray-600 text-sm">Ej avklarade</h3>
         <hr className="w-full bg-gray-600"></hr>
-        {coursesArray.map((item: any, index: any) => (
-          <a
-            className="flex flex-col gap-2"
-            key={index}
-            href={`/program#${encodeURIComponent(item.semester.name)}`}
-            onClick={() => {
-              // Small delay to ensure the hash change is processed
-              setTimeout(() => {
-                const element = document.getElementById(
-                  encodeURIComponent(item.semester.name)
-                );
-                if (element) {
-                  element.scrollIntoView({
-                    behavior: "smooth",
-                    block: "end",
-                    inline: "nearest",
-                  });
-                }
-              }, 100);
-            }}
-          >
-            <h3 className="text-sm font-semibold">{item.courses.name}</h3>
-            <p className="text-xs text-gray-600">{item.courses.course_code}</p>
-            <div className="flex flex-row justify-between w-full">
-              {item.courses.examinations.map((exam: any) => (
-                <p className="text-xs text-gray-600">{exam.name}</p>
-              ))}
-              <p className="text-xs text-gray-600">{item.courses.credits}</p>
-            </div>
-            <hr className="w-full bg-gray-600"></hr>
-          </a>
-        ))}
+        <div
+          className={`${
+            isOpenExam ? "overflow-hidden" : "h-auto"
+          } flex flex-col gap-2 h-25`}
+        >
+          {coursesArray.map((item: any, index: any) => (
+            <a
+              className="flex flex-col gap-2"
+              key={index}
+              href={`/program#${encodeURIComponent(item.semester.name)}`}
+              onClick={() => {
+                // Small delay to ensure the hash change is processed
+                setTimeout(() => {
+                  const element = document.getElementById(
+                    encodeURIComponent(item.semester.name)
+                  );
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: "smooth",
+                      block: "end",
+                      inline: "nearest",
+                    });
+                  }
+                }, 100);
+              }}
+            >
+              <h3 className="text-sm font-semibold">{item.courses.name}</h3>
+              <p className="text-xs text-gray-600">
+                {item.courses.course_code}
+              </p>
+              <div className="flex flex-row justify-between w-full">
+                {item.courses.examinations.map((exam: any) => (
+                  <p className="text-xs text-gray-600">{exam.name}</p>
+                ))}
+                <p className="text-xs text-gray-600">{item.courses.credits}</p>
+              </div>
+              <hr className="w-full bg-gray-600"></hr>
+            </a>
+          ))}
+        </div>
+        <button
+          onClick={() => setIsOpenExam(!isOpenExam)}
+          className="w-full flex justify-center border-2 border-gray-600 rounded-sm"
+        >
+          {!isOpenExam ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        </button>
       </div>
     </div>
   );
