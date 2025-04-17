@@ -30,9 +30,6 @@ export const withAuth = cache(function withAuth<P extends WithAuthProps>(Wrapped
       };
     }
 
-    console.log(user);
-    console.log(mappedUserData);
-
     // 4) Rendera WrappedComponent med cachade data
     return <WrappedComponent {...(props as P)} user={user} userData={mappedUserData} />;
   };
