@@ -209,7 +209,7 @@ export function Credits() {
           </Select>
         </div>
 
-        <span className="text-4xl font-semibold flex items-end gap-2">
+        <span className="text-3xl font-semibold flex items-end gap-2">
           {calculateTotalCredits(filteredData)}
           <p className="text-sm text-muted-foreground font-normal text-end"> totalt</p>
         </span>

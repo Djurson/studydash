@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { StudyFunds } from "@/components/charts/studyfunds";
 import { MeritPoints } from "@/components/charts/meritpoints";
 import { Credits } from "@/components/charts/credits";
+import { StudyProgress } from "@/components/charts/studyprogress";
 
 export default function Page() {
   return (
@@ -34,7 +35,10 @@ export default function Page() {
           <Card variant="header" cardTitle="Mina kurser"></Card>
         </div>
         <div className="col-span-2 ">
-          <Card variant="header" cardTitle="Mina studieframsteg"></Card>
+          <Card variant="header" cardTitle="Mina studieframsteg">
+            {" "}
+            <StudyProgress />
+          </Card>
         </div>
       </main>
       <section className="mt-4">
