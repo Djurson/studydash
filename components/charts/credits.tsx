@@ -2,11 +2,8 @@
 
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Content } from "next/font/google";
 
 // funktion för att generera nuvarande studieåret
 function getCurrentStudyYear(startYear: number) {
@@ -187,7 +184,7 @@ export function Credits() {
         <div className="flex justify-between items-center">
           <p className="text-sm text-muted-foreground"> {formatedTimeRange(timeRange, startYear)}</p>
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
+            <SelectTrigger className="w-[10rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
