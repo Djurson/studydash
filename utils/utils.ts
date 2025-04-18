@@ -80,6 +80,24 @@ export function ValidateDate(date: string, programStartDate: string, todayFormat
   if (date < programStartDate && date.length >= 1) return "Datum kan inte vara före programmets startdatum";
   if (date > todayFormatted && date.length >= 1) return "Datum kan inte vara efter dagens datum";
 
+  const year = Number.parseInt(date.slice(0, 4)); // År om vi behöver göra någon extra koll?
+  const month = Number.parseInt(date.slice(4, 6));
+  const day = Number.parseInt(date.slice(6, 8));
+  if (month > 12) return "Ange en giltig månad";
+
+  // Dagar per månad, standard (Februari justeras sen)
+  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  // Skottårskoll
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  if (isLeapYear && month === 2) {
+    daysInMonth[1] = 29; // Februari får 29 dagar
+  }
+
+  if (day < 1 || day > daysInMonth[month - 1]) {
+    return `Måste vara en giltig dag för månad ${month}`;
+  }
+
   return null;
 }
 
@@ -98,3 +116,17 @@ export function CreateExamination(inputName: string, inputCode: string, inputHP:
 export function CreateCourse(inputName: string, inputCode: string, inputHP: number, inputDate?: string, inputGrade?: string | number, inputExaminations?: Map<string, Examination>): Course {
   return { code: inputCode, name: inputName, hp: inputHP, date: inputDate ?? "", grade: inputGrade ?? "", examinations: inputExaminations ?? new Map<string, Examination>() };
 }
+
+export const jsonToStudyResults = (json: string): Map<string, Course> => {
+  const parsed = JSON.parse(json);
+
+  return new Map(
+    Object.entries(parsed).map(([key, courseObj]: [string, any]) => [
+      key,
+      {
+        ...courseObj,
+        examinations: new Map(Object.entries(courseObj.examinations)),
+      },
+    ])
+  );
+};

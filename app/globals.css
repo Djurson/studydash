@@ -39,6 +39,7 @@
   --animate-typing: typing 3s steps(20) infinite alternate, blink 0.7s infinite;
 
   @keyframes colorChange {
+
     0%,
     100% {
       color: var(--color-gray-900);
@@ -50,6 +51,7 @@
   }
 
   @keyframes caret-blink {
+
     0%,
     70%,
     100% {
@@ -63,6 +65,7 @@
   }
 
   @keyframes shake {
+
     0%,
     100% {
       transform: translateX(0) translateY(0);
@@ -82,6 +85,7 @@
       width: 0%;
       visibility: hidden;
     }
+
     50% {
       width: 100%;
     }
@@ -91,6 +95,7 @@
     50% {
       border-color: var(--transparent);
     }
+
     100% {
       border-color: var(--color-gray-600);
     }
@@ -169,7 +174,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: var(--color-gray-200);
-  --input: oklch(0.922 0 0);
+  --input: color-mix(in oklab, var(--foreground) 20%, transparent);
   --ring: var(--color-blue-900);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -208,7 +213,7 @@
   --destructive: var(--color-red-900);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: var(--color-gray-800);
-  --input: oklch(0.269 0 0);
+  --input: color-mix(in oklab, var(--foreground) 20%, transparent);
   --ring: #0071e3;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);

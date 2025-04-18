@@ -1,9 +1,7 @@
 import Card from "@/components/card/card";
-import ExamCard from "@/components/card/exam-card";
 import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
-import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
-import React, { useState } from "react";
+import { PillbuttonContainer } from "@/components/main/pillbutton";
 
 export default function Page() {
   return (
