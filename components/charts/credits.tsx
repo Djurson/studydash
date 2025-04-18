@@ -254,6 +254,7 @@ export function Credits() {
                 />
               }
             />
+
             <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={1.5} />
           </AreaChart>
         </ChartContainer>
