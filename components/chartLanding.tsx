@@ -1,152 +1,208 @@
 "use client"
 
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "./ui/card"
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, } from "./ui/chart"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./ui/select"
 import { useState } from "react"
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts"
 
-const chartData = [
-    { date: "2022-08-01", hp: 0, },
-    { date: "2022-10-17", hp: 3, },
-    { date: "2022-10-25", hp: 6, },
-    { date: "2022-10-26", hp: 2, },
-    { date: "2022-10-30", hp: 3, },
-    { date: "2022-12-17", hp: 4, },
-    { date: "2022-12-22", hp: 3, },
-    { date: "2023-01-10", hp: 6, },
-    { date: "2023-02-10", hp: 1, },
-    { date: "2023-03-19", hp: 1, },
-    { date: "2023-03-22", hp: 3, },
-    { date: "2023-04-12", hp: 3, },
-    { date: "2023-05-07", hp: 1, },
-    { date: "2023-05-26", hp: 2, },
-    { date: "2023-06-06", hp: 3, },
-    { date: "2023-09-01", hp: 1, },
-    { date: "2023-09-01", hp: 1, },
-    { date: "2023-10-16", hp: 1, },
-    { date: "2023-10-28", hp: 6, },
-    { date: "2023-10-30", hp: 2, },
-    { date: "2023-11-24", hp: 1, },
-    { date: "2023-12-18", hp: 1, },
-    { date: "2023-12-20", hp: 7, },
-    { date: "2024-01-03", hp: 4, },
-    { date: "2024-01-08", hp: 6, },
-    { date: "2024-01-10", hp: 3, },
-    { date: "2024-02-29", hp: 1, },
-    { date: "2024-03-05", hp: 1.5, },
-    { date: "2024-03-06", hp: 1, },
-    { date: "2024-03-07", hp: 1.5, },
-    { date: "2024-03-18", hp: 6, },
-    { date: "2024-03-22", hp: 4, },
-    { date: "2024-03-23", hp: 4.5, },
-    { date: "2024-05-30", hp: 6, },
-    { date: "2024-05-31", hp: 6, },
-    { date: "2024-06-18", hp: 2, },
-    { date: "2024-07-08", hp: 3, },
-    { date: "2024-10-21", hp: 1.5, },
-    { date: "2024-10-24", hp: 3, },
-    { date: "2024-10-25", hp: 4.5, },
-    { date: "2024-10-29", hp: 3, },
-    { date: "2024-12-17", hp: 0.5, },
-    { date: "2024-12-19", hp: 1.5, },
-    { date: "2024-12-21", hp: 1.5, },
-    { date: "2025-01-17", hp: 4, },
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "./ui/select"
+
+const allChartData = [
+    { date: "2022-08-15", hp: 10, year: 1, status: "completed" },
+    { date: "2022-09-01", hp: 3, year: 1, status: "pending" },
+    { date: "2022-10-20", hp: 7.5, year: 1, status: "completed" },
+    { date: "2022-11-01", hp: 5, year: 1, status: "pending" },
+    { date: "2022-11-25", hp: 4, year: 1, status: "pending" },
+    { date: "2022-12-15", hp: 1, year: 1, status: "completed" },
+    { date: "2023-01-30", hp: 12, year: 1, status: "completed" },
+  
+    { date: "2023-08-28", hp: 2, year: 2, status: "pending" },
+    { date: "2023-09-15", hp: 3, year: 2, status: "completed" },
+    { date: "2023-10-20", hp: 10, year: 2, status: "completed" },
+    { date: "2023-11-15", hp: 8, year: 2, status: "pending" },
+    { date: "2023-12-20", hp: 14, year: 2, status: "completed" },
+  
+    { date: "2024-08-26", hp: 1.5, year: 3, status: "pending" },
+    { date: "2024-09-20", hp: 5, year: 3, status: "completed" },
+    { date: "2024-10-25", hp: 4, year: 3, status: "pending" },
+    { date: "2024-11-30", hp: 13, year: 3, status: "completed" },
+    { date: "2024-12-20", hp: 15, year: 3, status: "completed" }
 ]
 
-const chartConfig = {
-    hp: {
-        label: "Högskolepoäng",
-        color: "hsl(var(--color-blue-900))",
+interface ChartLandingProps {
+  showYearSelector?: boolean
+  showStats?: boolean
+  showDateRange?: boolean
+  customHeader?: React.ReactNode
+  customStats?: {
+    total: string | number
+    completed: string | number
+    pending: string | number
+  }
+  height?: number
+  width?: string | number
+  defaultYear?: number | 'all' 
+
+}
+
+export function ChartLanding({
+  showYearSelector = true,
+  showStats = true,
+  showDateRange = true,
+  customHeader,
+  customStats,
+  height = 250,
+  width = "100%",
+  defaultYear = 'all'
+}: ChartLandingProps) {
+    const [selectedYear, setSelectedYear] = useState<number | 'all'>(defaultYear)
+    const filteredData = selectedYear === 'all' 
+      ? allChartData 
+      : allChartData.filter(item => item.year === selectedYear)
+
+  const getDateRange = () => {
+    const dates = filteredData.map(item => new Date(item.date))
+    const startDate = dates[0]
+    const endDate = dates[dates.length - 1]
+    
+    return {
+      start: startDate.toLocaleDateString("sv-SE", { year: 'numeric', month: 'short' }),
+      end: endDate.toLocaleDateString("sv-SE", { year: 'numeric', month: 'short' })
     }
-} satisfies ChartConfig
+  }
 
-export default function ChartLanding() {
+  const dateRange = getDateRange()
+  const stats = customStats || {
+    total: "32",
+    completed: "26",
+    pending: "6"
+  }
 
+/* kalla på den för att få hela grafen       
+ <div className="mt-4 w-full">
+  <Card cardTitle="">
+    <div style={{ width: "100%", height: 300 }}>
+      <ChartLanding height={300} width="100%" showStats={false} />
+    </div>
+  </Card>
+</div>  
+*/
 
-    return (
-        <Card className="w-full h-full">
-            <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-                <div className="grid flex-1 gap-1 text-center sm:text-left">
-                    <CardTitle>Högskolepoäng</CardTitle>
-                    <CardDescription>
-                        Augusti 2022 - 2025
-                    </CardDescription>
-                </div>
-                {/* <Select disabled>
-                    <SelectTrigger
-                        className="w-[160px] rounded-lg sm:ml-auto"
-                        aria-label="Select a value"
-                    >
-                        <SelectValue placeholder="Alla år" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl">
-                        <SelectItem value="90d" className="rounded-lg">
-                            Alla
-                        </SelectItem>
-                    </SelectContent>
-                </Select> */}
-            </CardHeader>
-            <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-                <ChartContainer
-                    config={chartConfig}
-                    className="aspect-auto h-[250px] w-full"
-                >
-                    <AreaChart data={chartData}>
-                        <defs>
-                            <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                                <stop
-                                    offset="5%"
-                                    stopColor="var(--color-blue-900)"
-                                    stopOpacity={0.8}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="var(--color-blue-900)"
-                                    stopOpacity={0.1}
-                                />
-                            </linearGradient>
-                        </defs>
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                            dataKey="date"
-                            tickLine={true}
-                            axisLine={true}
-                            tickMargin={8}
-                            minTickGap={32}
-                            tickFormatter={(value) => {
-                                const date = new Date(value)
-                                return date.toLocaleDateString("sv-SE", {
-                                    month: "short",
-                                    day: "numeric",
-                                })
-                            }}
-                        />
-                        <ChartTooltip
-                            cursor={true}
-                            content={
-                                <ChartTooltipContent
-                                    labelFormatter={(value) => {
-                                        return new Date(value).toLocaleDateString("sv-SE", {
-                                            month: "short",
-                                            day: "numeric",
-                                        })
-                                    }}
-                                    indicator="dot"
-                                />
-                            }
-                        />
-                        <Area
-                            dataKey="hp"
-                            fill="url(#fillMobile)"
-                            type="natural"
-                            stroke="var(--color-blue-300)"
-                            stackId="a"
-                        />
-                        <ChartLegend content={<ChartLegendContent />} />
-                    </AreaChart>
-                </ChartContainer>
-            </CardContent>
-        </Card>
-    )
+  return (
+    <div className="p-4" style={{ width, height }}>
+      {customHeader ? (
+        customHeader
+      ) : (
+        <div className="flex justify-between mb-2">
+          {showDateRange && (
+            <div>
+              <p className="text-sm text-muted-foreground">
+                {dateRange.start} - {dateRange.end}
+              </p>
+            </div>
+          )}
+          {showYearSelector && (
+            <Select
+              value={selectedYear.toString()}
+              onValueChange={(value) => setSelectedYear(value === 'all' ? 'all' : parseInt(value))}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Alla år</SelectItem>
+                {[1, 2, 3].map(year => (
+                  <SelectItem key={year} value={year.toString()}>
+                    Årskurs {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </div>
+      )}
+
+      {showStats && (
+        <div className="grid grid-cols-3 gap-4 mb-4">
+          <div>
+            <p className="text-2xl font-bold">{stats.total} hp</p>
+            <p className="text-sm text-muted-foreground">Totalt</p> 
+          </div>
+          <div>
+            <p className="text-2xl font-bold">{stats.completed} hp</p> 
+            <p className="text-sm text-muted-foreground">Avklarade</p>   
+          </div>
+          <div>
+            <p className="text-2xl font-bold">{stats.pending} hp</p>
+            <p className="text-sm text-muted-foreground">Släpande</p>         
+          </div>
+        </div>
+      )}
+
+      {/* Chart */}
+      <div className="w-full h-[250px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart
+            data={filteredData}
+            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="40%" stopColor="#3b82f6" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1} />
+              </linearGradient>
+            </defs>
+          
+            <XAxis
+              dataKey="date"
+              tickFormatter={(date) =>
+                new Date(date).toLocaleDateString("sv-SE", {
+                  month: "short",
+                  day: "numeric"
+                })
+              }
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis 
+              width={30} 
+              tickMargin={5}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip 
+              formatter={(value: any) => [`${value} hp`, "Poäng"]}
+              labelFormatter={(date) => 
+                new Date(date).toLocaleDateString("sv-SE", {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })
+              }
+            />
+            <Area
+              type="monotone"
+              dataKey="hp"
+              stroke="#0071e3"
+              strokeWidth={3}
+              fill="url(#areaGradient)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  )
 }

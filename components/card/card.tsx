@@ -32,8 +32,8 @@ type CardProps = {
 export default function Card({ variant = "default", children, cardTitle }: CardProps) {
   return (
     <>
-      <main className="p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
-        <header className="flex items-center">
+      <main className="p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300 hover:scale-102 hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)]">
+        <header className="flex items-center cursor-pointer hover:underline">
           <p className="text-lg">{cardTitle}</p>
           {variant === "header" ? <ChevronRight size={24} /> : ""}
         </header>
