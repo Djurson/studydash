@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider value={{ session, user, userData, signOut, popup }}>
       <AlertPopupWindow
-        //open={popup}
+        open={popup}
         title="Saknad studieinfo"
         description="Det verkar som att vi saknar din studieinformation. Vänligen fyll i din studieinformation för att kunna använda tjänsten"
         actiontext="Fyll i studieinfo"
