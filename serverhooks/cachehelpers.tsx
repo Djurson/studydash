@@ -57,7 +57,7 @@ export const getUserCache = async (supabase: SupabaseClient): Promise<User | nul
   return data.user;
 };
 
-// 2. Hämta användardata med cache (10 min TTL)
+// 2. Hämta användardata med cache (30 min TTL)
 export const getUserRowCache = async (userId: string, supabase: SupabaseClient) => {
   // Kolla om vi har en giltig cache entry för denna user_id
   const cachedUserRow = cacheStore.userRows[userId];
