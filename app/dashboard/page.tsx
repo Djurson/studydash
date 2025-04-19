@@ -29,7 +29,7 @@ function Page({ user, userData }: WithAuthProps) {
           <StudyFunds />
         </Card>
         <Card variant="header" cardTitle="Medelmerit">
-          <MeritPoints />
+          <MeritPoints userData={userData} />
         </Card>
 
         <div className="row-span-2 ">
