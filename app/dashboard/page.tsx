@@ -4,8 +4,14 @@ import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
 import {PillbuttonContainer } from "@/components/main/pillbutton";
 import React, { useState } from "react";
-import {ChartLanding} from "@/components/chartLanding";
-import { StudyProgress } from "@/components/studieframsteg";
+
+
+
+
+import { StudyFunds } from "@/components/charts/studyfunds";
+import { MeritPoints } from "@/components/charts/meritpoints";
+import { Credits } from "@/components/charts/credits";
+import { StudyProgress } from "@/components/charts/studyprogress";
 
 
 export default function Page() {
@@ -22,20 +28,25 @@ export default function Page() {
       
         <div className="row-span-2 col-span-2">
           <Card variant="header" cardTitle="Intjänade högskolepoäng">
-            <ChartLanding defaultYear={3}/>
-          </Card> 
+
+            <Credits />
+          </Card>
         </div>
-        <div>
         <Card variant="header" cardTitle="Studiemedelskrav">
-      
-        </Card></div>
-        <Card variant="header" cardTitle="Medelmerit"></Card>
+          <StudyFunds />
+        </Card>
+        <Card variant="header" cardTitle="Medelmerit">
+          <MeritPoints />
+        </Card>
+
         <div className="row-span-2 ">
           <Card variant="header" cardTitle="Mina kurser"></Card>
         </div>
         <div className="col-span-2 ">
           <Card variant="header" cardTitle="Mina studieframsteg">
-            <StudyProgress/>
+
+            <StudyProgress />
+
           </Card>
         </div>
       </main>
