@@ -10,7 +10,6 @@ import { GetStaticProps } from "next";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
-import { ChartLanding } from "@/components/chartLanding";
 
 interface Program {
   name: string;
@@ -24,9 +23,9 @@ interface Semester {
   courses: Course[];
 }
 
-interface Course { }
+interface Course {}
 
-interface Examination { }
+interface Examination {}
 
 interface ProgramData {
   programs: Program[];
@@ -52,18 +51,14 @@ export default function Page() {
               <img src={LiuImg.src} alt="" className="h-[4.25rem] dark:grayscale-100 dark:invert" />
               <div className="ml-4">
                 <p className="text-sm font-semibold text-gray-600">300hp</p>
-                <h2 className="text-2xl font-semibold">
-                  Civilingenjörsprogram i medieteknik.
-                </h2>
+                <h2 className="text-2xl font-semibold">Civilingenjörsprogram i medieteknik.</h2>
               </div>
             </div>
             <div className="bg-blue-200 h-4 w-full mt-4"></div>
             <p>progress bar</p>
           </Card>
         </div>
-        <a
-          href="/results"
-          className="bg-accent rounded-2xl border-1 border-blue-900 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full p-4 col-span-1 flex flex-col items-center">
+        <a href="/results" className="bg-accent rounded-2xl border-1 border-blue-900 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full p-4 col-span-1 flex flex-col items-center">
           <div className="bg-blue-100 h-[4rem] flex items-center justify-center aspect-square rounded-2xl">
             <PencilLine color="#0071E3" size={34} />
           </div>
@@ -105,13 +100,9 @@ export default function Page() {
 
       <section>
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
-        <div className="mt-4 w-full">
-  <Card cardTitle="">
-    <div style={{ width: "100%", height: 300 }}>
-      <ChartLanding height={300} width="100%" showStats={false} />
-    </div>
-  </Card>
-</div>
+        <div className="mt-4 w-full h-50">
+          <Card cardTitle=""></Card>
+        </div>
       </section>
       <section>
         <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
