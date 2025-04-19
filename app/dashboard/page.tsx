@@ -22,7 +22,7 @@ function Page({ user, userData }: WithAuthProps) {
       <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-4 ">
         <div className="row-span-2 col-span-2">
           <Card variant="header" cardTitle="Intjänade högskolepoäng">
-            <Credits user={user} userData={userData} />
+            <Credits userData={userData} />
           </Card>
         </div>
         <Card variant="header" cardTitle="Studiemedelskrav">

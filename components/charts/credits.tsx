@@ -4,7 +4,7 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { UserData, WithAuthProps } from "@/utils/types";
+import { WithAuthProps } from "@/utils/types";
 
 // funktion för att generera nuvarande studieåret
 function getCurrentStudyYear(startYear: number) {
@@ -146,7 +146,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function Credits({ user, userData }: WithAuthProps) {
+export function Credits({ userData }: Partial<WithAuthProps>) {
   // läsa in startdatum från databasen (exempelvis 2022) och ta året och lägga till 08-01
   const startYear = 2022; // hårdkodat för tillfället
   const studyYears = getAllStudyYears(startYear);
