@@ -31,6 +31,9 @@ export function MeritPoints({ userData }: Partial<WithAuthProps>) {
     },
   ];
 
+  //console.log(userData?.sortedDateMap);
+  //console.log(userData?.studyyear);
+
   const merit = ((chartData[0].treor * 3 + chartData[0].fyror * 4 + chartData[0].femmor * 5) / (chartData[0].treor + chartData[0].fyror + chartData[0].femmor)).toFixed(2);
   return (
     <main className="flex flex-col aspect-square w-full h-full pt-4">

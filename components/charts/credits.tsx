@@ -148,7 +148,8 @@ const chartConfig = {
 
 export function Credits({ userData }: Partial<WithAuthProps>) {
   // läsa in startdatum från databasen (exempelvis 2022) och ta året och lägga till 08-01
-  const startYear = 2022; // hårdkodat för tillfället
+  console.log(userData?.studyyear);
+  const startYear = Number(userData?.studyyear);
   const studyYears = getAllStudyYears(startYear);
   const currentStudyYear = getCurrentStudyYear(startYear);
 
