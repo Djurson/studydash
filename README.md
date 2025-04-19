@@ -39,9 +39,10 @@ Här hittar du länkar till dokumentation för de bibliotek och plugins vi anvä
 
 - [Lucide Ikoner](https://lucide.dev/)
 
-### Shadcn/ui
+### Shadcn/aceternity (UI)
 
-- [Komponenter](https://ui.shadcn.com/docs/components/accordion)
+- [Komponenter (Shadcn)](https://ui.shadcn.com/docs/components/accordion)
+- [Komponenter (ui.aceternity)](https://ui.aceternity.com/)
 - [Grafer](https://ui.shadcn.com/charts)
 
 ---

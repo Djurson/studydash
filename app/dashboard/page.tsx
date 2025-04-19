@@ -8,8 +8,11 @@ import { Credits } from "@/components/charts/credits";
 import { StudyProgress } from "@/components/charts/studyprogress";
 import { withAuth } from "@/serverhooks/withAuth";
 import { WithAuthProps } from "@/utils/types";
+import { Suspense } from "react";
+import CardLoading from "@/components/card/card-loading";
+import CreditsLoading from "@/components/charts/credits-loading";
 
-function Page({ user, userData }: WithAuthProps) {
+async function Page({ user, userData }: WithAuthProps) {
   return (
     <>
       <header className="flex items-center">
@@ -21,24 +24,36 @@ function Page({ user, userData }: WithAuthProps) {
       </header>
       <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-4 ">
         <div className="row-span-2 col-span-2">
-          <Card variant="header" cardTitle="Intjänade högskolepoäng">
-            <Credits userData={userData} />
-          </Card>
+          <Suspense fallback={<CardLoading />}>
+            <Card variant="header" cardTitle="Intjänade högskolepoäng">
+              <Suspense fallback={<CreditsLoading />}>
+                <Credits userData={userData} />
+              </Suspense>
+            </Card>
+          </Suspense>
         </div>
-        <Card variant="header" cardTitle="Studiemedelskrav">
-          <StudyFunds />
-        </Card>
-        <Card variant="header" cardTitle="Medelmerit">
-          <MeritPoints userData={userData} />
-        </Card>
+        <Suspense fallback={<CardLoading />}>
+          <Card variant="header" cardTitle="Studiemedelskrav">
+            <StudyFunds />
+          </Card>
+        </Suspense>
+        <Suspense fallback={<CardLoading />}>
+          <Card variant="header" cardTitle="Medelmerit">
+            <MeritPoints userData={userData} />
+          </Card>
+        </Suspense>
 
         <div className="row-span-2 ">
-          <Card variant="header" cardTitle="Mina kurser"></Card>
+          <Suspense fallback={<CardLoading />}>
+            <Card variant="header" cardTitle="Mina kurser"></Card>
+          </Suspense>
         </div>
         <div className="col-span-2 ">
-          <Card variant="header" cardTitle="Mina studieframsteg">
-            <StudyProgress />
-          </Card>
+          <Suspense fallback={<CardLoading />}>
+            <Card variant="header" cardTitle="Mina studieframsteg">
+              <StudyProgress />
+            </Card>
+          </Suspense>
         </div>
       </main>
       <section className="mt-4">
