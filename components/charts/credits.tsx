@@ -4,7 +4,8 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
-import { WithAuthProps } from "@/utils/types";
+import { Examination, WithAuthProps } from "@/utils/types";
+import { MapToChartsArray } from "@/utils/converters";
 
 // funktion för att generera nuvarande studieåret
 function getCurrentStudyYear(startYear: number) {
@@ -148,11 +149,15 @@ const chartConfig = {
 
 export function Credits({ userData }: Partial<WithAuthProps>) {
   // läsa in startdatum från databasen (exempelvis 2022) och ta året och lägga till 08-01
-  const startYear = 2022; // hårdkodat för tillfället
+  const startYear = Number.parseInt(userData?.studyyear ?? "2022"); // hårdkodat för tillfället
   const studyYears = getAllStudyYears(startYear);
   const currentStudyYear = getCurrentStudyYear(startYear);
 
   const [timeRange, setTimeRange] = useState<string>(currentStudyYear.current);
+
+  // Använda detta istället för hårdkodad data, behöver bara att den ändrar startDate och endDate beroende på vad användaren väljer
+  const [timePeriod, setTimePeriod] = useState({ startDate: "0", endDate: "0" });
+  const cartData = MapToChartsArray(userData?.sortedDateMap ?? new Map<number, Examination[]>(), Number.parseInt(timePeriod.startDate), Number.parseInt(timePeriod.endDate));
 
   const filteredData = submoduleCreditsData.filter((item) => {
     const date = new Date(item.date);

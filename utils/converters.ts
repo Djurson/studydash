@@ -1,4 +1,4 @@
-import { Course, Examination } from "./types";
+import { Course, CreditsChartObject, Examination } from "./types";
 
 export const jsonToStudyResults = (json: string): Map<string, Course> => {
   const parsed = JSON.parse(json);
@@ -47,3 +47,23 @@ export const sortMapAndExtractMerit = (map: Map<string, Course>): { sortedDateMa
 
   return { sortedDateMap, meritGradeMap };
 };
+
+export function MapToChartsArray(sortedMap: Map<number, Examination[]>): CreditsChartObject[];
+export function MapToChartsArray(sortedMap: Map<number, Examination[]>, startDate: number, endDate: number): CreditsChartObject[];
+
+export function MapToChartsArray(sortedMap: Map<number, Examination[]>, startDate?: number, endDate?: number) {
+  let examsInRange: CreditsChartObject[] = [];
+
+  for (const [examperiod, exams] of sortedMap.entries()) {
+    if (startDate && endDate && (examperiod < startDate || examperiod > endDate)) {
+      continue;
+    }
+
+    for (let i = 0; i < exams.length; i++) {
+      const exam: CreditsChartObject = { date: exams[i].date, name: exams[i].name, credits: exams[i].hp };
+      examsInRange.push(exam);
+    }
+  }
+
+  return examsInRange;
+}

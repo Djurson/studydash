@@ -51,3 +51,9 @@ export type WithAuthProps = {
   user: User;
   userData?: UserData;
 };
+
+export type CreditsChartObject = {
+  date: string;
+  name: string;
+  credits: number;
+};
