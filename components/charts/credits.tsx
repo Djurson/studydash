@@ -1,9 +1,10 @@
 "use client";
 
-import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { UserData, WithAuthProps } from "@/utils/types";
 
 // funktion för att generera nuvarande studieåret
 function getCurrentStudyYear(startYear: number) {
@@ -145,13 +146,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function Credits() {
+export function Credits({ user, userData }: WithAuthProps) {
   // läsa in startdatum från databasen (exempelvis 2022) och ta året och lägga till 08-01
   const startYear = 2022; // hårdkodat för tillfället
   const studyYears = getAllStudyYears(startYear);
   const currentStudyYear = getCurrentStudyYear(startYear);
 
-  const [timeRange, setTimeRange] = React.useState<string>(currentStudyYear.current);
+  const [timeRange, setTimeRange] = useState<string>(currentStudyYear.current);
 
   const filteredData = submoduleCreditsData.filter((item) => {
     const date = new Date(item.date);

@@ -43,6 +43,8 @@ export type UserDataTableRow = {
 
 export type UserData = Omit<UserDataTableRow, "user_id" | "studyinfo"> & {
   studyinfo: Map<string, Course>; // konverterad version i appen
+  sortedDateMap?: Map<number, Examination[]>;
+  meritGradeMap?: Map<number, Course[]>;
 };
 
 export type WithAuthProps = {
