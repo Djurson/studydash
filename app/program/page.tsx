@@ -10,6 +10,7 @@ import { GetStaticProps } from "next";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
+import { ChartLanding } from "@/components/chartLanding";
 
 interface Program {
   name: string;
@@ -104,9 +105,13 @@ export default function Page() {
 
       <section>
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
-        <div className="mt-4 w-full h-50">
-          <Card cardTitle=""></Card>
-        </div>
+        <div className="mt-4 w-full">
+  <Card cardTitle="">
+    <div style={{ width: "100%", height: 300 }}>
+      <ChartLanding height={300} width="100%" showStats={false} />
+    </div>
+  </Card>
+</div>
       </section>
       <section>
         <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
