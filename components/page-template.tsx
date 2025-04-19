@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { TopNavBar } from "./navigation/topnavbar";
 import { ClientSidebar } from "./navigation/clientsidebar";
+import { WithAuthProps } from "@/utils/types";
+import { withAuth } from "@/serverhooks/withAuth";
 
 type PageProps = {
   children: ReactNode;
@@ -20,18 +22,20 @@ type PageProps = {
  * @returns Returns the page layout with sidenavigation and top navigation
  *
  */
-export function PageTemplate({ children, defaultPage }: PageProps) {
+function PageTemplate({ ...props }: PageProps & WithAuthProps) {
   return (
     <div className="max-w-screen min-h-screen bg-green-400 flex">
-      <TopNavBar defaultPage={defaultPage} />
-      {defaultPage && <ClientSidebar />}
+      <TopNavBar defaultPage={props.defaultPage} />
+      {props.defaultPage && <ClientSidebar user={props.user} />}
       <div className="flex justify-center bg-background w-full">
         <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82.2vw]">
           <div className="w-full h-fit gap-4">
-            <section>{children}</section>
+            <section>{props.children}</section>
           </div>
         </main>
       </div>
     </div>
   );
 }
+
+export default withAuth(PageTemplate);

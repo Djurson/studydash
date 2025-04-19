@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Metadata } from "next";
 import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             <div className="w-full max-w-5xl flex justify-end items-center p-3 px-5 text-sm">{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</div>
           </nav> */}
           <div className="flex flex-col w-full">{children}</div>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
