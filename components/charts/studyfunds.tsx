@@ -43,8 +43,8 @@ export function StudyFunds() {
   return (
     <main className="flex items-center justify-center aspect-square w-full h-full" ref={mainRef}>
       <ChartContainer config={chartConfig} className=" w-full h-full transform -translate-y-2.5">
-        <RadialBarChart data={chartData} startAngle={0} endAngle={endingAngle} innerRadius="77%" outerRadius="125.5%">
-          <PolarGrid gridType="circle" radialLines={false} stroke="none" className="first:fill-background last:fill-card" polarRadius={[containerSize * 0.41, containerSize * 0.32]} />
+        <RadialBarChart data={chartData} startAngle={0} endAngle={endingAngle} innerRadius="76%" outerRadius="126%">
+          <PolarGrid gridType="circle" radialLines={false} stroke="none" className="first:fill-background last:fill-card" polarRadius={[containerSize * 0.4, containerSize * 0.31]} />
           <RadialBar dataKey="credits" cornerRadius={10} />
           <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
             <Label

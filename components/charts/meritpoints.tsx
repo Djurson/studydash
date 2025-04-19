@@ -37,7 +37,7 @@ export function MeritPoints() {
 
   return (
     <main className="flex flex-col aspect-square w-full h-full pt-4">
-      <ChartContainer config={chartConfig} className="mx-auto aspect-square w-full max-w-[250px] flex items-center z-[10]">
+      <ChartContainer config={chartConfig} className="mx-auto aspect-square w-full max-w-[200px] flex items-center z-[10]">
         <RadialBarChart data={chartData} endAngle={180} innerRadius="88%" outerRadius="140%" startAngle={0} cx="50%" cy="50%">
           <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
           <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>

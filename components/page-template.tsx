@@ -27,8 +27,8 @@ function PageTemplate({ ...props }: PageProps & WithAuthProps) {
     <div className="max-w-screen min-h-screen bg-green-400 flex">
       <TopNavBar defaultPage={props.defaultPage} />
       {props.defaultPage && <ClientSidebar user={props.user} />}
-      <div className="flex justify-center bg-background w-full">
-        <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[82.2vw]">
+      <div className="flex justify-center bg-background w-full overflow-auto">
+        <main className="flex p-4 w-full justify-center mt-[3.688rem] max-w-[1200px]">
           <div className="w-full h-fit gap-4">
             <section>{props.children}</section>
           </div>
