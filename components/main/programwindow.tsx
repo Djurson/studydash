@@ -3,6 +3,7 @@ import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import CardCarousel from "../card/card-carousel";
 
 interface Program {
   name: string;
@@ -124,12 +125,7 @@ export default function ProgramWindow({ currentTerm }: any) {
               <p className="text-xs text-gray-600">
                 {item.courses.course_code}
               </p>
-              <div className="flex flex-row justify-between w-full">
-                {item.courses.examinations.map((exam: any) => (
-                  <p className="text-xs text-gray-600">{exam.name}</p>
-                ))}
-                <p className="text-xs text-gray-600">{item.courses.credits}</p>
-              </div>
+              <CardCarousel variant="programWindow"/>
               <hr className="w-full bg-gray-600"></hr>
             </a>
           ))}

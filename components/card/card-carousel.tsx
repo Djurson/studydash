@@ -3,6 +3,10 @@
 import { useRef, useState, useEffect } from "react";
 
 // Define the type for a single slide
+type CardProps = {
+  variant?: "default" | "programWindow";
+};
+
 interface Slide {
   position: string;
   courseName: string;
@@ -82,7 +86,7 @@ const slides: Slide[] = [
  * @returns A horizontally scrollable carousel of course slides.
  */
 
-export default function CardCarousel() {
+export default function CardCarousel({variant = "default"}: CardProps) {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const carouselRef = useRef<HTMLUListElement | null>(null);
 
@@ -98,19 +102,19 @@ export default function CardCarousel() {
               ${index === slides.length - 1 ? "snap-end" : ""}`}
             key={slide.position}>
             <header className="flex items-center">
-              <p className="text-sm font-semibold">{slide.courseName}</p>
+              <p className="text-sm font-semibold">{variant === "programWindow" ? "": slide.courseName}</p>
             </header>
             <section className="mt-4 flex flex-col gap-2 text-xs text-gray-600 font-normal">
               <div className="flex justify-between">
-                <p>{slide.courseCode}</p>
-                <p>{slide.date}</p>
+                <p>{variant === "programWindow" ? "" : slide.courseCode}</p>
+                <p>{variant === "programWindow" ? "" : slide.date}</p>
               </div>
               <div className="flex justify-between">
                 <p>{slide.type}</p>
                 <p>{slide.points} hp</p>
               </div>
             </section>
-            <footer>footer</footer>
+            <footer>{variant==="programWindow"? "" : "footer"}</footer>
           </li>
         ))}
       </ul>
