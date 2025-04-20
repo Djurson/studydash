@@ -34,7 +34,7 @@ async function Page({ user, userData }: WithAuthProps) {
         </div>
         <Suspense fallback={<CardLoading />}>
           <Card variant="header" cardTitle="Studiemedelskrav">
-            <StudyFunds />
+            <StudyFunds userData={userData} />
           </Card>
         </Suspense>
         <Suspense fallback={<CardLoading />}>

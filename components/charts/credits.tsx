@@ -52,19 +52,27 @@ function getAllStudyYears(startYear: number) {
 function formatedTimeRange(range: string, startYear: number): string {
   const now = new Date();
 
+  console.log(now);
   if (range === "90d") {
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - 90);
-    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    //return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - nu`;
   } else if (range === "180d") {
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - 180);
-    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    //return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - nu`;
   } else if (range === "Alla") {
     return ` augusti ${startYear} - nu`;
   } else {
     const [startYear, endYear] = range.split(" - ").map(Number);
-    return ` augusti ${startYear} - juli ${endYear}`;
+    const currentEndDate = new Date(endYear, 6, 31);
+    if (currentEndDate > now) {
+      return ` augusti ${startYear} - nu`;
+    } else {
+      return ` augusti ${startYear} - juli ${endYear}`;
+    }
   }
 }
 
@@ -85,8 +93,6 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
   // Använda detta istället för hårdkodad data, behöver bara att den ändrar startDate och endDate beroende på vad användaren väljer
   //const [timePeriod, setTimePeriod] = useState({ startDate: "0", endDate: "0" });
   //const cartData = MapToChartsArray(userData?.sortedDateMap ?? new Map<number, Examination[]>(), Number.parseInt(timePeriod.startDate), Number.parseInt(timePeriod.endDate));
-
-  console.log(userData?.sortedDateMap);
 
   const allChartData = useMemo(() => {
     const data: ChartData[] = [];
@@ -199,7 +205,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
               }}
             />
 
-            <YAxis width={40} tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
+            <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
             <ChartTooltip
               cursor={false}
               content={
