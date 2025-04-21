@@ -1,6 +1,6 @@
 import { SupabaseClient, User } from "@supabase/supabase-js";
 
-// Cache-implementation med TTL (10 minuter)
+// Cache-implementation med TTL (30 minuter)
 type CacheEntry<T> = {
   value: T;
   timestamp: number;
