@@ -49,8 +49,6 @@ export function withAuth<P extends WithAuthProps>(WrappedComponent: React.Compon
       };
     }
 
-    console.log(mappedUserData)
-
     // 4) Rendera WrappedComponent med cachade data
     return <WrappedComponent {...(props as P)} user={user} userData={mappedUserData} />;
   };
