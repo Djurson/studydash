@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-
+import { CircleAlert } from "lucide-react"
 // Define the type for a single slide
 type CardProps = {
   variant?: "default" | "programWindow";
@@ -97,7 +97,7 @@ export default function CardCarousel({variant = "default"}: CardProps) {
         ref={carouselRef}>
         {slides.map((slide, index) => (
           <li
-            className={`w-[13.625rem] h-full my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal 
+            className={`${variant === "programWindow" ? "h-20 my-2 p-2 w-[11rem]": "h-full my-4 p-4 w-[13.625rem]" }  mr-4 last:mr-0 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal´} 
               ${index === 0 ? "snap-start" : ""} 
               ${index === slides.length - 1 ? "snap-end" : ""}`}
             key={slide.position}>
@@ -110,7 +110,10 @@ export default function CardCarousel({variant = "default"}: CardProps) {
                 <p>{variant === "programWindow" ? "" : slide.date}</p>
               </div>
               <div className="flex justify-between">
-                <p>{slide.type}</p>
+                <div className="flex flex-row items-center gap-1">
+                  {variant === "programWindow" ?<CircleAlert color="#f36961"/> : ""}
+                  <p className="h-fit">{slide.type}</p>
+                </div>
                 <p>{slide.points} hp</p>
               </div>
             </section>
