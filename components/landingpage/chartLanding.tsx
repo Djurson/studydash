@@ -1,10 +1,8 @@
 "use client";
 
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "./ui/chart";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 
 const chartData = [
   { date: "2022-08-01", hp: 0 },
@@ -56,7 +54,7 @@ const chartData = [
 
 const chartConfig = {
   hp: {
-    label: "Högskolepoäng",
+    label: "Högskolepoäng: ",
     color: "hsl(var(--color-blue-900))",
   },
 } satisfies ChartConfig;
@@ -69,19 +67,6 @@ export default function ChartLanding() {
           <CardTitle>Högskolepoäng</CardTitle>
           <CardDescription>Augusti 2022 - 2025</CardDescription>
         </div>
-        {/* <Select disabled>
-                    <SelectTrigger
-                        className="w-[160px] rounded-lg sm:ml-auto"
-                        aria-label="Select a value"
-                    >
-                        <SelectValue placeholder="Alla år" />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-xl">
-                        <SelectItem value="90d" className="rounded-lg">
-                            Alla
-                        </SelectItem>
-                    </SelectContent>
-                </Select> */}
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
