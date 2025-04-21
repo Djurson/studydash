@@ -1,3 +1,5 @@
+"use server";
+
 import Card from "@/components/card/card";
 import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
