@@ -1,7 +1,6 @@
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Course, Examination, CourseJSON, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination } from "@/utils/utils";
-import { useAuth } from "@/components/supabase/authprovider";
 import { GetUserData } from "@/app/results/actions";
 
 export interface StudyResultContextType {
