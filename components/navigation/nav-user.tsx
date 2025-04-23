@@ -1,19 +1,19 @@
 "use client";
 
-import { UserRound, Settings, ChevronsUpDown, LogOut } from "lucide-react";
-
+import { UserRound, Settings, ChevronsUpDown, LogOut, Key } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { SignOutAction } from "@/app/actions";
 import { useAuth } from "../supabase/authprovider";
+import { WithAuthProps } from "@/utils/types";
 
 /*type User = {
   name: string;
   email: string;
   avatar: string;
 }*/
+
 /**
  * Navigation user dropdown component
  *
@@ -25,11 +25,10 @@ import { useAuth } from "../supabase/authprovider";
  *
  * @returns Returns a dropdown menu for user account options, including account settings and logout
  */
-export function NavUser() {
+
+export function NavUser({ user }: WithAuthProps) {
   const { isMobile } = useSidebar();
   let fallback = "";
-
-  const { user } = useAuth();
 
   if (!user) return null;
 

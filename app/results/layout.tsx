@@ -1,9 +1,11 @@
-import { PageTemplate } from "@/components/PageTemplate";
+"use client";
+import { PageTemplateClient } from "@/components/page-template-client";
+import { StudyResultProvider } from "@/hooks/editcontext";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    return (
-        <PageTemplate defaultPage={false}>
-            {children}
-        </PageTemplate>
-    );
+  return (
+    <StudyResultProvider>
+      <PageTemplateClient defaultPage={false}>{children}</PageTemplateClient>
+    </StudyResultProvider>
+  );
 }

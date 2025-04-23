@@ -1,41 +1,4 @@
-// Skapa konto (email) struktur
-export type CreateUser = {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-  repeatpassword: string;
-};
-
-// Generell skapa konto info
-export type UserInputDB = {
-  year: string;
-  previous: boolean;
-};
-
-// Database struktur
-export type UserDB = {
-  displayname: string;
-  email: string;
-  year: string;
-  previous: boolean;
-};
-
-// Login Struktur
-export type UserLogin = {
-  email: string;
-  password: string;
-};
-
-export enum UserTypesEnum {
-  NORMAL = "normal",
-  PRO = "pro",
-}
-
-export type UserType = {
-  verified: boolean;
-  userRole: UserTypesEnum;
-};
+import { User } from "@supabase/supabase-js";
 
 export type Examination = {
   code: string;
@@ -51,5 +14,38 @@ export type Course = {
   hp: number;
   grade: number | string;
   date: string;
-  examinations: Examination[];
+  examinations: Map<string, Examination>;
+};
+
+export type CourseJSON = {
+  name: string;
+  course_code: string;
+  credits: string;
+  VOF: string;
+  examinations: ExaminationJSON[];
+};
+
+export type ExaminationJSON = {
+  code: string;
+  name: string;
+  credits: string;
+  grading: string;
+};
+
+export type UserDataTableRow = {
+  user_id: string;
+  studyinfo: string; // JSON-sträng i databasen
+  studyyear: string;
+  university: string;
+  program: string;
+  previousfunds: boolean;
+};
+
+export type UserData = Omit<UserDataTableRow, "user_id" | "studyinfo"> & {
+  studyinfo: Map<string, Course>; // konverterad version i appen
+};
+
+export type WithAuthProps = {
+  user: User;
+  userData?: UserData;
 };

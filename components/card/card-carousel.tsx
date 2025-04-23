@@ -93,7 +93,7 @@ export default function CardCarousel() {
         ref={carouselRef}>
         {slides.map((slide, index) => (
           <li
-            className={`w-[13.625rem] h-full my-4 mr-4 last:mr-0 p-4 bg-white rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal 
+            className={`w-[13.625rem] h-full my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal 
               ${index === 0 ? "snap-start" : ""} 
               ${index === slides.length - 1 ? "snap-end" : ""}`}
             key={slide.position}>

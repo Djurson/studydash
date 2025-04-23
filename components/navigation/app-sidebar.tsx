@@ -1,29 +1,9 @@
-"use client";
+import { ChartNoAxesCombined, GraduationCap, HandCoins, BookOpen, Hammer, MessageCircleQuestion, Settings } from "lucide-react";
 
-import {
-  ChartNoAxesCombined,
-  GraduationCap,
-  HandCoins,
-  BookOpen,
-  Hammer,
-  MessageCircleQuestion,
-  Settings,
-} from "lucide-react";
-
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarFooter,
-  SidebarRail,
-} from "../ui/sidebar";
-
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, SidebarRail } from "../ui/sidebar";
+import { SettingsDialog } from "./settings-dialog";
 import { NavUser } from "./nav-user";
+import { WithAuthProps } from "@/utils/types";
 
 // Menu items.
 const general = [
@@ -70,24 +50,16 @@ const others = [
   },
 ];
 
-const data = {
-  user: {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    avatar: "",
-  },
-};
-
 /**
  * Application sidebar component
- * 
+ *
  * @remarks
  * This component renders a collapsible sidebar containing categorized menu items,
  * user information, and navigation links.
- * 
+ *
  * @returns Returns a sidebar navigation element with categorized links and user details
  */
-export function AppSidebar() {
+export function AppSidebar({ user }: WithAuthProps) {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent className="mt-[3.688rem]">
@@ -131,12 +103,21 @@ export function AppSidebar() {
             <SidebarMenu>
               {others.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
+                  {item.title === "Inställningar" ? (
+                    <SettingsDialog>
+                      <SidebarMenuButton>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </SidebarMenuButton>
+                    </SettingsDialog>
+                  ) : (
+                    <SidebarMenuButton asChild>
+                      <a href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
@@ -144,7 +125,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
