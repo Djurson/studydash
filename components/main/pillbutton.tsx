@@ -41,6 +41,10 @@ export function PillbuttonContainer() {
       <PillButton id={"Alla"} value={""} currentValue={selected} onClick={() => setSelected("Alla")} />
       <PillButton id={"Ordinare"} value={"Ordinare"} currentValue={selected} onClick={() => setSelected("Ordinare")} />
       <PillButton id={"Augusti"} value={"Augusti"} currentValue={selected} onClick={() => setSelected("Augusti")} />
+      <PillButton id={"Oktober"} value={"Oktober"} currentValue={selected} onClick={() => setSelected("Oktober")} />
+      <PillButton id={"Januari"} value={"Januari"} currentValue={selected} onClick={() => setSelected("Januari")} />
+      <PillButton id={"Mars"} value={"Mars"} currentValue={selected} onClick={() => setSelected("Mars")} />
+      <PillButton id={"Juni"} value={"Juni"} currentValue={selected} onClick={() => setSelected("Juni")} />
     </div>
   );
 }

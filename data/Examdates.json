@@ -388,22 +388,7 @@
       ],
       "hp": "1.5 hp"
     },
-    {
-      "kurskod": "TNM079",
-      "kursnamn": "Modellering och animering",
-      "examinationsmoment": "TEN3",
-      "tillfällen": [
-        {
-          "datum": "2025-08-20",
-          "tid": "14-18"
-        },
-        {
-          "datum": "2025-06-04",
-          "tid": "8-12"
-        }
-      ],
-      "hp": "N/A"
-    },
+
     {
       "kurskod": "TNM087",
       "kursnamn": "Bildbehandling och bildanalys",
@@ -435,45 +420,5 @@
         }
       ],
       "hp": "1 hp"
-    },
-    {
-      "kurskod": "TNM110",
-      "kursnamn": "Grafisk design och kommunikation",
-      "examinationsmoment": "TEN1",
-      "tillfällen": [
-        {
-          "datum": "2025-03-20",
-          "tid": "8-12"
-        },
-        {
-          "datum": "2025-03-20",
-          "tid": "8-12"
-        },
-        {
-          "datum": "2025-08-21",
-          "tid": "8-12"
-        }
-      ],
-      "hp": "N/A"
-    },
-    {
-      "kurskod": "TNM112",
-      "kursnamn": "Deep Learning för medieteknik",
-      "examinationsmoment": "TEN1",
-      "tillfällen": [
-        {
-          "datum": "2025-03-19",
-          "tid": "8-12"
-        },
-        {
-          "datum": "2025-03-19",
-          "tid": "8-12"
-        },
-        {
-          "datum": "2025-08-20",
-          "tid": "8-12"
-        }
-      ],
-      "hp": "N/A"
     }
   ]
