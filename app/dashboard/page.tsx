@@ -63,7 +63,7 @@ async function Page({ user, userData }: WithAuthProps) {
         <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
         <PillbuttonContainer />
 
-        <CardForExams />
+        <CardForExams userData={userData} />
       </section>
       <section>
         <h2 className="text-2xl font-semibold">Dina prestationer</h2>
