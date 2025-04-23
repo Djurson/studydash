@@ -1,9 +1,6 @@
-import { PageTemplate } from "@/components/PageTemplate";
-import { AuthProvider } from "@/components/supabase/authprovider";
+import PageTemplate from "@/components/page-template";
 import { ReactNode } from "react";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
-  return (
-    <PageTemplate defaultPage={true}>{children}</PageTemplate>
-  );
+  return <PageTemplate defaultPage>{children}</PageTemplate>;
 }

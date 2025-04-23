@@ -4,19 +4,18 @@ import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 
 /**
- * Form button component with loading indicator
+ * Formulärknapp med laddningsindikator
  *
- * @remarks
- * This component renders a button with custom styles and displays a loading spinner
- * when the form is in a pending state.
- * It uses `useFormStatus` to track the form submission state.
+ * @description
+ * Denna komponent renderar en knapp med anpassade stilar och visar en laddningsindikator
+ * när formuläret är i ett pågående (pending) tillstånd.
+ * Den använder `useFormStatus` för att följa formulärets skick.
  *
- * @param children - The content of the button, usually text or icons
- * @param props - Additional props passed to the `Button` component
+ * @param children - Innehållet i knappen, vanligtvis text eller ikoner
+ * @param props - Ytterligare egenskaper som skickas vidare till `Button`-komponenten
  *
- * @returns Returns a button with custom styles, showing a loading indicator when pending
+ * @returns Returnerar en knapp med anpassade stilar som visar en snurrande ikon när formuläret håller på att skickas in
  */
-
 export default function FormButton({ children, ...props }: ComponentProps<typeof Button>) {
   const { pending } = useFormStatus();
   return (
