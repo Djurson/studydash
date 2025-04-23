@@ -77,11 +77,23 @@ export function StudyProgress({ userData }: Partial<WithAuthProps>) {
     }
   };
 
+  const progressText = useMemo(() => {
+    switch (selectedPeriod) {
+      case "kandidat":
+        return "av kandidaten avklarad";
+      case "master":
+        return "av mastern avklarad";
+      case "total":
+      default:
+        return "av utbildningen avklarad";
+    }
+  }, [selectedPeriod]);
+
   return (
     <main className="flex flex-col justify-between h-full gap-8 py-6">
       <div className="flex justify-between items-center">
         <span className="text-3xl font-semibold flex items-end gap-2 text-end">
-          {percentage}%<p className="text-sm text-muted-foreground font-normal text-end"> av utbildningen avklarad</p>
+          {percentage}%<p className="text-sm text-muted-foreground font-normal text-end"> {progressText}</p>
         </span>
         <Select value={selectedPeriod} onValueChange={handlePeriodChange}>
           <SelectTrigger className="w-[8rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">

@@ -1,14 +1,20 @@
 "use client";
 
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Bar, BarChart } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React, { useState, useMemo } from "react";
 import { Examination, WithAuthProps } from "@/utils/types";
 import { MapToChartsArray } from "@/utils/converters";
+import { ChartColumn, ChartSpline } from "lucide-react";
 
 interface ChartData {
   date: string;
+  credits: number;
+}
+
+interface BarChartData {
+  month: string;
   credits: number;
 }
 
@@ -88,6 +94,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
   const studyYears = getAllStudyYears(startYear);
   const currentStudyYear = getCurrentStudyYear(startYear);
   const [timeRange, setTimeRange] = useState<string>(currentStudyYear.current);
+  const [chartType, setChartType] = useState<"line" | "bar">("line");
 
   // Använda detta istället för hårdkodad data, behöver bara att den ändrar startDate och endDate beroende på vad användaren väljer
   //const [timePeriod, setTimePeriod] = useState({ startDate: "0", endDate: "0" });
@@ -140,6 +147,34 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
     });
   }, [allChartData, timeRange, studyYears]);
 
+  // fixa om data formatet till stapeldiagrammet
+  const barChartData = useMemo(() => {
+    const monthMap = new Map<string, number>();
+
+    filteredData.forEach((item) => {
+      const date = new Date(item.date);
+      const monthYear = date.toLocaleDateString("sv-SE", {
+        month: "long",
+        year: "numeric",
+      });
+
+      const current = monthMap.get(monthYear) || 0;
+      monthMap.set(monthYear, current + item.credits);
+    });
+
+    return Array.from(monthMap.entries())
+      .map(([month, credits]) => ({
+        month,
+        credits,
+      }))
+      .sort((a, b) => {
+        // Sort by date
+        const dateA = new Date(`1 ${a.month}`);
+        const dateB = new Date(`1 ${b.month}`);
+        return dateA.getTime() - dateB.getTime();
+      });
+  }, [filteredData]);
+
   const totalCredits = useMemo(() => {
     return filteredData.reduce((total, item) => total + item.credits, 0);
   }, [filteredData]);
@@ -149,8 +184,9 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
       <header className="py-4 flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <p className="text-sm text-muted-foreground"> {formatedTimeRange(timeRange, startYear)}</p>
+
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-[10rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">
+            <SelectTrigger className="w-[8rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="rounded-xl">
@@ -172,57 +208,96 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
           </Select>
         </div>
 
-        <span className="text-3xl font-semibold flex items-end gap-2">
-          {totalCredits}
-          <p className="text-sm text-muted-foreground font-normal text-end"> totalt</p>
+        <span className="text-3xl font-semibold flex justify-between">
+          <div className="flex items-end gap-2">
+            {totalCredits}
+            <p className="text-sm text-muted-foreground font-normal text-end"> totalt</p>
+          </div>
+          <button onClick={() => setChartType(chartType === "line" ? "bar" : "line")} className="p-1.5 rounded-sm bg-card hover:bg-background cursor-pointer flex items-center">
+            {chartType === "line" ? <ChartColumn /> : <ChartSpline />}
+          </button>
         </span>
       </header>
 
       <section className="">
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-          <AreaChart data={filteredData}>
-            <defs>
-              <linearGradient id="fillCredits" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-blue-900)" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="var(--color-blue-900)" stopOpacity={0.1} />
-              </linearGradient>
-            </defs>
+          {chartType === "line" ? (
+            <AreaChart data={filteredData}>
+              <defs>
+                <linearGradient id="fillCredits" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--color-blue-900)" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="var(--color-blue-900)" stopOpacity={0.1} />
+                </linearGradient>
+              </defs>
 
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value);
-                return date.toLocaleDateString("sv-SE", {
-                  month: "short",
-                  day: "numeric",
-                });
-              }}
-            />
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                minTickGap={32}
+                tickFormatter={(value) => {
+                  const date = new Date(value);
+                  return date.toLocaleDateString("sv-SE", {
+                    month: "short",
+                    day: "numeric",
+                  });
+                }}
+              />
 
-            <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("sv-SE", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    });
-                  }}
-                  indicator="dot"
-                />
-              }
-            />
+              <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    labelFormatter={(value) => {
+                      return new Date(value).toLocaleDateString("sv-SE", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      });
+                    }}
+                    indicator="dot"
+                  />
+                }
+              />
 
-            <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={2} />
-          </AreaChart>
+              <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={2} />
+            </AreaChart>
+          ) : (
+            <BarChart data={barChartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => {
+                  // Show abbreviated month name
+                  const [month, year] = value.split(" ");
+                  return `${month.slice(0, 3)} ${year}`;
+                }}
+              />
+              <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    labelFormatter={(value) => {
+                      return new Date(value).toLocaleDateString("sv-SE", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      });
+                    }}
+                    indicator="dot"
+                  />
+                }
+              />
+              <Bar dataKey="credits" fill="var(--color-blue-900)" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          )}
         </ChartContainer>
       </section>
     </main>
