@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils"; // Utility for merging class names
 import { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
 
 type CardProps = {
   cardTitle: string;
@@ -29,15 +30,14 @@ type CardProps = {
  * </Card>
  */
 
-export default function Card({ variant = "default", children, cardTitle }: CardProps) {
+export default function CardLoading({ children }: { children?: ReactNode }) {
   return (
     <>
-      <main className="p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300 hover:scale-102 hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)]">
-        <header className="flex items-center cursor-pointer group">
-          <p className="text-lg group-hover:underline transition duration-300">{cardTitle}</p>
-          {variant === "header" && <ChevronRight size={24} className="ml-1 transition-all duration-200 transform group-hover:translate-x-1.5" />}
+      <main className="p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300 hover:scale-102 hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)] flex flex-col justify-between items-start gap-4">
+        <header className="flex items-center cursor-pointer hover:underline w-full h-fit">
+          <Skeleton className="w-4/5 h-6" />
         </header>
-        <section> {children}</section>
+        <section className="w-full h-11/12">{children ? children : <Skeleton className="w-full h-full" />}</section>
       </main>
     </>
   );

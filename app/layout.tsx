@@ -1,12 +1,8 @@
-import DeployButton from "@/components/supabase-template/deploy-button";
-import { EnvVarWarning } from "@/components/supabase-template/env-var-warning";
-import HeaderAuth from "@/components/supabase-template/header-auth";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Metadata } from "next";
-import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +10,6 @@ export const metadata: Metadata = {
   title: "StudyDash",
   description: "Effektivisera din studiegång",
 };
-
-const defaultUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
 export default function RootLayout({
   children,
@@ -30,6 +24,7 @@ export default function RootLayout({
             <div className="w-full max-w-5xl flex justify-end items-center p-3 px-5 text-sm">{!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}</div>
           </nav> */}
           <div className="flex flex-col w-full">{children}</div>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>

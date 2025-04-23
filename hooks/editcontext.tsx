@@ -1,11 +1,10 @@
-// editcontext.tsx
-import React, { createContext, useContext, useMemo, useRef } from "react";
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Course, Examination, CourseJSON, ExaminationJSON } from "@/utils/types";
 import { CreateCourse, CreateExamination } from "@/utils/utils";
-import { useEffect } from "react";
+import { GetUserData } from "@/app/results/actions";
 
 export interface StudyResultContextType {
-  studyResults: React.RefObject<Map<string, Course>>; // TS infererar rätt typ vid useRef
+  studyResults: React.RefObject<Map<string, Course>>;
   setCourse: (key: string, course: Course) => void;
   setExamination: (courseCode: string, examCode: string, examination: Examination) => void;
   updateMap: (inputMap: Map<string, Course>) => void;
@@ -15,6 +14,9 @@ export interface StudyResultContextType {
   getCourse: (courseCode: string) => Course | undefined;
   updateExamResult: (courseJSON: CourseJSON, examJSON: ExaminationJSON, updates: Partial<Examination>) => void;
   updateCourseResult: (CourseJSON: CourseJSON, updates: Partial<Course>) => void;
+  clearMap: () => void;
+  studyResultsToJSON: (studyResults: Map<string, Course>) => string;
+  jsonToStudyResults: (json: string) => Map<string, Course>;
   subscribe: (listener: () => void) => () => void;
 }
 
@@ -28,9 +30,21 @@ export function useStudyResults() {
   return context;
 }
 
-export function StudyResultProvider({ children }: { children: React.ReactNode }) {
+export function StudyResultProvider({ children }: { children: ReactNode }) {
   const studyResultsRef = useRef<Map<string, Course>>(new Map());
   const listenersRef = useRef(new Set<() => void>());
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await GetUserData();
+      if (userData) {
+        studyResultsRef.current = userData.studyinfo;
+        notify(); // Meddela alla lyssnare om den nya datan
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const notify = () => {
     listenersRef.current.forEach((listener) => listener());
@@ -79,6 +93,39 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
     return studyResultsRef.current.get(courseCode);
   };
 
+  const clearMap = () => {
+    studyResultsRef.current.clear();
+    notify();
+  };
+
+  const studyResultsToJSON = (studyResults: Map<string, Course>): string => {
+    const coursesObj = Object.fromEntries(
+      Array.from(studyResults.entries()).map(([key, course]) => [
+        key,
+        {
+          ...course,
+          examinations: Object.fromEntries(course.examinations),
+        },
+      ])
+    );
+
+    return JSON.stringify(coursesObj);
+  };
+
+  const jsonToStudyResults = (json: string): Map<string, Course> => {
+    const parsed = JSON.parse(json);
+
+    return new Map(
+      Object.entries(parsed).map(([key, courseObj]: [string, any]) => [
+        key,
+        {
+          ...courseObj,
+          examinations: new Map(Object.entries(courseObj.examinations)),
+        },
+      ])
+    );
+  };
+
   const updateExamResult = (courseJSON: CourseJSON, examJSON: ExaminationJSON, updates: Partial<Examination>) => {
     const courseCode = courseJSON.course_code;
     const examCode = examJSON.code;
@@ -110,6 +157,7 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
 
     const updatedCourse = { ...course, ...updates };
     studyResultsRef.current.set(courseCode, updatedCourse);
+    notify();
   };
 
   const value = useMemo(
@@ -124,7 +172,10 @@ export function StudyResultProvider({ children }: { children: React.ReactNode })
       getCourse,
       updateExamResult,
       updateCourseResult,
+      clearMap,
       subscribe,
+      studyResultsToJSON,
+      jsonToStudyResults,
     }),
     []
   );

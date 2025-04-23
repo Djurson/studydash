@@ -1,1 +1,0 @@
-![alt text](../../../readme-imgs/CreateAccountFlow.png)

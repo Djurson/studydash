@@ -1,28 +1,37 @@
 "use client";
 
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
 import { useStudyResultsListener } from "@/hooks/editcontext";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { CourseExaminationMapping } from "./editexam";
+import { SemesterInfo } from "@/utils/semesterDates";
 
-export function EditCourse({ course }: { course: CourseJSON }) {
+export function EditCourse({ course, semesterStatus, semesterSeason }: { course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { updateCourseResult, getCourse } = useStudyResultsListener();
+  const { getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
-  const [status, setStatus] = useState<Status>("none");
+  const [status, setStatus] = useState<Status>(semesterStatus);
 
-  const courseResults = getCourse(course.course_code);
-  const { returnGrade, returnStatus } = CheckGradeAndStatus(course, courseResults, updateCourseResult)
+  let courseResults: Course | undefined = undefined;
+
+  // Om kursen är inom "studieåret"/har varit hämtar vi endast information kring kursen
+  // Går på termin statusen
+  if (semesterStatus !== "none") {
+    courseResults = getCourse(course.course_code);
+  }
+
+  let { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults, semesterStatus);
 
   useEffect(() => {
     setStatus(returnStatus);
-    if (returnGrade !== undefined) {
-      setGrade(returnGrade.toString());
+    if (returnGrade === undefined) {
+      setGrade(undefined);
+      return;
     }
+    setGrade(returnGrade.toString());
   }, [returnGrade, returnStatus]);
   return (
     <>
@@ -40,14 +49,6 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                   </h4>
                 </div>
                 <div className="flex items-center gap-2">
-                  {/*
-                  <p className="text-sm items-center text-accent-foreground font-light">Slutbetyg: </p>
-                  <InputOTP maxLength={1} disabled value={grade === "" ? "x" : grade}>
-                    <InputOTPGroup>
-                      <InputOTPSlot index={0} placeholder="x" className="text-sm h-6" />
-                    </InputOTPGroup>
-                  </InputOTP>
-                  */}
                   {grade && grade !== "" ? (
                     <div className="flex items-center">
                       <div className="border-1 border-green-900 rounded-xl px-2 py-1 ">
@@ -65,7 +66,7 @@ export function EditCourse({ course }: { course: CourseJSON }) {
                 {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => (
-                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} />
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} semesterSeason={semesterSeason} />
                   ))}
               </section>
             )}
@@ -77,114 +78,23 @@ export function EditCourse({ course }: { course: CourseJSON }) {
   );
 }
 
-function CheckGradeAndStatus(
-  course: CourseJSON,
-  resultsCourse: Course | undefined,
-  updateCourse: (CourseJSON: CourseJSON, updates: Partial<Course>) => void
-): { returnGrade: string | number | undefined; returnStatus: Status } {
-  if (!resultsCourse || !resultsCourse.examinations) {
+function CheckGradeAndStatus(resultsCourse: Course | undefined, semesterStatus: Status): { returnGrade: string | number | undefined; returnStatus: Status } {
+  if (!resultsCourse) {
+    return {
+      returnGrade: undefined,
+      returnStatus: semesterStatus,
+    };
+  }
+
+  if (resultsCourse.grade === "" || resultsCourse.date === "") {
     return {
       returnGrade: undefined,
       returnStatus: "ongoing",
     };
   }
 
-  let finalgrade = 0;
-  let total = 0;
-  let stringGradePassed = false;
-
-  if (course.examinations.length === 1) {
-    let grade = resultsCourse.examinations.get(course.examinations[0].code)?.grade;
-
-    if (!grade || grade == "") {
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    let dateExam = resultsCourse.examinations.get(course.examinations[0].code)?.date;
-
-    if (dateExam && Number.parseInt(dateExam) > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: dateExam,
-      };
-
-      updateCourse(course, updates);
-    }
-
-    return {
-      returnGrade: grade,
-      returnStatus: "done",
-    };
-  }
-
-  let date = 0;
-  for (let i = 0; i < course.examinations.length; i++) {
-    if (course.examinations[i].credits === "0 hp") {
-      continue;
-    }
-
-    let grade = resultsCourse.examinations.get(course.examinations[i].code)?.grade;
-
-    if (typeof grade === "undefined") {
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    if (typeof grade === "string") {
-      if (grade === "G" || grade === "D") {
-        let dateExam = resultsCourse.examinations.get(course.examinations[i].code)?.date;
-        if (dateExam && Number.parseInt(dateExam) > date) {
-          date = Number.parseInt(dateExam);
-        }
-        stringGradePassed = true;
-        continue;
-      }
-      return {
-        returnGrade: undefined,
-        returnStatus: "ongoing",
-      };
-    }
-
-    finalgrade += grade;
-    total++;
-  }
-
-  if (finalgrade != 0) {
-    finalgrade = Math.round(finalgrade / total);
-    if (date > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: date.toString(),
-      };
-      updateCourse(course, updates);
-    }
-    return {
-      returnGrade: finalgrade,
-      returnStatus: "done",
-    };
-  }
-
-  if (stringGradePassed && finalgrade === 0) {
-    if (date > Number.parseInt(resultsCourse.date)) {
-      const updates: Partial<Course> = {
-        date: date.toString(),
-      };
-      updateCourse(course, updates);
-    }
-
-    return {
-      returnGrade: "G",
-      returnStatus: "done",
-    };
-  }
-
   return {
-    returnGrade: undefined,
-    returnStatus: "ongoing",
+    returnGrade: resultsCourse.grade,
+    returnStatus: "done",
   };
 }
-
-export default memo(EditCourse);

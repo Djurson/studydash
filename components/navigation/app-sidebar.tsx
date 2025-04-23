@@ -1,11 +1,9 @@
-"use client";
-
 import { ChartNoAxesCombined, GraduationCap, HandCoins, BookOpen, Hammer, MessageCircleQuestion, Settings } from "lucide-react";
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, SidebarRail } from "../ui/sidebar";
-
-import { NavUser } from "./nav-user";
 import { SettingsDialog } from "./settings-dialog";
+import { NavUser } from "./nav-user";
+import { WithAuthProps } from "@/utils/types";
 
 // Menu items.
 const general = [
@@ -61,7 +59,7 @@ const others = [
  *
  * @returns Returns a sidebar navigation element with categorized links and user details
  */
-export function AppSidebar() {
+export function AppSidebar({ user }: WithAuthProps) {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent className="mt-[3.688rem]">
@@ -127,7 +125,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

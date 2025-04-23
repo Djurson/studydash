@@ -6,20 +6,28 @@ import { Status, StatusSquare } from "./statussquare";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../ui/input-otp";
 import { AlertCircle } from "lucide-react";
 import { useStudyResults } from "@/hooks/editcontext";
+import { SemesterInfo } from "@/utils/semesterDates";
 
 type ExamError = {
   dateError: string | null;
   gradeError: string | null;
+  dateFakeError: string | null;
 };
 
-export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJSON; course: CourseJSON }) {
+export function CourseExaminationMapping({ exam, course, semesterStatus, semesterSeason }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
+  // Definera "errors" som ska ge användaren "feedback" medan den skriver in
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
     gradeError: null,
+    dateFakeError: null,
   });
-  const [dateFocused, setDateFocused] = useState(false);
-  const [gradeFocused, setGradeFocused] = useState(false);
-  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult } = useStudyResults();
+  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult, updateCourseResult } = useStudyResults();
+
+  let currentCourseResults: Course | undefined = undefined;
+
+  if (semesterStatus !== "none") {
+    currentCourseResults = getCourse(course.course_code);
+  }
 
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
@@ -36,47 +44,94 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
 
   // Använd useCallback för att memoizera funktionerna
   const HandleDateChange = (value: string) => {
-    setErrors({
-      ...errors,
-      dateError: null,
-    });
-    const error = ValidateDate(value, "20220801", getTodayFormatted());
-    if (error) {
-      setErrors({
-        ...errors,
-        dateError: error,
-      });
+    if (semesterStatus === "none") {
+      return;
     }
+
+    // Nollställer alla errors
+    setErrors({ ...errors, dateError: null, dateFakeError: null });
+
+    // Validera datumet
+    const error = ValidateDate(value, `${semesterSeason.year}0801`, getTodayFormatted());
+    if (error && value.length === 8) {
+      // Om det finns errors visar vi dem och tar bort inputen
+      setErrors({ ...errors, dateError: error, dateFakeError: null });
+
+      // Uppdaterar så att datumet tas bort ur examinationen
+      const dateUpdate: Partial<Examination> = { date: "" };
+      updateExamResult(course, exam, dateUpdate);
+
+      // Uppdatera kursen
+      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      updateCourseResult(course, courseGradeDateUpdate);
+      return;
+    } else if (error && value.length < 8) {
+      // Om datumet inte är tillräckligt långt visar vi bara errors
+      setErrors({ ...errors, dateFakeError: error });
+    }
+
+    // Om inputen är bra uppdaterar vi examinationen
     const dateUpdate: Partial<Examination> = { date: value };
     updateExamResult(course, exam, dateUpdate);
+
+    // Kalkulera slutbetyg och slutdatum för kursen
+    const { finalGrade, finalDate } = CalculateFinalGradeAndDate(course, exam, getExamination, getExamination(course.course_code, exam.code)?.grade, value);
+    let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+    if (finalDate && finalGrade) {
+      courseGradeDateUpdate = { date: finalDate, grade: finalGrade };
+    }
+
+    updateCourseResult(course, courseGradeDateUpdate);
   };
 
   const HandleGradeChange = (value: string) => {
-    setErrors({
-      ...errors,
-      gradeError: null,
-    });
-    const error = ValidateGrade(value, exam);
-    if (error) {
-      setErrors({
-        ...errors,
-        gradeError: error,
-      });
+    if (semesterStatus === "none") {
+      return;
     }
-    let examgrade: string | number;
-    if (value === "G" || value === "D") examgrade = value;
-    else if (!isNaN(Number(value))) examgrade = Number.parseFloat(value);
-    else examgrade = "";
+
+    // Nollställer alla errors
+    setErrors({ ...errors, gradeError: null });
+
+    // Validera betyg inputen
+    const error = ValidateGrade(value, exam);
+    if (error || value === "") {
+      // Uppdatera examinationen
+      const gradeUpdate: Partial<Examination> = { grade: "" };
+      updateExamResult(course, exam, gradeUpdate);
+      setErrors({ ...errors, gradeError: error });
+
+      // Uppdatera kursen
+      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      updateCourseResult(course, courseGradeDateUpdate);
+      return;
+    }
+
+    // Kontrollera inputen om det är en bokstav eller ett nummer
+    let examgrade: string | number = value === "G" || value === "D" ? value : !isNaN(Number(value)) ? Number.parseInt(value) : "";
+
+    // Uppdatera examinationen
     const gradeUpdate: Partial<Examination> = { grade: examgrade };
     updateExamResult(course, exam, gradeUpdate);
+
+    // Kalkulera slutbetyg och slutdatum för kursen
+    const { finalGrade, finalDate } = CalculateFinalGradeAndDate(course, exam, getExamination, examgrade, getExamination(course.course_code, exam.code)?.date);
+
+    let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+
+    if (finalDate && finalGrade) {
+      courseGradeDateUpdate = { date: finalDate, grade: finalGrade };
+    }
+
+    // Uppdatera slutbetyg/slutdatum för kursen
+    updateCourseResult(course, courseGradeDateUpdate);
   };
 
   const status: Status =
-    errors.gradeError || errors.dateError
+    errors.gradeError || errors.dateError || errors.dateFakeError
       ? "error"
       : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
-      ? "done"
-      : "ongoing";
+        ? "done"
+        : semesterStatus;
 
   return (
     <>
@@ -99,54 +154,48 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
                 <div className="flex flex-col gap-1 items-start text-sm">
                   <div className="flex gap-2 items-center justify-start text-sm">
                     <p>Datum:</p>
-                    <InputOTP
-                      maxLength={8}
-                      onChange={HandleDateChange}
-                      value={getExamination(course.course_code, exam.code)?.date}
-                      onBlur={() => setDateFocused(true)}
-                      onFocus={() => setDateFocused(false)}
-                      error={dateFocused ? errors.dateError : null}>
-                      <InputOTPGroup className={`${errors.dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={0} placeholder="Y" hasError={!!errors.dateError && !!dateFocused} />
-                        <InputOTPSlot index={1} placeholder="Y" hasError={!!errors.dateError && !!dateFocused} />
-                        <InputOTPSlot index={2} placeholder="Y" hasError={!!errors.dateError && !!dateFocused} />
-                        <InputOTPSlot index={3} placeholder="Y" hasError={!!errors.dateError && !!dateFocused} />
+                    <InputOTP maxLength={8} onChange={HandleDateChange} value={getExamination(course.course_code, exam.code)?.date} error={errors.dateError ?? null}>
+                      <InputOTPGroup className={`${errors.dateError ? "animate-shake-forwards" : ""}`}>
+                        <InputOTPSlot index={0} placeholder="Y" hasError={!!errors.dateError} />
+                        <InputOTPSlot index={1} placeholder="Y" hasError={!!errors.dateError} />
+                        <InputOTPSlot index={2} placeholder="Y" hasError={!!errors.dateError} />
+                        <InputOTPSlot index={3} placeholder="Y" hasError={!!errors.dateError} />
                       </InputOTPGroup>
-                      <InputOTPSeparator className={`${errors.dateError && dateFocused ? "animate-shake-forwards" : ""}`} />
-                      <InputOTPGroup className={`${errors.dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={4} placeholder="M" hasError={!!errors.dateError && !!dateFocused} />
-                        <InputOTPSlot index={5} placeholder="M" hasError={!!errors.dateError && !!dateFocused} />
+                      <InputOTPSeparator className={`${errors.dateError ? "animate-shake-forwards" : ""}`} />
+                      <InputOTPGroup className={`${errors.dateError ? "animate-shake-forwards" : ""}`}>
+                        <InputOTPSlot index={4} placeholder="M" hasError={!!errors.dateError} />
+                        <InputOTPSlot index={5} placeholder="M" hasError={!!errors.dateError} />
                       </InputOTPGroup>
-                      <InputOTPSeparator className={`${errors.dateError && dateFocused ? "animate-shake-forwards" : ""}`} />
-                      <InputOTPGroup className={`${errors.dateError && dateFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={6} placeholder="D" hasError={!!errors.dateError && !!dateFocused} />
-                        <InputOTPSlot index={7} placeholder="D" hasError={!!errors.dateError && !!dateFocused} />
+                      <InputOTPSeparator className={`${errors.dateError ? "animate-shake-forwards" : ""}`} />
+                      <InputOTPGroup className={`${errors.dateError ? "animate-shake-forwards" : ""}`}>
+                        <InputOTPSlot index={6} placeholder="D" hasError={!!errors.dateError} />
+                        <InputOTPSlot index={7} placeholder="D" hasError={!!errors.dateError} />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
-                  {errors.dateError && dateFocused && (
+                  {errors.dateError && (
                     <div className="flex items-center gap-2">
                       <AlertCircle size={15} color="#f36961" />
                       <p className="text-red-900">{errors.dateError}</p>
+                    </div>
+                  )}
+                  {!errors.dateError && errors.dateFakeError && (
+                    <div className="flex items-center gap-2">
+                      <AlertCircle size={15} color="#f36961" />
+                      <p className="text-red-900">{errors.dateFakeError}</p>
                     </div>
                   )}
                 </div>
                 <div className="flex flex-col gap-1 items-end justify-start text-sm">
                   <div className="flex gap-2 items-center justify-start text-sm">
                     <p>Betyg:</p>
-                    <InputOTP
-                      maxLength={1}
-                      onChange={HandleGradeChange}
-                      value={getExamination(course.course_code, exam.code)?.grade.toString() ?? undefined}
-                      onBlur={() => setGradeFocused(true)}
-                      onFocus={() => setGradeFocused(false)}
-                      error={gradeFocused ? errors.gradeError : null}>
-                      <InputOTPGroup className={`${errors.gradeError && gradeFocused ? "animate-shake-forwards" : ""}`}>
-                        <InputOTPSlot index={0} placeholder="x" defaultValue="" hasError={!!errors.gradeError && !!gradeFocused} />
+                    <InputOTP maxLength={1} onChange={HandleGradeChange} value={getExamination(course.course_code, exam.code)?.grade.toString() ?? undefined} error={errors.gradeError ?? null}>
+                      <InputOTPGroup className={`${errors.gradeError ? "animate-shake-forwards" : ""}`}>
+                        <InputOTPSlot index={0} placeholder="x" defaultValue="" hasError={!!errors.gradeError} />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
-                  {errors.gradeError && gradeFocused && (
+                  {errors.gradeError && (
                     <div className="flex items-center gap-2">
                       <AlertCircle size={15} color="#f36961" />
                       <p className="text-red-900">{errors.gradeError}</p>
@@ -160,4 +209,127 @@ export function CourseExaminationMapping({ exam, course }: { exam: ExaminationJS
       </div>
     </>
   );
+}
+
+function CalculateFinalGradeAndDate(
+  courseJSON: CourseJSON,
+  examJSON: ExaminationJSON,
+  getExamination: (courseCode: string, examCode: string) => Examination | undefined,
+  inputExamGrade: string | number | undefined,
+  inputExamDate: string | undefined
+): { finalGrade: string | number | undefined; finalDate: string | undefined } {
+  // Om den aktuella examinationen saknar betyg eller datum, returnera undefined
+  if (!inputExamGrade || !inputExamDate) {
+    return {
+      finalDate: undefined,
+      finalGrade: undefined,
+    };
+  }
+
+  let latestDate = 0;
+  let numericGrades: number[] = [];
+  let numericExams = 0;
+  let allPassedGrade = true;
+  let onlyGPassedExams = true;
+
+  // Gå igenom alla examinationer
+  for (let i = 0; i < courseJSON.examinations.length; i++) {
+    const currentExam = courseJSON.examinations[i];
+
+    // Hoppa över examinationer som inte ger poäng
+    if (currentExam.credits.replace("hp", "").trim() === "0") {
+      continue;
+    }
+
+    // Hämta examinationsresultatet
+    let examRes = getExamination(courseJSON.course_code, currentExam.code);
+
+    // Om examinationen inte finns, returnera undefined
+    if (!examRes) {
+      return {
+        finalDate: undefined,
+        finalGrade: undefined,
+      };
+    }
+
+    // Om det är den aktuella examinationen som håller på att uppdateras
+    // Vet ej om detta ens behövs längre men vågar inte tabort 2025-04-17
+    if (examRes.code === examJSON.code) {
+      examRes = {
+        ...examRes,
+        grade: examRes.grade !== "" ? examRes.grade : inputExamGrade,
+        date: examRes.date !== "" ? examRes.date : inputExamDate,
+      };
+    }
+
+    // Om examinationen saknar betyg eller datum, returnera undefined
+    if (examRes.grade === "" || examRes.date === "") {
+      return {
+        finalDate: undefined,
+        finalGrade: undefined,
+      };
+    }
+
+    // Uppdatera senaste datum
+    latestDate = Math.max(latestDate, parseInt(examRes.date));
+
+    // Hantera olika typer av betyg
+    if (typeof examRes.grade === "string") {
+      if (examRes.grade === "G") {
+        // Detta är ett G-betyg, inget problem
+        continue;
+      } else if (examRes.grade === "U") {
+        // Om någon examination är underkänd, så är hela kursen underkänd
+        allPassedGrade = false;
+        return {
+          finalDate: undefined,
+          finalGrade: undefined,
+        };
+      } else {
+        // Om det är ett annat strängbetyg än G eller U
+        onlyGPassedExams = false;
+      }
+    } else if (typeof examRes.grade === "number") {
+      // Det finns minst ett numeriskt betyg
+      onlyGPassedExams = false;
+
+      if (examRes.grade < 3) {
+        // Om någon examination är underkänd, så är hela kursen underkänd
+        allPassedGrade = false;
+        return {
+          finalDate: undefined,
+          finalGrade: undefined,
+        };
+      }
+
+      // Lägg till betyget för medelvärdesberäkning
+      numericGrades.push(examRes.grade);
+      numericExams++;
+    }
+  }
+
+  // Om alla examinationer är godkända
+  if (allPassedGrade) {
+    // Om alla godkända examinationer har G-betyg, returnera G
+    if (onlyGPassedExams || numericGrades.length === 0) {
+      return {
+        finalDate: latestDate.toString(),
+        finalGrade: "G",
+      };
+    }
+
+    // Annars beräkna medelvärdet av de numeriska betygen
+    const averageGrade = Math.round(numericGrades.reduce((sum, grade) => sum + grade, 0) / numericExams);
+
+    return {
+      finalDate: latestDate.toString(),
+      finalGrade: averageGrade,
+    };
+  }
+
+  // Om vi kommer hit så är något fel
+  return {
+    finalDate: undefined,
+    finalGrade: undefined,
+  };
 }
