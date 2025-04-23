@@ -15,13 +15,6 @@ const programCredits = {
   total: 300,
 };
 
-// hämta från helper funktion sen mha databas data
-const earnedProgramCredits = {
-  kandidat: 153,
-  master: 0,
-  total: 153,
-};
-
 // funktion för att kolla om ett examinationsmoment är inom kandidat perioden
 function isKandidatPeriod(date: string, startYear: number): boolean {
   const examDate = new Date(parseInt(date.slice(0, 4)), parseInt(date.slice(4, 6)) - 1, parseInt(date.slice(6, 8)));
