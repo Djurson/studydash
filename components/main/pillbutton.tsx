@@ -34,11 +34,11 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
 }
 
 export function PillbuttonContainer() {
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState<string>("Alla");
 
   return (
     <div className="mt-4 flex gap-4">
-      <PillButton id={"Alla"} value={""} currentValue={selected} onClick={() => setSelected("Alla")} />
+      <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
       <PillButton id={"Ordinare"} value={"Ordinare"} currentValue={selected} onClick={() => setSelected("Ordinare")} />
       <PillButton id={"Augusti"} value={"Augusti"} currentValue={selected} onClick={() => setSelected("Augusti")} />
       <PillButton id={"Oktober"} value={"Oktober"} currentValue={selected} onClick={() => setSelected("Oktober")} />
