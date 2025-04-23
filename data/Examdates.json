@@ -1,354 +1,479 @@
-{
-    "TNA002": {
-        "TEN1": [
-            {
-                "datum": "2025-03-17",
-                "tid": "14-19"
-            },
-            {
-                "datum": "2025-03-17",
-                "tid": "14-19"
-            },
-            {
-                "datum": "2025-08-23",
-                "tid": "8-13"
-            }
-        ]
+
+[
+    {
+      "kurskod": "TNA001",
+      "kursnamn": "Matematisk grundkurs",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-25",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "4.5 hp"
     },
-    "TNM087": {
-        "TEN1": [
-            {
-                "datum": "2025-03-17",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-03-17",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-08-18",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNA002",
+      "kursnamn": "Linjär algebra",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-17",
+          "tid": "14-19"
+        },
+        {
+          "datum": "2025-03-17",
+          "tid": "14-19"
+        },
+        {
+          "datum": "2025-08-23",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNA007": {
-        "TEN1": [
-            {
-                "datum": "2025-03-17",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-03-17",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-08-22",
-                "tid": "14-19"
-            }
-        ]
+    {
+      "kurskod": "TNA003",
+      "kursnamn": "Analys I",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-29",
+          "tid": "14-19"
+        },
+        {
+          "datum": "2025-06-11",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-03-21",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNG033": {
-        "DAT1": [
-            {
-                "datum": "2025-03-18",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-03-18",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-08-26",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TNA004",
+      "kursnamn": "Analys II",
+      "examinationsmoment": "KTR1",
+      "tillfällen": [
+        {
+          "datum": "2025-05-20",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "0 hp"
     },
-    "TNM112": {
-        "TEN1": [
-            {
-                "datum": "2025-03-19",
-                "tid": "8-12"
-            },
-            {
-                "datum": "2025-03-19",
-                "tid": "8-12"
-            },
-            {
-                "datum": "2025-08-20",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNA004",
+      "kursnamn": "Analys II",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-20",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-06-03",
+          "tid": "14-19"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNG022": {
-        "TEN2": [
-            {
-                "datum": "2025-03-19",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-03-19",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-08-20",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNA005",
+      "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
+      "examinationsmoment": "DAK1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-19",
+          "tid": "8-10"
+        },
+        {
+          "datum": "2025-06-09",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNM110": {
-        "TEN1": [
-            {
-                "datum": "2025-03-20",
-                "tid": "8-12"
-            },
-            {
-                "datum": "2025-03-20",
-                "tid": "8-12"
-            },
-            {
-                "datum": "2025-08-21",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNA005",
+      "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
+      "examinationsmoment": "DAK2",
+      "tillfällen": [
+        {
+          "datum": "2025-08-22",
+          "tid": "8-10"
+        },
+        {
+          "datum": "2025-06-09",
+          "tid": "14-16"
+        },
+        {
+          "datum": "2025-04-17",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNM046": {
-        "TEN1": [
-            {
-                "datum": "2025-08-28",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-06-04",
-                "tid": "14-18"
-            }
-        ]
+    {
+      "kurskod": "TNA005",
+      "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
+      "examinationsmoment": "UPGD",
+      "tillfällen": [
+        {
+          "datum": "2025-05-14",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNE043": {
-        "TEN2": [
-            {
-                "datum": "2025-08-28",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNA006",
+      "kursnamn": "Analys III",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-25",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNA003": {
-        "TEN1": [
-            {
-                "datum": "2025-08-29",
-                "tid": "14-19"
-            },
-            {
-                "datum": "2025-06-11",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-03-21",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TNA007",
+      "kursnamn": "Vektoranalys",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-17",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-03-17",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-08-22",
+          "tid": "14-19"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNG028": {
-        "TEN1": [
-            {
-                "datum": "2025-08-30",
-                "tid": "14-19"
-            }
-        ]
+    {
+      "kurskod": "TND002",
+      "kursnamn": "Objektorienterad programmering",
+      "examinationsmoment": "DAT1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-21",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-03-20",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "3 hp"
     },
-    "TNG032": {
-        "TEN3": [
-            {
-                "datum": "2025-08-23",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-06-09",
-                "tid": "14-19"
-            },
-            {
-                "datum": "2025-03-27",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TND004",
+      "kursnamn": "Datastrukturer",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-25",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-06-02",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "3 hp"
     },
-    "TNA001": {
-        "TEN1": [
-            {
-                "datum": "2025-08-25",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TND012",
+      "kursnamn": "Programmering grk",
+      "examinationsmoment": "DAT1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-26",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "3 hp"
     },
-    "TNM059": {
-        "TEN1": [
-            {
-                "datum": "2025-08-25",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-06-10",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-03-28",
-                "tid": "14-18"
-            }
-        ]
+    {
+      "kurskod": "TNE043",
+      "kursnamn": "Mekanik och vågfysik",
+      "examinationsmoment": "TEN2",
+      "tillfällen": [
+        {
+          "datum": "2025-08-28",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "4 hp"
     },
-    "TND004": {
-        "TEN1": [
-            {
-                "datum": "2025-08-25",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-06-02",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNG006",
+      "kursnamn": "Matematisk statistik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-20",
+          "tid": "8-12"
+        },
+        {
+          "datum": "2025-06-04",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "6 hp"
     },
-    "TNA006": {
-        "TEN1": [
-            {
-                "datum": "2025-08-25",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TNG015",
+      "kursnamn": "Signaler och system",
+      "examinationsmoment": "TEN6",
+      "tillfällen": [
+        {
+          "datum": "2025-08-19",
+          "tid": "8-10"
+        },
+        {
+          "datum": "2025-04-29",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "2 hp"
     },
-    "TND012": {
-        "DAT1": [
-            {
-                "datum": "2025-08-26",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TNG015",
+      "kursnamn": "Signaler och system",
+      "examinationsmoment": "TEN7",
+      "tillfällen": [
+        {
+          "datum": "2025-08-26",
+          "tid": "14-16"
+        },
+        {
+          "datum": "2025-06-02",
+          "tid": "14-16"
+        }
+      ],
+      "hp": "2 hp"
     },
-    "TNG015": {
-        "TEN7": [
-            {
-                "datum": "2025-08-26",
-                "tid": "14-16"
-            },
-            {
-                "datum": "2025-06-02",
-                "tid": "14-16"
-            }
-        ],
-        "TEN6": [
-            {
-                "datum": "2025-08-19",
-                "tid": "8-10"
-            },
-            {
-                "datum": "2025-04-29",
-                "tid": "8-10"
-            }
-        ]
+    {
+      "kurskod": "TNG022",
+      "kursnamn": "Modellbygge och simulering",
+      "examinationsmoment": "TEN2",
+      "tillfällen": [
+        {
+          "datum": "2025-03-19",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-03-19",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-08-20",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "4 hp"
     },
-    "TNG006": {
-        "TEN1": [
-            {
-                "datum": "2025-08-20",
-                "tid": "8-12"
-            },
-            {
-                "datum": "2025-06-04",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNG028",
+      "kursnamn": "Reglerteknik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-30",
+          "tid": "14-19"
+        }
+      ],
+      "hp": "4.5 hp"
     },
-    "TNA004": {
-        "TEN1": [
-            {
-                "datum": "2025-08-20",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-06-03",
-                "tid": "14-19"
-            }
-        ],
-        "KTR1": [
-            {
-                "datum": "2025-05-20",
-                "tid": "8-10"
-            }
-        ]
+    {
+      "kurskod": "TNG032",
+      "kursnamn": "Tillämpad transformteori",
+      "examinationsmoment": "TEN3",
+      "tillfällen": [
+        {
+          "datum": "2025-08-23",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-06-09",
+          "tid": "14-19"
+        },
+        {
+          "datum": "2025-03-27",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "4 hp"
     },
-    "TND002": {
-        "DAT1": [
-            {
-                "datum": "2025-08-21",
-                "tid": "8-13"
-            },
-            {
-                "datum": "2025-03-20",
-                "tid": "8-13"
-            }
-        ]
+    {
+      "kurskod": "TNG033",
+      "kursnamn": "Programmering i C++",
+      "examinationsmoment": "DAT1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-18",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-03-18",
+          "tid": "8-13"
+        },
+        {
+          "datum": "2025-08-26",
+          "tid": "8-13"
+        }
+      ],
+      "hp": "3 hp"
     },
-    "TNM061": {
-        "TEN1": [
-            {
-                "datum": "2025-08-21",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-06-05",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNM046",
+      "kursnamn": "Datorgrafik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-28",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-06-04",
+          "tid": "14-18"
+        }
+      ],
+      "hp": "3 hp"
     },
-    "TNA005": {
-        "DAK2": [
-            {
-                "datum": "2025-08-22",
-                "tid": "8-10"
-            },
-            {
-                "datum": "2025-06-09",
-                "tid": "14-16"
-            },
-            {
-                "datum": "2025-04-17",
-                "tid": "8-10"
-            }
-        ],
-        "DAK1": [
-            {
-                "datum": "2025-08-19",
-                "tid": "8-10"
-            },
-            {
-                "datum": "2025-06-09",
-                "tid": "8-10"
-            }
-        ],
-        "UPGD": [
-            {
-                "datum": "2025-05-14",
-                "tid": "8-10"
-            }
-        ]
+    {
+      "kurskod": "TNM059",
+      "kursnamn": "Grafisk teknik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-25",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-06-10",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-03-28",
+          "tid": "14-18"
+        }
+      ],
+      "hp": "4.5 hp"
     },
-    "TNM088": {
-        "KTR1": [
-            {
-                "datum": "2025-08-18",
-                "tid": "8-10"
-            }
-        ]
+    {
+      "kurskod": "TNM061",
+      "kursnamn": "3D Datorgrafik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-21",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-06-05",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "1.5 hp"
     },
-    "TNM079": {
-        "TEN3": [
-            {
-                "datum": "2025-08-20",
-                "tid": "14-18"
-            },
-            {
-                "datum": "2025-06-04",
-                "tid": "8-12"
-            }
-        ]
+    {
+      "kurskod": "TNM079",
+      "kursnamn": "Modellering och animering",
+      "examinationsmoment": "TEN3",
+      "tillfällen": [
+        {
+          "datum": "2025-08-20",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-06-04",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "N/A"
+    },
+    {
+      "kurskod": "TNM087",
+      "kursnamn": "Bildbehandling och bildanalys",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-17",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-03-17",
+          "tid": "14-18"
+        },
+        {
+          "datum": "2025-08-18",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "4.5 hp"
+    },
+    {
+      "kurskod": "TNM088",
+      "kursnamn": "Digitala medier",
+      "examinationsmoment": "KTR1",
+      "tillfällen": [
+        {
+          "datum": "2025-08-18",
+          "tid": "8-10"
+        }
+      ],
+      "hp": "1 hp"
+    },
+    {
+      "kurskod": "TNM110",
+      "kursnamn": "Grafisk design och kommunikation",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-20",
+          "tid": "8-12"
+        },
+        {
+          "datum": "2025-03-20",
+          "tid": "8-12"
+        },
+        {
+          "datum": "2025-08-21",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "N/A"
+    },
+    {
+      "kurskod": "TNM112",
+      "kursnamn": "Deep Learning för medieteknik",
+      "examinationsmoment": "TEN1",
+      "tillfällen": [
+        {
+          "datum": "2025-03-19",
+          "tid": "8-12"
+        },
+        {
+          "datum": "2025-03-19",
+          "tid": "8-12"
+        },
+        {
+          "datum": "2025-08-20",
+          "tid": "8-12"
+        }
+      ],
+      "hp": "N/A"
     }
-}
+  ]
