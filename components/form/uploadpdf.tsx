@@ -31,7 +31,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
 
     // Skapa en dummy event för att återanvända HandleFileInput
     const fakeEvent = {
-      preventDefault: () => {},
+      preventDefault: () => { },
       target: { files: [file] },
     } as unknown as ChangeEvent<HTMLInputElement>;
 
