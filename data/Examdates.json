@@ -83,7 +83,7 @@
     {
       "kurskod": "TNA005",
       "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
-      "examinationsmoment": "DAK1",
+      "examinationsmoment": "UPG9",
       "tillfällen": [
         {
           "datum": "2025-08-19",
@@ -94,40 +94,9 @@
           "tid": "8-10"
         }
       ],
-      "hp": "6 hp"
+      "hp": "1 hp"
     },
-    {
-      "kurskod": "TNA005",
-      "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
-      "examinationsmoment": "DAK2",
-      "tillfällen": [
-        {
-          "datum": "2025-08-22",
-          "tid": "8-10"
-        },
-        {
-          "datum": "2025-06-09",
-          "tid": "14-16"
-        },
-        {
-          "datum": "2025-04-17",
-          "tid": "8-10"
-        }
-      ],
-      "hp": "6 hp"
-    },
-    {
-      "kurskod": "TNA005",
-      "kursnamn": "Tillämpad matematik i teknik och naturvetenskap",
-      "examinationsmoment": "UPGD",
-      "tillfällen": [
-        {
-          "datum": "2025-05-14",
-          "tid": "8-10"
-        }
-      ],
-      "hp": "6 hp"
-    },
+ 
     {
       "kurskod": "TNA006",
       "kursnamn": "Analys III",
