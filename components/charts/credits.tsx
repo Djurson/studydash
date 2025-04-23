@@ -52,7 +52,6 @@ function getAllStudyYears(startYear: number) {
 function formatedTimeRange(range: string, startYear: number): string {
   const now = new Date();
 
-  console.log(now);
   if (range === "90d") {
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - 90);
@@ -222,7 +221,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
               }
             />
 
-            <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={1.5} />
+            <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={2} />
           </AreaChart>
         </ChartContainer>
       </section>

@@ -54,7 +54,7 @@ async function Page({ user, userData }: WithAuthProps) {
         <div className="col-span-2 ">
           <Suspense fallback={<CardLoading />}>
             <Card variant="header" cardTitle="Mina studieframsteg">
-              <StudyProgress />
+              <StudyProgress userData={userData} />
             </Card>
           </Suspense>
         </div>
@@ -63,7 +63,7 @@ async function Page({ user, userData }: WithAuthProps) {
         <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
         <PillbuttonContainer />
 
-        <CardForExams/>
+        <CardForExams />
       </section>
       <section>
         <h2 className="text-2xl font-semibold">Dina prestationer</h2>
