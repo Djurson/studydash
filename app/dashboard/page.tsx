@@ -13,6 +13,7 @@ import { WithAuthProps } from "@/utils/types";
 import { Suspense } from "react";
 import CardLoading from "@/components/card/card-loading";
 import CreditsLoading from "@/components/charts/credits-loading";
+import CardForExams from "@/components/card/cardforexams";
 
 async function Page({ user, userData }: WithAuthProps) {
   return (
@@ -62,7 +63,7 @@ async function Page({ user, userData }: WithAuthProps) {
         <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
         <PillbuttonContainer />
 
-        <CardCarousel />
+        <CardForExams/>
       </section>
       <section>
         <h2 className="text-2xl font-semibold">Dina prestationer</h2>
