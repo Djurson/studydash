@@ -50,7 +50,7 @@ async function Page({ user, userData }: WithAuthProps) {
         <div className="row-span-2 ">
           <Suspense fallback={<CardLoading />}>
             <Card variant="header" cardTitle="Mina kurser">
-              <ProgramWindow currentTerm="Termin 2 VT 2023"></ProgramWindow>
+              <ProgramWindow userData={userData}></ProgramWindow>
             </Card>
           </Suspense>
         </div>

@@ -4,6 +4,8 @@ import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import CardCarousel from "../card/card-carousel";
+import { WithAuthProps } from "@/utils/types";
+import { MapHasExamination } from "@/utils/utils";
 
 interface Program {
   name: string;
@@ -19,29 +21,57 @@ interface Semester {
 
 interface Course {}
 
-interface ProgramData {
-  programs: Program[];
+
+function getCurrentStudyYear(startYear: number) {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+
+  // Om nuvarande månad är mindre än före augusti (månad 7 (börjar på 0)), dra av 1 från året
+  const studyYear = currentMonth < 7 ? currentYear - 1 : currentYear;
+
+  return {
+    current: `${studyYear + 1}`,
+    start: new Date(studyYear, 7, 1),
+    end: new Date(studyYear + 1, 6, 31),
+  };
 }
 
-interface exjobbData {
-  programs: Program[];
-}
-
-export default function ProgramWindow({ currentTerm }: any) {
+export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenExam, setIsOpenExam] = useState(true);
 
-  var coursesArray: any = [];
+  var currentCoursesArray: any[] = [];
+  var missedExams = new Map();
+  var nonPassingMissedExams: any[] = [];
+
+  const currentTerm = getCurrentStudyYear(Number(userData?.studyyear))
 
   program.semesters.forEach((semester) => {
-    if (semester.name.includes(currentTerm)) {
+    if (semester.name.includes(currentTerm.current)) {
       semester.courses.forEach((courses) => {
-        coursesArray.push({ courses, semester });
+        currentCoursesArray.push({ courses, semester });
       });
     }
+    semester.courses.forEach(courses => {
+      courses.examinations.forEach(exam => {
+        if(!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)){
+          if(missedExams.has(courses.course_code)){
+            missedExams.get(courses.course_code).push({name:exam.code, credits: exam.credits})
+          }
+          else{
+            missedExams.set(courses.course_code, [{name: exam.code, credits: exam.credits}]);
+            nonPassingMissedExams.push({name: courses.name, course_code: courses.course_code, examcode: exam.code, credits:exam.code})
+
+          }
+        }
+      })
+    });
   });
+
+  console.log(nonPassingMissedExams);
 
   return (
     <div className="flex flex-col gap-4 mt-2 overflow-scroll no-scrollbar h-[24.25rem]">
@@ -53,7 +83,7 @@ export default function ProgramWindow({ currentTerm }: any) {
             isOpen ? "overflow-hidden" : "h-auto"
           } flex flex-col gap-2 h-32`}
         >
-          {coursesArray.map((item: any, index: any) => (
+          {currentCoursesArray.map((item: any, index: any) => (
             <a
               className="flex flex-col gap-2"
               key={index}
@@ -100,16 +130,16 @@ export default function ProgramWindow({ currentTerm }: any) {
             isOpenExam ? "overflow-hidden" : "h-auto"
           } flex flex-col gap-2 h-25`}
         >
-          {coursesArray.map((item: any, index: any) => (
+          {nonPassingMissedExams.map((item: any, index: any) => (
             <a
               className="flex flex-col gap-2"
               key={index}
-              href={`/program#${encodeURIComponent(item.semester.name)}`}
+              href={`/program#${encodeURIComponent(item.name)}`}
               onClick={() => {
                 // Small delay to ensure the hash change is processed
                 setTimeout(() => {
                   const element = document.getElementById(
-                    encodeURIComponent(item.semester.name)
+                    encodeURIComponent(item.name)
                   );
                   if (element) {
                     element.scrollIntoView({
@@ -121,11 +151,11 @@ export default function ProgramWindow({ currentTerm }: any) {
                 }, 100);
               }}
             >
-              <h3 className="text-sm font-semibold">{item.courses.name}</h3>
+              <h3 className="text-sm font-semibold">{item.name}</h3>
               <p className="text-xs text-gray-600">
-                {item.courses.course_code}
+                {item.course_code}
               </p>
-              <CardCarousel variant="programWindow"/>
+              <CardCarousel exam={missedExams} />
               <hr className="w-full bg-gray-600"></hr>
             </a>
           ))}
