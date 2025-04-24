@@ -143,7 +143,6 @@ async function HandleFileInput(file: File, setError: Dispatch<SetStateAction<str
     // Skapa en ny Map för att säkerställa att React upptäcker förändringen
     updateMap(response);
   } catch (error) {
-    console.error("Fel vid filuppladdning:", error);
     setError(`Ett fel uppstod vid filuppladdning: ${error}`);
   }
 }
