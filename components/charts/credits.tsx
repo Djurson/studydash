@@ -160,6 +160,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
 
       const current = monthMap.get(monthYear) || 0;
       monthMap.set(monthYear, current + item.credits);
+      console.log(monthMap);
     });
 
     return Array.from(monthMap.entries())
@@ -168,7 +169,6 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
         credits,
       }))
       .sort((a, b) => {
-        // Sort by date
         const dateA = new Date(`1 ${a.month}`);
         const dateB = new Date(`1 ${b.month}`);
         return dateA.getTime() - dateB.getTime();
@@ -248,7 +248,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
 
               <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
               <ChartTooltip
-                cursor={false}
+                cursor={true}
                 content={
                   <ChartTooltipContent
                     labelFormatter={(value) => {
@@ -274,22 +274,22 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
                 axisLine={false}
                 tickMargin={8}
                 tickFormatter={(value) => {
-                  // Show abbreviated month name
                   const [month, year] = value.split(" ");
                   return `${month.slice(0, 3)} ${year}`;
                 }}
               />
               <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
               <ChartTooltip
-                cursor={false}
+                cursor={true}
                 content={
                   <ChartTooltipContent
                     labelFormatter={(value) => {
-                      return new Date(value).toLocaleDateString("sv-SE", {
+                      const [month, year] = value.split(" ");
+                      return `${month.slice(0, 3)} ${year}`;
+                      /* return new Date(value).toLocaleDateString("sv-SE", {
                         year: "numeric",
                         month: "short",
-                        day: "numeric",
-                      });
+                      }); */
                     }}
                     indicator="dot"
                   />
