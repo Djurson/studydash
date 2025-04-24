@@ -30,13 +30,18 @@ type CardProps = {
  */
 
 export default function Card({ variant = "default", children, cardTitle }: CardProps) {
+  const baseClasses = "p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300";
+  const hoverClasses = variant === "no-header" ? "" : "hover:scale-[1.02] hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)]";
+
   return (
     <>
-      <main className="p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300 hover:scale-102 hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)]">
-        <header className="flex items-center cursor-pointer group">
-          <p className="text-lg group-hover:underline transition duration-300">{cardTitle}</p>
-          {variant === "header" && <ChevronRight size={24} className="ml-1 transition-all duration-200 transform group-hover:translate-x-1.5" />}
-        </header>
+      <main className={`${baseClasses} ${hoverClasses}`}>
+        {variant !== "no-header" && (
+          <header className="flex items-center cursor-pointer group">
+            <p className="text-lg group-hover:underline transition duration-300">{cardTitle}</p>
+            {variant === "header" && <ChevronRight size={24} className="ml-1 transition-all duration-200 transform group-hover:translate-x-1.5" />}
+          </header>
+        )}
         <section> {children}</section>
       </main>
     </>

@@ -160,7 +160,6 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
 
       const current = monthMap.get(monthYear) || 0;
       monthMap.set(monthYear, current + item.credits);
-      console.log(monthMap);
     });
 
     return Array.from(monthMap.entries())

@@ -57,3 +57,15 @@ export type CreditsChartObject = {
   name: string;
   credits: number;
 };
+
+export interface Program {
+  name: string;
+  credits: string;
+  url: string;
+  semesters: Semester[];
+}
+
+interface Semester {
+  name: string;
+  courses: Course[];
+}

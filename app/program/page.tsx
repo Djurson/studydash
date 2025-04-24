@@ -10,18 +10,9 @@ import { GetStaticProps } from "next";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
-
-interface Program {
-  name: string;
-  credits: string;
-  url: string;
-  semesters: Semester[];
-}
-
-interface Semester {
-  name: string;
-  courses: Course[];
-}
+import { ProgressCard } from "@/components/program/progressCard";
+import { Program, WithAuthProps } from "@/utils/types";
+import { withAuth } from "@/serverhooks/withAuth";
 
 interface Course {}
 
@@ -35,7 +26,7 @@ interface exjobbData {
   programs: Program[];
 }
 
-export default function Page() {
+async function Page({ user, userData }: WithAuthProps) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
 
@@ -47,15 +38,7 @@ export default function Page() {
       <section className="grid grid-cols-5 grid-rows-1 gap-4 mt-6">
         <div className="col-span-4">
           <Card variant="no-header" cardTitle="">
-            <div className="flex items-center">
-              <img src={LiuImg.src} alt="" className="h-[4.25rem] dark:grayscale-100 dark:invert" />
-              <div className="ml-4">
-                <p className="text-sm font-semibold text-gray-600">300hp</p>
-                <h2 className="text-2xl font-semibold">Civilingenjörsprogram i medieteknik.</h2>
-              </div>
-            </div>
-            <div className="bg-blue-200 h-4 w-full mt-4"></div>
-            <p>progress bar</p>
+            <ProgressCard userData={userData} credits={program.credits} url={program.url} />
           </Card>
         </div>
         <a href="/results" className="bg-accent rounded-2xl border-1 border-blue-900 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full p-4 col-span-1 flex flex-col items-center">
@@ -101,15 +84,17 @@ export default function Page() {
       <section>
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
         <div className="mt-4 w-full h-50">
-          <Card cardTitle=""></Card>
+          <Card cardTitle="" variant="no-header"></Card>
         </div>
       </section>
       <section>
         <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
         <div className="mt-4 w-full h-50">
-          <Card cardTitle=""></Card>
+          <Card cardTitle="" variant="no-header"></Card>
         </div>
       </section>
     </>
   );
 }
+
+export default withAuth(Page);
