@@ -1,7 +1,6 @@
 "use client";
 
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart, Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Rectangle } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { WithAuthProps } from "@/utils/types";
 import { useMemo } from "react";
@@ -20,7 +19,13 @@ const chartConfig = {
     color: "var(--color-green-900)",
   },
 } satisfies ChartConfig;
-//innerRadius={80} outerRadius={130}
+
+const CustomBar = (props: any) => {
+  const { fill, x, y, width, height, isTop } = props;
+  const radius = isTop ? 4 : 0;
+
+  return <Rectangle x={x} y={y} width={width} height={height} fill={fill} radius={isTop ? [4, 4, 0, 0] : [0, 0, 0, 0]} />;
+};
 
 export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
   const allCourses = useMemo(() => {
@@ -71,7 +76,6 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
       };
       currentDate.setMonth(currentDate.getMonth() + 1);
     }
-
     allCourses.forEach((course) => {
       const monthKey = `${course.date.getFullYear()}-${String(course.date.getMonth() + 1).padStart(2, "0")}`;
       if (monthlyData[monthKey]) {
@@ -93,16 +97,24 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
       }));
   }, [allCourses, userData?.studyyear]);
 
-  console.log("userdata", userData);
+  if (!chartData.length) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-muted-foreground">No grade data available</p>
+      </div>
+    );
+  }
 
-  //const merit = ((chartData[0].treor * 3 + chartData[0].fyror * 4 + chartData[0].femmor * 5) / (chartData[0].treor + chartData[0].fyror + chartData[0].femmor)).toFixed(2);
   return (
-    <main className="flex flex-col aspect-square h-[500px] w-full w-max-[500px] pt-4">
-      <ChartContainer config={chartConfig}>
+    <main>
+      <header>
+        <p>{userData?.studyyear} - nu</p>
+      </header>
+      <ChartContainer config={chartConfig} className="h-[300px] w-full">
         <BarChart data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="month"
+            dataKey="name"
             tickLine={false}
             axisLine={false}
             tickMargin={8}
@@ -111,7 +123,7 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
               return `${month.slice(0, 3)} ${year}`;
             }}
           />
-          <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} betyg`} />
+          <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} />
           <ChartTooltip
             cursor={true}
             content={
@@ -119,18 +131,31 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
                 labelFormatter={(value) => {
                   const [month, year] = value.split(" ");
                   return `${month.slice(0, 3)} ${year}`;
-                  /* return new Date(value).toLocaleDateString("sv-SE", {
-                        year: "numeric",
-                        month: "short",
-                      }); */
                 }}
                 indicator="dot"
               />
             }
           />
-          <Bar dataKey="treor" stackId="a" fill="var(--color-red-900)" radius={[0, 0, 4, 4]} />
-          <Bar dataKey="fyror" stackId="a" fill="var(--color-yellow-900)" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="femmor" stackId="a" fill="var(--color-green-900)" radius={[4, 4, 0, 0]} />
+
+          <Bar
+            dataKey="treor"
+            stackId="a"
+            fill="var(--color-red-900)"
+            shape={(props: any) => {
+              const entry = chartData.find((d) => d.name === props.name);
+              return <CustomBar {...props} isTop={!entry?.fyror && !entry?.femmor} />;
+            }}
+          />
+          <Bar
+            dataKey="fyror"
+            stackId="a"
+            fill="var(--color-yellow-900)"
+            shape={(props: any) => {
+              const entry = chartData.find((d) => d.name === props.name);
+              return <CustomBar {...props} isTop={!entry?.femmor} />;
+            }}
+          />
+          <Bar dataKey="femmor" stackId="a" fill="var(--color-green-900)" shape={(props: any) => <CustomBar {...props} isTop={true} />} />
         </BarChart>
       </ChartContainer>
     </main>

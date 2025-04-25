@@ -90,9 +90,15 @@ async function Page({ user, userData }: WithAuthProps) {
           <Card cardTitle="" variant="no-header">
             <div className="flex items-center">
               <div className="min-w-[20rem]">
+                <header>
+                  <h3>Genomsnittsmerit</h3>
+                </header>
                 <MeritPoints userData={userData} />
               </div>
               <div className="">
+                <header>
+                  <h3>Intjänade betyg</h3>
+                </header>
                 <MeritPointsBarChart userData={userData} />
               </div>
             </div>
