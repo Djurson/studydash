@@ -106,11 +106,11 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
   }
 
   return (
-    <main>
+    <main className="w-full">
       <header>
-        <p>{userData?.studyyear} - nu</p>
+        <p className="text-sm text-muted-foreground mt-2"> Visar data från {userData?.studyyear} - nu</p>
       </header>
-      <ChartContainer config={chartConfig} className="h-[300px] w-full">
+      <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
         <BarChart data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis

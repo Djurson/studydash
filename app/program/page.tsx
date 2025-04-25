@@ -86,18 +86,22 @@ async function Page({ user, userData }: WithAuthProps) {
 
       <section>
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
-        <div className="mt-4 w-full">
+        <div className="mt-4 w-full overflow-hidden h-full">
           <Card cardTitle="" variant="no-header">
-            <div className="flex items-center">
+            <div className="flex gap-4 h-full">
               <div className="min-w-[20rem]">
-                <header>
-                  <h3>Genomsnittsmerit</h3>
+                <header className="flex flex-col gap-2">
+                  <h3 className="text-xl">Genomsnittsmerit</h3>
+                  <p className="text-sm text-muted-foreground"> Visar data från {userData?.studyyear} - nu</p>
                 </header>
-                <MeritPoints userData={userData} />
+                <div className="h-fit">
+                  <MeritPoints userData={userData} />
+                </div>
               </div>
-              <div className="">
+              <div className="w-[1px] h-full bg-muted-foreground"></div>
+              <div className="w-full">
                 <header>
-                  <h3>Intjänade betyg</h3>
+                  <h3 className="text-xl">Intjänade betyg</h3>
                 </header>
                 <MeritPointsBarChart userData={userData} />
               </div>
