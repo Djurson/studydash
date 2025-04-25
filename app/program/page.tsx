@@ -88,18 +88,17 @@ async function Page({ user, userData }: WithAuthProps) {
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
         <div className="mt-4 w-full overflow-hidden h-full">
           <Card cardTitle="" variant="no-header">
-            <div className="flex gap-4 h-full">
-              <div className="min-w-[20rem]">
+            <div className="flex gap-8 h-full overflow-hidden">
+              <div className="w-1/4">
                 <header className="flex flex-col gap-2">
                   <h3 className="text-xl">Genomsnittsmerit</h3>
                   <p className="text-sm text-muted-foreground"> Visar data från {userData?.studyyear} - nu</p>
                 </header>
-                <div className="h-fit">
+                <div className="h-fit translate-y-10 w-full">
                   <MeritPoints userData={userData} />
                 </div>
               </div>
-              <div className="w-[1px] h-full bg-muted-foreground"></div>
-              <div className="w-full">
+              <div className="w-3/4">
                 <header>
                   <h3 className="text-xl">Intjänade betyg</h3>
                 </header>
