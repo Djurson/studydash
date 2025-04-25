@@ -63,8 +63,6 @@ async function Page({ user, userData }: WithAuthProps) {
       </main>
       <section className="mt-4">
         <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
-        <PillbuttonContainer />
-
         <CardForExams userData={userData} />
       </section>
       <section>

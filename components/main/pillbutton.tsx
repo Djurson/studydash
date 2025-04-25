@@ -39,7 +39,6 @@ export function PillbuttonContainer() {
   return (
     <div className="mt-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
-      <PillButton id={"Ordinare"} value={"Ordinare"} currentValue={selected} onClick={() => setSelected("Ordinare")} />
       <PillButton id={"Augusti"} value={"Augusti"} currentValue={selected} onClick={() => setSelected("Augusti")} />
       <PillButton id={"Oktober"} value={"Oktober"} currentValue={selected} onClick={() => setSelected("Oktober")} />
       <PillButton id={"Januari"} value={"Januari"} currentValue={selected} onClick={() => setSelected("Januari")} />
