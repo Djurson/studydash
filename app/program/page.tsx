@@ -13,6 +13,7 @@ import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
 import { Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
+import { Credits } from "@/components/charts/credits";
 
 interface Course {}
 
@@ -89,8 +90,10 @@ async function Page({ user, userData }: WithAuthProps) {
       </section>
       <section>
         <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
-        <div className="mt-4 w-full h-50">
-          <Card cardTitle="" variant="no-header"></Card>
+        <div className="mt-4 w-full">
+          <Card cardTitle="" variant="no-header">
+            <Credits userData={userData} />
+          </Card>
         </div>
       </section>
     </>
