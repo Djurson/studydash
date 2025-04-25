@@ -36,10 +36,11 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
 export function PillbuttonContainer() {
   const [selected, setSelected] = useState<string>("Alla");
 
+
+  //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla" 
   return (
     <div className="mt-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
-      <PillButton id={"Ordinare"} value={"Ordinare"} currentValue={selected} onClick={() => setSelected("Ordinare")} />
       <PillButton id={"Augusti"} value={"Augusti"} currentValue={selected} onClick={() => setSelected("Augusti")} />
       <PillButton id={"Oktober"} value={"Oktober"} currentValue={selected} onClick={() => setSelected("Oktober")} />
       <PillButton id={"Januari"} value={"Januari"} currentValue={selected} onClick={() => setSelected("Januari")} />

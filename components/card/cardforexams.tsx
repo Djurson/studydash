@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo, useState } from "react";
 import examsData from '@/data/Examdates.json';
 import { Examination, WithAuthProps } from "@/utils/types";
+import { Button } from "../ui/button";
 
 interface Exam {
   kurskod: string;
@@ -15,12 +16,66 @@ interface Exam {
   }[];
 }
 
+type PillButtonProps = React.ComponentProps<typeof Button> & {
+  currentValue: string;
+};
+
+function PillButton({ currentValue, ...props }: PillButtonProps) {
+  return (
+    <button
+      className={`border-1 px-4 py-1.5 rounded-2xl font-semibold text-sm transition duration-200 ease-in-out
+                cursor-pointer hover:text-blue-900 hover:border-blue-900
+                ${props.value === currentValue ? "text-blue-900 border-blue-900 bg-highlight dark:text-foreground" : "text-foreground dark:border-muted bg-accent"}`}
+      {...props}
+    >
+      {props.id}
+    </button>
+  );
+}
+
+function PillbuttonContainer({ 
+  currentValue, 
+  onMonthChange,
+  availableMonths
+}: { 
+  currentValue: string; 
+  onMonthChange: (month: string) => void;
+  availableMonths: string[];
+}) {
+  const allMonths = [
+    { id: "Alla", value: "Alla" },
+    { id: "Augusti", value: "Augusti" },
+    { id: "Oktober", value: "Oktober" },
+    { id: "Januari", value: "Januari" },
+    { id: "Mars", value: "Mars" },
+    { id: "Juni", value: "Juni" }
+  ];
+
+  return (
+    <div className="mt-4 flex gap-4">
+      {allMonths
+        .filter(month => month.value === "Alla" || month.value === "Ordinare" || availableMonths.includes(month.value))
+        .map(month => (
+          <PillButton 
+            key={month.value}
+            id={month.id} 
+            value={month.value} 
+            currentValue={currentValue} 
+            onClick={() => onMonthChange(month.value)} 
+          />
+        ))}
+    </div>
+  );
+}
+
 export default function CardForExams({ userData }: Partial<WithAuthProps>) {
   const carouselRef = useRef<HTMLUListElement>(null);
-  
-  const missingExams = useMemo(() => {
-    if (!userData?.studyinfo) return [];
+  const [selectedMonth, setSelectedMonth] = useState<string>("Alla");
 
+  const { filteredExams, availableMonths } = useMemo(() => {
+    if (!userData?.studyinfo) return { filteredExams: [], availableMonths: [] };
+
+    // Get user's exam codes
     const userExamCodes = new Set<string>();
     userData.studyinfo.forEach(course => {
       course.examinations.forEach(exam => {
@@ -28,23 +83,73 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
       });
     });
 
-    const getNearestDate = (exam: Exam) => {
-      const upcoming = exam.tillfällen
-        .map(t => t.datum)
-        .sort()
-        .find(date => new Date(date) >= new Date());
-      return upcoming ? new Date(upcoming).getTime() : Infinity;
+    // Get current date
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+
+    // Process all exams
+    const examsWithDates = examsData
+      .filter(exam => !userExamCodes.has(`${exam.kurskod}-${exam.examinationsmoment}`))
+      .map(exam => {
+        const upcomingDate = exam.tillfällen
+          .map(t => t.datum)
+          .sort()
+          .find(date => new Date(date) >= currentDate);
+        
+        return {
+          ...exam,
+          upcomingDate,
+          upcomingMonth: upcomingDate ? new Date(upcomingDate).getMonth() : null
+        };
+      });
+
+    const monthMap: Record<number, string> = {
+      7: "Augusti",
+      9: "Oktober",
+      0: "Januari",
+      2: "Mars",
+      5: "Juni"
     };
 
-    return examsData
-      .filter(exam => !userExamCodes.has(`${exam.kurskod}-${exam.examinationsmoment}`))
-      .sort((a, b) => getNearestDate(a) - getNearestDate(b));
-  }, [userData]);
+    const monthsWithExams = new Set<string>();
+    examsWithDates.forEach(exam => {
+      if (exam.upcomingMonth !== null) {
+        const monthName = monthMap[exam.upcomingMonth];
+        if (monthName) monthsWithExams.add(monthName);
+      }
+    });
 
+    let filteredExams = examsWithDates;
+    
+    if (selectedMonth !== "Alla") {
+      if (selectedMonth === "Ordinare") {
+        filteredExams = examsWithDates.filter(exam => exam.tillfällen.length > 1);
+      } else {
+        const targetMonth = Object.entries(monthMap).find(([_, name]) => name === selectedMonth)?.[0];
+        if (targetMonth) {
+          filteredExams = examsWithDates.filter(exam => 
+            exam.upcomingMonth === parseInt(targetMonth)
+          );
+        }
+      }
+    }
+
+    filteredExams.sort((a, b) => {
+      const aDate = a.upcomingDate ? new Date(a.upcomingDate).getTime() : Infinity;
+      const bDate = b.upcomingDate ? new Date(b.upcomingDate).getTime() : Infinity;
+      return aDate - bDate;
+    });
+
+    return {
+      filteredExams,
+      availableMonths: Array.from(monthsWithExams)
+    };
+  }, [userData, selectedMonth]);
 
   const formatDate = (dateString: string) => {
     const [year, month, day] = dateString.split('-');
-    return `${day}-${month}-${year.slice(-2)}`;
+    return `${year}-${month}-${day}`;
   };
 
   const getDaysRemaining = (examDate: string) => {
@@ -60,62 +165,63 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
   };
 
   const getBadgeColor = (days: number) => {
-    if (days === 0) return "bg-red-500"; 
-    if (days <= 20) return "bg-yellow-500"; 
-    return "bg-green-500"; 
+    if (days === 0) return "bg-red-500";
+    if (days <= 20) return "bg-yellow-500";
+    return "bg-green-500";
   };
 
   return (
-    <div className="space-y-8">
-      <ul
-  className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.08)] px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
-  ref={carouselRef}
->
-  {missingExams.map((exam, index) => {
-    const upcomingDate = exam.tillfällen
-      .map(t => t.datum)
-      .sort()
-      .find(date => new Date(date) >= new Date());
-
-    const displayDate = upcomingDate || exam.tillfällen[0]?.datum;
-    const formattedDate = displayDate ? formatDate(displayDate) : "N/A";
-
-    const daysRemaining = displayDate ? getDaysRemaining(displayDate) : null;
-    const daysRemainingText = daysRemaining !== null ? getDaysRemainingText(daysRemaining) : "N/A";
-    const badgeColor = daysRemaining !== null ? getBadgeColor(daysRemaining) : "bg-gray-400";
-
-    return (
-      <li
-        className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal 
-          ${index === 0 ? "snap-start" : ""} 
-          ${index === missingExams.length - 1 ? "snap-end" : ""}`}
-        key={`${exam.kurskod}-${exam.examinationsmoment}-${index}`}
+    <div className="space-y-1">
+      <PillbuttonContainer 
+        currentValue={selectedMonth} 
+        onMonthChange={setSelectedMonth}
+        availableMonths={availableMonths}
+      />
+      
+      <ul 
+        className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.08)] px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
+        ref={carouselRef}
       >
-        <header className="flex items-center h-[2rem]">
-          <p className="text-sm font-semibold">{exam.kursnamn}</p>
-        </header>
+        {filteredExams.map((exam, index) => {
+          const displayDate = exam.upcomingDate || exam.tillfällen[0]?.datum;
+          const formattedDate = displayDate ? formatDate(displayDate) : "N/A";
 
-        <section className="mt-4 flex flex-col gap-2 text-xs text-gray-600 font-normal">
-          <div className="flex justify-between">
-            <p>{exam.kurskod}</p>
-            <p>{formattedDate}</p>
-          </div>
+          const daysRemaining = displayDate ? getDaysRemaining(displayDate) : null;
+          const daysRemainingText = daysRemaining !== null ? getDaysRemainingText(daysRemaining) : "N/A";
+          const badgeColor = daysRemaining !== null ? getBadgeColor(daysRemaining) : "bg-gray-400";
 
-          <div className="flex justify-between">
-            <p>{exam.examinationsmoment}</p>
-            <p>{exam.hp}</p>
-          </div>
-        </section>
+          return (
+            <li
+              className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal
+                ${index === 0 ? "snap-start" : ""}
+                ${index === filteredExams.length - 1 ? "snap-end" : ""}`}
+              key={`${exam.kurskod}-${exam.examinationsmoment}-${index}`}
+            >
+              <header className="flex items-center h-[2rem]">
+                <p className="text-sm font-semibold">{exam.kursnamn}</p>
+              </header>
 
-        <footer className="mt-2 flex justify-end">
-          <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>
-            {daysRemainingText}
-          </span>
-        </footer>
-      </li>
-    );
-  })}
-</ul>
-</div>
-  )
+              <section className="mt-4 flex flex-col gap-2 text-xs text-gray-600 font-normal">
+                <div className="flex justify-between">
+                  <p>{exam.kurskod}</p>
+                  <p>{formattedDate}</p>
+                </div>
+
+                <div className="flex justify-between">
+                  <p>{exam.examinationsmoment}</p>
+                  <p>{exam.hp}</p>
+                </div>
+              </section>
+
+              <footer className="mt-2 flex justify-end">
+                <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>
+                  {daysRemainingText}
+                </span>
+              </footer>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
