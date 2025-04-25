@@ -14,6 +14,8 @@ import { ProgressCard } from "@/components/program/progressCard";
 import { Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
 import { Credits } from "@/components/charts/credits";
+import { MeritPoints } from "@/components/charts/meritpoints";
+import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
 interface Course {}
 
@@ -84,8 +86,17 @@ async function Page({ user, userData }: WithAuthProps) {
 
       <section>
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
-        <div className="mt-4 w-full h-50">
-          <Card cardTitle="" variant="no-header"></Card>
+        <div className="mt-4 w-full">
+          <Card cardTitle="" variant="no-header">
+            <div className="flex items-center">
+              <div className="min-w-[20rem]">
+                <MeritPoints userData={userData} />
+              </div>
+              <div className="">
+                <MeritPointsBarChart userData={userData} />
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
       <section>
