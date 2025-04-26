@@ -103,21 +103,12 @@ export function AppSidebar({ user }: WithAuthProps) {
             <SidebarMenu>
               {others.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  {item.title === "Inställningar" ? (
-                    <SettingsDialog>
-                      <SidebarMenuButton>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </SidebarMenuButton>
-                    </SettingsDialog>
-                  ) : (
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  )}
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

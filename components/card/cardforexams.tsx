@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useMemo, useState } from "react";
-import examsData from '@/data/Examdates.json';
+import examsData from "@/data/Examdates.json";
 import { Examination, WithAuthProps } from "@/utils/types";
 import { Button } from "../ui/button";
 
@@ -26,43 +26,28 @@ function PillButton({ currentValue, ...props }: PillButtonProps) {
       className={`border-1 px-4 py-1.5 rounded-2xl font-semibold text-sm transition duration-200 ease-in-out
                 cursor-pointer hover:text-blue-900 hover:border-blue-900
                 ${props.value === currentValue ? "text-blue-900 border-blue-900 bg-highlight dark:text-foreground" : "text-foreground dark:border-muted bg-accent"}`}
-      {...props}
-    >
+      {...props}>
       {props.id}
     </button>
   );
 }
 
-function PillbuttonContainer({ 
-  currentValue, 
-  onMonthChange,
-  availableMonths
-}: { 
-  currentValue: string; 
-  onMonthChange: (month: string) => void;
-  availableMonths: string[];
-}) {
+function PillbuttonContainer({ currentValue, onMonthChange, availableMonths }: { currentValue: string; onMonthChange: (month: string) => void; availableMonths: string[] }) {
   const allMonths = [
     { id: "Alla", value: "Alla" },
     { id: "Augusti", value: "Augusti" },
     { id: "Oktober", value: "Oktober" },
     { id: "Januari", value: "Januari" },
     { id: "Mars", value: "Mars" },
-    { id: "Juni", value: "Juni" }
+    { id: "Juni", value: "Juni" },
   ];
 
   return (
     <div className="mt-4 flex gap-4">
       {allMonths
-        .filter(month => month.value === "Alla" || month.value === "Ordinare" || availableMonths.includes(month.value))
-        .map(month => (
-          <PillButton 
-            key={month.value}
-            id={month.id} 
-            value={month.value} 
-            currentValue={currentValue} 
-            onClick={() => onMonthChange(month.value)} 
-          />
+        .filter((month) => month.value === "Alla" || month.value === "Ordinare" || availableMonths.includes(month.value))
+        .map((month) => (
+          <PillButton key={month.value} id={month.id} value={month.value} currentValue={currentValue} onClick={() => onMonthChange(month.value)} />
         ))}
     </div>
   );
@@ -77,8 +62,8 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
     // Get user's exam codes
     const userExamCodes = new Set<string>();
-    userData.studyinfo.forEach(course => {
-      course.examinations.forEach(exam => {
+    userData.studyinfo.forEach((course) => {
+      course.examinations.forEach((exam) => {
         userExamCodes.add(`${course.code}-${exam.code}`);
       });
     });
@@ -90,17 +75,17 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
     // Process all exams
     const examsWithDates = examsData
-      .filter(exam => !userExamCodes.has(`${exam.kurskod}-${exam.examinationsmoment}`))
-      .map(exam => {
+      .filter((exam) => !userExamCodes.has(`${exam.kurskod}-${exam.examinationsmoment}`))
+      .map((exam) => {
         const upcomingDate = exam.tillfällen
-          .map(t => t.datum)
+          .map((t) => t.datum)
           .sort()
-          .find(date => new Date(date) >= currentDate);
-        
+          .find((date) => new Date(date) >= currentDate);
+
         return {
           ...exam,
           upcomingDate,
-          upcomingMonth: upcomingDate ? new Date(upcomingDate).getMonth() : null
+          upcomingMonth: upcomingDate ? new Date(upcomingDate).getMonth() : null,
         };
       });
 
@@ -109,11 +94,11 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
       9: "Oktober",
       0: "Januari",
       2: "Mars",
-      5: "Juni"
+      5: "Juni",
     };
 
     const monthsWithExams = new Set<string>();
-    examsWithDates.forEach(exam => {
+    examsWithDates.forEach((exam) => {
       if (exam.upcomingMonth !== null) {
         const monthName = monthMap[exam.upcomingMonth];
         if (monthName) monthsWithExams.add(monthName);
@@ -121,16 +106,14 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
     });
 
     let filteredExams = examsWithDates;
-    
+
     if (selectedMonth !== "Alla") {
       if (selectedMonth === "Ordinare") {
-        filteredExams = examsWithDates.filter(exam => exam.tillfällen.length > 1);
+        filteredExams = examsWithDates.filter((exam) => exam.tillfällen.length > 1);
       } else {
         const targetMonth = Object.entries(monthMap).find(([_, name]) => name === selectedMonth)?.[0];
         if (targetMonth) {
-          filteredExams = examsWithDates.filter(exam => 
-            exam.upcomingMonth === parseInt(targetMonth)
-          );
+          filteredExams = examsWithDates.filter((exam) => exam.upcomingMonth === parseInt(targetMonth));
         }
       }
     }
@@ -143,12 +126,12 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
     return {
       filteredExams,
-      availableMonths: Array.from(monthsWithExams)
+      availableMonths: Array.from(monthsWithExams),
     };
   }, [userData, selectedMonth]);
 
   const formatDate = (dateString: string) => {
-    const [year, month, day] = dateString.split('-');
+    const [year, month, day] = dateString.split("-");
     return `${year}-${month}-${day}`;
   };
 
@@ -165,23 +148,16 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
   };
 
   const getBadgeColor = (days: number) => {
-    if (days === 0) return "bg-red-500";
-    if (days <= 20) return "bg-yellow-500";
-    return "bg-green-500";
+    if (days === 0) return "bg-red-900";
+    if (days <= 20) return "bg-yellow-900";
+    return "bg-green-900";
   };
 
   return (
     <div className="space-y-1">
-      <PillbuttonContainer 
-        currentValue={selectedMonth} 
-        onMonthChange={setSelectedMonth}
-        availableMonths={availableMonths}
-      />
-      
-      <ul 
-        className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.08)] px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
-        ref={carouselRef}
-      >
+      <PillbuttonContainer currentValue={selectedMonth} onMonthChange={setSelectedMonth} availableMonths={availableMonths} />
+
+      <ul className="flex w-full overflow-x-auto drop-shadow-[2px_4px_12px_rgba(0,0,0,0.04)] px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar" ref={carouselRef}>
         {filteredExams.map((exam, index) => {
           const displayDate = exam.upcomingDate || exam.tillfällen[0]?.datum;
           const formattedDate = displayDate ? formatDate(displayDate) : "N/A";
@@ -192,12 +168,11 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
           return (
             <li
-              className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] snap-start snap-normal
+              className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] snap-start snap-normal
                 ${index === 0 ? "snap-start" : ""}
                 ${index === filteredExams.length - 1 ? "snap-end" : ""}`}
-              key={`${exam.kurskod}-${exam.examinationsmoment}-${index}`}
-            >
-              <header className="flex items-center h-[2rem]">
+              key={`${exam.kurskod}-${exam.examinationsmoment}-${index}`}>
+              <header>
                 <p className="text-sm font-semibold">{exam.kursnamn}</p>
               </header>
 
@@ -214,9 +189,7 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
               </section>
 
               <footer className="mt-2 flex justify-end">
-                <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>
-                  {daysRemainingText}
-                </span>
+                <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>{daysRemainingText}</span>
               </footer>
             </li>
           );
