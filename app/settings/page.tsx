@@ -2,6 +2,7 @@ import UserInfo from "@/components/card/userInfo";
 import { ThemeSwitcher } from "@/components/supabase-template/theme-switcher";
 import { withAuth } from "@/serverhooks/withAuth";
 import { WithAuthProps } from "@/utils/types";
+import { Trash } from "lucide-react";
 
 function Page({ user }: WithAuthProps) {
   console.log("user:", user);
@@ -24,16 +25,26 @@ function Page({ user }: WithAuthProps) {
           <h2 className="text-2xl font-semibold">Konto</h2>
           <p>Här visas din kontoinformation.</p>
         </div>
-        <div className="border border-muted-foreground rounded-2xl p-20 flex">
-          <div>
-            <p>Namn</p>
-            <p></p>
-          </div>
-          <div>
-            <p>Efternamn</p>
-          </div>
-          <div>
-            <p>Email</p>
+        <div className="border border-muted-foreground rounded-2xl p-4 ">
+          <div className="flex justify-between">
+            <div className="rounded-2xl overflow-hidden aspect-square w-20 h-20 flex items-end justify-center">
+              <img src={user.user_metadata.avatar_url} alt="profilbild" />
+            </div>
+            <div>
+              <p className="text-muted-foreground font-light">Namn</p>
+              <p className="text-lg">{user.user_metadata.name.split(" ")[0]}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground font-light">Efternamn</p>
+              <p className="text-lg">{user.user_metadata.name.split(" ")[1]}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground font-light">Email</p>
+              <p className="text-lg">{user.email}</p>
+            </div>
+            <div className="w-20 h-20 bg-red-900 flex items-center justify-center rounded-2xl">
+              <Trash className=" text-white" />
+            </div>
           </div>
         </div>
       </section>
