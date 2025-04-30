@@ -56,14 +56,14 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
       });
     }
     semester.courses.forEach(courses => {
-      courses.examinations.forEach(exam => {
+      courses.examinations.forEach((exam:any, index: any) => {
         if(!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)){
           if(missedExams.has(courses.course_code)){
             missedExams.get(courses.course_code).push({name:exam.code, credits: exam.credits})
           }
           else{
             missedExams.set(courses.course_code, [{name: exam.code, credits: exam.credits}]);
-            nonPassingMissedExams.push({name: courses.name, course_code: courses.course_code, examcode: exam.code, credits:exam.code})
+            nonPassingMissedExams.push({index: index++, name: courses.name, course_code: courses.course_code, examcode: exam.code, credits:exam.code})
 
           }
         }
@@ -71,7 +71,6 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
     });
   });
 
-  console.log(nonPassingMissedExams);
 
   return (
     <div className="flex flex-col gap-4 mt-2 overflow-scroll no-scrollbar h-[24.25rem]">
@@ -155,7 +154,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
               <p className="text-xs text-gray-600">
                 {item.course_code}
               </p>
-              <CardCarousel exam={missedExams} />
+              <CardCarousel exam={missedExams.get(item.course_code)} />
               <hr className="w-full bg-gray-600"></hr>
             </a>
           ))}
