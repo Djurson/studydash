@@ -4,6 +4,7 @@ import {SquareUserRound, ChartNoAxesCombined, FileUser, Download} from "lucide-r
 import { WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
 
+
 const calculateAverageGrade = (userData: any): string => {
   if (!userData?.studyinfo) return "-";
   
@@ -33,6 +34,22 @@ const calculateAverageGrade = (userData: any): string => {
 
 async function Page({ user, userData }: WithAuthProps) {
   const averageGrade = calculateAverageGrade(userData);
+
+  // Extract finished courses from Map
+  const finishedCourses = userData?.studyinfo 
+    ? Array.from(userData.studyinfo.values())
+        .filter((course) => course.grade && !isNaN(parseFloat(course.grade.toString())))
+        .map((course) => ({
+          name: course.name,
+          code: course.code,
+          grade: course.grade,
+          credits: course.hp,
+          date: course.date
+        }))
+    : [];
+
+  console.log("Finished courses:", finishedCourses);
+
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -79,7 +96,7 @@ async function Page({ user, userData }: WithAuthProps) {
             <div className="space-y-5 p-6">
               {[
                 { label: "Intjänade högskolpoäng", value: "200" },
-                { label: "Avklarade kurser", value: "10" },
+                { label: "Avklarade kurser", value: finishedCourses.length.toString() },
                 { label: "Snittbetyg", value: averageGrade },
                 { label: "Högskolepoäng till examen", value: "150" }
               ].map((item, index) => (
