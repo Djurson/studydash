@@ -73,14 +73,12 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
 
 
   return (
-    <div className="flex flex-col gap-4 mt-2 overflow-scroll no-scrollbar h-[24.25rem]">
+    <div className="flex flex-col gap-4 mt-2 h-[24.25rem]">
       <div className="flex flex-col gap-2">
         <h3 className="text-sm text-gray-600">Nuvarande</h3>
         <hr className="w-full bg-gray-600"></hr>
         <div
-          className={`${
-            isOpen ? "overflow-hidden" : "h-auto"
-          } flex flex-col gap-2 h-32`}
+          className="overflow-scroll no-scrollbar flex flex-col gap-2 h-32"
         >
           {currentCoursesArray.map((item: any, index: any) => (
             <a
@@ -114,24 +112,16 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
             </a>
           ))}
         </div>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex justify-center border-2 border-gray-600 rounded-sm"
-        >
-          {!isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-        </button>
       </div>
       <div className="flex flex-col gap-2 ">
         <h3 className="text-gray-600 text-sm">Ej avklarade</h3>
         <hr className="w-full bg-gray-600"></hr>
         <div
-          className={`${
-            isOpenExam ? "overflow-hidden" : "h-auto"
-          } flex flex-col gap-2 h-25`}
+          className="overflow-scroll no-scrollbar flex flex-col gap-2 h-40"
         >
           {nonPassingMissedExams.map((item: any, index: any) => (
             <a
-              className="flex flex-col gap-2"
+              className="flex flex-col gap-1"
               key={index}
               href={`/program#${encodeURIComponent(item.name)}`}
               onClick={() => {
@@ -159,12 +149,6 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
             </a>
           ))}
         </div>
-        <button
-          onClick={() => setIsOpenExam(!isOpenExam)}
-          className="w-full flex justify-center border-2 border-gray-600 rounded-sm"
-        >
-          {!isOpenExam ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-        </button>
       </div>
     </div>
   );

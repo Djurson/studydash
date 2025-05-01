@@ -27,17 +27,19 @@ export default function CardCarousel({exam}: {exam: any}) {
         ref={carouselRef}>
         {exam.map((examItem:any, index:any) => (
           <li
-            className={`h-20 my-2 p-2 w-[10rem] mr-2 last:mr-0 bg-accent rounded-2xl shrink-0 snap-start snap-normal´} 
+            key={index}
+            className={`h-13 my-2 p-2 w-[10rem] mr-2 last bg-accent rounded-2xl shrink-0 snap-start snap-normal flex items-center
               ${index === 0 ? "snap-start" : ""} 
-              ${index === exam.length - 1 ? "snap-end" : ""}`}
-            key={examItem.course_code}>
-            <section className="mt-4 flex flex-col gap-2 text-xs text-gray-600 font-normal">
+              ${index === exam.length - 1 ? "snap-end" : ""}`}>
+            <section className="flex flex-col w-full gap-2 text-xs text-gray-600 font-normal">
               <div className="flex justify-between">
                 <div className="flex flex-row items-center gap-1">
                   <CircleAlert color="#f36961" />
                   <p className="h-fit">{examItem.name}</p>
                 </div>
-                <p>{examItem.credits}</p>
+                <div className="flex flex-row items-center gap-1">
+                  <p>{examItem.credits}</p> 
+                </div>
               </div>
             </section>
           </li>
