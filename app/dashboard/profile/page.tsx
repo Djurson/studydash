@@ -3,6 +3,7 @@ import Card from "@/components/card/card";
 import {SquareUserRound, ChartNoAxesCombined, FileUser, Download} from "lucide-react";
 import { WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
+import AchievementGrid from "./achievments";
 
 
 const calculateAverageGrade = (userData: any): string => {
@@ -27,7 +28,7 @@ const calculateAverageGrade = (userData: any): string => {
   if (gradedCourses === 0) return "-";
 
   const average = weightedSum / totalCredits;
-  return average.toFixed(1); // Returns with 1 decimal place
+  return average.toFixed(1); 
 };
 
 
@@ -35,21 +36,21 @@ const calculateAverageGrade = (userData: any): string => {
 async function Page({ user, userData }: WithAuthProps) {
   const averageGrade = calculateAverageGrade(userData);
 
-  // Extract finished courses from Map
-  const finishedCourses = userData?.studyinfo 
-    ? Array.from(userData.studyinfo.values())
-        .filter((course) => course.grade && !isNaN(parseFloat(course.grade.toString())))
-        .map((course) => ({
-          name: course.name,
-          code: course.code,
-          grade: course.grade,
-          credits: course.hp,
-          date: course.date
-        }))
-    : [];
 
-  console.log("Finished courses:", finishedCourses);
+  const finishedCourses = Array.from(userData?.studyinfo?.values() || [])
+  .filter(course => course?.grade && !isNaN(parseFloat(course.grade.toString())))
+  .length;
 
+  const totalCredits = userData?.sortedDateMap
+  ? Array.from(userData.sortedDateMap.values())
+      .flat() 
+      .filter(exam => {
+        const grade = exam.grade?.toString().toUpperCase();
+        return grade === 'P' || grade === 'G' || 
+               (grade && !isNaN(parseFloat(grade)) && parseFloat(grade) >= 3);
+      })
+      .reduce((sum, exam) => sum + (exam.hp || 0), 0)
+  : 0;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -93,12 +94,12 @@ async function Page({ user, userData }: WithAuthProps) {
             <h2 className="text-xl font-semibold text-foreground">Statistik</h2>
           </div>
           <Card variant="no-header" cardTitle="">
-            <div className="space-y-5 p-6">
+            <div className="space-y-7 p-6">
               {[
-                { label: "Intjänade högskolpoäng", value: "200" },
-                { label: "Avklarade kurser", value: finishedCourses.length.toString() },
+                { label: "Intjänade högskolpoäng", value: totalCredits.toString() },
+                { label: "Avklarade kurser", value: finishedCourses.toString() },
                 { label: "Snittbetyg", value: averageGrade },
-                { label: "Högskolepoäng till examen", value: "150" }
+                { label: "Högskolepoäng till examen", value: (300-totalCredits) }
               ].map((item, index) => (
                 <div key={index} className="flex justify-between">
                   <span className="text-foreground font-medium">{item.label}</span>
@@ -132,7 +133,8 @@ async function Page({ user, userData }: WithAuthProps) {
           <h2 className="text-2xl font-bold text-foreground">Prestationer</h2>
         </div>
         <Card variant="no-header" cardTitle="">
-          {/* Achievement content would go here */}
+     
+        <AchievementGrid userData={userData}/>
         </Card>
       </section>
       
