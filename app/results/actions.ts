@@ -84,14 +84,17 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
   });
 
   // Extrahera texten från PDF filen
-  pdfParser.loadPDF(tempFilePath);
+  await new Promise((resolve, reject) => {
+    pdfParser.loadPDF(tempFilePath);
 
-  pdfParser.on("pdfParser_dataReady", () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    parsedText = (pdfParser as any).getRawTextContent();
+    pdfParser.on("pdfParser_dataReady", () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      parsedText = (pdfParser as any).getRawTextContent();
+      resolve(parsedText);
+    });
+
+    pdfParser.on("pdfParser_dataError", reject);
   });
-
-  pdfParser.on("pdfParser_dataError", console.error("pdfParser_dataError"));
 
   // "Rensa" den temporära filen
   await fs.unlink(tempFilePath).catch((err) => console.error("Error deleting temp file:", err));
