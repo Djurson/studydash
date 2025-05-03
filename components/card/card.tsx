@@ -2,11 +2,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils"; // Utility for merging class names
 import { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type CardProps = {
   cardTitle: string;
   variant?: "default" | "compact" | "large" | "header" | "no-header";
   children?: ReactNode;
+  href?: string;
+  sectionId?: string;
 };
 
 // const variants = cva(
@@ -29,19 +32,27 @@ type CardProps = {
  * </Card>
  */
 
-export default function Card({ variant = "default", children, cardTitle }: CardProps) {
+export default function Card({ variant = "default", children, cardTitle, href, sectionId }: CardProps) {
   const baseClasses = "p-4 bg-card rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] w-full h-full duration-300";
   const hoverClasses = variant === "no-header" ? "" : "hover:scale-[1.02] hover:shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.1)]";
+  const headerContent = (
+    <header className="flex items-center cursor-pointer group">
+      <p className="text-lg group-hover:underline transition duration-300">{cardTitle}</p>
+      {variant === "header" && <ChevronRight size={24} className="ml-1 transition-all duration-200 transform group-hover:translate-x-1.5" />}
+    </header>
+  );
 
   return (
     <>
       <main className={`${baseClasses} ${hoverClasses}`}>
-        {variant !== "no-header" && (
-          <header className="flex items-center cursor-pointer group">
-            <p className="text-lg group-hover:underline transition duration-300">{cardTitle}</p>
-            {variant === "header" && <ChevronRight size={24} className="ml-1 transition-all duration-200 transform group-hover:translate-x-1.5" />}
-          </header>
-        )}
+        {variant !== "no-header" &&
+          (href ? (
+            <Link href={`${href}${sectionId ? `#${sectionId}` : ""}`} scroll={false}>
+              {headerContent}
+            </Link>
+          ) : (
+            headerContent
+          ))}
         <section> {children}</section>
       </main>
     </>

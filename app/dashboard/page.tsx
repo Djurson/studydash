@@ -31,7 +31,7 @@ async function Page({ user, userData }: WithAuthProps) {
       <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-4 ">
         <div className="row-span-2 col-span-2">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Intjänade högskolepoäng">
+            <Card variant="header" cardTitle="Intjänade högskolepoäng" href="/program" sectionId="credits">
               <Suspense fallback={<CreditsLoading />}>
                 <Credits userData={userData} />
               </Suspense>
@@ -44,7 +44,7 @@ async function Page({ user, userData }: WithAuthProps) {
           </Card>
         </Suspense>
         <Suspense fallback={<CardLoading />}>
-          <Card variant="header" cardTitle="Medelmerit">
+          <Card variant="header" cardTitle="Medelmerit" href="/program" sectionId="merit">
             <MeritPoints userData={userData} />
           </Card>
         </Suspense>
@@ -58,7 +58,7 @@ async function Page({ user, userData }: WithAuthProps) {
         </div>
         <div className="col-span-2 ">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Mina studieframsteg">
+            <Card variant="header" cardTitle="Mina studieframsteg" href="/program" sectionId="progress">
               <StudyProgress userData={userData} />
             </Card>
           </Suspense>
