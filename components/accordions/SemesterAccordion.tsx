@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 
 import { ChevronDown } from "lucide-react";
 import CourseAccordion from "@/components/accordions/CourseAccordion";
@@ -29,8 +29,28 @@ type Examination = {
 export default function SemesterAccordion({ semester }: { semester: Semester }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const checkHash = () => {
+      const hash = window.location.hash.substring(1); // Remove the # character
+      if (hash === encodeURIComponent(semester.name)) {
+        setIsOpen(true);
+      }
+    };
+    
+    // Check on mount
+    checkHash();
+    
+    // Add event listener for hash changes
+    window.addEventListener('hashchange', checkHash);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('hashchange', checkHash);
+    };
+  }, [semester.name]);
+
   return (
-    <main className="p-4 bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
+    <main id={`${encodeURIComponent(semester.name)}`} className="p-4 bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
       <button className="grid grid-cols-10 grid-rows-1 items-center w-full" onClick={() => setIsOpen(!isOpen)}>
         <div className="col-start-1 col-span-5 flex gap-4 items-center">
           <div className="border-1 border-secondary rounded-sm h-[1.188rem] aspect-square"></div>

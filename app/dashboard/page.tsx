@@ -15,6 +15,7 @@ import CardLoading from "@/components/card/card-loading";
 import CreditsLoading from "@/components/charts/credits-loading";
 import CardForExams from "@/components/card/cardforexams";
 import programData from "@/webscraping/6CEMEN-2022.json";
+import ProgramWindow from "@/components/main/programwindow";
 
 async function Page({ user, userData }: WithAuthProps) {
   const program = programData.programs[0];
@@ -50,7 +51,9 @@ async function Page({ user, userData }: WithAuthProps) {
 
         <div className="row-span-2 ">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Mina kurser"></Card>
+            <Card variant="header" cardTitle="Mina kurser">
+              <ProgramWindow userData={userData}></ProgramWindow>
+            </Card>
           </Suspense>
         </div>
         <div className="col-span-2 ">

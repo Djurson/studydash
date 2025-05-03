@@ -183,33 +183,13 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Map<string, 
       exam.code = examMatch[1];
 
       // Extrahera resten av raden för att hitta namn
-      let restOfLine = line.slice(examMatch[1].length).trim();
+      let restOfLine = line.substring(examMatch[1].length).trim();
 
       // Om raden innehåller "hp", är det troligen ett examinationsmoment med alla detaljer på samma rad
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (restOfLine.includes("hp")) {
-        // Hitta position av "hp" för exakt parsning
-        const hpIndex = restOfLine.indexOf("hp");
-
-        // Extrahera namn - allt före hp-delen minus 3 tecken för att ta bort poängen
-        const namePart = restOfLine.substring(0, hpIndex - 3).trim();
-        exam.name = namePart;
-
-        // Extrahera hp med den befintliga funktionen
-        const hpPart = restOfLine.substring(namePart.length, hpIndex + 2).trim();
-        exam.hp = ParseHP(hpPart);
-
-        // Extrahera betyg och datum efter hp-delen
-        if (hpIndex + 2 < restOfLine.length) {
-          const gradeAndDate = restOfLine.substring(hpIndex + 2).trim();
-          if (gradeAndDate.length > 0) {
-            exam.grade = ParseGrade(gradeAndDate[0]);
-
-            // Använd den uppdaterade ParseDate-funktionen för att hantera datum
-            const dateStr = gradeAndDate.substring(1).trim();
-            exam.date = ParseDate(dateStr);
-          }
-        }
-
+        let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "$1");
+        ParseExaminationSingleLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
         currentCourse.examinations.set(exam.code, exam);
         continue;
@@ -222,26 +202,10 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Map<string, 
       i++;
       const nextLine = textSplit[i].trim();
 
-      // Kontrollera om denna rad innehåller hp
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (nextLine.includes("hp")) {
-        const hpIndex = nextLine.indexOf("hp");
-
-        // Extrahera hp
-        const hpPart = nextLine.substring(0, hpIndex + 2).trim();
-        exam.hp = ParseHP(hpPart);
-
-        // Extrahera betyg och datum efter hp-delen
-        if (hpIndex + 2 < nextLine.length) {
-          const gradeAndDate = nextLine.substring(hpIndex + 2).trim();
-          if (gradeAndDate.length > 0) {
-            exam.grade = ParseGrade(gradeAndDate[0]);
-
-            // Använd den uppdaterade ParseDate-funktionen för att hantera datum
-            const dateStr = gradeAndDate.substring(1).trim();
-            exam.date = ParseDate(dateStr);
-          }
-        }
-
+        let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "$1");
+        ParseExaminationDetailsLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
         currentCourse.examinations.set(exam.code, exam);
         continue;
@@ -253,26 +217,10 @@ async function ExtractCoursesAndExaminations(text: string): Promise<Map<string, 
       i++;
       const detailsLine = textSplit[i].trim();
 
-      // Kontrollera om denna rad innehåller hp
+      // Rensa upp/formatera datan så vi kan återanvända funktioner vi redan definerat
       if (detailsLine.includes("hp")) {
-        const hpIndex = detailsLine.indexOf("hp");
-
-        // Extrahera hp
-        const hpPart = detailsLine.substring(0, hpIndex + 2).trim();
-        exam.hp = ParseHP(hpPart);
-
-        // Extrahera betyg och datum efter hp-delen
-        if (hpIndex + 2 < detailsLine.length) {
-          const gradeAndDate = detailsLine.substring(hpIndex + 2).trim();
-          if (gradeAndDate.length > 0) {
-            exam.grade = ParseGrade(gradeAndDate[0]);
-
-            // Använd den uppdaterade ParseDate-funktionen för att hantera datum
-            const dateStr = gradeAndDate.substring(1).trim();
-            exam.date = ParseDate(dateStr);
-          }
-        }
-
+        let formattedStr = restOfLine.replace(/(\d+,\d+hp)/, "$1");
+        ParseExaminationDetailsLine(formattedStr, exam);
         // Lägg till examinationsmomentet i aktuell kurs
         currentCourse.examinations.set(exam.code, exam);
         continue;
@@ -301,11 +249,7 @@ function ParseHP(hpStr: string): number {
 }
 
 function ParseDate(date: string): string {
-  // Make sure we're working with the expected format
-  const match = date.match(/(\d{4})-(\d{2})-(\d{2})/);
-  if (match) {
-    return match[1] + match[2] + match[3];
-  }
+  date = date.slice(0, 4) + date.slice(5, 7) + date.slice(8, 10);
   return date;
 }
 
