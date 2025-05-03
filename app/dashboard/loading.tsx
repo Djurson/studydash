@@ -30,15 +30,6 @@ export default async function Loading() {
           <CardLoading />
         </div>
       </main>
-      <section className="mt-4">
-        <h2 className="text-2xl font-semibold">Kommande tentor för dig</h2>
-        <PillbuttonContainer />
-
-        <CardCarousel />
-      </section>
-      <section>
-        <h2 className="text-2xl font-semibold">Dina prestationer</h2>
-      </section>
     </>
   );
 }
