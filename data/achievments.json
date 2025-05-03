@@ -1,0 +1,218 @@
+{
+  "achievements": {
+    "course_achievements": {
+      "course_codes": {
+        "TPTE06": [
+          {
+            "achievement": "Praktikanten lever!",
+            "result": "Godkänd",
+            "icon": "Briefcase"
+          }
+        ],
+        "TND004": [
+          {
+            "achievement": "Datastrukturdomptör",
+            "result": "Godkänd",
+            "icon": "TreeStructure"
+          }
+        ],
+        "TINT01": [
+          {
+            "achievement": "Kulturkrocksmästare",
+            "result": "Godkänd",
+            "icon": "Globe"
+          }
+        ],
+        "TNM119": [
+          {
+            "achievement": "AI? Aja, jag kan det",
+            "result": "Godkänd",
+            "icon": "Robot"
+          }
+        ],
+        "TNM094": [
+          {
+            "achievement": "Kandidatkreatör",
+            "result": "Godkänd",
+            "icon": "ScrollText"
+          }
+        ],
+        "TNM087": [
+          {
+            "achievement": "Pixelplockare",
+            "result": "Godkänd",
+            "icon": "Image"
+          }
+        ],
+        "TNG022": [
+          {
+            "achievement": "Simuleringssamuraj",
+            "result": "Godkänd",
+            "icon": "Cogs"
+          }
+        ],
+        "TNM093": [
+          {
+            "achievement": "Virtuell verklighetsväktare",
+            "result": "Godkänd",
+            "icon": "Vr"
+          }
+        ],
+        "TNG028": [
+          {
+            "achievement": "Reglerteknisk rebell",
+            "result": "Godkänd",
+            "icon": "Sliders"
+          }
+        ],
+        "TFYA65": [
+          {
+            "achievement": "Ljudvågssurfare",
+            "result": "Godkänd",
+            "icon": "Waveform"
+          }
+        ],
+        "TNG015": [
+          {
+            "achievement": "Signalsniffare",
+            "result": "Godkänd",
+            "icon": "Activity"
+          }
+        ],
+        "TNG006": [
+          {
+            "achievement": "Sannolikhetsproffs",
+            "result": "Godkänd",
+            "icon": "Percent"
+          }
+        ],
+        "TNM061": [
+          {
+            "achievement": "3D-drömmare",
+            "result": "Godkänd",
+            "icon": "Cube"
+          }
+        ],
+        "TNM059": [
+          {
+            "achievement": "Tryckpresspirat",
+            "result": "Godkänd",
+            "icon": "Printer"
+          }
+        ],
+        "TNG032": [
+          {
+            "achievement": "Transformatorn",
+            "result": "Godkänd",
+            "icon": "RefreshCw"
+          }
+        ],
+        "TNG033": [
+          {
+            "achievement": "C++ Snickare",
+            "result": "Godkänd",
+            "icon": "Code"
+          }
+        ],
+        "TNA007": [
+          {
+            "achievement": "Vektorveteran",
+            "result": "Godkänd",
+            "icon": "ArrowRightLeft"
+          }
+        ],
+        "TNM040": [
+          {
+            "achievement": "UX-gurun talar",
+            "result": "Godkänd",
+            "icon": "Layout"
+          }
+        ],
+        "TNE043": [
+          {
+            "achievement": "Vågmekanikern",
+            "result": "Godkänd",
+            "icon": "Waves"
+          }
+        ],
+        "TNA006": [
+          {
+            "achievement": "Analysakrobaten III",
+            "result": "Godkänd",
+            "icon": "FunctionSquare"
+          }
+        ],
+        "TNM046": [
+          {
+            "achievement": "Grafikgladiatorn",
+            "result": "Godkänd",
+            "icon": "Monitor"
+          }
+        ],
+        "TNA004": [
+          {
+            "achievement": "Analysakrobaten II",
+            "result": "Godkänd",
+            "icon": "DivideSquare"
+          }
+        ],
+        "TNM115": [
+          {
+            "achievement": "Webbninjan",
+            "result": "Godkänd",
+            "icon": "Globe"
+          }
+        ],
+        "TNA005": [
+          {
+            "achievement": "Tillämparen",
+            "result": "Godkänd",
+            "icon": "Calculator"
+          }
+        ],
+        "TNA003": [
+          {
+            "achievement": "Analysakrobaten I",
+            "result": "Godkänd",
+            "icon": "Sigma"
+          }
+        ],
+        "TND002": [
+          {
+            "achievement": "Objektorienterad orakel",
+            "result": "Godkänd",
+            "icon": "Boxes"
+          }
+        ],
+        "TNA002": [
+          {
+            "achievement": "Linjära legenden",
+            "result": "Godkänd",
+            "icon": "Columns"
+          }
+        ],
+        "TNM088": [
+          {
+            "achievement": "Digital dunder",
+            "result": "Godkänd",
+            "icon": "Camera"
+          }
+        ],
+        "TND012": [
+          {
+            "achievement": "Kodkreatör",
+            "result": "Godkänd",
+            "icon": "Terminal"
+          }
+        ],
+        "TNA001": [
+          {
+            "achievement": "Mattemästare",
+            "result": "Godkänd",
+            "icon": "Notebook"
+          }
+        ]
+      }
+    }
+  }
+}

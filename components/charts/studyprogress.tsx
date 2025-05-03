@@ -15,6 +15,8 @@ const programCredits = {
   total: 300,
 };
 
+// KOM PÅ ATT CHECKEN FÖR EXAMINATIONERNA ÄR TIDSBASERAD OCH ATT DET INTE NU GÅR ATT EN EXAMINATION EFTER TIDEN LÄGGS TILL I PERIODEN
+
 // funktion för att kolla om ett examinationsmoment är inom kandidat perioden
 function isKandidatPeriod(date: string, startYear: number): boolean {
   const examDate = new Date(parseInt(date.slice(0, 4)), parseInt(date.slice(4, 6)) - 1, parseInt(date.slice(6, 8)));
@@ -77,11 +79,23 @@ export function StudyProgress({ userData }: Partial<WithAuthProps>) {
     }
   };
 
+  const progressText = useMemo(() => {
+    switch (selectedPeriod) {
+      case "kandidat":
+        return "av kandidaten avklarad";
+      case "master":
+        return "av mastern avklarad";
+      case "total":
+      default:
+        return "av utbildningen avklarad";
+    }
+  }, [selectedPeriod]);
+
   return (
     <main className="flex flex-col justify-between h-full gap-8 py-6">
       <div className="flex justify-between items-center">
         <span className="text-3xl font-semibold flex items-end gap-2 text-end">
-          {percentage}%<p className="text-sm text-muted-foreground font-normal text-end"> av utbildningen avklarad</p>
+          {percentage}%<p className="text-sm text-muted-foreground font-normal text-end"> {progressText}</p>
         </span>
         <Select value={selectedPeriod} onValueChange={handlePeriodChange}>
           <SelectTrigger className="w-[8rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">
