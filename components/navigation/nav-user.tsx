@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../ui/sidebar";
 import { SignOutAction } from "@/app/actions";
 import { WithAuthProps } from "@/utils/types";
-import Link from "next/link"; 
+import Link from "next/link";
 
 /**
  * Navigation user dropdown component
@@ -66,9 +66,9 @@ export function NavUser({ user }: WithAuthProps) {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <UserRound />
-                <Link href="/dashboard/profile" className="flex items-center w-full">
-                Mitt konto
+                <Link href="/dashboard/profile" className="flex gap-2 items-center w-full">
+                  <UserRound />
+                  Mitt konto
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
