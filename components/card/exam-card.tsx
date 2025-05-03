@@ -1,8 +1,4 @@
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils"; // Utility for merging class names
 import { ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
-import { type } from "os";
 
 type CardProps = {
   courseName: string;
@@ -45,7 +41,6 @@ type CardProps = {
  */
 
 export default function Card({
-  variant = "default",
   children,
   courseName,
   courseCode,

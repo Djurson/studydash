@@ -5,7 +5,6 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React, { useState, useMemo } from "react";
 import { Examination, WithAuthProps } from "@/utils/types";
-import { MapToChartsArray } from "@/utils/converters";
 import { ChartColumn, ChartSpline } from "lucide-react";
 
 interface ChartData {

@@ -2,7 +2,6 @@
 import { Bell, ChevronLeft } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type NavbarProps = {

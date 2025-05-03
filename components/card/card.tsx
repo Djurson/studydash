@@ -1,5 +1,3 @@
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils"; // Utility for merging class names
 import { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";

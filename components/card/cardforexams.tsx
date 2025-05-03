@@ -1,20 +1,16 @@
 "use client";
 
+/*
+
+  Kan inte använda "_" variabeln då den inte används
+
+*/
+
+
 import { useRef, useMemo, useState } from "react";
 import examsData from "@/data/Examdates.json";
-import { Examination, WithAuthProps } from "@/utils/types";
+import { WithAuthProps } from "@/utils/types";
 import { Button } from "../ui/button";
-
-interface Exam {
-  kurskod: string;
-  examinationsmoment: string;
-  kursnamn: string;
-  hp: string;
-  tillfällen: {
-    datum: string;
-    tid: string;
-  }[];
-}
 
 type PillButtonProps = React.ComponentProps<typeof Button> & {
   currentValue: string;
@@ -70,8 +66,6 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
     // Get current date
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();
-    const currentYear = currentDate.getFullYear();
 
     // Process all exams
     const examsWithDates = examsData
