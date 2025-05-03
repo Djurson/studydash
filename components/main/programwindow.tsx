@@ -22,9 +22,9 @@ function getCurrentStudyYear() {
 // sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
-  var currentCoursesArray: any[] = [];
-  var missedExams = new Map();
-  var nonPassingMissedExams: any[] = [];
+  let currentCoursesArray: any[] = [];
+  let missedExams = new Map();
+  let nonPassingMissedExams: any[] = [];
 
   const currentTerm = getCurrentStudyYear()
 

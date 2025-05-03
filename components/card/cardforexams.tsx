@@ -1,12 +1,5 @@
 "use client";
 
-/*
-
-  Kan inte använda "_" variabeln då den inte används
-
-*/
-
-
 import { useRef, useMemo, useState } from "react";
 import examsData from "@/data/Examdates.json";
 import { WithAuthProps } from "@/utils/types";
@@ -105,7 +98,7 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
       if (selectedMonth === "Ordinare") {
         filteredExams = examsWithDates.filter((exam) => exam.tillfällen.length > 1);
       } else {
-        const targetMonth = Object.entries(monthMap).find(([_, name]) => name === selectedMonth)?.[0];
+        const targetMonth = Object.entries(monthMap).find(([, name]) => name === selectedMonth)?.[0];
         if (targetMonth) {
           filteredExams = examsWithDates.filter((exam) => exam.upcomingMonth === parseInt(targetMonth));
         }

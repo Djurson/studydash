@@ -21,13 +21,7 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
     gradeError: null,
     dateFakeError: null,
   });
-  const { setCourse, hasExamination, hasCourse, getExamination, getCourse, setExamination, updateExamResult, updateCourseResult } = useStudyResults();
-
-  let currentCourseResults: Course | undefined = undefined;
-
-  if (semesterStatus !== "none") {
-    currentCourseResults = getCourse(course.course_code);
-  }
+  const { setCourse, hasExamination, hasCourse, getExamination, setExamination, updateExamResult, updateCourseResult } = useStudyResults();
 
   // Om användaren öppnar drawer:n så skapas examinationsmomentet i studyresults (om det inte finns redan)
   useEffect(() => {
@@ -62,7 +56,7 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
       updateExamResult(course, exam, dateUpdate);
 
       // Uppdatera kursen
-      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      const courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
       updateCourseResult(course, courseGradeDateUpdate);
       return;
     } else if (error && value.length < 8) {
@@ -101,13 +95,13 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
       setErrors({ ...errors, gradeError: error });
 
       // Uppdatera kursen
-      let courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
+      const courseGradeDateUpdate: Partial<Course> = { date: "", grade: "" };
       updateCourseResult(course, courseGradeDateUpdate);
       return;
     }
 
     // Kontrollera inputen om det är en bokstav eller ett nummer
-    let examgrade: string | number = value === "G" || value === "D" ? value : !isNaN(Number(value)) ? Number.parseInt(value) : "";
+    const examgrade: string | number = value === "G" || value === "D" ? value : !isNaN(Number(value)) ? Number.parseInt(value) : "";
 
     // Uppdatera examinationen
     const gradeUpdate: Partial<Examination> = { grade: examgrade };
@@ -227,7 +221,7 @@ function CalculateFinalGradeAndDate(
   }
 
   let latestDate = 0;
-  let numericGrades: number[] = [];
+  const numericGrades: number[] = [];
   let numericExams = 0;
   let allPassedGrade = true;
   let onlyGPassedExams = true;

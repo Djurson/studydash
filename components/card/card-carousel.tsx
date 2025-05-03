@@ -1,11 +1,4 @@
 "use client";
-
-/*
-
-  Fixa så att types inte är any?!?
-
-*/
-
 import { useRef } from "react";
 import { CircleAlert } from "lucide-react"
 
@@ -24,7 +17,7 @@ import { CircleAlert } from "lucide-react"
  * 
  * */
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function CardCarousel({ exam }: { exam: any }) {
   const carouselRef = useRef<HTMLUListElement | null>(null);
   return (
@@ -32,6 +25,7 @@ export default function CardCarousel({ exam }: { exam: any }) {
       <ul
         className="flex w-full overflow-x-auto drop-shadow-sm px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
         ref={carouselRef}>
+        {  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {exam.map((examItem: any, index: any) => (
           <li
             key={index}

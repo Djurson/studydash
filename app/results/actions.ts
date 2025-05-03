@@ -86,6 +86,7 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
   // Extrahera texten från PDF filen
   pdfParser.loadPDF(tempFilePath);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pdfParser.on("pdfParser_dataReady", () => {
     parsedText = (pdfParser as any).getRawTextContent();
   });

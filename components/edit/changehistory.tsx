@@ -139,7 +139,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                     <Info className="stroke-red-900 stroke-2 size-4" />
                     Ta bort all ifylld information?
                   </AlertDialogTitle>
-                  <AlertDialogDescription>Genom att klicka på "Ta bort" kommer all ifylld information att tas bort.</AlertDialogDescription>
+                  <AlertDialogDescription>Genom att klicka på &quot;Ta bort&quot; kommer all ifylld information att tas bort.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel className="bg-foreground transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>

@@ -22,7 +22,7 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>();
-  const { studyResults, updateMap } = useStudyResults();
+  const { updateMap } = useStudyResults();
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -30,12 +30,6 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
 
     const file = e.dataTransfer.files?.[0];
     if (!file || !file.name.toLowerCase().endsWith(".pdf")) return;
-
-    // Skapa en dummy event för att återanvända HandleFileInput
-    const fakeEvent = {
-      preventDefault: () => { },
-      target: { files: [file] },
-    } as unknown as ChangeEvent<HTMLInputElement>;
 
     setFileToUpload(file);
 
