@@ -38,7 +38,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
     semester.courses.forEach(courses => {
       courses.examinations.forEach((exam: any, index: any) => {
         //kollar om användaren har en examination kvar
-        if (!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)) {
+        if (!MapHasExamination(userData?.studyinfo ?? new Map(), courses.course_code, exam.code)) {
           //kollar om mapen redan har kursen, i sånt fall läger den till andra examinationer på den keyn
           if (missedExams.has(courses.course_code)) {
             missedExams.get(courses.course_code).push({ name: exam.code, credits: exam.credits })
