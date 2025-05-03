@@ -1,5 +1,3 @@
-"use server";
-
 import Card from "@/components/card/card";
 import LiuImg from "@/assets/liu.png";
 import { StudyFunds } from "@/components/charts/studyfunds";
