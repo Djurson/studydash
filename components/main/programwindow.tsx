@@ -22,8 +22,10 @@ function getCurrentStudyYear() {
 // sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentCoursesArray: any[] = [];
   const missedExams = new Map();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nonPassingMissedExams: any[] = [];
 
   const currentTerm = getCurrentStudyYear()
@@ -36,6 +38,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
       });
     }
     semester.courses.forEach(courses => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       courses.examinations.forEach((exam: any, index: any) => {
         //kollar om användaren har en examination kvar
         if (!MapHasExamination(userData?.studyinfo ?? new Map(), courses.course_code, exam.code)) {
@@ -63,6 +66,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
         <div
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-32"
         >
+          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {currentCoursesArray.map((item: any, index: any) => (
             //loopar igenom alla nuvarande kurser
             <a
@@ -105,6 +109,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
         <div
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-40"
         >
+          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {nonPassingMissedExams.map((item: any, index: any) => (
             //loopar igenom alla missade examinationer
             <a
