@@ -43,8 +43,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
         else {
           // Skapa en ny map med bara godkända examinationer
           const filteredExaminations = new Map(
-            // @ts-expect-error
-            Array.from(course.examinations.entries()).filter(([_, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
+            Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
           );
 
           // Returnera kursen med filtrerade examinationer om det finns några

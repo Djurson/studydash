@@ -4,16 +4,8 @@ import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";
 
-
-interface Semester {
-  name: string;
-  courses: Course[];
-}
-
-interface Course { }
-
 //stulen funktion från en tidigare modul för att hitta nuvarande år med nuvarande kurse
-function getCurrentStudyYear(startYear: number) {
+function getCurrentStudyYear() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
@@ -34,7 +26,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   var missedExams = new Map();
   var nonPassingMissedExams: any[] = [];
 
-  const currentTerm = getCurrentStudyYear(Number(userData?.studyyear))
+  const currentTerm = getCurrentStudyYear()
 
   program.semesters.forEach((semester) => {
     if (semester.name.includes(currentTerm.current)) {
