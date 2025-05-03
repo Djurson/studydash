@@ -1,10 +1,11 @@
+"use client";
 import Link from "next/link";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../ui/alert-dialog";
 import { Info } from "lucide-react";
-import { useAuth } from "../supabase/authprovider";
 import { createClient } from "@/utils/supabase/client";
+import { AlertDialogProps } from "@radix-ui/react-alert-dialog";
 
-type AlertPopupWindowProps = {
+type AlertPopupWindowProps = AlertDialogProps & {
   open?: boolean;
   title: string;
   description: string;
@@ -32,7 +33,7 @@ export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
   const supabase = createClient();
   return (
     <>
-      <AlertDialog open={props.open ?? false}>
+      <AlertDialog open={props.open ?? false} {...props}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle className="flex gap-2 items-center">

@@ -1,8 +1,10 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import React from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React, { useMemo } from "react";
+import { WithAuthProps, Examination } from "@/utils/types";
+import { MapToChartsArray } from "@/utils/converters";
 
 type periodType = "kandidat" | "master" | "total";
 
@@ -13,34 +15,67 @@ const programCredits = {
   total: 300,
 };
 
-// hämta från helper funktion sen mha databas data
-const earnedProgramCredits = {
-  kandidat: 153,
-  master: 0,
-  total: 153,
-};
+// funktion för att kolla om ett examinationsmoment är inom kandidat perioden
+function isKandidatPeriod(date: string, startYear: number): boolean {
+  const examDate = new Date(parseInt(date.slice(0, 4)), parseInt(date.slice(4, 6)) - 1, parseInt(date.slice(6, 8)));
+  const kandidatEnd = new Date(startYear + 3, 7, 31);
+  return examDate <= kandidatEnd;
+}
 
-export function StudyProgress() {
+export function StudyProgress({ userData }: Partial<WithAuthProps>) {
   const [selectedPeriod, setselectedPeriod] = React.useState<periodType>("total");
   const [progress, setProgress] = React.useState(0);
+  const startYear = Number.parseInt(userData?.studyyear ?? "2022");
+
+  const earnedCredits = useMemo(() => {
+    if (!userData?.sortedDateMap) return { kandidat: 0, master: 0, total: 0 };
+
+    let kandidatCredits = 0;
+    let masterCredits = 0;
+    let totalCredits = 0;
+
+    // konvertera Map entries till array av examinationer
+    const exams: Examination[] = [];
+    userData.sortedDateMap.forEach((examArray) => {
+      exams.push(...examArray);
+    });
+
+    // sortera hp efter perioderna
+    exams.forEach((exam) => {
+      const credits = exam.hp;
+      totalCredits += credits;
+
+      if (isKandidatPeriod(exam.date, startYear)) {
+        kandidatCredits += credits;
+      } else {
+        masterCredits += credits;
+      }
+    });
+
+    return {
+      kandidat: kandidatCredits,
+      master: masterCredits,
+      total: totalCredits,
+    };
+  }, [userData?.sortedDateMap, startYear]);
+
+  // beräknar procent för vald period
+  const percentage = React.useMemo(() => {
+    const totalCredits = programCredits[selectedPeriod];
+    const earned = earnedCredits[selectedPeriod];
+    return Math.round((earned / totalCredits) * 100);
+  }, [selectedPeriod, earnedCredits]);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setProgress(percentage), 500);
+    return () => clearTimeout(timer);
+  }, [percentage]);
 
   const handlePeriodChange = (value: periodType) => {
     if (value === "kandidat" || value === "master" || value === "total") {
       setselectedPeriod(value);
     }
   };
-
-  // beräknar procent för vald period
-  const percentage = React.useMemo(() => {
-    const totalCredits = programCredits[selectedPeriod];
-    const earnedCredits = earnedProgramCredits[selectedPeriod];
-    return Math.round((earnedCredits / totalCredits) * 100);
-  }, [selectedPeriod]);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(percentage), 500);
-    return () => clearTimeout(timer);
-  }, [percentage]);
 
   return (
     <main className="flex flex-col justify-between h-full gap-8 py-6">
@@ -69,7 +104,7 @@ export function StudyProgress() {
       <div className="flex flex-col gap-2">
         <Progress value={progress} className="w-[100%] h-4" />
         <p className="text-xs text-muted-foreground">
-          {earnedProgramCredits[selectedPeriod]}/{programCredits[selectedPeriod]} hp
+          {earnedCredits[selectedPeriod]}/{programCredits[selectedPeriod]} hp
         </p>
       </div>
     </main>

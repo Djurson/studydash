@@ -3,18 +3,7 @@
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-const chartData = [
-  {
-    timefray: "all",
-    treor: 5,
-    fyror: 8,
-    femmor: 10,
-  },
-];
-
-//5
-//8
-//10
+import { WithAuthProps } from "@/utils/types";
 
 const chartConfig = {
   treor: {
@@ -32,9 +21,20 @@ const chartConfig = {
 } satisfies ChartConfig;
 //innerRadius={80} outerRadius={130}
 
-export function MeritPoints() {
-  const totalVisitors = ((chartData[0].treor * 3 + chartData[0].fyror * 4 + chartData[0].femmor * 5) / (chartData[0].treor + chartData[0].fyror + chartData[0].femmor)).toFixed(2);
+export function MeritPoints({ userData }: Partial<WithAuthProps>) {
+  const chartData = [
+    {
+      timefray: "all",
+      treor: userData?.meritGradeMap?.get(3)?.length ?? 0,
+      fyror: userData?.meritGradeMap?.get(4)?.length ?? 0,
+      femmor: userData?.meritGradeMap?.get(5)?.length ?? 0,
+    },
+  ];
 
+  //console.log(userData?.sortedDateMap);
+  //console.log(userData?.studyyear);
+
+  const merit = ((chartData[0].treor * 3 + chartData[0].fyror * 4 + chartData[0].femmor * 5) / (chartData[0].treor + chartData[0].fyror + chartData[0].femmor)).toFixed(2);
   return (
     <main className="flex flex-col aspect-square w-full h-full pt-4">
       <ChartContainer config={chartConfig} className="mx-auto aspect-square w-full max-w-[250px] flex items-center z-[10]">
@@ -47,7 +47,7 @@ export function MeritPoints() {
                   return (
                     <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
                       <tspan x={viewBox.cx} y={(viewBox.cy || 0) - 16} className="fill-foreground text-2xl font-bold">
-                        {totalVisitors.toLocaleString()}
+                        {merit.toLocaleString()}
                       </tspan>
                       <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 4} className="fill-muted-foreground">
                         merit

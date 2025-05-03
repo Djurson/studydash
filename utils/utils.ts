@@ -130,3 +130,7 @@ export const jsonToStudyResults = (json: string): Map<string, Course> => {
     ])
   );
 };
+
+export const MapHasExamination = (map: Map<string, Course>, course_code: string, examcode: string): boolean => {
+  return Boolean(map.get(course_code)?.examinations.has(examcode));
+};

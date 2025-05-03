@@ -1,9 +1,16 @@
 "use client";
 
-import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { ChartConfig, ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React, { useState, useMemo } from "react";
+import { Examination, WithAuthProps } from "@/utils/types";
+import { MapToChartsArray } from "@/utils/converters";
+
+interface ChartData {
+  date: string;
+  credits: number;
+}
 
 // funktion för att generera nuvarande studieåret
 function getCurrentStudyYear(startYear: number) {
@@ -28,14 +35,13 @@ function getAllStudyYears(startYear: number) {
   const currentMonth = now.getMonth();
   const years = [];
   const endYear = currentMonth >= 7 ? curretYear : curretYear - 1;
-  let yearsCount = 0;
 
   for (let year = startYear; year <= endYear; year++) {
     years.push({
       year: `${year} - ${year + 1}`,
       start: new Date(year, 7, 1),
       end: new Date(year + 1, 7, 0),
-      counter: yearsCount++,
+      counter: year - startYear,
     });
   }
 
@@ -49,134 +55,94 @@ function formatedTimeRange(range: string, startYear: number): string {
   if (range === "90d") {
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - 90);
-    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    //return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - nu`;
   } else if (range === "180d") {
     const startDate = new Date(now);
     startDate.setDate(now.getDate() - 180);
-    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    //return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - ${now.toLocaleDateString("sv-SE", { month: "long" })} ${now.getFullYear()}`;
+    return `${startDate.toLocaleDateString("sv-SE", { month: "long" })} ${startDate.getFullYear()} - nu`;
   } else if (range === "Alla") {
     return ` augusti ${startYear} - nu`;
   } else {
     const [startYear, endYear] = range.split(" - ").map(Number);
-    return ` augusti ${startYear} - juli ${endYear}`;
+    const currentEndDate = new Date(endYear, 6, 31);
+    if (currentEndDate > now) {
+      return ` augusti ${startYear} - nu`;
+    } else {
+      return ` augusti ${startYear} - juli ${endYear}`;
+    }
   }
 }
 
-//funktion för att summera hp
-function calculateTotalCredits(filteredData: Array<{ credits: number }>): number {
-  return filteredData.reduce((total, item) => total + item.credits, 0);
-}
-
-// datum för hp är inte sorterade i stigande ordning i databasen,
-// TODO: göra en funktion för att sortera datumen i stigande ordning
-
-// Prop data:
-
-const submoduleCreditsData = [
-  { date: "2022-10-07", credits: 2.0 },
-  { date: "2022-10-18", credits: 1.5 },
-  { date: "2022-10-25", credits: 1.0 },
-  { date: "2022-10-26", credits: 4.5 },
-  { date: "2022-12-14", credits: 2.0 },
-  { date: "2023-01-10", credits: 6.0 },
-  { date: "2023-01-12", credits: 3.0 },
-  { date: "2023-01-13", credits: 1.0 },
-  { date: "2023-01-25", credits: 3.0 },
-  { date: "2023-01-28", credits: 3.0 },
-  { date: "2023-02-10", credits: 1.0 },
-  { date: "2023-03-16", credits: 3.0 },
-  { date: "2023-03-19", credits: 1.0 },
-  { date: "2023-03-20", credits: 6.0 },
-  { date: "2023-03-22", credits: 3.0 },
-  { date: "2023-05-07", credits: 1.0 },
-  { date: "2023-05-07", credits: 0.5 },
-  { date: "2023-05-07", credits: 0.5 },
-  { date: "2023-05-26", credits: 2.0 },
-  { date: "2023-06-01", credits: 6.0 },
-  { date: "2023-06-02", credits: 3.0 },
-  { date: "2023-06-07", credits: 3.0 },
-  { date: "2023-08-31", credits: 1.0 },
-  { date: "2023-10-16", credits: 1.0 },
-  { date: "2023-10-24", credits: 4.0 },
-  { date: "2023-10-28", credits: 6.0 },
-  { date: "2023-10-30", credits: 2.0 },
-  { date: "2023-11-20", credits: 1.0 },
-  { date: "2023-12-20", credits: 3.0 },
-  { date: "2023-12-20", credits: 3.0 },
-  { date: "2024-01-08", credits: 6.0 },
-  { date: "2024-01-10", credits: 3.0 },
-  { date: "2024-03-04", credits: 1.0 },
-  { date: "2024-03-05", credits: 1.5 },
-  { date: "2024-03-07", credits: 1.5 },
-  { date: "2024-03-22", credits: 4.0 },
-  { date: "2024-03-23", credits: 4.5 },
-  { date: "2024-03-28", credits: 0.5 },
-  { date: "2024-03-28", credits: 0.5 },
-  { date: "2024-04-25", credits: 2.0 },
-  { date: "2024-05-29", credits: 2.0 },
-  { date: "2024-05-31", credits: 6.0 },
-  { date: "2024-06-01", credits: 1.5 },
-  { date: "2024-06-18", credits: 2.0 },
-  { date: "2024-07-08", credits: 3.0 },
-  { date: "2024-10-21", credits: 1.5 },
-  { date: "2024-10-24", credits: 1.5 },
-  { date: "2024-10-24", credits: 1.5 },
-  { date: "2024-10-25", credits: 4.5 },
-  { date: "2024-10-29", credits: 3.0 },
-  { date: "2024-12-17", credits: 0.5 },
-  { date: "2024-12-19", credits: 0.5 },
-  { date: "2024-12-19", credits: 1.0 },
-  { date: "2024-12-21", credits: 1.5 },
-  { date: "2025-01-13", credits: 4.5 },
-  { date: "2025-01-17", credits: 4.0 },
-  { date: "2025-01-19", credits: 6.0 },
-  { date: "2025-03-27", credits: 2.0 },
-  { date: "2025-03-31", credits: 3.5 },
-  { date: "2025-03-31", credits: 0.5 },
-];
-
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
   credits: {
     label: "credits",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-export function Credits() {
-  // läsa in startdatum från databasen (exempelvis 2022) och ta året och lägga till 08-01
-  const startYear = 2022; // hårdkodat för tillfället
+export function Credits({ userData }: Partial<WithAuthProps>) {
+  // const startYear = Number(userData?.studyyear);
+  const startYear = Number.parseInt(userData?.studyyear ?? "2022");
   const studyYears = getAllStudyYears(startYear);
   const currentStudyYear = getCurrentStudyYear(startYear);
+  const [timeRange, setTimeRange] = useState<string>(currentStudyYear.current);
 
-  const [timeRange, setTimeRange] = React.useState<string>(currentStudyYear.current);
+  // Använda detta istället för hårdkodad data, behöver bara att den ändrar startDate och endDate beroende på vad användaren väljer
+  //const [timePeriod, setTimePeriod] = useState({ startDate: "0", endDate: "0" });
+  //const cartData = MapToChartsArray(userData?.sortedDateMap ?? new Map<number, Examination[]>(), Number.parseInt(timePeriod.startDate), Number.parseInt(timePeriod.endDate));
 
-  const filteredData = submoduleCreditsData.filter((item) => {
-    const date = new Date(item.date);
-    const credits = item.credits;
+  const allChartData = useMemo(() => {
+    const data: ChartData[] = [];
 
-    if (timeRange === "90d") {
-      const refferenceDate = new Date();
-      const startDate = new Date(refferenceDate);
-      startDate.setDate(startDate.getDate() - 90);
-      return date >= startDate;
-    } else if (timeRange === "180d") {
-      const refferenceDate = new Date();
-      const startDate = new Date(refferenceDate);
-      startDate.setDate(startDate.getDate() - 180);
-      return date >= startDate;
-    } else if (timeRange === "Alla") {
-      return true;
-    } else {
-      const selectedYear = studyYears.find((year) => year.year === timeRange);
-      if (selectedYear) {
-        return date >= selectedYear.start && date <= selectedYear.end;
+    const exams: Examination[] = [];
+    userData?.sortedDateMap?.forEach((examArray) => {
+      exams.push(...examArray);
+    });
+
+    exams.forEach((exam) => {
+      // formatera datumet till YYYY-MM-DD
+      const formattedDate = `${exam.date.slice(0, 4)}-${exam.date.slice(4, 6)}-${exam.date.slice(6, 8)}`;
+      data.push({
+        date: formattedDate,
+        credits: exam.hp,
+      });
+    });
+
+    // returnera sorterade examinations datumen i stigande ordning
+    return data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [userData?.sortedDateMap]);
+
+  const filteredData = useMemo(() => {
+    return allChartData.filter((item) => {
+      const date = new Date(item.date);
+
+      if (timeRange === "90d") {
+        const referenceDate = new Date();
+        const startDate = new Date(referenceDate);
+        startDate.setDate(startDate.getDate() - 90);
+        return date >= startDate;
+      } else if (timeRange === "180d") {
+        const referenceDate = new Date();
+        const startDate = new Date(referenceDate);
+        startDate.setDate(startDate.getDate() - 180);
+        return date >= startDate;
+      } else if (timeRange === "Alla") {
+        return true;
+      } else {
+        const selectedYear = studyYears.find((year) => year.year === timeRange);
+        if (selectedYear) {
+          return date >= selectedYear.start && date <= selectedYear.end;
+        }
+        return false;
       }
-      return false;
-    }
-  });
+    });
+  }, [allChartData, timeRange, studyYears]);
+
+  const totalCredits = useMemo(() => {
+    return filteredData.reduce((total, item) => total + item.credits, 0);
+  }, [filteredData]);
 
   return (
     <main>
@@ -207,7 +173,7 @@ export function Credits() {
         </div>
 
         <span className="text-3xl font-semibold flex items-end gap-2">
-          {calculateTotalCredits(filteredData)}
+          {totalCredits}
           <p className="text-sm text-muted-foreground font-normal text-end"> totalt</p>
         </span>
       </header>
@@ -238,7 +204,7 @@ export function Credits() {
               }}
             />
 
-            <YAxis width={40} tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
+            <YAxis width={40} tickLine={false} axisLine={false} allowDecimals={false} tickMargin={8} tickFormatter={(value) => `${value} hp`} />
             <ChartTooltip
               cursor={false}
               content={
@@ -255,7 +221,7 @@ export function Credits() {
               }
             />
 
-            <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={1.5} />
+            <Area dataKey="credits" type="natural" fill="url(#fillCredits)" stroke="var(--color-blue-900)" stackId="a" strokeWidth={2} />
           </AreaChart>
         </ChartContainer>
       </section>
