@@ -1,12 +1,6 @@
 import { ReactNode } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-type CardProps = {
-  cardTitle: string;
-  variant?: "default" | "compact" | "large" | "header" | "no-header";
-  children?: ReactNode;
-};
-
 // const variants = cva(
 //     "big": "text-base",
 //     "small": " text-sm"

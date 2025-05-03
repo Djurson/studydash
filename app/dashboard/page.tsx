@@ -15,7 +15,7 @@ import CardForExams from "@/components/card/cardforexams";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
 
-async function Page({ user, userData }: WithAuthProps) {
+async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   return (
     <>

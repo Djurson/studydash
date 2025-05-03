@@ -73,11 +73,11 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
     return;
   });
 
-  // @ts-ignore
+  // @ts-expect-error
   const pdfParser = new (PDFParser as any)(null, 1);
 
   // Om det blir error, skriv ut den och returnera
-  // @ts-ignore
+  // @ts-expect-error
   pdfParser.on("pdfParser_dataError", (errData: any) => {
     console.error("PDF Parser Error:", errData.parserError);
     return; // This only returns from the event handler, not from the function

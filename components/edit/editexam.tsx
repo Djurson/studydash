@@ -1,5 +1,5 @@
 import { Course, CourseJSON, Examination, ExaminationJSON } from "@/utils/types";
-import { CreateCourse, CreateExamination, UpdateExamResult, ValidateDate, ValidateGrade } from "@/utils/utils";
+import { CreateCourse, CreateExamination, ValidateDate, ValidateGrade } from "@/utils/utils";
 import { getTodayFormatted } from "@/utils/validateDateGrade";
 import { useEffect, useState } from "react";
 import { Status, StatusSquare } from "./statussquare";

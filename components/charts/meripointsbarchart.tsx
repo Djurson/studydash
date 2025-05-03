@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Rectangle } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Rectangle } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { WithAuthProps } from "@/utils/types";
 import { useMemo } from "react";
