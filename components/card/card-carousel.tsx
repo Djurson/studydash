@@ -1,10 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import { CircleAlert } from "lucide-react"
-import { Examination, WithAuthProps } from "@/utils/types";
-// Define the type for a single slide
-// Typed slides array
 
 /**
  * A carousel component that displays a list of course slides in a horizontally scrollable view.
@@ -14,12 +11,16 @@ import { Examination, WithAuthProps } from "@/utils/types";
  * The slides can be navigated horizontally. Each slide contains details such as course name, code, date, type, and points.
  * 
  * @returns A horizontally scrollable carousel of course slides.
- */
+ *
+ * Doesnt use a variant since Jonas has created a new component for the missing the exams¨
+ * 
+ * generates slides based on the item in the exam, which consists of just the exams for each c
+ * 
+ * */
+
 
 export default function CardCarousel({exam}: {exam: any}) {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
   const carouselRef = useRef<HTMLUListElement | null>(null);
-  const variant = "programWindow";
   return (
     <>
       <ul

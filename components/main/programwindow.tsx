@@ -1,27 +1,18 @@
 "use client";
 import programData from "@/webscraping/6CEMEN-2022.json";
-import exjobbData from "@/webscraping/Exjobb-engineers.json";
-import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";
 
-interface Program {
-  name: string;
-  credits: string;
-  url: string;
-  semesters: Semester[];
-}
 
 interface Semester {
   name: string;
   courses: Course[];
 }
 
-interface Course {}
+interface Course { }
 
-
+//stulen funktion från en tidigare modul för att hitta nuvarande år med nuvarande kurse
 function getCurrentStudyYear(startYear: number) {
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -36,13 +27,9 @@ function getCurrentStudyYear(startYear: number) {
     end: new Date(studyYear + 1, 6, 31),
   };
 }
-
+// sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
-  const exjobb = exjobbData.programs[0];
-  const [isOpen, setIsOpen] = useState(true);
-  const [isOpenExam, setIsOpenExam] = useState(true);
-
   var currentCoursesArray: any[] = [];
   var missedExams = new Map();
   var nonPassingMissedExams: any[] = [];
@@ -52,18 +39,22 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   program.semesters.forEach((semester) => {
     if (semester.name.includes(currentTerm.current)) {
       semester.courses.forEach((courses) => {
+        //en array med nuvarande kurser
         currentCoursesArray.push({ courses, semester });
       });
     }
     semester.courses.forEach(courses => {
-      courses.examinations.forEach((exam:any, index: any) => {
-        if(!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)){
-          if(missedExams.has(courses.course_code)){
-            missedExams.get(courses.course_code).push({name:exam.code, credits: exam.credits})
+      courses.examinations.forEach((exam: any, index: any) => {
+        //kollar om användaren har en examination kvar
+        if (!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)) {
+          //kollar om mapen redan har kursen, i sånt fall läger den till andra examinationer på den keyn
+          if (missedExams.has(courses.course_code)) {
+            missedExams.get(courses.course_code).push({ name: exam.code, credits: exam.credits })
           }
-          else{
-            missedExams.set(courses.course_code, [{name: exam.code, credits: exam.credits}]);
-            nonPassingMissedExams.push({index: index++, name: courses.name, course_code: courses.course_code, examcode: exam.code, credits:exam.code})
+          //annars om mappen inte har den key så skapar den en ny key samt en array som displayar alla kurser med examinationer i sig, skulle kunnas göras bättre men funkar för nuläget
+          else {
+            missedExams.set(courses.course_code, [{ name: exam.code, credits: exam.credits }]);
+            nonPassingMissedExams.push({ index: index++, name: courses.name, course_code: courses.course_code, examcode: exam.code, credits: exam.code })
 
           }
         }
@@ -81,9 +72,11 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-32"
         >
           {currentCoursesArray.map((item: any, index: any) => (
+            //loopar igenom alla nuvarande kurser
             <a
               className="flex flex-col gap-2"
               key={index}
+              //använder sig av en link funktion tillsammans med indexs i programs för att öppna och direkta till rätt dropdown för det klickade programmet
               href={`/program#${encodeURIComponent(item.semester.name)}`}
               onClick={() => {
                 // Small delay to ensure the hash change is processed
@@ -92,6 +85,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
                     encodeURIComponent(item.semester.name)
                   );
                   if (element) {
+                    //ändrar hur sidan scrollar till det valda elementet
                     element.scrollIntoView({
                       behavior: "smooth",
                       block: "end",
@@ -120,9 +114,12 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-40"
         >
           {nonPassingMissedExams.map((item: any, index: any) => (
+            //loopar igenom alla missade examinationer
             <a
               className="flex flex-col gap-1"
               key={index}
+              //använder sig av en link funktion tillsammans med indexs i programs för att öppna och direkta till rätt dropdown för det klickade programmet
+
               href={`/program#${encodeURIComponent(item.name)}`}
               onClick={() => {
                 // Small delay to ensure the hash change is processed
@@ -131,6 +128,8 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
                     encodeURIComponent(item.name)
                   );
                   if (element) {
+                    //ändrar hur sidan scrollar till det valda elementet
+
                     element.scrollIntoView({
                       behavior: "smooth",
                       block: "end",
@@ -144,6 +143,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
               <p className="text-xs text-gray-600">
                 {item.course_code}
               </p>
+              {/*Kallar på cardCarousel för varje kurs med missade examinationer*/}
               <CardCarousel exam={missedExams.get(item.course_code)} />
               <hr className="w-full bg-gray-600"></hr>
             </a>
