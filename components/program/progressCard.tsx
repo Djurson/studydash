@@ -5,7 +5,6 @@ import React, { useMemo } from "react";
 import { WithAuthProps, Examination, Program } from "@/utils/types";
 import LiuImg from "@/assets/liu.png";
 import { ExternalLink } from "lucide-react";
-import Image from "next/image";
 
 export function ProgressCard({ userData, url, credits }: Partial<WithAuthProps> & Partial<Program>) {
   const programCredits = useMemo(() => {
@@ -55,7 +54,7 @@ export function ProgressCard({ userData, url, credits }: Partial<WithAuthProps> 
   return (
     <main className="flex flex-col gap-2">
       <div className="flex items-center">
-        <Image src={LiuImg.src} alt="" className="h-[4.25rem] dark:grayscale-100 dark:invert" />
+        <img src={LiuImg.src} alt="" className="h-[4.25rem] dark:grayscale-100 dark:invert" />
         <a href={url} target="_blank" className="ml-4">
           <p className="text-sm font-semibold text-gray-600">{credits}</p>
           <div className="flex items-center gap-2 hover:underline">

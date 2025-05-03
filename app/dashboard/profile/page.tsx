@@ -6,7 +6,7 @@ import { withAuth } from "@/serverhooks/withAuth";
 import AchievementGrid from "./achievments";
 
 
-const calculateAverageGrade = (userData: UserData): string => {
+const calculateAverageGrade = (userData: UserData | undefined): string => {
   if (!userData?.studyinfo) return "-";
 
   let totalCredits = 0;
@@ -15,9 +15,9 @@ const calculateAverageGrade = (userData: UserData): string => {
 
 
   userData.studyinfo.forEach((course: Course) => {
-    if (course.grade && !isNaN(parseFloat(course.grade))) {
-      const credits = parseFloat(course.hp) || 0;
-      const grade = parseFloat(course.grade);
+    if (course.grade && typeof course.grade === "number") {
+      const credits = course.hp;
+      const grade = course.grade;
 
       totalCredits += credits;
       weightedSum += credits * grade;

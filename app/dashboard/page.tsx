@@ -14,14 +14,13 @@ import CreditsLoading from "@/components/charts/credits-loading";
 import CardForExams from "@/components/card/cardforexams";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
-import Image from "next/image";
 
 async function Page({ user, userData }: WithAuthProps) {
   const program = programData.programs[0];
   return (
     <>
       <header className="flex items-center">
-        <Image src={LiuImg.src} alt="" className="h-[5.5rem] dark:grayscale-100 dark:invert" />
+        <img src={LiuImg.src} alt="" className="h-[5.5rem] dark:grayscale-100 dark:invert" />
         <div className="ml-4">
           <p className="text-xl font-semibold text-muted">{program.credits}</p>
           <h1 className="text-3xl font-semibold">{userData?.program}.</h1>

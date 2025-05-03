@@ -1,13 +1,12 @@
 import LiuImg from "@/assets/liu.png";
 import CardLoading from "@/components/card/card-loading";
 import CreditsLoading from "@/components/charts/credits-loading";
-import Image from "next/image";
 
 export default async function Loading() {
   return (
     <>
       <header className="flex items-center">
-        <Image src={LiuImg.src} alt="" className="h-[5.5rem] dark:grayscale-100 dark:invert" />
+        <img src={LiuImg.src} alt="" className="h-[5.5rem] dark:grayscale-100 dark:invert" />
         <div className="ml-4">
           <p className="text-xl font-semibold text-muted">300hp</p>
           <h1 className="text-3xl font-semibold">Civilingenjörsprogram i medieteknik.</h1>

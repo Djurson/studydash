@@ -2,7 +2,6 @@ import UserInfo from "@/components/card/userInfo";
 import { withAuth } from "@/serverhooks/withAuth";
 import { WithAuthProps } from "@/utils/types";
 import { Trash } from "lucide-react";
-import Image from "next/image";
 
 function Page({ user }: WithAuthProps) {
   console.log("user:", user);
@@ -28,7 +27,7 @@ function Page({ user }: WithAuthProps) {
         <div className="border border-muted-foreground rounded-2xl p-4 ">
           <div className="flex justify-between">
             <div className="rounded-2xl overflow-hidden aspect-square w-20 h-20 flex items-end justify-center">
-              <Image src={user.user_metadata.avatar_url} alt="profilbild" />
+              <img src={user.user_metadata.avatar_url} alt="profilbild" />
             </div>
             <div>
               <p className="text-muted-foreground font-light">Namn</p>
