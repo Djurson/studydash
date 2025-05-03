@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 function InputOTP({
   className,
   containerClassName,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   error,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
