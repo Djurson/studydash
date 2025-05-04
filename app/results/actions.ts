@@ -139,6 +139,10 @@ export async function GetUserData(): Promise<UserData | undefined> {
 
   const userData = await getUserRowCache(user.id, supabase);
 
+  if (!userData) {
+    return;
+  }
+
   const { studyinfo, ...restProps } = userData;
 
   // Konvertera studyinfo från JSON-sträng till Map
