@@ -1,7 +1,6 @@
 import { ChartNoAxesCombined, GraduationCap, HandCoins, BookOpen, Hammer, MessageCircleQuestion, Settings } from "lucide-react";
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, SidebarRail } from "../ui/sidebar";
-import { SettingsDialog } from "./settings-dialog";
 import { NavUser } from "./nav-user";
 import { WithAuthProps } from "@/utils/types";
 

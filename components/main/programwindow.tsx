@@ -4,16 +4,8 @@ import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";
 
-
-interface Semester {
-  name: string;
-  courses: Course[];
-}
-
-interface Course { }
-
 //stulen funktion från en tidigare modul för att hitta nuvarande år med nuvarande kurse
-function getCurrentStudyYear(startYear: number) {
+function getCurrentStudyYear() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
@@ -30,11 +22,13 @@ function getCurrentStudyYear(startYear: number) {
 // sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
-  var currentCoursesArray: any[] = [];
-  var missedExams = new Map();
-  var nonPassingMissedExams: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const currentCoursesArray: any[] = [];
+  const missedExams = new Map();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const nonPassingMissedExams: any[] = [];
 
-  const currentTerm = getCurrentStudyYear(Number(userData?.studyyear))
+  const currentTerm = getCurrentStudyYear()
 
   program.semesters.forEach((semester) => {
     if (semester.name.includes(currentTerm.current)) {
@@ -44,9 +38,10 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
       });
     }
     semester.courses.forEach(courses => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       courses.examinations.forEach((exam: any, index: any) => {
         //kollar om användaren har en examination kvar
-        if (!MapHasExamination(userData?.studyinfo!, courses.course_code, exam.code)) {
+        if (!MapHasExamination(userData?.studyinfo ?? new Map(), courses.course_code, exam.code)) {
           //kollar om mapen redan har kursen, i sånt fall läger den till andra examinationer på den keyn
           if (missedExams.has(courses.course_code)) {
             missedExams.get(courses.course_code).push({ name: exam.code, credits: exam.credits })
@@ -71,6 +66,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
         <div
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-32"
         >
+          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {currentCoursesArray.map((item: any, index: any) => (
             //loopar igenom alla nuvarande kurser
             <a
@@ -113,6 +109,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
         <div
           className="overflow-scroll no-scrollbar flex flex-col gap-2 h-40"
         >
+          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {nonPassingMissedExams.map((item: any, index: any) => (
             //loopar igenom alla missade examinationer
             <a

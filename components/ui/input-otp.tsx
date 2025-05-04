@@ -5,10 +5,10 @@ import { OTPInput, OTPInputContext } from "input-otp";
 import { MinusIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
 function InputOTP({
   className,
   containerClassName,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   error,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {

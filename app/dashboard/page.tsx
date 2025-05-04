@@ -1,9 +1,5 @@
-"use server";
-
 import Card from "@/components/card/card";
-import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
-import { PillbuttonContainer } from "@/components/main/pillbutton";
 import { StudyFunds } from "@/components/charts/studyfunds";
 import { MeritPoints } from "@/components/charts/meritpoints";
 import { Credits } from "@/components/charts/credits";
@@ -17,7 +13,7 @@ import CardForExams from "@/components/card/cardforexams";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
 
-async function Page({ user, userData }: WithAuthProps) {
+async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   return (
     <>

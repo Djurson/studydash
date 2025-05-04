@@ -1,11 +1,9 @@
-import { SignInAction, SignInActionGoogle } from "@/app/actions";
+import { SignInActionGoogle } from "@/app/actions";
 import FormButton from "@/components/form/formbutton";
 import { FormMessage } from "@/components/form/frommessage";
-import InputField from "@/components/form/inputfield";
 import LogoCenter from "@/components/form/logocenter";
 import GoogleIcon from "@/components/googleIcon";
 import { Message } from "@/components/supabase-template/form-message";
-import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Login(props: { searchParams: Promise<Message> }) {

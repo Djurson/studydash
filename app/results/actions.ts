@@ -1,6 +1,12 @@
 "use server";
 
-import { promises as fs, writeFile } from "fs";
+/*
+
+  Filen kan vara "dålig" vet ej?
+
+*/
+
+import { promises as fs } from "fs";
 import { v4 as uuidv4 } from "uuid";
 import PDFParser from "pdf2json";
 import path from "path";
@@ -25,7 +31,7 @@ type ChangeHistoryProps = {
  * @returns Ett objekt med studieinformation
  */
 export async function HandleFileUpload(file: File): Promise<Map<string, Course> | string> {
-  let fileName = uuidv4();
+  const fileName = uuidv4();
 
   // Skapar en filväg till operativsystemets temporära sparnings plats
   const tempDir = os.tmpdir();
@@ -67,19 +73,22 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
     return;
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pdfParser = new (PDFParser as any)(null, 1);
 
   // Om det blir error, skriv ut den och returnera
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pdfParser.on("pdfParser_dataError", (errData: any) => {
     console.error("PDF Parser Error:", errData.parserError);
     return; // This only returns from the event handler, not from the function
   });
 
   // Extrahera texten från PDF filen
-  const result = await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     pdfParser.loadPDF(tempFilePath);
 
     pdfParser.on("pdfParser_dataReady", () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       parsedText = (pdfParser as any).getRawTextContent();
       resolve(parsedText);
     });
@@ -93,10 +102,14 @@ async function ReadWritePDF(tempFilePath: string, file: File): Promise<string> {
   return parsedText;
 }
 
+/*
+
 async function saveToFile(filename: string, text: string) {
   fs.writeFile(filename, text, "utf8");
   console.log(`Fil sparad som: ${filename}`);
 }
+
+*/
 
 export async function WriteToDatabase(studyinfo: string, { studyProgram, studyYear, studyUniversity, previousFounds }: ChangeHistoryProps) {
   const supabase = await createClient();
@@ -126,7 +139,11 @@ export async function GetUserData(): Promise<UserData | undefined> {
 
   const userData = await getUserRowCache(user.id, supabase);
 
-  const { user_id, studyinfo, ...restProps } = userData;
+  if (!userData) {
+    return;
+  }
+
+  const { studyinfo, ...restProps } = userData;
 
   // Konvertera studyinfo från JSON-sträng till Map
   const studyinfoMap = studyinfo ? jsonToStudyResults(studyinfo) : new Map();

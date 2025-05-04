@@ -5,7 +5,6 @@ import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from "re
 import { Examination, WithAuthProps } from "@/utils/types";
 import { Check } from "lucide-react";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { MapToChartsArray } from "@/utils/converters";
 
 //const chartData = [{ timeframe: "År 2", credits: 26 /*fill: "var(--color-blue-900)" */ }];
 
@@ -21,7 +20,7 @@ const chartConfig = {
 
 // Funktionen bör läggas i separat js fil, den förekommer i flera komponenter
 // funktion för att generera nuvarande studieåret
-function getCurrentStudyYear(startYear: number) {
+function getCurrentStudyYear() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
@@ -52,7 +51,7 @@ function getStudyYearNumber(startYear: number, currentYear: string) {
 
 export function StudyFunds({ userData }: Partial<WithAuthProps>) {
   const startYear = Number.parseInt(userData?.studyyear ?? "2022");
-  const currentStudyYear = getCurrentStudyYear(startYear);
+  const currentStudyYear = getCurrentStudyYear();
   const studyYearNumber = getStudyYearNumber(startYear, currentStudyYear.current);
 
   //Räkna ut hp beserat på tidigare sökt csn

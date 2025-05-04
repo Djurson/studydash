@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Rectangle } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Rectangle } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { WithAuthProps } from "@/utils/types";
 import { useMemo } from "react";
@@ -20,9 +20,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomBar = (props: any) => {
   const { fill, x, y, width, height, isTop } = props;
-  const radius = isTop ? 4 : 0;
 
   return <Rectangle x={x} y={y} width={width} height={height} fill={fill} radius={isTop ? [4, 4, 0, 0] : [0, 0, 0, 0]} />;
 };
@@ -141,6 +141,7 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
             dataKey="treor"
             stackId="a"
             fill="var(--color-red-900)"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             shape={(props: any) => {
               const entry = chartData.find((d) => d.name === props.name);
               return <CustomBar {...props} isTop={!entry?.fyror && !entry?.femmor} />;
@@ -150,11 +151,13 @@ export function MeritPointsBarChart({ userData }: Partial<WithAuthProps>) {
             dataKey="fyror"
             stackId="a"
             fill="var(--color-yellow-900)"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             shape={(props: any) => {
               const entry = chartData.find((d) => d.name === props.name);
               return <CustomBar {...props} isTop={!entry?.femmor} />;
             }}
           />
+          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <Bar dataKey="femmor" stackId="a" fill="var(--color-green-900)" shape={(props: any) => <CustomBar {...props} isTop={true} />} />
         </BarChart>
       </ChartContainer>

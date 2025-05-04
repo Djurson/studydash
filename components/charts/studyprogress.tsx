@@ -4,7 +4,6 @@ import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React, { useMemo } from "react";
 import { WithAuthProps, Examination } from "@/utils/types";
-import { MapToChartsArray } from "@/utils/converters";
 
 type periodType = "kandidat" | "master" | "total";
 

@@ -1,11 +1,6 @@
 "use client";
-import { Hedvig_Letters_Sans } from "next/font/google";
 import { useState } from "react";
-import Header from "../supabase-template/hero";
 import { ChevronDown, CirclePlus } from "lucide-react";
-
-import CourseAccordion from "@/components/accordions/CourseAccordion";
-import { Separator } from "../ui/separator";
 
 interface EditMasterSemesterProps {
   semester: {

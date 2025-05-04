@@ -5,7 +5,6 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React, { useState, useMemo } from "react";
 import { Examination, WithAuthProps } from "@/utils/types";
-import { MapToChartsArray } from "@/utils/converters";
 import { ChartColumn, ChartSpline } from "lucide-react";
 
 interface ChartData {
@@ -13,13 +12,8 @@ interface ChartData {
   credits: number;
 }
 
-interface BarChartData {
-  month: string;
-  credits: number;
-}
-
 // funktion för att generera nuvarande studieåret
-function getCurrentStudyYear(startYear: number) {
+function getCurrentStudyYear() {
   const now = new Date();
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
@@ -92,7 +86,7 @@ export function Credits({ userData }: Partial<WithAuthProps>) {
   // const startYear = Number(userData?.studyyear);
   const startYear = Number.parseInt(userData?.studyyear ?? "2022");
   const studyYears = getAllStudyYears(startYear);
-  const currentStudyYear = getCurrentStudyYear(startYear);
+  const currentStudyYear = getCurrentStudyYear();
   const [timeRange, setTimeRange] = useState<string>(currentStudyYear.current);
   const [chartType, setChartType] = useState<"line" | "bar">("line");
 

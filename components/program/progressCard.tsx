@@ -1,7 +1,6 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import React, { useMemo } from "react";
 import { WithAuthProps, Examination, Program } from "@/utils/types";
 import LiuImg from "@/assets/liu.png";

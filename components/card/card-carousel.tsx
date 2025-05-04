@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef } from "react";
 import { CircleAlert } from "lucide-react"
 
@@ -18,15 +17,16 @@ import { CircleAlert } from "lucide-react"
  * 
  * */
 
-
-export default function CardCarousel({exam}: {exam: any}) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function CardCarousel({ exam }: { exam: any }) {
   const carouselRef = useRef<HTMLUListElement | null>(null);
   return (
     <>
       <ul
         className="flex w-full overflow-x-auto drop-shadow-sm px-regular snap-mandatory snap-x scroll-smooth container-snap no-scrollbar"
         ref={carouselRef}>
-        {exam.map((examItem:any, index:any) => (
+        {  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        {exam.map((examItem: any, index: any) => (
           <li
             key={index}
             className={`h-13 my-2 p-2 w-[10rem] mr-2 last bg-accent rounded-2xl shrink-0 snap-start snap-normal flex items-center
@@ -39,7 +39,7 @@ export default function CardCarousel({exam}: {exam: any}) {
                   <p className="h-fit">{examItem.name}</p>
                 </div>
                 <div className="flex flex-row items-center gap-1">
-                  <p>{examItem.credits}</p> 
+                  <p>{examItem.credits}</p>
                 </div>
               </div>
             </section>

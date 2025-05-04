@@ -1,10 +1,9 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { ChevronDown } from "lucide-react";
 import CourseAccordion from "@/components/accordions/CourseAccordion";
-import { Separator } from "../ui/separator";
 
 type Semester = {
   name: string;
@@ -36,13 +35,13 @@ export default function SemesterAccordion({ semester }: { semester: Semester }) 
         setIsOpen(true);
       }
     };
-    
+
     // Check on mount
     checkHash();
-    
+
     // Add event listener for hash changes
     window.addEventListener('hashchange', checkHash);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('hashchange', checkHash);

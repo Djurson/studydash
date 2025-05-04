@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
-import { useTheme } from "next-themes";
 import { ThemeSwitcher } from "@/components/supabase-template/theme-switcher";
 
 interface SettingsDialogProps {
@@ -10,7 +9,6 @@ interface SettingsDialogProps {
 }
 
 export function SettingsDialog({ children }: SettingsDialogProps) {
-  const { theme } = useTheme(); // We only need theme for display purposes
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

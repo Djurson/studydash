@@ -1,5 +1,4 @@
 import UserInfo from "@/components/card/userInfo";
-import { ThemeSwitcher } from "@/components/supabase-template/theme-switcher";
 import { withAuth } from "@/serverhooks/withAuth";
 import { WithAuthProps } from "@/utils/types";
 import { Trash } from "lucide-react";

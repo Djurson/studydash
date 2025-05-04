@@ -1,6 +1,4 @@
-import CardCarousel from "@/components/card/card-carousel";
 import LiuImg from "@/assets/liu.png";
-import { PillbuttonContainer } from "@/components/main/pillbutton";
 import CardLoading from "@/components/card/card-loading";
 import CreditsLoading from "@/components/charts/credits-loading";
 

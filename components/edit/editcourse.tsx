@@ -23,7 +23,7 @@ export function EditCourse({ course, semesterStatus, semesterSeason }: { course:
     courseResults = getCourse(course.course_code);
   }
 
-  let { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults, semesterStatus);
+  const { returnGrade, returnStatus } = CheckGradeAndStatus(courseResults, semesterStatus);
 
   useEffect(() => {
     setStatus(returnStatus);

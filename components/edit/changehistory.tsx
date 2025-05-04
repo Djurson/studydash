@@ -43,7 +43,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
         else {
           // Skapa en ny map med bara godkända examinationer
           const filteredExaminations = new Map(
-            Array.from(course.examinations.entries()).filter(([_, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
+            Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
           );
 
           // Returnera kursen med filtrerade examinationer om det finns några
@@ -139,7 +139,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                     <Info className="stroke-red-900 stroke-2 size-4" />
                     Ta bort all ifylld information?
                   </AlertDialogTitle>
-                  <AlertDialogDescription>Genom att klicka på "Ta bort" kommer all ifylld information att tas bort.</AlertDialogDescription>
+                  <AlertDialogDescription>Genom att klicka på &quot;Ta bort&quot; kommer all ifylld information att tas bort.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel className="bg-foreground transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>

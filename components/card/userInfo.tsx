@@ -1,8 +1,6 @@
 "use client";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils"; // Utility for merging class names
-import { ReactNode, useEffect, useState } from "react";
-import { Check, ChevronRight, Laptop, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Check, Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export default function UserInfo() {
@@ -33,9 +31,8 @@ export default function UserInfo() {
             )}
             <button
               onClick={() => handleThemeChange("light")}
-              className={`w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden shadow-md bg-gray-100 p-2 ${
-                theme === "light" ? "border-3 border-blue-900" : "border border-gray-200 hover:opacity-60 cursor-pointer"
-              }`}>
+              className={`w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden shadow-md bg-gray-100 p-2 ${theme === "light" ? "border-3 border-blue-900" : "border border-gray-200 hover:opacity-60 cursor-pointer"
+                }`}>
               <div className="h-full rounded-lg p-3 flex flex-col bg-white border border-gray-200">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-300 mx-auto mb-2 sm:mb-3"></div>
 
@@ -63,9 +60,8 @@ export default function UserInfo() {
             )}
             <button
               onClick={() => handleThemeChange("dark")}
-              className={`relative w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden  shadow-md bg-gray-800 p-2 ${
-                theme === "dark" ? "border-3 border-blue-900" : "border border-gray-700 hover:opacity-60 cursor-pointer"
-              }`}>
+              className={`relative w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden  shadow-md bg-gray-800 p-2 ${theme === "dark" ? "border-3 border-blue-900" : "border border-gray-700 hover:opacity-60 cursor-pointer"
+                }`}>
               <div className="h-full rounded-lg p-3 flex flex-col bg-gray-900 border border-gray-700">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gray-600 mx-auto mb-2 sm:mb-3"></div>
 
@@ -93,9 +89,8 @@ export default function UserInfo() {
             )}
             <button
               onClick={() => handleThemeChange("system")}
-              className={`relative w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden  shadow-md ${
-                theme === "system" ? "border-3 border-blue-900" : "border border-gray-300 hover:opacity-60 cursor-pointer"
-              }`}>
+              className={`relative w-60 h-36 sm:w-64 sm:h-40 rounded-xl overflow-hidden  shadow-md ${theme === "system" ? "border-3 border-blue-900" : "border border-gray-300 hover:opacity-60 cursor-pointer"
+                }`}>
               <div className="absolute inset-y-0 left-0 w-1/2 bg-white"></div>
 
               <div className="absolute inset-y-0 right-0 w-1/2 bg-gray-800"></div>

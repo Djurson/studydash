@@ -1,4 +1,4 @@
-import { resetPasswordAction } from "@/app/actions";
+import { ResetPasswordAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/supabase-template/form-message";
 import { SubmitButton } from "@/components/supabase-template/submit-button";
 import { Input } from "@/components/ui/input";
@@ -28,7 +28,7 @@ export default async function ResetPassword(props: {
         placeholder="Confirm password"
         required
       />
-      <SubmitButton formAction={resetPasswordAction}>
+      <SubmitButton formAction={ResetPasswordAction}>
         Reset password
       </SubmitButton>
       <FormMessage message={searchParams} />

@@ -1,12 +1,8 @@
 import Card from "@/components/card/card";
-import ExamCard from "@/components/card/exam-card";
-import CardCarousel from "@/components/card/card-carousel";
-import LiuImg from "@/assets/liu.png";
-import { PillButton, PillbuttonContainer } from "@/components/main/pillbutton";
-import React, { useState } from "react";
+import { PillbuttonContainer } from "@/components/main/pillbutton";
+import React from "react";
 import { PencilLine } from "lucide-react";
 import SemesterAccordion from "@/components/accordions/SemesterAccordion";
-import { GetStaticProps } from "next";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
@@ -17,19 +13,11 @@ import { Credits } from "@/components/charts/credits";
 import { MeritPoints } from "@/components/charts/meritpoints";
 import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
-interface Course {}
-
-interface Examination {}
-
-interface ProgramData {
-  programs: Program[];
-}
-
 interface exjobbData {
   programs: Program[];
 }
 
-async function Page({ user, userData }: WithAuthProps) {
+async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
 
