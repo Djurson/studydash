@@ -17,8 +17,8 @@ const cacheStore: CacheStore = {
   userRows: {},
 };
 
-// TTL i millisekunder (30 minuter)
-const CACHE_TTL = 30 * 60 * 1000;
+// TTL i millisekunder (2 timmar)
+const CACHE_TTL = 2 * 60 * 60 * 1000;
 
 // Hjälpfunktion för att kontrollera om cache-entry är giltig
 const isCacheValid = <T,>(entry?: CacheEntry<T>): boolean => {
@@ -27,7 +27,7 @@ const isCacheValid = <T,>(entry?: CacheEntry<T>): boolean => {
   return now - entry.timestamp < CACHE_TTL;
 };
 
-// 1. Hämta user med cache (30 min TTL)
+// 1. Hämta user med cache (2 timmar TTL)
 export const getUserCache = async (supabase: SupabaseClient): Promise<User | null> => {
   // Skapa en unik cache-nyckel (vi använder bara en för alla user-requests)
   const cacheKey = "auth_user";
@@ -57,7 +57,7 @@ export const getUserCache = async (supabase: SupabaseClient): Promise<User | nul
   return data.user;
 };
 
-// 2. Hämta användardata med cache (30 min TTL)
+// 2. Hämta användardata med cache (2 timmar TTL)
 export const getUserRowCache = async (userId: string, supabase: SupabaseClient) => {
   // Kolla om vi har en giltig cache entry för denna user_id
   const cachedUserRow = cacheStore.userRows[userId];
