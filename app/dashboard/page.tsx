@@ -16,7 +16,6 @@ import CreditsLoading from "@/components/charts/credits-loading";
 import CardForExams from "@/components/card/cardforexams";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
-import Link from "next/link";
 
 async function Page({ user, userData }: WithAuthProps) {
   const program = programData.programs[0];

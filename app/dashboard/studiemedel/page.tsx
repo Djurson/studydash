@@ -2,26 +2,9 @@
 
 import * as React from "react";
 import CardProgress from "@/components/card/card-progress";
-import { Examination, UserData, WithAuthProps } from "@/utils/types";
+import { Examination, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
-import programData from "@/webscraping/6CEMEN-2022.json";
-import { Key } from "lucide-react";
 
-
-function getCurrentStudyYear(startYear: number) {
-  const now = new Date();
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth();
-
-  // Om nuvarande månad är mindre än före augusti (månad 7 (börjar på 0)), dra av 1 från året
-  const studyYear = currentMonth < 7 ? currentYear - 1 : currentYear;
-
-  return {
-    current: `${studyYear + 1}`,
-    start: new Date(studyYear, 7, 1),
-    end: new Date(studyYear + 1, 6, 31),
-  };
-}
 
 function calculateHpPerAcademicYear(map: Map<number, Examination[]>) {
   const totals = new Map<string, number>();
@@ -41,8 +24,6 @@ function calculateHpPerAcademicYear(map: Map<number, Examination[]>) {
 }
 
 async function Page({ user, userData }: WithAuthProps) {
-
-  const currentTerm = getCurrentStudyYear(Number(userData?.studyyear))
 
   return (
     <>
