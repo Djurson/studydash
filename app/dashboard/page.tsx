@@ -18,7 +18,11 @@ async function Page({ userData }: Partial<WithAuthProps>) {
   return (
     <>
       <header className="flex items-center">
-        <img src={LiuImg.src} alt="" className="h-[5.5rem] dark:grayscale-100 dark:invert" />
+        <img
+          src={LiuImg.src}
+          alt=""
+          className="h-[5.5rem] dark:grayscale-100 dark:invert"
+        />
         <div className="ml-4">
           <p className="text-xl font-semibold text-muted">{program.credits}</p>
           <h1 className="text-3xl font-semibold">{userData?.program}.</h1>
@@ -27,7 +31,12 @@ async function Page({ userData }: Partial<WithAuthProps>) {
       <main className="w-full h-[28.25rem] grid grid-cols-5 grid-rows-2 gap-4 mt-4 ">
         <div className="row-span-2 col-span-2">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Intjänade högskolepoäng" href="/program" sectionId="credits">
+            <Card
+              variant="header"
+              cardTitle="Intjänade högskolepoäng"
+              href="/program"
+              sectionId="credits"
+            >
               <Suspense fallback={<CreditsLoading />}>
                 <Credits userData={userData} />
               </Suspense>
@@ -35,26 +44,36 @@ async function Page({ userData }: Partial<WithAuthProps>) {
           </Suspense>
         </div>
         <Suspense fallback={<CardLoading />}>
-          <Card variant="header" cardTitle="Studiemedelskrav">
-            <StudyFunds userData={userData} />
-          </Card>
+            <Card variant="header" cardTitle="Studiemedelskrav" href="/dashboard/studiemedel">
+              <StudyFunds userData={userData} />
+            </Card>
         </Suspense>
         <Suspense fallback={<CardLoading />}>
-          <Card variant="header" cardTitle="Medelmerit" href="/program" sectionId="merit">
+          <Card
+            variant="header"
+            cardTitle="Medelmerit"
+            href="/program"
+            sectionId="merit"
+          >
             <MeritPoints userData={userData} />
           </Card>
         </Suspense>
 
         <div className="row-span-2 ">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Mina kurser">
+            <Card variant="header" cardTitle="Mina kurser" href="/program">
               <ProgramWindow userData={userData}></ProgramWindow>
             </Card>
           </Suspense>
         </div>
         <div className="col-span-2 ">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Mina studieframsteg" href="/program" sectionId="progress">
+            <Card
+              variant="header"
+              cardTitle="Mina studieframsteg"
+              href="/program"
+              sectionId="progress"
+            >
               <StudyProgress userData={userData} />
             </Card>
           </Suspense>

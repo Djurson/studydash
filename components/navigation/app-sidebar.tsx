@@ -18,7 +18,7 @@ const general = [
   },
   {
     title: "Studiemedel",
-    url: "#",
+    url: "/dashboard/studiemedel",
     icon: HandCoins,
   },
 ];
