@@ -101,6 +101,9 @@ export default function Page() {
             <Carousel plugins={[plugin.current]} onClick={plugin.current.stop}>
               <CarouselContent className="w-[42dvw]">
                 <CarouselItem>
+                  <video src="/videos/animated-guide.webm" autoPlay loop muted playsInline></video>
+                </CarouselItem>
+                <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
                     <img src="/imgs/Website Link Comp.png" alt="student.ladok.se" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
@@ -164,9 +167,6 @@ export default function Page() {
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">7. Välj &quot;Svenska&quot;</p>
                     </div>
                   </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <video src="/videos/animated-guide.webm" autoPlay loop muted playsInline></video>
                 </CarouselItem>
               </CarouselContent>
               <CarouselNext variant={"default"} />
