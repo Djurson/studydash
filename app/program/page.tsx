@@ -14,6 +14,7 @@ import { MeritPoints } from "@/components/charts/meritpoints";
 import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
 import { ScrollHandler } from "@/components/navigation/scrollhandler";
+import SemesterSection from "@/components/program/semesterSection";
 
 interface exjobbData {
   programs: Program[];
@@ -30,7 +31,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
       <header>
         <h1 className="text-3xl font-semibold">Min utbildning.</h1>
       </header>
-      <section id="progress" className="scroll-mt-[6rem]">
+      <section id="progress">
         <div className="grid grid-cols-5 grid-rows-1 gap-4 mt-6 ">
           <div className="col-span-4">
             <Card variant="no-header" cardTitle="">
@@ -51,6 +52,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
+          <SemesterSection userData={userData} />
           <div className="flex flex-col gap-4 mt-4">
             <div>
               <p>Kandidat</p>
@@ -78,7 +80,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
         </section>
       </main>
 
-      <section id="merit" className="scroll-mt-[6rem]">
+      <section id="merit">
         <h2 className="text-2xl font-semibold mt-8">Meritvärde</h2>
         <div className="mt-4 w-full overflow-hidden h-full">
           <Card cardTitle="" variant="no-header">
@@ -102,7 +104,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
           </Card>
         </div>
       </section>
-      <section id="credits" className="scroll-mt-[6rem]">
+      <section id="credits">
         <h2 className="text-2xl font-semibold mt-8">Högskolepoäng</h2>
         <div className="mt-4 w-full">
           <Card cardTitle="" variant="no-header">
