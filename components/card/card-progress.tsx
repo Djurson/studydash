@@ -4,7 +4,7 @@ import Card from "@/components/card/card";
 import { Progress } from "@/components/ui/progress";
 import { Pie, PieChart } from "recharts";
 import { Check } from "lucide-react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 interface Inputs {

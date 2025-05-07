@@ -23,7 +23,7 @@ function calculateHpPerAcademicYear(map: Map<number, Examination[]>) {
   return totals;
 }
 
-async function Page({ user, userData }: WithAuthProps) {
+async function Page({ userData}: Partial<WithAuthProps>) {
 
   return (
     <>
@@ -34,7 +34,7 @@ async function Page({ user, userData }: WithAuthProps) {
       </header>
       <main className="w-full h-[35rem] grid grid-cols-1 grid-rows-5 mt-4 gap-4">
         {(() => {
-          const totals = calculateHpPerAcademicYear(userData?.sortedDateMap!);
+          const totals = calculateHpPerAcademicYear(userData?.sortedDateMap ?? new Map());
           const startYear = Number(userData?.studyyear);
           const cards = [];
 
