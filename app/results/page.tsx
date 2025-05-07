@@ -15,7 +15,7 @@ import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useRef, useState } from "react";
 import { GetUserData } from "./actions";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Link from "next/link";
 import { SquareArrowOutUpRight } from "lucide-react";
@@ -102,7 +102,7 @@ export default function Page() {
               <CarouselContent className="w-[42dvw]">
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Website Link Comp.png" />
+                    <img src="/imgs/Website Link Comp.png" alt="student.ladok.se" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">
                         1. Navigera till
@@ -116,7 +116,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Website Layout Comp.png" />
+                    <img src="/imgs/Website Layout Comp.png" alt="hemsida design" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">2. Öppna sidmenyn och tryck på &quot;intyg&quot;</p>
                     </div>
@@ -124,7 +124,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Create Cert Button Comp.png" />
+                    <img src="/imgs/Create Cert Button Comp.png" alt="skapa intyg knapp" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">3. Tryck på skapa intyg</p>
                     </div>
@@ -132,7 +132,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Type Cert Dropdown Comp.png" />
+                    <img src="/imgs/Type Cert Dropdown Comp.png" alt="typ av intyg knapp" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">4. Välj &quot;resultatintyg&quot;</p>
                     </div>
@@ -140,7 +140,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Type Cert Comp.png" />
+                    <img src="/imgs/Type Cert Comp.png" alt="avgränsa" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">5. Välj &quot;Alla avslutade kurser&quot;</p>
                     </div>
@@ -148,7 +148,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Modules Comp.png" />
+                    <img src="/imgs/Modules Comp.png" alt="moduler" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">6. Välj:</p>
                       <p className="text-xs flex gap-1 items-center justify-start font-medium text-left">&quot;Godkända moduler i ej avslutade kurser&quot;</p>
@@ -159,7 +159,7 @@ export default function Page() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="flex flex-col items-center justify-center">
-                    <img src="/imgs/Lang Comp.png" />
+                    <img src="/imgs/Lang Comp.png" alt="språk" />
                     <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
                       <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">7. Välj &quot;Svenska&quot;</p>
                     </div>

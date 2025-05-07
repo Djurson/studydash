@@ -1,10 +1,9 @@
 "use client";
 
-import { ChangeEvent, ComponentProps, Dispatch, SetStateAction, DragEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, DragEvent, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileText, FileUp, Info, X } from "lucide-react";
-import Link from "next/link";
 import { HandleFileUpload } from "@/app/results/actions";
 import { Course } from "@/utils/types";
 import { useStudyResults } from "@/hooks/editcontext";
