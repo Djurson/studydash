@@ -29,7 +29,7 @@ type studyInformation = {
 };
 
 export default function Page() {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnLastSnap: true }));
+  const plugin = useRef(Autoplay({ delay: 26000, stopOnInteraction: true, stopOnLastSnap: true }));
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
     year: undefined,
     program: undefined,
