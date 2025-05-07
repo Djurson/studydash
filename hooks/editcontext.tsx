@@ -5,6 +5,7 @@ import { GetUserData } from "@/app/results/actions";
 
 export interface StudyResultContextType {
   studyResults: React.RefObject<Map<string, Course>>;
+  studyResultsOrg: React.RefObject<Map<string, Course>>;
   setCourse: (key: string, course: Course) => void;
   setExamination: (courseCode: string, examCode: string, examination: Examination) => void;
   updateMap: (inputMap: Map<string, Course>) => void;
@@ -32,6 +33,7 @@ export function useStudyResults() {
 
 export function StudyResultProvider({ children }: { children: ReactNode }) {
   const studyResultsRef = useRef<Map<string, Course>>(new Map());
+  const studyResultsRefOrg = useRef<Map<string, Course>>(new Map());
   const listenersRef = useRef(new Set<() => void>());
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export function StudyResultProvider({ children }: { children: ReactNode }) {
       const userData = await GetUserData();
       if (userData) {
         studyResultsRef.current = userData.studyinfo;
+        studyResultsRefOrg.current = new Map<string, Course>(studyResultsRef.current);
         notify(); // Meddela alla lyssnare om den nya datan
       }
     };
@@ -94,7 +97,7 @@ export function StudyResultProvider({ children }: { children: ReactNode }) {
   };
 
   const clearMap = () => {
-    studyResultsRef.current.clear();
+    studyResultsRef.current = studyResultsRefOrg.current;
     notify();
   };
 
@@ -160,25 +163,23 @@ export function StudyResultProvider({ children }: { children: ReactNode }) {
     notify();
   };
 
-  const value = useMemo(
-    () => ({
-      studyResults: studyResultsRef,
-      setCourse,
-      setExamination,
-      updateMap,
-      hasExamination,
-      hasCourse,
-      getExamination,
-      getCourse,
-      updateExamResult,
-      updateCourseResult,
-      clearMap,
-      subscribe,
-      studyResultsToJSON,
-      jsonToStudyResults,
-    }),
-    []
-  );
+  const value = {
+    studyResults: studyResultsRef,
+    studyResultsOrg: studyResultsRefOrg,
+    setCourse,
+    setExamination,
+    updateMap,
+    hasExamination,
+    hasCourse,
+    getExamination,
+    getCourse,
+    updateExamResult,
+    updateCourseResult,
+    clearMap,
+    subscribe,
+    studyResultsToJSON,
+    jsonToStudyResults,
+  }
   return <StudyResultContext.Provider value={value}>{children}</StudyResultContext.Provider>;
 }
 

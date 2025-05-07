@@ -46,7 +46,7 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
     setErrors({ ...errors, dateError: null, dateFakeError: null });
 
     // Validera datumet
-    const error = ValidateDate(value, `${semesterSeason.year}0801`, getTodayFormatted());
+    const error = ValidateDate(value, getTodayFormatted());
     if (error && value.length === 8) {
       // Om det finns errors visar vi dem och tar bort inputen
       setErrors({ ...errors, dateError: error, dateFakeError: null });
