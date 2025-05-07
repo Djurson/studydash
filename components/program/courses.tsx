@@ -14,6 +14,8 @@ export function Courses({ course, semesterStatus, semesterSeason, userData }: { 
 
   const grade = userData?.studyinfo.get(course.course_code)?.grade;
   const date = userData?.studyinfo.get(course.course_code)?.date;
+
+  const status = grade && date ? "done" : semesterStatus;
   return (
     <>
       <div className="flex flex-col w-full">
@@ -23,7 +25,7 @@ export function Courses({ course, semesterStatus, semesterSeason, userData }: { 
             <button className=" w-full text-left items-center py-2 hover:bg-highlight-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <div className="flex justify-between flex-row gap-4 items-center">
                 <div className="flex gap-4 items-center">
-                  <StatusSquare status={grade && date ? "done" : semesterStatus} />
+                  <StatusSquare status={status} />
 
                   <h4 className="font-medium text-sm">
                     {course.name} - {course.course_code}

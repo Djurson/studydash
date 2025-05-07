@@ -16,6 +16,8 @@ export function Exams({ semesterStatus, course, exam, userData }: { exam: Examin
 
   const formattedDate = formatDate(date);
 
+  const status: Status = grade && date ? "done" : semesterStatus;
+
   return (
     <>
       <div className="flex flex-col w-full">
@@ -26,7 +28,7 @@ export function Exams({ semesterStatus, course, exam, userData }: { exam: Examin
               <div className="flex py-2 justify-between">
                 <div className="flex gap-4">
                   <div className=" flex items-center">
-                    <StatusSquare status={grade && date ? "done" : semesterStatus} />
+                    <StatusSquare status={status} />
                   </div>
                   <p className="text-sm font-normal max-w-150">
                     {exam.name} - {exam.code}
