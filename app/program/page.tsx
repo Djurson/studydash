@@ -7,7 +7,7 @@ import SemesterAccordion from "@/components/accordions/SemesterAccordion";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
-import { Program, WithAuthProps } from "@/utils/types";
+import { Course, CourseJSON, Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
 import { Credits } from "@/components/charts/credits";
 import { MeritPoints } from "@/components/charts/meritpoints";
@@ -23,28 +23,25 @@ interface exjobbData {
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
-  const mainSubjects = new Map()
-
+  const mainSubjects = new Map<string, CourseJSON[]>();
 
   program.semesters.map((semsesters) => {
     semsesters.courses.map((course) => {
       const firstSubject = course.overview.main_subject.split(",")[0].trim();
       console.log(firstSubject);
       // Use first subject as primary category
-      if (!mainSubjects.has(firstSubject)) {
-        mainSubjects.set(firstSubject, [course]);
+      if (mainSubjects.has(firstSubject)) {
+        mainSubjects.get(firstSubject)?.push(course);
       } else {
-        mainSubjects.get(firstSubject).push(course);
+        mainSubjects.set(firstSubject, [course]);
       }
     });
   });
 
-  const mainSubjectArray = Array.from(mainSubjects).map(
-    ([subject, courses]) => ({
-      name: subject,
-      courses: courses,
-    })
-  );
+  const mainSubjectArray = Array.from(mainSubjects).map(([subject, courses]) => ({
+    name: subject,
+    courses: courses,
+  }));
 
   return (
     <>
@@ -73,8 +70,8 @@ async function Page({ userData }: Partial<WithAuthProps>) {
       <main className="w-full mt-4">
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
-          <PillbuttonContainer />
-          <SemesterSection userData={userData} mainSubjectArray={mainSubjectArray} />
+          <PillbuttonContainer mainSubjects={mainSubjects} />
+          <SemesterSection userData={userData} mainSubjects={mainSubjects} />
           <div className="flex flex-col gap-4 mt-4">
             <div>
               <p>Kandidat</p>

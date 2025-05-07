@@ -3,6 +3,7 @@
 import { ComponentProps, useState } from "react";
 import { Button } from "../ui/button";
 import programData from "@/webscraping/6CEMEN-2022.json";
+import { CourseJSON } from "@/utils/types";
 
 type PillButtonProps = ComponentProps<typeof Button> & {
   currentValue: string;
@@ -35,11 +36,10 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
   );
 }
 
-export function PillbuttonContainer() {
+export function PillbuttonContainer(mainSubjects?: { mainSubjects?: Map<string, CourseJSON[]> }) {
   const [selected, setSelected] = useState<string>("Alla");
 
-  
-  //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla" 
+  //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla"
   return (
     <div className="mt-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />

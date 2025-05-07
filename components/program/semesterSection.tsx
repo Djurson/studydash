@@ -13,8 +13,8 @@ import Semester from "@/components/program/semester";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useEffect, useState } from "react";
-import { WithAuthProps, Examination, Program, UserData } from "@/utils/types";
+import { useState } from "react";
+import { CourseJSON, UserData } from "@/utils/types";
 import MasterSemester from "./mastersemester";
 //import { GetUserData } from "./actions";
 
@@ -25,7 +25,7 @@ type studyInformation = {
   previousFounds: boolean;
 };
 
-export default function SemesterSection({ userData, mainSubjectArray}: {userData: UserData | undefined; mainSubjectArray: any;}) {
+export default function SemesterSection({ userData, mainSubjects }: { userData: UserData | undefined; mainSubjects: Map<string, CourseJSON[]> }) {
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
     year: undefined,
     program: undefined,
@@ -46,7 +46,7 @@ export default function SemesterSection({ userData, mainSubjectArray}: {userData
 
   let semesterCount = -1;
   const program = programData.programs[0];
-  
+
   const thsesis = {
     ...thesisData.programs[0],
     semesters: thesisData.programs[0].semesters.map((semester) => ({
@@ -54,8 +54,6 @@ export default function SemesterSection({ userData, mainSubjectArray}: {userData
       name: `Termin 10 ${finalThesisSemester.fullString}`,
     })),
   };
-
-
 
   // Hämta data från servern
   /*  useEffect(() => {
@@ -83,16 +81,21 @@ export default function SemesterSection({ userData, mainSubjectArray}: {userData
           <Separator />
 
           <div className="flex flex-col gap-4 mt-4">
-            {pillbutton ? 
-            program.semesters.map((semester) => {
-              semesterCount += 1;
-              return <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={false} />;
-            }) :
-            mainSubjectArray.map((subject:any) => {
-              semesterCount += 1;
-              return <Semester key={subject.name} semester={subject} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={true}/>
-            })
-          }
+            {pillbutton
+              ? program.semesters.map((semester) => {
+                  return <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={false} />;
+                })
+              : mainSubjects.keys().map((subject: string) => {
+                  return (
+                    <Semester
+                      key={subject}
+                      semester={{ name: subject, courses: mainSubjects.get(subject) ?? [] }}
+                      semsterSeason={allSemesters[semesterCount]}
+                      userData={userData}
+                      subjectfilter={true}
+                    />
+                  );
+                })}
           </div>
         </section>
 
@@ -106,7 +109,7 @@ export default function SemesterSection({ userData, mainSubjectArray}: {userData
 
           <div className="flex flex-col gap-4 pb-4">
             {thsesis.semesters.map((semester) => (
-              <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[9]} userData={userData} subjectfilter={false}/>
+              <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[9]} userData={userData} subjectfilter={false} />
             ))}
           </div>
         </section>
