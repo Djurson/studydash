@@ -4,7 +4,7 @@ import { Separator } from "../ui/separator";
 import { CircleOff, Info } from "lucide-react";
 import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
 import { Status, StatusSquare } from "./statussquare";
-import { Course, Examination } from "@/utils/types";
+import { Course } from "@/utils/types";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "../ui/alert-dialog";
 import { toast } from "sonner";
 import { WriteToDatabase } from "@/app/results/actions";
