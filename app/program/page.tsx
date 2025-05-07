@@ -23,6 +23,28 @@ interface exjobbData {
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
+  const mainSubjects = new Map()
+
+
+  program.semesters.map((semsesters) => {
+    semsesters.courses.map((course) => {
+      const firstSubject = course.overview.main_subject.split(",")[0].trim();
+      console.log(firstSubject);
+      // Use first subject as primary category
+      if (!mainSubjects.has(firstSubject)) {
+        mainSubjects.set(firstSubject, [course]);
+      } else {
+        mainSubjects.get(firstSubject).push(course);
+      }
+    });
+  });
+
+  const mainSubjectArray = Array.from(mainSubjects).map(
+    ([subject, courses]) => ({
+      name: subject,
+      courses: courses,
+    })
+  );
 
   return (
     <>
@@ -52,7 +74,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
-          <SemesterSection userData={userData} />
+          <SemesterSection userData={userData} mainSubjectArray={mainSubjectArray} />
           <div className="flex flex-col gap-4 mt-4">
             <div>
               <p>Kandidat</p>

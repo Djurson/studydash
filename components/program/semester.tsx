@@ -10,7 +10,7 @@ interface Semester {
   courses: CourseJSON[];
 }
 
-export default function SemesterAccordion({ semester, semsterSeason, userData }: { semester: Semester; semsterSeason: SemesterInfo; userData: UserData | undefined }) {
+export default function SemesterAccordion({ semester, semsterSeason, userData, subjectfilter}: { semester: Semester; semsterSeason: SemesterInfo; userData: UserData | undefined; subjectfilter: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ export default function SemesterAccordion({ semester, semsterSeason, userData }:
       <button className="flex items-center justify-between w-full p-4 cursor-pointer hover:bg-highlight-2" onClick={() => setIsOpen(!isOpen)}>
         <div className="flex gap-4 items-center">
           <StatusSquare status={"done"} />
-          <h3 className="text-lg font-medium">{semester.name.slice(0, -7)}</h3>
+          <h3 className="text-lg font-medium">{subjectfilter ? semester.name : semester.name.slice(0, -7)}</h3>
         </div>
         <div className="flex items-center gap-2">
           <p className=" text-sm text-gray-600 text-left ">{semsterSeason.fullString}</p>
