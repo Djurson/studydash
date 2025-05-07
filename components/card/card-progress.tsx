@@ -2,7 +2,7 @@
 
 import Card from "@/components/card/card";
 import { Progress } from "@/components/ui/progress";
-import { Label, Pie, PieChart, Tooltip } from "recharts";
+import { Pie, PieChart } from "recharts";
 import { Check } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 
@@ -21,7 +21,6 @@ interface Data {
 
 
 const ClientSidePieChart = ({ data }: { data: Data[] }) => {
-    const chartId = useId();
 
     return (
         <PieChart width={50} height={50}>
@@ -44,8 +43,8 @@ const ClientSidePieChart = ({ data }: { data: Data[] }) => {
 export default function CardProgress({ startyear, hp, year }: Inputs) {
     const [isClient, setIsClient] = useState(false);
 
-    var progress = 0;
-    var completed = false;
+    let progress = 0;
+    let completed = false;
 
     useEffect(() => {
         setIsClient(true);
