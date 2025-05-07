@@ -33,8 +33,8 @@ export function Exams({ semesterStatus, course, exam, userData }: { exam: Examin
                   </p>
                 </div>
 
-                <div className="flex gap-30 items-center">
-                  <p className="text-gray-600 self-center text-sm font-light text-right ">{formattedDate}</p>
+                <div className="flex gap-29 items-center">
+                  <p className="text-gray-600 self-center text-sm font-light w-22 text-center ">{formattedDate}</p>
 
                   <p className="text-gray-600 self-center text-sm font-light w-17.5 text-center">{grade}</p>
 

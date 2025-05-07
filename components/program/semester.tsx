@@ -20,9 +20,12 @@ export default function SemesterAccordion({ semester, semsterSeason, userData }:
           <StatusSquare status={"done"} />
           <h3 className="text-lg font-medium">{semester.name.slice(0, -7)}</h3>
         </div>
-        <div className="flex items-center gap-2">
-          <p className=" text-sm text-gray-600 text-left ">{semsterSeason.fullString}</p>
-          <p className=" text-sm text-gray-600 text-left "> 30 hp</p>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-29">
+            <p className=" text-sm text-gray-600 w-22 text-center ">{semsterSeason.fullString}</p>
+            <div className="w-17.5 h-1"></div>
+            <p className=" text-sm text-gray-600 w-13 text-right "> 30 hp</p>
+          </div>
 
           <ChevronDown size={24} className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
         </div>

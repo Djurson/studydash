@@ -75,7 +75,7 @@ export default function SemesterSection({ userData, url, credits }: Partial<With
 
   return (
     <>
-      <main className="flex flex-col gap-4 mt-4">
+      <main className="flex flex-col gap-4">
         <section>
           <Separator />
 

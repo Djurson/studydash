@@ -52,30 +52,9 @@ async function Page({ userData }: Partial<WithAuthProps>) {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
           <PillbuttonContainer />
-          <SemesterSection userData={userData} />
-          <div className="flex flex-col gap-4 mt-4">
-            <div>
-              <p>Kandidat</p>
-              <div className="mt-2 flex flex-col gap-4">
-                {program.semesters.map((semester) => (
-                  <SemesterAccordion key={semester.name} semester={semester} />
-                ))}
-              </div>
-            </div>
 
-            <div>
-              <p className="">Master</p>
-              <div className="mt-2 flex flex-col gap-4">
-                {/*
-                //  måste ändra här sen för år och termin 
-                    inte generellt för alla terminer just nu då den läser det från Exjobb-engineers.json
-                    så göra en varient för denna sista termin där man kanske räknar ut året och terminen på nått sett
-                */}
-                {exjobb.semesters.map((semester) => (
-                  <SemesterAccordion key={semester.name} semester={semester} />
-                ))}
-              </div>
-            </div>
+          <div className="flex flex-col gap-4 mt-4">
+            <SemesterSection userData={userData} />
           </div>
         </section>
       </main>
