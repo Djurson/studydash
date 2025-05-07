@@ -13,23 +13,32 @@ import EditSemesters from "@/components/edit/EditSemesters";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GetUserData } from "./actions";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Link from "next/link";
+import { SquareArrowOutUpRight } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 
 type studyInformation = {
   year: string | undefined;
   program: string | undefined;
   university: string | undefined;
   previousFounds: boolean;
-}
+};
 
 export default function Page() {
+  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnLastSnap: true }));
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
     year: undefined,
     program: undefined,
     university: undefined,
     previousFounds: false,
-  })
+  });
+
+  const [openGuide, setOpenGuide] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -63,14 +72,112 @@ export default function Page() {
           university: userData.university,
           previousFounds: userData.previousfunds,
         });
+        setLoading(false);
+        setOpenGuide(false);
+      } else {
+        setOpenGuide(true);
+        setLoading(false);
       }
     };
 
     fetchUserData();
   }, []);
 
+  if (loading) {
+    return (
+      <div aria-label="Loading..." role="status" className="flex items-center justify-center h-[80dvh] w-full">
+        <div className="border-gray-600 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-900" />
+      </div>
+    );
+  }
+
   return (
     <>
+      <AlertDialog open={openGuide}>
+        <AlertDialogContent variant="wider">
+          <AlertDialogHeader className="w-full">
+            <AlertDialogTitle className="w-full">Ny användare?</AlertDialogTitle>
+            <AlertDialogDescription className="w-full">Här kommer en snabb guide över hur du kan enkelt ladda upp dina studieresultat:</AlertDialogDescription>
+            <Carousel plugins={[plugin.current]} onClick={plugin.current.stop}>
+              <CarouselContent className="w-[42dvw]">
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Website Link Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">
+                        1. Navigera till
+                        <Link href={"https://www.student.ladok.se/"} target="_blank" className="underline flex items-center justify-center gap-1">
+                          student.ladok.se/
+                          <SquareArrowOutUpRight className="size-2" />
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Website Layout Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">2. Öppna sidmenyn och tryck på &quot;intyg&quot;</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Create Cert Button Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">3. Tryck på skapa intyg</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Type Cert Dropdown Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">4. Välj &quot;resultatintyg&quot;</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Type Cert Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">5. Välj &quot;Alla avslutade kurser&quot;</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Modules Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">6. Välj:</p>
+                      <p className="text-xs flex gap-1 items-center justify-start font-medium text-left">&quot;Godkända moduler i ej avslutade kurser&quot;</p>
+                      <p className="text-xs flex gap-1 items-center justify-start font-medium text-left">&quot;Godkända moduler i avslutade kurser&quot;</p>
+                      <p className="text-xs flex gap-1 items-center justify-start font-medium text-left">&quot;Koder&quot;</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <div className="flex flex-col items-center justify-center">
+                    <img src="/imgs/Lang Comp.png" />
+                    <div className="w-4/5 justify-center items-center flex flex-col gap-3 bg-accent px-4 py-2 rounded-md">
+                      <p className="text-sm flex gap-1 items-center justify-start font-medium text-left">7. Välj &quot;Svenska&quot;</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+                <CarouselItem>
+                  <video src="/videos/animated-guide.webm" autoPlay loop muted playsInline></video>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselNext variant={"default"} />
+              <CarouselPrevious variant={"default"} />
+            </Carousel>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => setOpenGuide(false)}>Stäng guide</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <header>
         <h1 className="text-3xl font-semibold mt-2">Redigera kurser och moment.</h1>
       </header>
@@ -145,7 +252,12 @@ export default function Page() {
               </div>
             </div>
             <div className="flex gap-2 items-center">
-              <Checkbox id="terms1" className="!bg-foreground/20 aspect-square size-5" onClick={() => setStudyInformation({ ...studyInformation, previousFounds: !studyInformation.previousFounds })} checked={studyInformation.previousFounds} />
+              <Checkbox
+                id="terms1"
+                className="!bg-foreground/20 aspect-square size-5"
+                onClick={() => setStudyInformation({ ...studyInformation, previousFounds: !studyInformation.previousFounds })}
+                checked={studyInformation.previousFounds}
+              />
               <div className="grid gap-1.5 leading-none">
                 <label htmlFor="terms1" className="text-sm font-light leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                   Jag har tidigare sökt CSN
@@ -185,10 +297,15 @@ export default function Page() {
             {studyInformation.year !== undefined ? (
               <>
                 <div>
-                  <UploadPDFInput />
+                  <UploadPDFInput setOpenGuide={setOpenGuide} />
                 </div>
                 <div>
-                  <ChangeHistory studyProgram={studyInformation.program} studyYear={studyInformation.year} studyUniversity={studyInformation.university} previousFounds={studyInformation.previousFounds} />
+                  <ChangeHistory
+                    studyProgram={studyInformation.program}
+                    studyYear={studyInformation.year}
+                    studyUniversity={studyInformation.university}
+                    previousFounds={studyInformation.previousFounds}
+                  />
                 </div>
               </>
             ) : (

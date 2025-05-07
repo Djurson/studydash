@@ -18,7 +18,7 @@ import { toast } from "sonner";
  *
  * @returns En filuppladdningskomponent med en anpassad label, stöd för drag-and-drop och en dold input-fält för val av fil.
  */
-export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & ComponentProps<typeof Label>) {
+export function UploadPDFInput({ setOpenGuide }: { setOpenGuide: Dispatch<SetStateAction<boolean>> }) {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [fileToUpload, setFileToUpload] = useState<File | undefined>();
@@ -83,10 +83,8 @@ export function UploadPDFInput({ ...props }: ComponentProps<typeof Input> & Comp
             </span>
             <span className="text-xs font-light text-gray-600">Format som stöds: PDF</span>
           </Label>
-          <Link href={"/"}>
-            <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" />
-          </Link>
-          <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" {...props} onChange={UploadFile} />
+          <Info className="absolute w-6 h-6 text-gray-600 cursor-pointer top-4 right-4 aspect-square" onClick={() => setOpenGuide(true)} />
+          <Input type="file" accept=".pdf" name="PDF-Upload" id="PDF-Upload" className="hidden appearance-none" onChange={UploadFile} />
         </div>
       ) : (
         <>

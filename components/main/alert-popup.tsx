@@ -2,8 +2,8 @@
 import Link from "next/link";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../ui/alert-dialog";
 import { Info } from "lucide-react";
-import { createClient } from "@/utils/supabase/client";
 import { AlertDialogProps } from "@radix-ui/react-alert-dialog";
+import { SignOutAction } from "@/app/actions";
 
 type AlertPopupWindowProps = AlertDialogProps & {
   open?: boolean;
@@ -30,7 +30,6 @@ type AlertPopupWindowProps = AlertDialogProps & {
  */
 
 export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
-  const supabase = createClient();
   return (
     <>
       <AlertDialog open={props.open ?? false} {...props}>
@@ -43,7 +42,7 @@ export default function AlertPopupWindow({ ...props }: AlertPopupWindowProps) {
             <AlertDialogDescription>{props.description}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={() => supabase.auth.signOut}>
+            <AlertDialogCancel className="hover:text-red-900 transition duration-300 ease-in-out" onClick={SignOutAction}>
               Logga ut
             </AlertDialogCancel>
             <Link href={props.actionlink ?? ""}>

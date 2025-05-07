@@ -27,10 +27,12 @@ export function NavUser({ user }: WithAuthProps) {
 
   if (user) {
     const name = user.user_metadata?.name;
-    const nameSplit = name?.split(" ");
+    if (name) {
+      const nameSplit = name?.split(" ");
 
-    if (nameSplit.length < 1) return;
-    fallback = nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+      if (nameSplit.length < 1) return;
+      fallback = nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+    }
   }
 
   return (
