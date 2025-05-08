@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { WithAuthProps, Program } from "@/utils/types";
 import MasterSemester from "./mastersemester";
 
-export default async function SemesterSection({ userData, url, credits }: Partial<WithAuthProps> & Partial<Program>) {
+export default async function SemesterSection({ userData }: Partial<WithAuthProps> & Partial<Program>) {
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = userData?.studyyear;
 

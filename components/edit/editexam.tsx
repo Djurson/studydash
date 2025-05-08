@@ -6,7 +6,6 @@ import { Status, StatusSquare } from "./statussquare";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "../ui/input-otp";
 import { AlertCircle } from "lucide-react";
 import { useStudyResults } from "@/hooks/editcontext";
-import { SemesterInfo } from "@/utils/semesterDates";
 
 type ExamError = {
   dateError: string | null;
@@ -14,7 +13,7 @@ type ExamError = {
   dateFakeError: string | null;
 };
 
-export function CourseExaminationMapping({ exam, course, semesterStatus, semesterSeason }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
+export function CourseExaminationMapping({ exam, course, semesterStatus }: { exam: ExaminationJSON; course: CourseJSON; semesterStatus: Status }) {
   // Definera "errors" som ska ge användaren "feedback" medan den skriver in
   const [errors, setErrors] = useState<ExamError>({
     dateError: null,
@@ -124,8 +123,8 @@ export function CourseExaminationMapping({ exam, course, semesterStatus, semeste
     errors.gradeError || errors.dateError || errors.dateFakeError
       ? "error"
       : getExamination(course.course_code, exam.code)?.grade.toString()?.length === 1 && getExamination(course.course_code, exam.code)?.date?.length === 8
-        ? "done"
-        : semesterStatus;
+      ? "done"
+      : semesterStatus;
 
   return (
     <>

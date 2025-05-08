@@ -2,7 +2,6 @@ import Card from "@/components/card/card";
 import { PillbuttonContainer } from "@/components/main/pillbutton";
 import React from "react";
 import { PencilLine } from "lucide-react";
-import SemesterAccordion from "@/components/accordions/SemesterAccordion";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import exjobbData from "@/webscraping/Exjobb-engineers.json";
@@ -22,7 +21,6 @@ interface exjobbData {
 
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
-  const exjobb = exjobbData.programs[0];
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Course, CourseJSON, Examination, ExaminationJSON, UserData } from "@/utils/types";
+import { CourseJSON, ExaminationJSON, UserData } from "@/utils/types";
 
 import { Status, StatusSquare } from "../edit/statussquare";
 
