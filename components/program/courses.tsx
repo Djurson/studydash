@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
-import { Course, CourseJSON, UserData } from "@/utils/types";
+import { CourseJSON, UserData } from "@/utils/types";
 import { Status, StatusSquare } from "../edit/statussquare";
 
 import { SemesterInfo } from "@/utils/semesterDates";

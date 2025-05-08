@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { Course, CourseJSON, UserData } from "@/utils/types";
+import { CourseJSON, UserData } from "@/utils/types";
 import { Courses } from "./courses";
 import { StatusSquare } from "../edit/statussquare";
 import { useState } from "react";
