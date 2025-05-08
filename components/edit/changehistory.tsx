@@ -3,7 +3,7 @@
 import { Separator } from "../ui/separator";
 import { CircleOff, Info } from "lucide-react";
 import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
-import { StatusSquare } from "./statussquare";
+import { Status, StatusSquare } from "./statussquare";
 import { Course } from "@/utils/types";
 import {
   AlertDialog,
@@ -27,39 +27,18 @@ type ChangeHistoryProps = {
 };
 
 export function ChangeHistory({ ...props }: ChangeHistoryProps) {
-  const { studyResults } = useStudyResultsListener();
+  const { studyResults, studyResultsOrg, getExamination } = useStudyResultsListener();
   const { clearMap, studyResultsToJSON } = useStudyResults();
 
+  const filteredStudyResults = filterMap(studyResults.current);
+
+  const changes: Map<string, Status> = GetChanges(filteredStudyResults, studyResultsOrg.current);
+
   let plusHp = 0;
-
-  const filteredStudies = new Map(
-    Array.from(studyResults.current.entries())
-      .map(([courseCode, course]) => {
-        // Om kursen själv har ett giltigt betyg, behåll hela kursen
-        if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
-          return [courseCode, { ...course }];
-        }
-        // Annars, filtrera examinationerna
-        else {
-          // Skapa en ny map med bara godkända examinationer
-          const filteredExaminations = new Map(
-            Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
-          );
-
-          // Returnera kursen med filtrerade examinationer om det finns några
-          if (filteredExaminations.size > 0) {
-            return [courseCode, { ...course, examinations: filteredExaminations }];
-          }
-
-          // Returnera null om kursen inte har några godkända examinationer
-          return null;
-        }
-      })
-      .filter((entry) => entry !== null) as [string, Course][]
-  );
+  let minusHp = 0;
 
   function HandleSubmit() {
-    const error = SubmitToServer(filteredStudies, studyResultsToJSON, { ...props });
+    const error = SubmitToServer(filteredStudyResults, studyResultsToJSON, { ...props });
 
     // Om det blir en error, visa den error:n med en toaster
     if (error) {
@@ -70,28 +49,36 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
       );
     }
   }
+
   return (
     <>
       <main className="flex flex-col bg-accent rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full max-h-[66.1vh]">
         <header className="p-4 flex gap-4 items-center justify-center">
           <div className="text-center bg-blue-200 dark:bg-highlight px-1.5 rounded-md ">
-            <p>{filteredStudies.size}</p>
+            <p>{changes.size}</p>
           </div>
           <p className="text-lg">Ändringar gjorda</p>
         </header>
         <Separator className="bg-secondary" />
         <section className="px-4 overflow-auto">
-          {filteredStudies.size !== 0 && (
+          {changes.size !== 0 && (
             <>
               <div className="py-2.5 flex flex-col justify-between items-start gap-2">
-                {filteredStudies.size !== 0 &&
-                  [...filteredStudies.entries()].map(([coursecode, course]) => {
+                {changes.size !== 0 &&
+                  [...filteredStudyResults.entries()].map(([coursecode, course]) => {
                     return [...course.examinations.entries()].map(([examcode, exam]) => {
-                      plusHp += exam.hp;
+                      const key = `${coursecode}-${examcode}`;
+                      const change = changes.get(key); // Get the status
+                      if (!change) return null; // Om inget ändrats, visa inte
+
+                      if (change === "added") {
+                        plusHp += exam.hp;
+                      }
+
                       return (
-                        <div className="flex flex-col gap-2 w-full" key={examcode}>
+                        <div className="flex flex-col gap-2 w-full" key={key}>
                           <div className="flex gap-2 items-center">
-                            <StatusSquare status="added" />
+                            <StatusSquare status={change} />
                             <p className="text-sm">
                               {coursecode}/{exam.name} - {exam.code}
                             </p>
@@ -101,10 +88,30 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                       );
                     });
                   })}
+                {[...changes.entries()].map(([key, change]) => {
+                  if (change !== "deleted") return null;
+                  const [coursecode, examcode] = key.split("-");
+                  const originalExam = studyResultsOrg.current.get(coursecode)?.examinations.get(examcode);
+                  if (!originalExam) return null;
+
+                  minusHp -= getExamination(coursecode, examcode)?.hp ?? 0;
+
+                  return (
+                    <div className="flex flex-col gap-2 w-full" key={key}>
+                      <div className="flex gap-2 items-center">
+                        <StatusSquare status="deleted" />
+                        <p className="text-sm line-through text-muted-foreground">
+                          {coursecode}/{originalExam.name} - {originalExam.code}
+                        </p>
+                      </div>
+                      <Separator />
+                    </div>
+                  );
+                })}
               </div>
             </>
           )}
-          {filteredStudies.size === 0 && (
+          {changes.size === 0 && (
             <>
               {/* <Separator /> */}
               <div className="flex flex-col justify-center items-center py-2">
@@ -118,11 +125,25 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
         <footer className="flex flex-col p-4 ">
           <div className="flex flex-col gap-2">
             {/*Denna div ska dyka upp om ändringar gjorts*/}
-            {filteredStudies.size !== 0 && (
-              <div className="flex justify-between text-sm pb-4">
-                <p>Tillagt:</p>
-                <p className="text-green-900">+{plusHp} hp</p>
-              </div>
+            {changes.size !== 0 && (
+              <>
+                <div className="flex justify-between text-xs">
+                  <p>Tillagt:</p>
+                  <p className="text-green-900">+{plusHp} hp</p>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <p>Borttaget:</p>
+                  <p className="text-red-900">{minusHp} hp</p>
+                </div>
+                <Separator />
+                <div className="flex justify-between text-sm pb-4">
+                  <p>Totalt:</p>
+                  <p className={`${plusHp + minusHp < 0 ? "text-red-900" : "text-green-900"}`}>
+                    {plusHp + minusHp < 0 ? "" : "+"}
+                    {plusHp + minusHp} hp
+                  </p>
+                </div>
+              </>
             )}
           </div>
           <div className="flex flex-col gap-4">
@@ -137,14 +158,14 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                 <AlertDialogHeader>
                   <AlertDialogTitle className="flex gap-2 items-center">
                     <Info className="stroke-red-900 stroke-2 size-4" />
-                    Ta bort all ifylld information?
+                    Återställ all ändrad information?
                   </AlertDialogTitle>
-                  <AlertDialogDescription>Genom att klicka på &quot;Ta bort&quot; kommer all ifylld information att tas bort.</AlertDialogDescription>
+                  <AlertDialogDescription>Genom att klicka på &quot;Återställ&quot; kommer all ändrad information att återställas till hur det var innan.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel className="bg-foreground transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>
                   <AlertDialogAction className="bg-foreground hover:bg-red-900 transition hover:text-foreground duration-300 ease-in-out" onClick={clearMap}>
-                    Ta bort
+                    Återställ
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
@@ -177,4 +198,88 @@ function SubmitToServer(filteredStudies: Map<string, Course>, studyResultsToJSON
   const jsonResults = studyResultsToJSON(filteredStudies);
 
   WriteToDatabase(jsonResults, { ...props });
+}
+
+function GetChanges(current: Map<string, Course>, original: Map<string, Course>): Map<string, Status> {
+  const changes: Map<string, Status> = new Map<string, Status>();
+
+  const allCourseCodes = new Set([...current.keys(), ...original.keys()]);
+
+  for (const courseCode of allCourseCodes) {
+    const currentCourse = current.get(courseCode);
+    const originalCourse = original.get(courseCode);
+
+    if (currentCourse && originalCourse) {
+      const allExamCodes = new Set([...currentCourse.examinations.keys(), ...originalCourse.examinations.keys()]);
+
+      for (const examCode of allExamCodes) {
+        const currentExam = currentCourse.examinations.get(examCode);
+        const originalExam = originalCourse.examinations.get(examCode);
+        const key = `${courseCode}-${examCode}`;
+
+        if (currentExam && !originalExam) {
+          changes.set(key, "added");
+        } else if (!currentExam && originalExam) {
+          changes.set(key, "deleted");
+        } else if (currentExam && originalExam) {
+          const aDateParsed = parseInt(currentExam.date);
+          const bDateParsed = parseInt(originalExam.date);
+
+          if (aDateParsed !== bDateParsed) {
+            changes.set(key, "changed");
+            continue;
+          }
+
+          if (currentExam.grade !== originalExam.grade) {
+            changes.set(key, "changed");
+            continue;
+          }
+        }
+      }
+    }
+
+    if (currentCourse && !originalCourse) {
+      for (const examCode of currentCourse.examinations.keys()) {
+        const key = `${courseCode}-${examCode}`;
+        changes.set(key, "added");
+      }
+    }
+
+    if (!currentCourse && originalCourse) {
+      for (const examCode of originalCourse.examinations.keys()) {
+        const key = `${courseCode}-${examCode}`;
+        changes.set(key, "deleted");
+      }
+    }
+  }
+
+  return changes;
+}
+
+function filterMap(map: Map<string, Course>): Map<string, Course> {
+  return new Map(
+    Array.from(map.entries())
+      .map(([courseCode, course]) => {
+        // Om kursen själv har ett giltigt betyg, behåll hela kursen
+        if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
+          return [courseCode, { ...course }];
+        }
+        // Annars, filtrera examinationerna
+        else {
+          // Skapa en ny map med bara godkända examinationer
+          const filteredExaminations = new Map(
+            Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
+          );
+
+          // Returnera kursen med filtrerade examinationer om det finns några
+          if (filteredExaminations.size > 0) {
+            return [courseCode, { ...course, examinations: filteredExaminations }];
+          }
+
+          // Returnera null om kursen inte har några godkända examinationer
+          return null;
+        }
+      })
+      .filter((entry) => entry !== null) as [string, Course][]
+  );
 }

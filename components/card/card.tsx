@@ -41,18 +41,16 @@ export default function Card({ variant = "default", children, cardTitle, href, s
   );
 
   return (
-    <>
-      <main className={`${baseClasses} ${hoverClasses}`}>
-        {variant !== "no-header" &&
-          (href ? (
-            <Link href={`${href}${sectionId ? `#${sectionId}` : ""}`} scroll={false}>
-              {headerContent}
-            </Link>
-          ) : (
-            headerContent
-          ))}
-        <section> {children}</section>
-      </main>
-    </>
+    <main className={`${baseClasses} ${hoverClasses}`}>
+      {variant !== "no-header" &&
+        (href ? (
+          <Link href={`${href}${sectionId ? `#${sectionId}` : ""}`} scroll={false} className="block">
+            {headerContent}
+          </Link>
+        ) : (
+          headerContent
+        ))}
+      <section> {children}</section>
+    </main>
   );
 }

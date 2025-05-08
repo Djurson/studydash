@@ -69,3 +69,5 @@ interface Semester {
   name: string;
   courses: Course[];
 }
+
+export type Status = "done" | "ongoing" | "error" | "added" | "deleted" | "changed" | "none";

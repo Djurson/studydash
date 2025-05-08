@@ -73,11 +73,10 @@ export function ValidateGrade(grade: string, exam: ExaminationJSON): string | nu
   return null;
 }
 
-export function ValidateDate(date: string, programStartDate: string, todayFormatted: string): string | null {
+export function ValidateDate(date: string, todayFormatted: string): string | null {
   if (date.length !== 8 && date.length >= 1) return "Ange giltigt datum (YYYY-MM-DD)";
   if (!/^\d+$/.test(date) && date.length >= 1) return "Endast siffror tillåtna";
 
-  if (date < programStartDate && date.length >= 1) return "Datum kan inte vara före programmets startdatum";
   if (date > todayFormatted && date.length >= 1) return "Datum kan inte vara efter dagens datum";
 
   const year = Number.parseInt(date.slice(0, 4)); // År om vi behöver göra någon extra koll?

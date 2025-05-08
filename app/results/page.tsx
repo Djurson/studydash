@@ -44,6 +44,7 @@ export default function Page() {
   const startYear = currentYear - 4;
 
   const startingSemester = studyInformation.year ? `HT ${studyInformation.year}` : `HT ${currentYear}`;
+
   const showFrom = 7;
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);

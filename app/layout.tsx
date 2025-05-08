@@ -3,8 +3,8 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sv" className={`scroll-smooth ${inter.className}`} suppressHydrationWarning>
+    <html lang="sv" className={`scroll-smooth scroll-pt-[6rem] ${inter.className}`} suppressHydrationWarning>
       <body className="bg-background text-foreground flex flex-col items-center w-full min-h-svh">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {/* <nav className="w-full flex justify-end border-b border-b-foreground/10 h-16">

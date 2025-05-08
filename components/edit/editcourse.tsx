@@ -7,9 +7,8 @@ import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
 import { useStudyResultsListener } from "@/hooks/editcontext";
 import { CourseExaminationMapping } from "./editexam";
-import { SemesterInfo } from "@/utils/semesterDates";
 
-export function EditCourse({ course, semesterStatus, semesterSeason }: { course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
+export function EditCourse({ course, semesterStatus }: { course: CourseJSON; semesterStatus: Status }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
@@ -66,7 +65,7 @@ export function EditCourse({ course, semesterStatus, semesterSeason }: { course:
                 {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => (
-                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} semesterSeason={semesterSeason} />
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} />
                   ))}
               </section>
             )}
