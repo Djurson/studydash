@@ -26,7 +26,7 @@ export function AppSidebarTrigger() {
         <div className="h-6">
           <MainIcon className="h-full w-auto" />
         </div>
-        <p className={`${azeret_mono.className} text-xl`}>Portalen</p>
+        <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
       </figure>
     </div>
   );
