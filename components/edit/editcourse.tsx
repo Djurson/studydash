@@ -66,7 +66,7 @@ export function EditCourse({ course, semesterStatus, semesterSeason }: { course:
                 {course.examinations
                   .filter((e) => Number.parseFloat(e.credits.replace("hp", "").replace(",", ".").trim()) > 0)
                   .map((exam) => (
-                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} semesterSeason={semesterSeason} />
+                    <CourseExaminationMapping key={exam.code} exam={exam} course={course} semesterStatus={semesterStatus} />
                   ))}
               </section>
             )}
