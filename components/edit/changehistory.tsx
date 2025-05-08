@@ -163,7 +163,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                   <AlertDialogDescription>Genom att klicka på &quot;Återställ&quot; kommer all ändrad information att återställas till hur det var innan.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel className="bg-foreground transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>
+                  <AlertDialogCancel className="bg-background transition duration-300 ease-in-out">Avbryt</AlertDialogCancel>
                   <AlertDialogAction className="bg-foreground hover:bg-red-900 transition hover:text-foreground duration-300 ease-in-out" onClick={clearMap}>
                     Återställ
                   </AlertDialogAction>
