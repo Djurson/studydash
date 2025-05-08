@@ -115,7 +115,7 @@ export function StudyProgress({ userData }: Partial<WithAuthProps>) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Progress value={progress} className="w-[100%] h-4" />
+      <Progress value={progress} color="bg-blue-900" className="w-[100%] h-4" />
         <p className="text-xs text-muted-foreground">
           {earnedCredits[selectedPeriod]}/{programCredits[selectedPeriod]} hp
         </p>

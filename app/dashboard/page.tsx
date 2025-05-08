@@ -35,7 +35,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
           </Suspense>
         </div>
         <Suspense fallback={<CardLoading />}>
-          <Card variant="header" cardTitle="Studiemedelskrav">
+          <Card variant="header" cardTitle="Studiemedelskrav" href="/dashboard/studiemedel">
             <StudyFunds userData={userData} />
           </Card>
         </Suspense>
@@ -47,7 +47,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
 
         <div className="row-span-2 ">
           <Suspense fallback={<CardLoading />}>
-            <Card variant="header" cardTitle="Mina kurser">
+            <Card variant="header" cardTitle="Mina kurser" href="/program">
               <ProgramWindow userData={userData}></ProgramWindow>
             </Card>
           </Suspense>

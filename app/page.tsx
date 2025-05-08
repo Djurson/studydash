@@ -45,7 +45,10 @@ export default async function Page() {
           <div className="flex w-11/12 gap-8">
             <div className="flex flex-col justify-center gap-3 w-2/3 items-start z-20">
               <h3 className="shrink-1 text-3xl font-extrabold text-foreground md:text-5xl z-20">Få kontroll på din studiegång</h3>
-              <p className="text-lg font-bold text-gray-600 md:text-xl z-20">Vår plattform ger dig en tydlig översikt över dina högskolepoäng, avslutade kurser och vad som återstår för examen, allt samlat på ett och samma ställe, inga fler kalkylark. Bara du och dina mål</p>
+              <p className="text-lg font-bold text-gray-600 md:text-xl z-20">
+                Vår plattform ger dig en tydlig översikt över dina högskolepoäng, avslutade kurser och vad som återstår för examen, allt samlat på ett och samma ställe, inga fler kalkylark. Bara du
+                och dina mål
+              </p>
             </div>
             <ChartLanding />
           </div>
@@ -55,7 +58,10 @@ export default async function Page() {
             <Tasks />
             <div className="flex flex-col justify-center gap-3 w-3/7 items-start z-20">
               <h3 className="shrink-1 text-3xl font-extrabold text-foreground md:text-5xl z-20">Plugga smartare, inte hårdare</h3>
-              <p className="text-lg font-bold text-gray-600 md:text-xl z-20">Med hjälp av interaktiva verktyg kan du planera kurser, följa upp CSN-krav och se exakt vad som krävs för examen. Du slipper detektivjobbet och kan fokusera på det viktiga: att klara nästa tenta.</p>
+              <p className="text-lg font-bold text-gray-600 md:text-xl z-20">
+                Med hjälp av interaktiva verktyg kan du planera kurser, följa upp CSN-krav och se exakt vad som krävs för examen. Du slipper detektivjobbet och kan fokusera på det viktiga: att klara
+                nästa tenta.
+              </p>
             </div>
           </div>
         </section>
