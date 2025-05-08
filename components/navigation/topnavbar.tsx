@@ -1,8 +1,9 @@
 "use client";
-import { ChevronLeft, Link } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type NavbarProps = {
   defaultPage: boolean;
@@ -42,6 +43,7 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
                   <div className="h-6">
                     <MainIcon className="h-full w-auto" />
                   </div>
+
                   <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
                 </figure>
               </Link>
