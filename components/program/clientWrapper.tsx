@@ -38,8 +38,6 @@ export default function CourseClientWrapper({ userData }: { userData: UserData |
   });
 
   console.log(selected);
-  // Define view modes for organization
-  const viewModes = ["By Subject", "By Semester", "By Credits"];
 
   return (
     <>

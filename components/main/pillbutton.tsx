@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import { Button } from "../ui/button";
 import { CourseJSON } from "@/utils/types";
 
