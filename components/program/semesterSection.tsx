@@ -1,23 +1,15 @@
 "use client";
 
-import { UploadPDFInput } from "@/components/form/uploadpdf";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChangeHistory } from "@/components/edit/changehistory";
-import { Checkbox } from "@/components/ui/checkbox";
-
 // Funktionerna för att generera och hämta terminer som inte mappas från json
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
-import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import Semester from "@/components/program/semester";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
-import { CourseJSON, Examination, ExaminationJSON, UserData } from "@/utils/types";
+import { useEffect, useState } from "react";
+import { Course, CourseJSON, UserData } from "@/utils/types";
 import MasterSemester from "./mastersemester";
-import { MapHasExamination } from "@/utils/utils";
-//import { GetUserData } from "./actions";
 
 type studyInformation = {
   year: string | undefined;
@@ -26,15 +18,19 @@ type studyInformation = {
   previousFounds: boolean;
 };
 
-
-export default function SemesterSection({ userData, mainSubjects, setSelected = "Alla" }: { userData: UserData | undefined; mainSubjects: Map<string, CourseJSON[]>; setSelected?: string}) {
-  const [studyInformation, setStudyInformation] = useState<studyInformation>({
-    year: undefined,
-    program: undefined,
-    university: undefined,
-    previousFounds: false,
-  });
-
+export default function SemesterSection({
+  userData,
+  mainSubjects,
+  unfinishedCourses,
+  finishedCourses,
+  selected,
+}: {
+  userData: UserData | undefined;
+  mainSubjects: Map<string, CourseJSON[]>;
+  unfinishedCourses: CourseJSON[];
+  finishedCourses: CourseJSON[];
+  selected: string;
+}) {
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = userData?.studyyear;
 
@@ -45,6 +41,9 @@ export default function SemesterSection({ userData, mainSubjects, setSelected = 
   const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
   const finalThesisSemester = allSemesters[9];
   const pillbutton = false;
+
+  const [filter, setFilter] = useState(selected);
+  const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
 
   let semesterCount = -1;
   const program = programData.programs[0];
@@ -57,55 +56,31 @@ export default function SemesterSection({ userData, mainSubjects, setSelected = 
     })),
   };
 
-  // Hämta data från servern
-  /*  useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await GetUserData();
-      if (userData) {
-        setStudyInformation({
-          year: userData.studyyear,
-          program: userData.program,
-          university: userData.university,
-          previousFounds: userData.previousfunds,
-        });
-      }
-    };
-
-    fetchUserData();
-  }, []); */
-
-  console.log("userData", userData);
-
-
-  const getFilteredContent = () => {
-    if (!userData?.sortedDateMap) {
-      return { useProgram: true, filteredSubjects: new Map() };
+  useEffect(() => {
+    if (mainSubjects) {
+      const subjects = Array.from(mainSubjects.keys());
+      setAvailableSubjects(["Alla", "Avklarade", "Oavklarade", ...subjects]);
     }
-  
-    const filteredMap = new Map<string, CourseJSON[]>();
+  }, [mainSubjects]);
 
-    console.log(userData.sortedDateMap)
-  
-   /* userData.sortedDateMap.forEach((courses, semester) => {
-      let filteredCourses: Examination[] = [];
-  
-  if (setSelected === "Avklarade") {
-        filteredCourses = courses.filter(course => MapHasExamination(userData, course.code));
-      } else if (setSelected === "Oavklarade") {
-        filteredCourses = courses.filter(course => !MapHasExamination(userData, course.code));
-      } else {
-        // Default: include all courses
-        filteredCourses = courses;
+  const getFilteredSubjects = () => {
+    const filteredSubjects = new Map<string, CourseJSON[]>();
+
+    if (selected === "Oavklarade") {
+      filteredSubjects.set(selected, unfinishedCourses);
+    } else if (selected === "Avklarade") {
+      filteredSubjects.set(selected, finishedCourses);
+    } else {
+      // Filter by specific subject
+      const specificSubject = mainSubjects.get(selected);
+      if (specificSubject) {
+        filteredSubjects.set(selected, specificSubject);
       }
-  
-      if (filteredCourses.length > 0) {
-        filteredMap.set(semester, filteredCourses);
-      }
-    });
-  
-    return { useProgram: false, filteredSubjects: filteredMap };*/
+    }
+    return filteredSubjects;
   };
 
+  const filteredSubjects = getFilteredSubjects();
 
   return (
     <>
@@ -114,17 +89,17 @@ export default function SemesterSection({ userData, mainSubjects, setSelected = 
           <Separator />
 
           <div className="flex flex-col gap-4 mt-4">
-            {pillbutton
+            {selected === "Alla"
               ? program.semesters.map((semester) => {
-                  semesterCount += 1
+                  semesterCount += 1;
                   return <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={false} />;
                 })
-              : Array.from(mainSubjects.keys()).map((subject: string) => {
-                semesterCount+=1;
+              : Array.from(filteredSubjects!.keys()).map((subject: string) => {
+                  semesterCount += 1;
                   return (
                     <Semester
                       key={subject}
-                      semester={{ name: subject, courses: mainSubjects.get(subject) ?? [] }}
+                      semester={{ name: subject, courses: filteredSubjects!.get(subject) ?? [] }}
                       semsterSeason={allSemesters[semesterCount]}
                       userData={userData}
                       subjectfilter={true}
@@ -136,17 +111,23 @@ export default function SemesterSection({ userData, mainSubjects, setSelected = 
 
         <Separator />
         <section className="flex flex-col gap-4">
-          <div className="flex flex-col gap-4">
-            {masterSemesters.map((semester, index) => (
-              <MasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
-            ))}
-          </div>
+          {selected !== "Alla" ? (
+            <> {/* Ska inte visa något i sånna fall*/}</>
+          ) : (
+            <>
+              <div className="flex flex-col gap-4">
+                {masterSemesters.map((semester, index) => (
+                  <MasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
+                ))}
+              </div>
 
-          <div className="flex flex-col gap-4 pb-4">
-            {thsesis.semesters.map((semester) => (
-              <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[9]} userData={userData} subjectfilter={false} />
-            ))}
-          </div>
+              <div className="flex flex-col gap-4 pb-4">
+                {thsesis.semesters.map((semester) => (
+                  <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[9]} userData={userData} subjectfilter={false} />
+                ))}
+              </div>
+            </>
+          )}
         </section>
       </main>
     </>

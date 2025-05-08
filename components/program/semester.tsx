@@ -10,7 +10,17 @@ interface Semester {
   courses: CourseJSON[];
 }
 
-export default function SemesterAccordion({ semester, semsterSeason, userData, subjectfilter}: { semester: Semester; semsterSeason: SemesterInfo; userData: UserData | undefined; subjectfilter: boolean }) {
+export default function SemesterAccordion({
+  semester,
+  semsterSeason,
+  userData,
+  subjectfilter,
+}: {
+  semester: Semester;
+  semsterSeason: SemesterInfo;
+  userData: UserData | undefined;
+  subjectfilter: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

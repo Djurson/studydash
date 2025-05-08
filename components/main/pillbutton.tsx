@@ -2,7 +2,6 @@
 
 import { ComponentProps, useState } from "react";
 import { Button } from "../ui/button";
-import programData from "@/webscraping/6CEMEN-2022.json";
 import { CourseJSON } from "@/utils/types";
 
 type PillButtonProps = ComponentProps<typeof Button> & {
@@ -36,16 +35,17 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
   );
 }
 
-export function PillbuttonContainer({mainSubjects, selected, setSelected}: { mainSubjects: Map<string, CourseJSON[]>, selected:string, setSelected: (filter: string) => void }) {
-
+export function PillbuttonContainer({ mainSubjects, selected, setSelected }: { mainSubjects: Map<string, CourseJSON[]>; selected: string; setSelected: (filter: string) => void }) {
   //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla"
+  console.log(selected);
+
   return (
     <div className="mt-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
-      <PillButton id={"Oavklarade"} value={"Oavklarade"} currentValue={selected} onClick={() => setSelected("Augusti")} />
-      <PillButton id={"Avklarade"} value={"Avklarade"} currentValue={selected} onClick={() => setSelected("Oktober")} />
-      {Array.from(mainSubjects.keys()).map((subject:string) => (
-        <PillButton id={subject} value={subject} currentValue={selected} onClick={() => setSelected(subject)} />
+      <PillButton id={"Oavklarade"} value={"Oavklarade"} currentValue={selected} onClick={() => setSelected("Oavklarade")} />
+      <PillButton id={"Avklarade"} value={"Avklarade"} currentValue={selected} onClick={() => setSelected("Avklarade")} />
+      {Array.from(mainSubjects.keys()).map((subject: string) => (
+        <PillButton key={subject} id={subject} value={subject} currentValue={selected} onClick={() => setSelected(subject)} />
       ))}
     </div>
   );

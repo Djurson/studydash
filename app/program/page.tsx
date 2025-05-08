@@ -1,6 +1,6 @@
 import Card from "@/components/card/card";
 import { PillbuttonContainer } from "@/components/main/pillbutton";
-import React, { useState } from "react";
+import React from "react";
 import { PencilLine } from "lucide-react";
 import SemesterAccordion from "@/components/accordions/SemesterAccordion";
 
@@ -15,6 +15,7 @@ import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
 import { ScrollHandler } from "@/components/navigation/scrollhandler";
 import SemesterSection from "@/components/program/semesterSection";
+import CourseClientWrapper from "@/components/program/clientWrapper";
 
 interface exjobbData {
   programs: Program[];
@@ -23,26 +24,6 @@ interface exjobbData {
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
   const exjobb = exjobbData.programs[0];
-  const mainSubjects = new Map<string, CourseJSON[]>();
-  const [selected, setSelected] = useState<string>("Alla")
-
-  program.semesters.map((semsesters) => {
-    semsesters.courses.map((course) => {
-      const firstSubject = course.overview.main_subject.split(",")[0].trim();
-      console.log(firstSubject);
-      // Use first subject as primary category
-      if (mainSubjects.has(firstSubject)) {
-        mainSubjects.get(firstSubject)?.push(course);
-      } else {
-        mainSubjects.set(firstSubject, [course]);
-      }
-    });
-  });
-
-  const mainSubjectArray = Array.from(mainSubjects).map(([subject, courses]) => ({
-    name: subject,
-    courses: courses,
-  }));
 
   return (
     <>
@@ -71,8 +52,7 @@ async function Page({ userData }: Partial<WithAuthProps>) {
       <main className="w-full mt-4">
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
-          <PillbuttonContainer mainSubjects={mainSubjects} selected={selected} setSelected={setSelected}/>
-          <SemesterSection userData={userData} mainSubjects={mainSubjects} setSelected={setSelected} />
+          <CourseClientWrapper userData={userData} />
           <div className="flex flex-col gap-4 mt-4">
             <div>
               <p>Kandidat</p>
