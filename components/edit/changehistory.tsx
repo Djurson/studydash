@@ -27,7 +27,7 @@ type ChangeHistoryProps = {
 };
 
 export function ChangeHistory({ ...props }: ChangeHistoryProps) {
-  const { studyResults, studyResultsOrg } = useStudyResultsListener();
+  const { studyResults, studyResultsOrg, getExamination } = useStudyResultsListener();
   const { clearMap, studyResultsToJSON } = useStudyResults();
 
   const filteredStudyResults = filterMap(studyResults.current);
@@ -35,6 +35,7 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   const changes: Map<string, Status> = GetChanges(filteredStudyResults, studyResultsOrg.current);
 
   let plusHp = 0;
+  let minusHp = 0;
 
   function HandleSubmit() {
     const error = SubmitToServer(filteredStudyResults, studyResultsToJSON, { ...props });
@@ -70,7 +71,9 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                       const change = changes.get(key); // Get the status
                       if (!change) return null; // Om inget ändrats, visa inte
 
-                      plusHp += exam.hp;
+                      if (change === "added") {
+                        plusHp += exam.hp;
+                      }
 
                       return (
                         <div className="flex flex-col gap-2 w-full" key={key}>
@@ -90,6 +93,8 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
                   const [coursecode, examcode] = key.split("-");
                   const originalExam = studyResultsOrg.current.get(coursecode)?.examinations.get(examcode);
                   if (!originalExam) return null;
+
+                  minusHp -= getExamination(coursecode, examcode)?.hp ?? 0;
 
                   return (
                     <div className="flex flex-col gap-2 w-full" key={key}>
@@ -120,11 +125,25 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
         <footer className="flex flex-col p-4 ">
           <div className="flex flex-col gap-2">
             {/*Denna div ska dyka upp om ändringar gjorts*/}
-            {filteredStudyResults.size !== 0 && (
-              <div className="flex justify-between text-sm pb-4">
-                <p>Tillagt:</p>
-                <p className="text-green-900">+{plusHp} hp</p>
-              </div>
+            {changes.size !== 0 && (
+              <>
+                <div className="flex justify-between text-xs">
+                  <p>Tillagt:</p>
+                  <p className="text-green-900">+{plusHp} hp</p>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <p>Borttaget:</p>
+                  <p className="text-red-900">{minusHp} hp</p>
+                </div>
+                <Separator />
+                <div className="flex justify-between text-sm pb-4">
+                  <p>Totalt:</p>
+                  <p className={`${plusHp + minusHp < 0 ? "text-red-900" : "text-green-900"}`}>
+                    {plusHp + minusHp < 0 ? "" : "+"}
+                    {plusHp + minusHp} hp
+                  </p>
+                </div>
+              </>
             )}
           </div>
           <div className="flex flex-col gap-4">

@@ -1,5 +1,5 @@
 "use client";
-import { Bell, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
