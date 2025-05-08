@@ -94,7 +94,7 @@ export function StudyProgress({ userData }: Partial<WithAuthProps>) {
     <main className="flex flex-col justify-between h-full gap-8 py-6">
       <div className="flex justify-between items-center">
         <span className="text-3xl font-semibold flex items-end gap-2 text-end">
-          {percentage}%<p className="text-sm text-muted-foreground font-normal text-end"> {progressText}</p>
+          {percentage}%<p className="text-sm text-muted-foreground font-normal text-left"> {progressText}</p>
         </span>
         <Select value={selectedPeriod} onValueChange={handlePeriodChange}>
           <SelectTrigger className="w-[8rem] rounded-lg sm:ml-auto cursor-pointer" aria-label="Select a value">
@@ -115,7 +115,7 @@ export function StudyProgress({ userData }: Partial<WithAuthProps>) {
       </div>
 
       <div className="flex flex-col gap-2">
-      <Progress value={progress} color="bg-blue-900" className="w-[100%] h-4" />
+        <Progress value={progress} color="bg-blue-900" className="w-[100%] h-4" />
         <p className="text-xs text-muted-foreground">
           {earnedCredits[selectedPeriod]}/{programCredits[selectedPeriod]} hp
         </p>
