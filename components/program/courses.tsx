@@ -89,5 +89,9 @@ function GetStatus(studyMap: Map<string, Course> | undefined, course_code: strin
     return "none";
   }
 
+  if (courseResult.grade !== "") {
+    return "done";
+  }
+
   return "ongoing";
 }
