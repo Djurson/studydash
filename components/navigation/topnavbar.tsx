@@ -1,5 +1,5 @@
 "use client";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Link } from "lucide-react";
 import MainIcon from "../mainicon";
 import { Azeret_Mono } from "next/font/google";
 import { useRouter } from "next/navigation";
@@ -37,13 +37,14 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
               <button type="button" onClick={() => router.back()} className="cursor-pointer">
                 <ChevronLeft size={24} />
               </button>
-
-              <figure className="flex items-center gap-2">
-                <div className="h-6">
-                  <MainIcon className="h-full w-auto" />
-                </div>
-                <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
-              </figure>
+              <Link href="/dashboard">
+                <figure className="flex items-center gap-2">
+                  <div className="h-6">
+                    <MainIcon className="h-full w-auto" />
+                  </div>
+                  <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
+                </figure>
+              </Link>
             </div>
           </>
         )}

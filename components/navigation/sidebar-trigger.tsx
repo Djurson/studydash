@@ -2,6 +2,7 @@ import { useSidebar } from "../ui/sidebar";
 import { Menu } from "lucide-react";
 import { Azeret_Mono } from "next/font/google";
 import MainIcon from "../mainicon";
+import Link from "next/link";
 const azeret_mono = Azeret_Mono({ subsets: ["latin"] });
 
 /**
@@ -21,13 +22,15 @@ export function AppSidebarTrigger() {
       <button onClick={toggleSidebar} className="cursor-pointer">
         <Menu size={24} />
       </button>
+      <Link href="/dashboard">
+        <figure className="flex items-center gap-2">
+          <div className="h-6">
+            <MainIcon className="h-full w-auto" />
+          </div>
 
-      <figure className="flex items-center gap-2">
-        <div className="h-6">
-          <MainIcon className="h-full w-auto" />
-        </div>
-        <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
-      </figure>
+          <p className={`${azeret_mono.className} text-xl`}>StudyDash</p>
+        </figure>
+      </Link>
     </div>
   );
 }
