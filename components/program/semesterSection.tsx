@@ -14,8 +14,9 @@ import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
-import { CourseJSON, UserData } from "@/utils/types";
+import { CourseJSON, Examination, ExaminationJSON, UserData } from "@/utils/types";
 import MasterSemester from "./mastersemester";
+import { MapHasExamination } from "@/utils/utils";
 //import { GetUserData } from "./actions";
 
 type studyInformation = {
@@ -25,7 +26,8 @@ type studyInformation = {
   previousFounds: boolean;
 };
 
-export default function SemesterSection({ userData, mainSubjects }: { userData: UserData | undefined; mainSubjects: Map<string, CourseJSON[]> }) {
+
+export default function SemesterSection({ userData, mainSubjects, setSelected = "Alla" }: { userData: UserData | undefined; mainSubjects: Map<string, CourseJSON[]>; setSelected?: string}) {
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
     year: undefined,
     program: undefined,
@@ -74,6 +76,37 @@ export default function SemesterSection({ userData, mainSubjects }: { userData: 
 
   console.log("userData", userData);
 
+
+  const getFilteredContent = () => {
+    if (!userData?.sortedDateMap) {
+      return { useProgram: true, filteredSubjects: new Map() };
+    }
+  
+    const filteredMap = new Map<string, CourseJSON[]>();
+
+    console.log(userData.sortedDateMap)
+  
+   /* userData.sortedDateMap.forEach((courses, semester) => {
+      let filteredCourses: Examination[] = [];
+  
+  if (setSelected === "Avklarade") {
+        filteredCourses = courses.filter(course => MapHasExamination(userData, course.code));
+      } else if (setSelected === "Oavklarade") {
+        filteredCourses = courses.filter(course => !MapHasExamination(userData, course.code));
+      } else {
+        // Default: include all courses
+        filteredCourses = courses;
+      }
+  
+      if (filteredCourses.length > 0) {
+        filteredMap.set(semester, filteredCourses);
+      }
+    });
+  
+    return { useProgram: false, filteredSubjects: filteredMap };*/
+  };
+
+
   return (
     <>
       <main className="flex flex-col gap-4 mt-4">
@@ -83,9 +116,11 @@ export default function SemesterSection({ userData, mainSubjects }: { userData: 
           <div className="flex flex-col gap-4 mt-4">
             {pillbutton
               ? program.semesters.map((semester) => {
+                  semesterCount += 1
                   return <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={false} />;
                 })
-              : mainSubjects.keys().map((subject: string) => {
+              : Array.from(mainSubjects.keys()).map((subject: string) => {
+                semesterCount+=1;
                   return (
                     <Semester
                       key={subject}

@@ -36,8 +36,7 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
   );
 }
 
-export function PillbuttonContainer(mainSubjects?: { mainSubjects?: Map<string, CourseJSON[]> }) {
-  const [selected, setSelected] = useState<string>("Alla");
+export function PillbuttonContainer({mainSubjects, selected, setSelected}: { mainSubjects: Map<string, CourseJSON[]>, selected:string, setSelected: (filter: string) => void }) {
 
   //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla"
   return (
@@ -45,9 +44,9 @@ export function PillbuttonContainer(mainSubjects?: { mainSubjects?: Map<string, 
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
       <PillButton id={"Oavklarade"} value={"Oavklarade"} currentValue={selected} onClick={() => setSelected("Augusti")} />
       <PillButton id={"Avklarade"} value={"Avklarade"} currentValue={selected} onClick={() => setSelected("Oktober")} />
-      <PillButton id={"Januari"} value={"Januari"} currentValue={selected} onClick={() => setSelected("Januari")} />
-      <PillButton id={"Mars"} value={"Mars"} currentValue={selected} onClick={() => setSelected("Mars")} />
-      <PillButton id={"Juni"} value={"Juni"} currentValue={selected} onClick={() => setSelected("Juni")} />
+      {Array.from(mainSubjects.keys()).map((subject:string) => (
+        <PillButton id={subject} value={subject} currentValue={selected} onClick={() => setSelected(subject)} />
+      ))}
     </div>
   );
 }
