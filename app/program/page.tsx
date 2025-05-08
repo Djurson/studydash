@@ -15,9 +15,9 @@ import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 import { ScrollHandler } from "@/components/navigation/scrollhandler";
 import SemesterSection from "@/components/program/semesterSection";
 
-interface exjobbData {
-  programs: Program[];
-}
+// interface exjobbData {
+//   programs: Program[];
+// }
 
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
