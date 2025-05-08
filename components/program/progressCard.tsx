@@ -1,7 +1,7 @@
 "use server";
 
 import { Progress } from "@/components/ui/progress";
-import { WithAuthProps, Examination, Program, Course } from "@/utils/types";
+import { WithAuthProps, Program, Course } from "@/utils/types";
 import LiuImg from "@/assets/liu.png";
 import { ExternalLink } from "lucide-react";
 
