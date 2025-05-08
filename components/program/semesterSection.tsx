@@ -7,7 +7,7 @@ import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
-import { Course, CourseJSON, UserData } from "@/utils/types";
+import { CourseJSON, UserData } from "@/utils/types";
 import MasterSemester from "./mastersemester";
 
 export default function SemesterSection({
@@ -32,10 +32,8 @@ export default function SemesterSection({
   const allSemesters = generateAllSemesters(startingSemester);
   const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
   const finalThesisSemester = allSemesters[9];
-  const pillbutton = false;
 
-  const [filter, setFilter] = useState(selected);
-  const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
+  const [, setAvailableSubjects] = useState<string[]>([]);
 
   let semesterCount = -1;
   const program = programData.programs[0];
@@ -73,7 +71,6 @@ export default function SemesterSection({
   };
 
   const filteredSubjects = getFilteredSubjects();
-
 
   return (
     <>

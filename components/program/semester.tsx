@@ -26,7 +26,6 @@ export default function SemesterAccordion({
   userData: UserData | undefined;
   subjectfilter: boolean;
 }) {
-
   const [isOpen, setIsOpen] = useState(false);
 
   const status = checkStatus(semester, semsterSeason, userData);
@@ -51,11 +50,10 @@ export default function SemesterAccordion({
         <div className="flex gap-4 items-center">
           <StatusSquare status={status} />
           <h3 className="text-lg font-medium">{subjectfilter ? semester.name : semester.name.slice(0, -7)}</h3>
-
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-29">
-            <p className=" text-sm text-gray-600 w-22 text-center ">{semsterSeason.fullString}</p>
+            {!subjectfilter && <p className=" text-sm text-gray-600 w-22 text-center ">{semsterSeason.fullString}</p>}
             <div className="w-17.5 h-1"></div>
             <p className=" text-sm text-gray-600 w-13 text-right "> {totalCredits} hp</p>
           </div>
@@ -67,7 +65,7 @@ export default function SemesterAccordion({
         {isOpen && (
           <div className="bg-accent px-4 pb-4">
             {semester.courses.map((course) => (
-              <Courses key={course.course_code} course={course} semesterStatus={status} semesterSeason={semsterSeason} userData={userData} />
+              <Courses key={course.course_code} course={course} semesterStatus={status} semesterSeason={semsterSeason} userData={userData} subjectfilter={subjectfilter} />
             ))}
           </div>
         )}

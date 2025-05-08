@@ -40,7 +40,7 @@ export function PillbuttonContainer({ mainSubjects, selected, setSelected }: { m
   console.log(selected);
 
   return (
-    <div className="mt-4 flex gap-4">
+    <div className="my-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />
       <PillButton id={"Oavklarade"} value={"Oavklarade"} currentValue={selected} onClick={() => setSelected("Oavklarade")} />
       <PillButton id={"Avklarade"} value={"Avklarade"} currentValue={selected} onClick={() => setSelected("Avklarade")} />

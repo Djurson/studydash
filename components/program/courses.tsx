@@ -3,19 +3,31 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
-import { CourseJSON, UserData } from "@/utils/types";
+import { Course, CourseJSON, UserData } from "@/utils/types";
 import { Status, StatusSquare } from "../edit/statussquare";
 
 import { SemesterInfo } from "@/utils/semesterDates";
 import { Exams } from "./exams";
 
-export function Courses({ course, semesterStatus, semesterSeason, userData }: { course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo; userData: UserData | undefined }) {
+export function Courses({
+  course,
+  semesterStatus,
+  semesterSeason,
+  userData,
+  subjectfilter,
+}: {
+  course: CourseJSON;
+  semesterStatus: Status;
+  semesterSeason: SemesterInfo;
+  userData: UserData | undefined;
+  subjectfilter: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const grade = userData?.studyinfo.get(course.course_code)?.grade;
   const date = userData?.studyinfo.get(course.course_code)?.date;
 
-  const status = grade && date ? "done" : semesterStatus;
+  const status = !subjectfilter ? (grade && date ? "done" : semesterStatus) : GetStatus(userData?.studyinfo, course.course_code);
   return (
     <>
       <div className="flex flex-col w-full">
@@ -64,4 +76,18 @@ export function Courses({ course, semesterStatus, semesterSeason, userData }: { 
       </div>
     </>
   );
+}
+
+function GetStatus(studyMap: Map<string, Course> | undefined, course_code: string): Status {
+  if (!studyMap) {
+    return "none";
+  }
+
+  const courseResult = studyMap.get(course_code);
+
+  if (!courseResult) {
+    return "none";
+  }
+
+  return "ongoing";
 }
