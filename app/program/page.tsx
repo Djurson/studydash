@@ -4,7 +4,7 @@ import React from "react";
 import { PencilLine } from "lucide-react";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
-import exjobbData from "@/webscraping/Exjobb-engineers.json";
+// import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
 import { Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
