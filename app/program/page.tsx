@@ -1,3 +1,4 @@
+"use server";
 import Card from "@/components/card/card";
 import { PillbuttonContainer } from "@/components/main/pillbutton";
 import React from "react";
@@ -6,7 +7,7 @@ import { PencilLine } from "lucide-react";
 import programData from "@/webscraping/6CEMEN-2022.json";
 // import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
-import { WithAuthProps } from "@/utils/types";
+import { Course, CourseJSON, Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
 import { Credits } from "@/components/charts/credits";
 import { MeritPoints } from "@/components/charts/meritpoints";
@@ -14,6 +15,7 @@ import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
 import { ScrollHandler } from "@/components/navigation/scrollhandler";
 import SemesterSection from "@/components/program/semesterSection";
+import CourseClientWrapper from "@/components/program/clientWrapper";
 
 // interface exjobbData {
 //   programs: Program[];
@@ -49,7 +51,17 @@ async function Page({ userData }: Partial<WithAuthProps>) {
       <main className="w-full mt-4">
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Kurser</h2>
-          <PillbuttonContainer />
+          <CourseClientWrapper userData={userData} />
+          <div className="flex flex-col gap-4 mt-4">
+            <div>
+              <p>Kandidat</p>
+              <div className="mt-2 flex flex-col gap-4">
+                {program.semesters.map((semester) => (
+                  <SemesterAccordion key={semester.name} semester={semester} />
+                ))}
+              </div>
+            </div>
+
 
           <div className="flex flex-col gap-4 mt-4">
             <SemesterSection userData={userData} />

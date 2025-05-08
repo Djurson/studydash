@@ -15,7 +15,18 @@ interface Semester {
 
 type StatusBorderClasses = Record<Status, string>;
 
-export default function SemesterAccordion({ semester, semsterSeason, userData }: { semester: Semester; semsterSeason: SemesterInfo; userData: UserData | undefined }) {
+export default function SemesterAccordion({
+  semester,
+  semsterSeason,
+  userData,
+  subjectfilter,
+}: {
+  semester: Semester;
+  semsterSeason: SemesterInfo;
+  userData: UserData | undefined;
+  subjectfilter: boolean;
+}) {
+
   const [isOpen, setIsOpen] = useState(false);
 
   const status = checkStatus(semester, semsterSeason, userData);
@@ -39,7 +50,8 @@ export default function SemesterAccordion({ semester, semsterSeason, userData }:
       <button className="flex items-center justify-between w-full p-4 cursor-pointer hover:bg-highlight-2" onClick={() => setIsOpen(!isOpen)}>
         <div className="flex gap-4 items-center">
           <StatusSquare status={status} />
-          <h3 className="text-lg font-medium">{semester.name.slice(0, -7)}</h3>
+          <h3 className="text-lg font-medium">{subjectfilter ? semester.name : semester.name.slice(0, -7)}</h3>
+
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-29">
