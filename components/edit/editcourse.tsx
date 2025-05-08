@@ -7,7 +7,6 @@ import { Course, CourseJSON } from "@/utils/types";
 import { Status, StatusSquare } from "./statussquare";
 import { useStudyResultsListener } from "@/hooks/editcontext";
 import { CourseExaminationMapping } from "./editexam";
-import { SemesterInfo } from "@/utils/semesterDates";
 
 export function EditCourse({ course, semesterStatus }: { course: CourseJSON; semesterStatus: Status }) {
   const [isOpen, setIsOpen] = useState(false);
