@@ -26,16 +26,10 @@ export function TopNavBar({ defaultPage }: NavbarProps) {
   const router = useRouter();
 
   return (
-    <nav
-      className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-background border-b border-gray- z-40
-      ${defaultPage ? "justify-end pr-4" : "justify-start pl-4"}`}>
-      <div
-        className={`h-8.5 flex justify-center items-center z-50
-        ${defaultPage ? "aspect-square rounded-md bg-accent" : ""} `}>
+    <nav className={`flex items-center w-full fixed top-0 h-[3.688rem] bg-background border-b border-gray- z-40 justify-start pl-4`}>
+      <div className={`h-8.5 flex justify-center items-center z-50`}>
         {defaultPage ? (
-          <>
-            <Bell size={24} />
-          </>
+          <></>
         ) : (
           <>
             {/*<Link href={backLink} className="flex gap-4"></Link>*/}

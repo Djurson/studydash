@@ -1,38 +1,15 @@
-"use client";
-
-import { UploadPDFInput } from "@/components/form/uploadpdf";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ChangeHistory } from "@/components/edit/changehistory";
-import { Checkbox } from "@/components/ui/checkbox";
-
+"use server";
 // Funktionerna för att generera och hämta terminer som inte mappas från json
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
-import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import Semester from "@/components/program/semester";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
-import { useEffect, useState } from "react";
-import { WithAuthProps, Examination, Program } from "@/utils/types";
+import { WithAuthProps, Program } from "@/utils/types";
 import MasterSemester from "./mastersemester";
-//import { GetUserData } from "./actions";
 
-type studyInformation = {
-  year: string | undefined;
-  program: string | undefined;
-  university: string | undefined;
-  previousFounds: boolean;
-};
-
-export default function SemesterSection({ userData, url, credits }: Partial<WithAuthProps> & Partial<Program>) {
-  const [studyInformation, setStudyInformation] = useState<studyInformation>({
-    year: undefined,
-    program: undefined,
-    university: undefined,
-    previousFounds: false,
-  });
-
+export default async function SemesterSection({ userData, url, credits }: Partial<WithAuthProps> & Partial<Program>) {
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = userData?.studyyear;
 
@@ -53,25 +30,6 @@ export default function SemesterSection({ userData, url, credits }: Partial<With
       name: `Termin 10 ${finalThesisSemester.fullString}`,
     })),
   };
-
-  // Hämta data från servern
-  /*  useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await GetUserData();
-      if (userData) {
-        setStudyInformation({
-          year: userData.studyyear,
-          program: userData.program,
-          university: userData.university,
-          previousFounds: userData.previousfunds,
-        });
-      }
-    };
-
-    fetchUserData();
-  }, []); */
-
-  console.log("userData", userData);
 
   return (
     <>
