@@ -9,7 +9,7 @@ import { useStudyResultsListener } from "@/hooks/editcontext";
 import { CourseExaminationMapping } from "./editexam";
 import { SemesterInfo } from "@/utils/semesterDates";
 
-export function EditCourse({ course, semesterStatus, semesterSeason }: { course: CourseJSON; semesterStatus: Status; semesterSeason: SemesterInfo }) {
+export function EditCourse({ course, semesterStatus }: { course: CourseJSON; semesterStatus: Status }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCourse } = useStudyResultsListener();
   const [grade, setGrade] = useState<string | undefined>(undefined);
