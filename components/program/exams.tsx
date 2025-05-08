@@ -1,4 +1,4 @@
-import { Course, CourseJSON, Examination, ExaminationJSON, UserData } from "@/utils/types";
+import { CourseJSON, ExaminationJSON, UserData } from "@/utils/types";
 
 import { Status, StatusSquare } from "../edit/statussquare";
 
@@ -16,6 +16,8 @@ export function Exams({ semesterStatus, course, exam, userData }: { exam: Examin
 
   const formattedDate = formatDate(date);
 
+  const status: Status = grade && date ? "done" : semesterStatus;
+
   return (
     <>
       <div className="flex flex-col w-full">
@@ -26,15 +28,15 @@ export function Exams({ semesterStatus, course, exam, userData }: { exam: Examin
               <div className="flex py-2 justify-between">
                 <div className="flex gap-4">
                   <div className=" flex items-center">
-                    <StatusSquare status={grade && date ? "done" : semesterStatus} />
+                    <StatusSquare status={status} />
                   </div>
                   <p className="text-sm font-normal max-w-150">
                     {exam.name} - {exam.code}
                   </p>
                 </div>
 
-                <div className="flex gap-30 items-center">
-                  <p className="text-gray-600 self-center text-sm font-light text-right ">{formattedDate}</p>
+                <div className="flex gap-29 items-center">
+                  <p className="text-gray-600 self-center text-sm font-light w-22 text-center ">{formattedDate}</p>
 
                   <p className="text-gray-600 self-center text-sm font-light w-17.5 text-center">{grade}</p>
 

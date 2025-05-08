@@ -24,17 +24,13 @@ type studyInformation = {
 }
 
 export default function Page() {
-  const [studyInformation, setStudyInformation] = useState<studyInformation>({
-    year: undefined,
-    program: undefined,
-    university: undefined,
-    previousFounds: false,
-  })
+  const [studyInformation, setStudyInformation] = useState<studyInformation>({ year: undefined, program: undefined, university: undefined, previousFounds: false, })
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
 
   const startingSemester = studyInformation.year ? `HT ${studyInformation.year}` : `HT ${currentYear}`;
+
   const showFrom = 7;
   const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);

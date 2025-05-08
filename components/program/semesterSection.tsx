@@ -1,5 +1,4 @@
 "use client";
-
 // Funktionerna för att generera och hämta terminer som inte mappas från json
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
 import Semester from "@/components/program/semester";
@@ -10,13 +9,6 @@ import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { Course, CourseJSON, UserData } from "@/utils/types";
 import MasterSemester from "./mastersemester";
-
-type studyInformation = {
-  year: string | undefined;
-  program: string | undefined;
-  university: string | undefined;
-  previousFounds: boolean;
-};
 
 export default function SemesterSection({
   userData,
@@ -82,9 +74,10 @@ export default function SemesterSection({
 
   const filteredSubjects = getFilteredSubjects();
 
+
   return (
     <>
-      <main className="flex flex-col gap-4 mt-4">
+      <main className="flex flex-col gap-4">
         <section>
           <Separator />
 

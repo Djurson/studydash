@@ -1,11 +1,11 @@
+"use server";
 import Card from "@/components/card/card";
 import { PillbuttonContainer } from "@/components/main/pillbutton";
 import React from "react";
 import { PencilLine } from "lucide-react";
-import SemesterAccordion from "@/components/accordions/SemesterAccordion";
 
 import programData from "@/webscraping/6CEMEN-2022.json";
-import exjobbData from "@/webscraping/Exjobb-engineers.json";
+// import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
 import { Course, CourseJSON, Program, WithAuthProps } from "@/utils/types";
 import { withAuth } from "@/serverhooks/withAuth";
@@ -17,13 +17,12 @@ import { ScrollHandler } from "@/components/navigation/scrollhandler";
 import SemesterSection from "@/components/program/semesterSection";
 import CourseClientWrapper from "@/components/program/clientWrapper";
 
-interface exjobbData {
-  programs: Program[];
-}
+// interface exjobbData {
+//   programs: Program[];
+// }
 
 async function Page({ userData }: Partial<WithAuthProps>) {
   const program = programData.programs[0];
-  const exjobb = exjobbData.programs[0];
 
   return (
     <>
@@ -63,19 +62,9 @@ async function Page({ userData }: Partial<WithAuthProps>) {
               </div>
             </div>
 
-            <div>
-              <p className="">Master</p>
-              <div className="mt-2 flex flex-col gap-4">
-                {/*
-                //  måste ändra här sen för år och termin 
-                    inte generellt för alla terminer just nu då den läser det från Exjobb-engineers.json
-                    så göra en varient för denna sista termin där man kanske räknar ut året och terminen på nått sett
-                */}
-                {exjobb.semesters.map((semester) => (
-                  <SemesterAccordion key={semester.name} semester={semester} />
-                ))}
-              </div>
-            </div>
+
+          <div className="flex flex-col gap-4 mt-4">
+            <SemesterSection userData={userData} />
           </div>
         </section>
       </main>
