@@ -41,7 +41,7 @@ export function StudyResultProvider({ children }: { children: ReactNode }) {
       const userData = await GetUserData();
       if (userData) {
         studyResultsRef.current = userData.studyinfo;
-        studyResultsRefOrg.current = new Map<string, Course>(studyResultsRef.current);
+        studyResultsRefOrg.current = deepCopyMap(studyResultsRef.current);
         notify(); // Meddela alla lyssnare om den nya datan
       }
     };
@@ -179,7 +179,7 @@ export function StudyResultProvider({ children }: { children: ReactNode }) {
     subscribe,
     studyResultsToJSON,
     jsonToStudyResults,
-  }
+  };
   return <StudyResultContext.Provider value={value}>{children}</StudyResultContext.Provider>;
 }
 
@@ -194,4 +194,24 @@ export function useStudyResultsListener() {
   }, [context]);
 
   return context;
+}
+
+function deepCopyMap(original: Map<string, Course>): Map<string, Course> {
+  const copied = new Map<string, Course>();
+
+  for (const [courseCode, course] of original.entries()) {
+    const copiedExaminations = new Map<string, Examination>();
+    for (const [examCode, exam] of course.examinations.entries()) {
+      copiedExaminations.set(examCode, { ...exam }); // shallow copy räcker för Examination
+    }
+
+    const copiedCourse: Course = {
+      ...course, // shallow copy för övriga fält
+      examinations: copiedExaminations,
+    };
+
+    copied.set(courseCode, copiedCourse);
+  }
+
+  return copied;
 }

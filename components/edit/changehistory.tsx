@@ -5,7 +5,17 @@ import { CircleOff, Info } from "lucide-react";
 import { useStudyResults, useStudyResultsListener } from "@/hooks/editcontext";
 import { Status, StatusSquare } from "./statussquare";
 import { Course } from "@/utils/types";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, } from "../ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { toast } from "sonner";
 import { WriteToDatabase } from "@/app/results/actions";
 
@@ -25,7 +35,6 @@ export function ChangeHistory({ ...props }: ChangeHistoryProps) {
   const changes: Map<string, Status> = GetChanges(filteredStudyResults, studyResultsOrg.current);
 
   let plusHp = 0;
-
 
   function HandleSubmit() {
     const error = SubmitToServer(filteredStudyResults, studyResultsToJSON, { ...props });
@@ -175,14 +184,14 @@ function SubmitToServer(filteredStudies: Map<string, Course>, studyResultsToJSON
 function GetChanges(current: Map<string, Course>, original: Map<string, Course>): Map<string, Status> {
   const changes: Map<string, Status> = new Map<string, Status>();
 
-  const allCourseCodes = new Set([...current.keys(), ...original.keys(),]);
+  const allCourseCodes = new Set([...current.keys(), ...original.keys()]);
 
   for (const courseCode of allCourseCodes) {
     const currentCourse = current.get(courseCode);
     const originalCourse = original.get(courseCode);
 
     if (currentCourse && originalCourse) {
-      const allExamCodes = new Set([...currentCourse.examinations.keys(), ...originalCourse.examinations.keys(),]);
+      const allExamCodes = new Set([...currentCourse.examinations.keys(), ...originalCourse.examinations.keys()]);
 
       for (const examCode of allExamCodes) {
         const currentExam = currentCourse.examinations.get(examCode);
@@ -197,20 +206,14 @@ function GetChanges(current: Map<string, Course>, original: Map<string, Course>)
           const aDateParsed = parseInt(currentExam.date);
           const bDateParsed = parseInt(originalExam.date);
 
-          if (courseCode === "TND012" && examCode === "DAT1") {
-            console.log("jämför datum");
-          }
           if (aDateParsed !== bDateParsed) {
             changes.set(key, "changed");
             continue;
           }
 
-          if (courseCode === "TND012" && examCode === "DAT1") {
-            console.log("jämför betyg");
-          }
           if (currentExam.grade !== originalExam.grade) {
             changes.set(key, "changed");
-            continue
+            continue;
           }
         }
       }
@@ -235,27 +238,29 @@ function GetChanges(current: Map<string, Course>, original: Map<string, Course>)
 }
 
 function filterMap(map: Map<string, Course>): Map<string, Course> {
-  return new Map(Array.from(map.entries())
-    .map(([courseCode, course]) => {
-      // Om kursen själv har ett giltigt betyg, behåll hela kursen
-      if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
-        return [courseCode, { ...course }];
-      }
-      // Annars, filtrera examinationerna
-      else {
-        // Skapa en ny map med bara godkända examinationer
-        const filteredExaminations = new Map(
-          Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
-        );
-
-        // Returnera kursen med filtrerade examinationer om det finns några
-        if (filteredExaminations.size > 0) {
-          return [courseCode, { ...course, examinations: filteredExaminations }];
+  return new Map(
+    Array.from(map.entries())
+      .map(([courseCode, course]) => {
+        // Om kursen själv har ett giltigt betyg, behåll hela kursen
+        if (course.grade !== "" && course.grade !== 0 && course.grade !== null && course.grade !== undefined && course.date) {
+          return [courseCode, { ...course }];
         }
+        // Annars, filtrera examinationerna
+        else {
+          // Skapa en ny map med bara godkända examinationer
+          const filteredExaminations = new Map(
+            Array.from(course.examinations.entries()).filter(([, exam]) => exam.grade !== "" && exam.grade !== 0 && exam.grade !== null && exam.grade !== undefined && exam.date)
+          );
 
-        // Returnera null om kursen inte har några godkända examinationer
-        return null;
-      }
-    })
-    .filter((entry) => entry !== null) as [string, Course][]);
+          // Returnera kursen med filtrerade examinationer om det finns några
+          if (filteredExaminations.size > 0) {
+            return [courseCode, { ...course, examinations: filteredExaminations }];
+          }
+
+          // Returnera null om kursen inte har några godkända examinationer
+          return null;
+        }
+      })
+      .filter((entry) => entry !== null) as [string, Course][]
+  );
 }
