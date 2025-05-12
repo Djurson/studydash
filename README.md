@@ -21,8 +21,6 @@ npm install
 npm run dev
 ```
 
-**Viktigt:** Detta kommer inte att fungera utan filen **.env.local**!
-
 ---
 
 ## Dokumentation för bibliotek
