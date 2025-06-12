@@ -1,0 +1,196 @@
+{
+  "_id": "6CIEN-ED",
+  "startUrl": [
+    "https://studieinfo.liu.se/program/6CIEN/5159#curriculum"
+  ],
+  "selectors": [
+    {
+      "elementLimit": 0,
+      "id": "Program-wrapper",
+      "multiple": true,
+      "parentSelectors": ["_root"],
+      "scroll": false,
+      "selector": "div.main-container",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "Program",
+      "multiple": false,
+      "parentSelectors": ["Program-wrapper"],
+      "regex": "",
+      "selector": "h1",
+      "type": "SelectorText"
+    },
+    {
+      "clickActionType": "real",
+      "clickElementSelector": "section.accordion:nth-of-type(-n+6)",
+      "clickElementUniquenessType": "uniqueText",
+      "clickType": "clickMore",
+      "delay": 2000,
+      "discardInitialElements": "do-not-discard",
+      "id": "Terminer-expandera",
+      "multiple": true,
+      "parentSelectors": ["Program-wrapper"],
+      "selector": "section.accordion:nth-of-type(-n+6)",
+      "type": "SelectorElementClick"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Terminer-wrapper",
+      "multiple": false,
+      "parentSelectors": ["Terminer-expandera"],
+      "scroll": false,
+      "selector": "_parent_",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "Termin",
+      "multiple": false,
+      "parentSelectors": ["Terminer-wrapper"],
+      "regex": "",
+      "selector": "h3",
+      "type": "SelectorText"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Period-wrapper",
+      "multiple": true,
+      "parentSelectors": ["Terminer-wrapper"],
+      "scroll": false,
+      "selector": "tbody",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "Period",
+      "multiple": false,
+      "parentSelectors": ["Period-wrapper"],
+      "regex": "",
+      "selector": "th",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Kurslank",
+      "linkType": "linkFromHref",
+      "multiple": true,
+      "parentSelectors": ["Kurslank-wrapper"],
+      "selector": "td a",
+      "type": "SelectorLink"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Kurs-wrapper",
+      "multiple": false,
+      "parentSelectors": ["Kurslank"],
+      "scroll": false,
+      "selector": "div.main-container",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "Kurs",
+      "multiple": false,
+      "parentSelectors": ["Kurs-wrapper"],
+      "regex": "",
+      "selector": "h1",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Kurskod",
+      "multiple": false,
+      "parentSelectors": ["Kurs-wrapper"],
+      "regex": "",
+      "selector": "p.subtitle:nth-of-type(2)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Oversikt",
+      "multiple": false,
+      "parentSelectors": ["Kurs-wrapper"],
+      "regex": "",
+      "selector": "section.overview-content",
+      "type": "SelectorHTML"
+    },
+    {
+      "id": "Kursplan",
+      "multiple": false,
+      "parentSelectors": ["Kurs-wrapper"],
+      "regex": "",
+      "selector": "section.syllabus",
+      "type": "SelectorHTML"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Examinationsmoment-wrapper",
+      "multiple": false,
+      "parentSelectors": ["Kurs-wrapper"],
+      "scroll": false,
+      "selector": "#examination",
+      "type": "SelectorElement"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Examinationsmoment",
+      "multiple": true,
+      "parentSelectors": ["Examinationsmoment-wrapper"],
+      "scroll": false,
+      "selector": "tr:nth-child(n+2)",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "Kod",
+      "multiple": false,
+      "parentSelectors": ["Examinationsmoment"],
+      "regex": "",
+      "selector": "td:nth-of-type(1)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Benamning",
+      "multiple": false,
+      "parentSelectors": ["Examinationsmoment"],
+      "regex": "",
+      "selector": "td:nth-of-type(2)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Omfattning",
+      "multiple": false,
+      "parentSelectors": ["Examinationsmoment"],
+      "regex": "",
+      "selector": "td:nth-of-type(3)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Betygskala",
+      "multiple": false,
+      "parentSelectors": ["Examinationsmoment"],
+      "regex": "",
+      "selector": "td:nth-of-type(4)",
+      "type": "SelectorText"
+    },
+    {
+      "id": "Kurslitteratur",
+      "multiple": true,
+      "parentSelectors": ["Kurs-wrapper"],
+      "regex": "",
+      "selector": "#literature",
+      "type": "SelectorHTML"
+    },
+    {
+      "elementLimit": 0,
+      "id": "Kurslank-wrapper",
+      "multiple": true,
+      "parentSelectors": ["Period-wrapper"],
+      "scroll": false,
+      "selector": "tr:nth-child(even)",
+      "type": "SelectorElement"
+    },
+    {
+      "id": "VOF",
+      "multiple": false,
+      "parentSelectors": ["Kurslank-wrapper"],
+      "regex": "",
+      "selector": "td:nth-of-type(6)",
+      "type": "SelectorText"
+    }
+  ]
+}
