@@ -28,7 +28,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nonPassingMissedExams: any[] = [];
 
-  const currentTerm = getCurrentStudyYear()
+  const currentTerm = getCurrentStudyYear();
 
   program.semesters.forEach((semester) => {
     if (semester.name.includes(currentTerm.current)) {
@@ -37,36 +37,32 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
         currentCoursesArray.push({ courses, semester });
       });
     }
-    semester.courses.forEach(courses => {
+    semester.courses.forEach((courses) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       courses.examinations.forEach((exam: any, index: any) => {
         //kollar om användaren har en examination kvar
         if (!MapHasExamination(userData?.studyinfo ?? new Map(), courses.course_code, exam.code)) {
           //kollar om mapen redan har kursen, i sånt fall läger den till andra examinationer på den keyn
           if (missedExams.has(courses.course_code)) {
-            missedExams.get(courses.course_code).push({ name: exam.code, credits: exam.credits })
+            missedExams.get(courses.course_code).push({ name: exam.code, credits: exam.credits });
           }
           //annars om mappen inte har den key så skapar den en ny key samt en array som displayar alla kurser med examinationer i sig, skulle kunnas göras bättre men funkar för nuläget
           else {
             missedExams.set(courses.course_code, [{ name: exam.code, credits: exam.credits }]);
-            nonPassingMissedExams.push({ index: index++, name: courses.name, course_code: courses.course_code, examcode: exam.code, credits: exam.code })
-
+            nonPassingMissedExams.push({ index: index++, name: courses.name, course_code: courses.course_code, examcode: exam.code, credits: exam.code });
           }
         }
-      })
+      });
     });
   });
 
-
   return (
-    <div className="flex flex-col gap-4 mt-2 h-[24.25rem]">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4 row-span-2 mt-2 h-[25rem]">
+      <div className="flex flex-col row-span-1 gap-2 h-[45%]">
         <h3 className="text-sm text-gray-600">Nuvarande</h3>
         <hr className="w-full bg-gray-600"></hr>
-        <div
-          className="overflow-scroll no-scrollbar flex flex-col gap-2 h-32"
-        >
-          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <div className="overflow-scroll no-scrollbar flex flex-col gap-2">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {currentCoursesArray.map((item: any, index: any) => (
             //loopar igenom alla nuvarande kurser
             <a
@@ -77,9 +73,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
               onClick={() => {
                 // Small delay to ensure the hash change is processed
                 setTimeout(() => {
-                  const element = document.getElementById(
-                    encodeURIComponent(item.semester.name)
-                  );
+                  const element = document.getElementById(encodeURIComponent(item.semester.name));
                   if (element) {
                     //ändrar hur sidan scrollar till det valda elementet
                     element.scrollIntoView({
@@ -89,13 +83,10 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
                     });
                   }
                 }, 100);
-              }}
-            >
+              }}>
               <h3 className="text-sm font-semibold">{item.courses.name}</h3>
               <div className="flex flex-row justify-between w-full">
-                <p className="text-xs text-gray-600">
-                  {item.courses.course_code}
-                </p>
+                <p className="text-xs text-gray-600">{item.courses.course_code}</p>
                 <p className="text-xs text-gray-600">{item.courses.credits}</p>
               </div>
               <hr className="w-full bg-gray-600"></hr>
@@ -103,13 +94,11 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2 ">
+      <div className="flex flex-col row-span-1 gap-2 h-[48%]">
         <h3 className="text-gray-600 text-sm">Ej avklarade</h3>
         <hr className="w-full bg-gray-600"></hr>
-        <div
-          className="overflow-scroll no-scrollbar flex flex-col gap-2 h-40"
-        >
-          { /* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <div className="overflow-scroll no-scrollbar flex flex-col gap-2">
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {nonPassingMissedExams.map((item: any, index: any) => (
             //loopar igenom alla missade examinationer
             <a
@@ -121,9 +110,7 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
               onClick={() => {
                 // Small delay to ensure the hash change is processed
                 setTimeout(() => {
-                  const element = document.getElementById(
-                    encodeURIComponent(item.name)
-                  );
+                  const element = document.getElementById(encodeURIComponent(item.name));
                   if (element) {
                     //ändrar hur sidan scrollar till det valda elementet
 
@@ -134,12 +121,9 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
                     });
                   }
                 }, 100);
-              }}
-            >
+              }}>
               <h3 className="text-sm font-semibold">{item.name}</h3>
-              <p className="text-xs text-gray-600">
-                {item.course_code}
-              </p>
+              <p className="text-xs text-gray-600">{item.course_code}</p>
               {/*Kallar på cardCarousel för varje kurs med missade examinationer*/}
               <CardCarousel exam={missedExams.get(item.course_code)} />
               <hr className="w-full bg-gray-600"></hr>

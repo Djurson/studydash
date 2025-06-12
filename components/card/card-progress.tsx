@@ -78,7 +78,7 @@ export default function CardProgress({ startyear, hp, year }: Inputs) {
                       Uppfyllt ({hp}/{year == "1" ? "37" : "45"})
                     </p>
                   </div>
-                  <div className="w-[40vw]">
+                  <div className="w-[100%]">
                     <Progress value={progress} color="bg-green-900" className="mt-4" />
                   </div>
                 </div>
