@@ -155,28 +155,34 @@ export default function CardForExams({ userData }: Partial<WithAuthProps>) {
 
           return (
             <li
-              className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] snap-start snap-normal
+              className={`w-[13.625rem] my-4 mr-4 last:mr-0 p-4 bg-accent rounded-2xl shrink-0 shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.04)] snap-start snap-normal flex flex-col
                 ${index === 0 ? "snap-start" : ""}
                 ${index === filteredExams.length - 1 ? "snap-end" : ""}`}
               key={`${exam.kurskod}-${exam.examinationsmoment}-${index}`}>
-              <header>
-                <p className="text-sm font-semibold">{exam.kursnamn}</p>
+              
+              {/* Course name with fixed height */}
+              <header className="h-12 flex items-center">
+                <p className="text-sm font-semibold line-clamp-2">{exam.kursnamn}</p>
               </header>
 
-              <section className="mt-4 flex flex-col gap-2 text-xs text-gray-600 font-normal">
-                <div className="flex justify-between">
+              {/* Middle section with fixed height */}
+              <section className="mt-2 flex-grow flex flex-col justify-between">
+                <div className="flex justify-between text-xs text-gray-600 font-normal">
                   <p>{exam.kurskod}</p>
                   <p>{formattedDate}</p>
                 </div>
 
-                <div className="flex justify-between">
+                <div className="flex justify-between text-xs text-gray-600 font-normal mt-2">
                   <p>{exam.examinationsmoment}</p>
                   <p>{exam.hp}</p>
                 </div>
               </section>
 
+              {/* Footer with fixed position */}
               <footer className="mt-2 flex justify-end">
-                <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>{daysRemainingText}</span>
+                <span className={`${badgeColor} text-white text-xs font-medium px-2 py-1 rounded-full`}>
+                  {daysRemainingText}
+                </span>
               </footer>
             </li>
           );
