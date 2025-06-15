@@ -38,7 +38,7 @@ type CoursePlan = {
   institution: string;
 };
 
-type Course = {
+type BaseCourse = {
   name: string;
   course_code: string;
   credits: string;
@@ -50,25 +50,27 @@ type Course = {
   literature: Literature[];
 };
 
-type Semester = {
-  name: string;
-  courses: Course[];
-};
-
-type Program = {
-  name: string;
-  credits: string;
-  url: string;
-  semesters: Semester[];
+// Extended course type with additional context
+type EnrichedCourse = BaseCourse & {
+  semesterName: string;
+  programName: string;
 };
 
 type MasterData = {
-  programs: Program[];
+  programs: {
+    name: string;
+    credits: string;
+    url: string;
+    semesters: {
+      name: string;
+      courses: BaseCourse[];
+    }[];
+  }[];
 };
 
 export default function AllCoursesPage() {
-  // Extract all courses from all programs and semesters
-  const allCourses = (masterData as MasterData).programs.flatMap(program =>
+  // Extract and enrich all courses with semester and program info
+  const allCourses: EnrichedCourse[] = (masterData as MasterData).programs.flatMap(program =>
     program.semesters.flatMap(semester =>
       semester.courses.map(course => ({
         ...course,
@@ -78,8 +80,8 @@ export default function AllCoursesPage() {
     )
   );
 
-  // Group courses by semester for better organization
-  const coursesBySemester: Record<string, Course[]> = {};
+  // Group courses by semester
+  const coursesBySemester: Record<string, EnrichedCourse[]> = {};
   allCourses.forEach(course => {
     if (!coursesBySemester[course.semesterName]) {
       coursesBySemester[course.semesterName] = [];
@@ -87,16 +89,11 @@ export default function AllCoursesPage() {
     coursesBySemester[course.semesterName].push(course);
   });
 
-  // Initialize all semesters as expanded by default
+  // Initialize all semesters as expanded
   const [expandedSemesters, setExpandedSemesters] = useState<Record<string, boolean>>(
-    () => {
-      const initialState: Record<string, boolean> = {};
-      Object.keys(coursesBySemester).forEach(semesterName => {
-        initialState[semesterName] = true;
-      });
-      return initialState;
-    }
-  );
+    () => Object.fromEntries(
+      Object.keys(coursesBySemester).map(semesterName => [semesterName, true])
+  ));
 
   const toggleSemester = (semesterName: string) => {
     setExpandedSemesters(prev => ({
@@ -120,11 +117,7 @@ export default function AllCoursesPage() {
               onClick={() => toggleSemester(semesterName)}
             >
               <CardTitle>{semesterName}</CardTitle>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-0"
-              >
+              <Button variant="ghost" size="sm" className="p-0">
                 {expandedSemesters[semesterName] ? (
                   <ChevronUp className="w-5 h-5" />
                 ) : (
@@ -136,7 +129,7 @@ export default function AllCoursesPage() {
             <CardContent className={!expandedSemesters[semesterName] ? 'hidden' : ''}>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {courses.map((course) => (
-                  <div key={`${course.course_code}-${course.semesterName}`} 
+                  <div key={`${course.course_code}-${semesterName}`} 
                        className="border p-4 rounded-lg hover:shadow-md transition-shadow">
                     <div className="flex justify-between items-start">
                       <div>
