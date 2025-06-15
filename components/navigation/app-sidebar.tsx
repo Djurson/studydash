@@ -24,6 +24,12 @@ const general = [
     icon: HandCoins,
     disabled: false,
   },
+    {
+    title: "MasterBuilder",
+    url: "/dashboard/masterbuilder",
+    icon: HandCoins,
+    disabled: false,
+  },
 ];
 
 const others = [
