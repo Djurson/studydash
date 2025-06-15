@@ -106,9 +106,9 @@ export default function SemesterSection({
           ) : (
             <>
               <div className="flex flex-col gap-4">
-                {masterSemesters.map((semester, index) => (
-                  <MasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
-                ))}
+                {/*masterSemesters.map((semester) => (
+                  <MasterSemester key={semester.name} semester={semester} semesterSeason={allSemesters} userData={userData} subjectfilter={false} />
+                ))*/}
               </div>
 
               <div className="flex flex-col gap-4 pb-4">
