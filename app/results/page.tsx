@@ -6,7 +6,7 @@ import { ChangeHistory } from "@/components/edit/changehistory";
 import { Checkbox } from "@/components/ui/checkbox";
 
 // Funktionerna för att generera och hämta terminer som inte mappas från json
-import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
+import { generateAllSemesters, getSemestersInRange, SemesterInfo } from "@/utils/semesterDates";
 import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
@@ -20,6 +20,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Link from "next/link";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
+import userProgram from "@/components/utils/userProgram";
 
 type studyInformation = {
   year: string | undefined;
@@ -52,7 +53,7 @@ export default function Page() {
   const finalThesisSemester = allSemesters[9];
 
   let semesterCount = -1;
-  const program = programData.programs[0];
+  let program;
 
   const thsesis = {
     ...thesisData.programs[0],
@@ -73,6 +74,7 @@ export default function Page() {
           university: userData.university,
           previousFounds: userData.previousfunds,
         });
+        program = userProgram(userData);
         setLoading(false);
         setOpenGuide(false);
       } else {
@@ -270,7 +272,7 @@ export default function Page() {
             {studyInformation.year !== undefined ? (
               <>
                 <div className="flex flex-col gap-4">
-                  {program.semesters.map((semester) => {
+                  {program!.semesters.map((semester: any) => {
                     semesterCount += 1;
                     return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
                   })}

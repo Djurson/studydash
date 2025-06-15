@@ -2,7 +2,7 @@
 // Funktionerna för att generera och hämta terminer som inte mappas från json
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
 import Semester from "@/components/program/semester";
-
+import userProgram from "../utils/userProgram";
 import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
@@ -36,7 +36,7 @@ export default function SemesterSection({
   const [, setAvailableSubjects] = useState<string[]>([]);
 
   let semesterCount = -1;
-  const program = programData.programs[0];
+  const program = userProgram(userData);
 
   const thsesis = {
     ...thesisData.programs[0],
@@ -80,7 +80,7 @@ export default function SemesterSection({
 
           <div className="flex flex-col gap-4 mt-4">
             {selected === "Alla"
-              ? program.semesters.map((semester) => {
+              ? program!.semesters!.map((semester) => {
                   semesterCount += 1;
                   return <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} userData={userData} subjectfilter={false} />;
                 })
