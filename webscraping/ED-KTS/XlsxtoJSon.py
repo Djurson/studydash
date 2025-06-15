@@ -3,8 +3,9 @@ import json
 from collections import defaultdict
 from bs4 import BeautifulSoup
 import re
+import math
 
-# Function 1: Parse course overview HTML
+
 def parse_overview(html_content):
     overview = {
         "main_subject": "",
@@ -58,7 +59,7 @@ def parse_overview(html_content):
 
     return overview
 
-# Function 2: Parse course plan HTML
+
 def parse_course_plan(html_content):
     course_plan = {
         "learning_objectives": "",
@@ -100,7 +101,7 @@ def parse_course_plan(html_content):
 
     return course_plan
 
-# Function 3: Parse course literature HTML
+
 def parse_literature(html_content):
     literature = []
 
@@ -140,7 +141,15 @@ def parse_literature(html_content):
             literature.append(entry)
 
     return literature
-# Main function: Convert XLSX to JSON
+
+def is_valid_examination(row):
+    """Check if the row contains valid examination data"""
+    if pd.isna(row.get("Kod")) or pd.isna(row.get("Benamning")):
+        return False
+    if str(row["Kod"]).strip() == "" or str(row["Benamning"]).strip() == "":
+        return False
+    return True
+
 def parse_xlsx_to_json(xlsx_filename, json_filename):
     df = pd.read_excel(xlsx_filename)
     structured_data = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {
@@ -176,13 +185,15 @@ def parse_xlsx_to_json(xlsx_filename, json_filename):
         if row.get("Kursplan"):
             course["course_plan"] = parse_course_plan(row["Kursplan"])
 
-        if row.get("Kod") and row.get("Benamning"):
+        
+        if is_valid_examination(row):
             exam_entry = {
                 "code": row["Kod"],
                 "name": row["Benamning"],
                 "credits": row["Omfattning"],
                 "grading": row["Betygskala"]
             }
+    
             if exam_entry not in course["examinations"]:
                 course["examinations"].append(exam_entry)
 
@@ -232,8 +243,6 @@ def parse_xlsx_to_json(xlsx_filename, json_filename):
     with open(json_filename, mode='w', encoding='utf-8') as json_file:
         json.dump(final_structure, json_file, indent=4, ensure_ascii=False)
 
-# Run script
-xlsx_filename = "6CIEN-ED.xlsx"  # Replace with your file
-json_filename = "structured_courses_from_xlsx.json"
+xlsx_filename = "MasterKurser.xlsx"  #ändra filnamn
+json_filename = "MasterKurser.json"  #ändra filnamn
 parse_xlsx_to_json(xlsx_filename, json_filename)
-
