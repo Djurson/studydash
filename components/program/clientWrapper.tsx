@@ -6,6 +6,7 @@ import { PillbuttonContainer } from "@/components/main/pillbutton";
 import SemesterSection from "@/components/program/semesterSection";
 import { CourseJSON, UserData } from "@/utils/types";
 import programData from "@/webscraping/6CEMEN-2022.json";
+import userProgram from "../utils/userProgram";
 
 export default function CourseClientWrapper({ userData }: { userData: UserData | undefined }) {
   const mainSubjects = new Map<string, CourseJSON[]>();
@@ -13,7 +14,7 @@ export default function CourseClientWrapper({ userData }: { userData: UserData |
   const finishedCourses: CourseJSON[] = [];
   // Client-side state management
   const [selected, setSelected] = useState<string>("Alla");
-  const program = programData.programs[0];
+  const program = userProgram(userData);
 
   program.semesters.map((semsesters) => {
     semsesters.courses.map((course) => {

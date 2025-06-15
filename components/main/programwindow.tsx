@@ -3,6 +3,7 @@ import programData from "@/webscraping/6CEMEN-2022.json";
 import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";
+import userProgram from "../utils/userProgram";
 
 //stulen funktion från en tidigare modul för att hitta nuvarande år med nuvarande kurse
 function getCurrentStudyYear() {
@@ -21,7 +22,7 @@ function getCurrentStudyYear() {
 }
 // sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
-  const program = programData.programs[0];
+  const program = userProgram(userData);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentCoursesArray: any[] = [];
   const missedExams = new Map();

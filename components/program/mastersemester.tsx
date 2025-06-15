@@ -11,15 +11,6 @@ interface MasterSemesterInterface {
   courses: CourseJSON[];
 }
 
-interface EditMasterSemesterProps {
-  semester: {
-    fullString: string;
-    semester: "HT" | "VT";
-    year: number;
-  };
-  index: number;
-}
-
 type StatusBorderClasses = Record<Status, string>;
 
 export default function MasterSemester({

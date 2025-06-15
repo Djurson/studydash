@@ -14,6 +14,9 @@ import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
 
 async function Page({ userData }: Partial<WithAuthProps>) {
+  if (userData?.program == "Civilingensjörsprogram") {
+  }
+  console.log(userData?.program);
   const program = programData.programs[0];
   return (
     <>
