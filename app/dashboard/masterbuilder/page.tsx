@@ -2,80 +2,124 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp, Plus, X } from 'lucide-react';
+import { Plus, X, ChevronDown } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import masterData from '@/webscraping/MasterKurser/MasterKurser.json';
+
+type Term = 'termin7' | 'termin8' | 'termin9';
 
 type Course = {
   name: string;
   course_code: string;
   credits: string;
   semesterName: string;
+  availableTerms: Term[];
 };
 
 export default function AllCoursesPage() {
-  // State for selected courses in each termin
   const [selectedCourses, setSelectedCourses] = useState<{
     termin7: Course[];
     termin8: Course[];
     termin9: Course[];
   }>({ termin7: [], termin8: [], termin9: [] });
 
-  // Extract all courses
-  const allCourses = masterData.programs.flatMap(program =>
-    program.semesters.flatMap(semester =>
-      semester.courses.map(course => ({
-        ...course,
-        semesterName: semester.name
-      }))
-    )
-  );
+  // Corrected logic to safely extract all valid courses
+  const courseMap = new Map<
+    string,
+    { course: Omit<Course, 'availableTerms'>; terms: Set<Term> }
+  >();
 
-  // Group courses by semester
-  const coursesBySemester: Record<string, Course[]> = {};
-  allCourses.forEach(course => {
-    if (!coursesBySemester[course.semesterName]) {
-      coursesBySemester[course.semesterName] = [];
-    }
-    coursesBySemester[course.semesterName].push(course);
+  masterData.programs.forEach(program => {
+    program.semesters.forEach(semester => {
+      let term: Term | null = null;
+      if (semester.name.includes('7')) term = 'termin7';
+      else if (semester.name.includes('8')) term = 'termin8';
+      else if (semester.name.includes('9')) term = 'termin9';
+      if (!term) return;
+
+      semester.courses.forEach(course => {
+        const existing = courseMap.get(course.course_code);
+        if (existing) {
+          existing.terms.add(term!);
+        } else {
+          courseMap.set(course.course_code, {
+            course: {
+              ...course,
+              semesterName: semester.name
+            },
+            terms: new Set([term!])
+          });
+        }
+      });
+    });
   });
 
-  // Add course to a termin
-  const addToTermin = (termin: 'termin7' | 'termin8' | 'termin9', course: Course) => {
+  const allCourses: Course[] = Array.from(courseMap.values())
+    .map(({ course, terms }) => {
+      const has7 = terms.has('termin7');
+      const has8 = terms.has('termin8');
+      const has9 = terms.has('termin9');
+
+      if ((has7 || has9) && has8) {
+        return null; // invalid: 7/9 + 8 not allowed
+      }
+
+      let availableTerms: Term[] = [];
+      if (has7 || has9) availableTerms = ['termin7', 'termin9'];
+      else if (has8) availableTerms = ['termin8'];
+
+      return {
+        ...course,
+        availableTerms
+      };
+    })
+    .filter(Boolean) as Course[];
+
+  const addToTermin = (termin: Term, course: Course) => {
     setSelectedCourses(prev => ({
       ...prev,
-      [termin]: [...prev[termin], course]
+      [termin]: [...prev[termin], { ...course, semesterName: `Termin ${termin.slice(-1)}` }]
     }));
   };
 
-  // Remove course from termin
-  const removeFromTermin = (termin: string, courseCode: string) => {
+  const removeFromTermin = (termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
       ...prev,
-      [termin]: prev[termin as keyof typeof prev].filter(c => c.course_code !== courseCode)
+      [termin]: prev[termin].filter(c => c.course_code !== courseCode)
     }));
   };
 
   return (
     <div className="container mx-auto py-8">
-      {/* Termin Selection Cards (Top) */}
+      {/* Terminskort */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        {['termin7', 'termin8', 'termin9'].map((termin) => (
-          <Card key={termin} className="min-h-40">
+        {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
+          <Card key={termin}>
             <CardHeader>
               <CardTitle className="text-lg">
                 {termin.replace('termin', 'Termin ')}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {selectedCourses[termin as keyof typeof selectedCourses].length === 0 ? (
+              {selectedCourses[termin].length === 0 ? (
                 <p className="text-sm text-muted-foreground">Inga kurser valda</p>
               ) : (
                 <div className="space-y-2">
-                  {selectedCourses[termin as keyof typeof selectedCourses].map((course) => (
-                    <div key={course.course_code} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                  {selectedCourses[termin].map((course) => (
+                    <div
+                      key={course.course_code}
+                      className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                    >
                       <div>
                         <p className="font-medium text-sm">{course.name}</p>
-                        <p className="text-xs text-muted-foreground">{course.course_code} • {course.credits}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {course.course_code} • {course.credits}
+                        </p>
                       </div>
                       <Button
                         variant="ghost"
@@ -93,59 +137,81 @@ export default function AllCoursesPage() {
         ))}
       </div>
 
-      {/* All Courses List */}
-      <div className="space-y-6">
-        {Object.entries(coursesBySemester).map(([semesterName, courses]) => (
-          <Card key={semesterName}>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>{semesterName}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {courses.map((course) => {
-                  const isSelected = Object.values(selectedCourses)
-                    .flat()
-                    .some(c => c.course_code === course.course_code);
+      {/* Alla kurser */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Alla kurser (Termin 7-9)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {allCourses.map((course) => {
+              const isSelected = Object.values(selectedCourses)
+                .flat()
+                .some(c => c.course_code === course.course_code);
 
-                  return (
-                    <div 
-                      key={`${course.course_code}-${semesterName}`}
-                      className={`border p-4 rounded-lg hover:shadow-md transition-all ${
-                        isSelected ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-blue-500'
-                      }`}
-                      onClick={() => {
-                        if (isSelected) return;
-                        // Determine which termin to add to based on semester
-                        const termin = semesterName.includes('7') ? 'termin7' :
-                                      semesterName.includes('8') ? 'termin8' : 'termin9';
-                        addToTermin(termin, course);
-                      }}
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-medium">{course.name}</h4>
-                          <p className="text-sm text-muted-foreground">{course.course_code}</p>
-                        </div>
-                        <span className="text-sm font-medium bg-accent px-2 py-1 rounded">
-                          {course.credits}
-                        </span>
-                      </div>
-                      {!isSelected && (
-                        <div className="mt-2 flex justify-end">
-                          <Button variant="outline" size="sm" className="h-6">
-                            <Plus className="h-3 w-3 mr-1" />
-                            Lägg till
-                          </Button>
-                        </div>
+              return (
+                <div
+                  key={`${course.course_code}-${course.semesterName}`}
+                  className={`border p-4 rounded-lg hover:shadow-md transition-all ${
+                    isSelected
+                      ? 'opacity-50 cursor-not-allowed'
+                      : 'cursor-pointer hover:border-blue-500'
+                  }`}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium">{course.name}</h4>
+                      <p className="text-sm text-muted-foreground">{course.course_code}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Tillgänglig i: {course.availableTerms.map(t => t.replace('termin', 'Termin ')).join(', ')}
+                      </p>
+                    </div>
+                    <span className="text-sm font-medium bg-accent px-2 py-1 rounded">
+                      {course.credits}
+                    </span>
+                  </div>
+
+                  {!isSelected && (
+                    <div className="mt-2 flex justify-end">
+                      {course.availableTerms.length > 1 ? (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-6">
+                              <Plus className="h-3 w-3 mr-1" />
+                              Lägg till
+                              <ChevronDown className="h-3 w-3 ml-1" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            {course.availableTerms.map((term) => (
+                              <DropdownMenuItem
+                                key={term}
+                                onClick={() => addToTermin(term, course)}
+                              >
+                                Lägg till i {term.replace('termin', 'Termin ')}
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-6"
+                          onClick={() => addToTermin(course.availableTerms[0], course)}
+                        >
+                          <Plus className="h-3 w-3 mr-1" />
+                          Lägg till
+                        </Button>
                       )}
                     </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
