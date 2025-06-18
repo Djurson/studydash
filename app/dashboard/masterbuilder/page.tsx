@@ -21,6 +21,8 @@ type Course = {
   availableTerms: Term[];
 };
 
+const COURSES_PER_PAGE = 30;
+
 export default function AllCoursesPage() {
   const [selectedCourses, setSelectedCourses] = useState<{
     termin7: Course[];
@@ -28,45 +30,66 @@ export default function AllCoursesPage() {
     termin9: Course[];
   }>({ termin7: [], termin8: [], termin9: [] });
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   const courseMap = new Map<
     string,
     { course: Omit<Course, 'availableTerms'>; terms: Set<Term> }
   >();
 
-masterData.programs.forEach(program => {
-  program.semesters.forEach(semester => {
-    const match = semester.name.match(/Termin (\d)/);
-    const termNumber = match ? match[1] : null;
+  masterData.programs.forEach(program => {
+    program.semesters.forEach(semester => {
+      let term: Term | null = null;
+      const name = semester.name.toLowerCase();
+      if (name.includes('termin 7')) term = 'termin7';
+      else if (name.includes('termin 8')) term = 'termin8';
+      else if (name.includes('termin 9')) term = 'termin9';
+      if (!term) return;
 
-    const term: Term | null =
-      termNumber === '7' ? 'termin7' :
-      termNumber === '8' ? 'termin8' :
-      termNumber === '9' ? 'termin9' :
-      null;
-
-    if (!term) return;
-
-    semester.courses.forEach(course => {
-      const existing = courseMap.get(course.course_code);
-      if (existing) {
-        existing.terms.add(term);
-      } else {
-        courseMap.set(course.course_code, {
-          course: {
-            ...course,
-            semesterName: semester.name,
-          },
-          terms: new Set([term]),
-        });
-      }
+      semester.courses.forEach(course => {
+        const existing = courseMap.get(course.course_code);
+        if (existing) {
+          existing.terms.add(term!);
+        } else {
+          courseMap.set(course.course_code, {
+            course: {
+              ...course,
+              semesterName: semester.name,
+            },
+            terms: new Set([term!]),
+          });
+        }
+      });
     });
   });
-});
 
-  const allCourses: Course[] = Array.from(courseMap.values()).map(({ course, terms }) => ({
-    ...course,
-    availableTerms: Array.from(terms),
-  }));
+  const allCourses: Course[] = Array.from(courseMap.values())
+    .map(({ course, terms }) => {
+      const has7 = terms.has('termin7');
+      const has8 = terms.has('termin8');
+      const has9 = terms.has('termin9');
+
+      if ((has7 || has9) && has8) return null;
+
+      let availableTerms: Term[] = [];
+      if (has8) {
+        availableTerms = ['termin8'];
+      } else if (has7 || has9) {
+        availableTerms = ['termin7', 'termin9'].filter(t => terms.has(t as Term)) as Term[];
+      }
+
+      return {
+        ...course,
+        availableTerms,
+      };
+    })
+    .filter(Boolean) as Course[];
+
+  const totalPages = Math.ceil(allCourses.length / COURSES_PER_PAGE);
+  const paginatedCourses = allCourses.slice(
+    (currentPage - 1) * COURSES_PER_PAGE,
+    currentPage * COURSES_PER_PAGE
+  );
 
   const addToTermin = (termin: Term, course: Course) => {
     setSelectedCourses(prev => ({
@@ -84,6 +107,7 @@ masterData.programs.forEach(program => {
 
   return (
     <div className="container mx-auto py-8">
+      {/* Valda kurser */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
           <Card key={termin}>
@@ -124,21 +148,21 @@ masterData.programs.forEach(program => {
         ))}
       </div>
 
-      {/* Alla kurser */}
+      {/* Alla kurser med paginering */}
       <Card>
         <CardHeader>
           <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {allCourses.map((course) => {
+            {paginatedCourses.map((course) => {
               const isSelected = Object.values(selectedCourses)
                 .flat()
                 .some(c => c.course_code === course.course_code);
 
               return (
                 <div
-                  key={course.course_code}
+                  key={`${course.course_code}-${course.semesterName}`}
                   className={`border p-4 rounded-lg hover:shadow-md transition-all ${
                     isSelected
                       ? 'opacity-50 cursor-not-allowed'
@@ -196,6 +220,20 @@ masterData.programs.forEach(program => {
                 </div>
               );
             })}
+          </div>
+
+          {/* Paginering */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Button
+                key={index + 1}
+                variant={currentPage === index + 1 ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </Button>
+            ))}
           </div>
         </CardContent>
       </Card>
