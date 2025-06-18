@@ -28,75 +28,62 @@ export default function AllCoursesPage() {
     termin9: Course[];
   }>({ termin7: [], termin8: [], termin9: [] });
 
-  // Corrected logic to safely extract all valid courses
   const courseMap = new Map<
     string,
     { course: Omit<Course, 'availableTerms'>; terms: Set<Term> }
   >();
 
-  masterData.programs.forEach(program => {
-    program.semesters.forEach(semester => {
-      let term: Term | null = null;
-      if (semester.name.includes('7')) term = 'termin7';
-      else if (semester.name.includes('8')) term = 'termin8';
-      else if (semester.name.includes('9')) term = 'termin9';
-      if (!term) return;
+masterData.programs.forEach(program => {
+  program.semesters.forEach(semester => {
+    const match = semester.name.match(/Termin (\d)/);
+    const termNumber = match ? match[1] : null;
 
-      semester.courses.forEach(course => {
-        const existing = courseMap.get(course.course_code);
-        if (existing) {
-          existing.terms.add(term!);
-        } else {
-          courseMap.set(course.course_code, {
-            course: {
-              ...course,
-              semesterName: semester.name
-            },
-            terms: new Set([term!])
-          });
-        }
-      });
+    const term: Term | null =
+      termNumber === '7' ? 'termin7' :
+      termNumber === '8' ? 'termin8' :
+      termNumber === '9' ? 'termin9' :
+      null;
+
+    if (!term) return;
+
+    semester.courses.forEach(course => {
+      const existing = courseMap.get(course.course_code);
+      if (existing) {
+        existing.terms.add(term);
+      } else {
+        courseMap.set(course.course_code, {
+          course: {
+            ...course,
+            semesterName: semester.name,
+          },
+          terms: new Set([term]),
+        });
+      }
     });
   });
+});
 
-  const allCourses: Course[] = Array.from(courseMap.values())
-    .map(({ course, terms }) => {
-      const has7 = terms.has('termin7');
-      const has8 = terms.has('termin8');
-      const has9 = terms.has('termin9');
-
-      if ((has7 || has9) && has8) {
-        return null; // invalid: 7/9 + 8 not allowed
-      }
-
-      let availableTerms: Term[] = [];
-      if (has7 || has9) availableTerms = ['termin7', 'termin9'];
-      else if (has8) availableTerms = ['termin8'];
-
-      return {
-        ...course,
-        availableTerms
-      };
-    })
-    .filter(Boolean) as Course[];
+  const allCourses: Course[] = Array.from(courseMap.values()).map(({ course, terms }) => ({
+    ...course,
+    availableTerms: Array.from(terms),
+  }));
 
   const addToTermin = (termin: Term, course: Course) => {
     setSelectedCourses(prev => ({
       ...prev,
-      [termin]: [...prev[termin], { ...course, semesterName: `Termin ${termin.slice(-1)}` }]
+      [termin]: [...prev[termin], { ...course, semesterName: `Termin ${termin.slice(-1)}` }],
     }));
   };
 
   const removeFromTermin = (termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
       ...prev,
-      [termin]: prev[termin].filter(c => c.course_code !== courseCode)
+      [termin]: prev[termin].filter(c => c.course_code !== courseCode),
     }));
   };
 
   return (
     <div className="container mx-auto py-8">
-      {/* Terminskort */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
           <Card key={termin}>
@@ -140,7 +127,7 @@ export default function AllCoursesPage() {
       {/* Alla kurser */}
       <Card>
         <CardHeader>
-          <CardTitle>Alla kurser (Termin 7-9)</CardTitle>
+          <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -151,7 +138,7 @@ export default function AllCoursesPage() {
 
               return (
                 <div
-                  key={`${course.course_code}-${course.semesterName}`}
+                  key={course.course_code}
                   className={`border p-4 rounded-lg hover:shadow-md transition-all ${
                     isSelected
                       ? 'opacity-50 cursor-not-allowed'
