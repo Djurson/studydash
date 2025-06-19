@@ -38,8 +38,6 @@ export default function CourseClientWrapper({ userData }: { userData: UserData |
     });
   });
 
-  console.log(selected);
-
   return (
     <>
       {/* PillbuttonContainer with viewModes */}

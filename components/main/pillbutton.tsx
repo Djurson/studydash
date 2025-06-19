@@ -37,8 +37,6 @@ export function PillButton({ currentValue, ...props }: PillButtonProps) {
 
 export function PillbuttonContainer({ mainSubjects, selected, setSelected }: { mainSubjects: Map<string, CourseJSON[]>; selected: string; setSelected: (filter: string) => void }) {
   //För återanvändning pillbutton skriv id och titel här sen hämtar du dessa vid din component t.ex  id: "Alla", value: "Alla"
-  console.log(selected);
-
   return (
     <div className="my-4 flex gap-4">
       <PillButton id={"Alla"} value={"Alla"} currentValue={selected} onClick={() => setSelected("Alla")} />

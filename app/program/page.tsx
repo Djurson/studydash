@@ -3,7 +3,6 @@ import Card from "@/components/card/card";
 import React from "react";
 import { PencilLine } from "lucide-react";
 
-import programData from "@/webscraping/6CEMEN-2022.json";
 // import exjobbData from "@/webscraping/Exjobb-engineers.json";
 import { ProgressCard } from "@/components/program/progressCard";
 import { WithAuthProps } from "@/utils/types";
@@ -14,13 +13,14 @@ import { MeritPointsBarChart } from "@/components/charts/meripointsbarchart";
 
 import { ScrollHandler } from "@/components/navigation/scrollhandler";
 import CourseClientWrapper from "@/components/program/clientWrapper";
+import userProgram from "@/components/utils/userProgram";
 
 // interface exjobbData {
 //   programs: Program[];
 // }
 
 async function Page({ userData }: Partial<WithAuthProps>) {
-  const program = programData.programs[0];
+  const program = userProgram(userData);
 
   return (
     <>

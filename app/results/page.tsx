@@ -10,7 +10,6 @@ import { generateAllSemesters, getSemestersInRange, SemesterInfo } from "@/utils
 import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
-import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useRef, useState } from "react";
@@ -218,12 +217,8 @@ export default function Page() {
                       {/* <SelectLabel>Program/utbildning</SelectLabel>*/}
 
                       <SelectItem value="Civilingenjörsprogram i medieteknik">Civilingenjörsprogram i medieteknik</SelectItem>
-                      <SelectItem value="Civilingenjörsprogram i elektronikdesign" disabled>
-                        Civilingenjörsprogram i elektronikdesign
-                      </SelectItem>
-                      <SelectItem value="Civilingenjörsprogram i kommunikation, transport och samhälle" disabled>
-                        Civilingenjörsprogram i kommunikation, transport och samhälle
-                      </SelectItem>
+                      <SelectItem value="Civilingenjörsprogram i elektronikdesign">Civilingenjörsprogram i elektronikdesign</SelectItem>
+                      <SelectItem value="Civilingenjörsprogram i kommunikation, transport och samhälle">Civilingenjörsprogram i kommunikation, transport och samhälle</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

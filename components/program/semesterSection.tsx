@@ -3,12 +3,10 @@
 import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
 import Semester from "@/components/program/semester";
 import userProgram from "../utils/userProgram";
-import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { CourseJSON, UserData } from "@/utils/types";
-import MasterSemester from "./mastersemester";
 
 export default function SemesterSection({
   userData,

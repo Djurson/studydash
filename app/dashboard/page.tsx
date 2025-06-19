@@ -10,14 +10,13 @@ import { Suspense } from "react";
 import CardLoading from "@/components/card/card-loading";
 import CreditsLoading from "@/components/charts/credits-loading";
 import CardForExams from "@/components/card/cardforexams";
-import programData from "@/webscraping/6CEMEN-2022.json";
 import ProgramWindow from "@/components/main/programwindow";
+import userProgram from "@/components/utils/userProgram";
 
 async function Page({ userData }: Partial<WithAuthProps>) {
   if (userData?.program == "Civilingensjörsprogram") {
   }
-  console.log(userData?.program);
-  const program = programData.programs[0];
+  const program = userProgram(userData);
   return (
     <>
       <header className="flex items-center">
