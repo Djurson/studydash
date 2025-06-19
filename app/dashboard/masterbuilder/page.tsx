@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+
+import { useState, useMemo } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, X, ChevronDown } from 'lucide-react';
@@ -9,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import masterData from '@/webscraping/MasterKurser/MasterKurser.json';
 
 type Term = 'termin7' | 'termin8' | 'termin9';
@@ -32,58 +34,59 @@ export default function AllCoursesPage() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const courseMap = new Map<
-    string,
-    { course: Omit<Course, 'availableTerms'>; terms: Set<Term> }
-  >();
+  const allCourses = useMemo(() => {
+    const courseMap = new Map<
+      string,
+      { course: Omit<Course, 'availableTerms'>; terms: Set<Term> }
+    >();
 
-  masterData.programs.forEach(program => {
-    program.semesters.forEach(semester => {
-      let term: Term | null = null;
-      const name = semester.name.toLowerCase();
-      if (name.includes('termin 7')) term = 'termin7';
-      else if (name.includes('termin 8')) term = 'termin8';
-      else if (name.includes('termin 9')) term = 'termin9';
-      if (!term) return;
+    masterData.programs.forEach(program => {
+      program.semesters.forEach(semester => {
+        let term: Term | null = null;
+        const name = semester.name.toLowerCase();
+        if (name.includes('termin 7')) term = 'termin7';
+        else if (name.includes('termin 8')) term = 'termin8';
+        else if (name.includes('termin 9')) term = 'termin9';
+        if (!term) return;
 
-      semester.courses.forEach(course => {
-        const existing = courseMap.get(course.course_code);
-        if (existing) {
-          existing.terms.add(term!);
-        } else {
-          courseMap.set(course.course_code, {
-            course: {
-              ...course,
-              semesterName: semester.name,
-            },
-            terms: new Set([term!]),
-          });
-        }
+        semester.courses.forEach(course => {
+          const existing = courseMap.get(course.course_code);
+          if (existing) {
+            existing.terms.add(term!);
+          } else {
+            courseMap.set(course.course_code, {
+              course: {
+                ...course,
+                semesterName: semester.name,
+              },
+              terms: new Set([term!]),
+            });
+          }
+        });
       });
     });
-  });
 
-  const allCourses: Course[] = Array.from(courseMap.values())
-    .map(({ course, terms }) => {
-      const has7 = terms.has('termin7');
-      const has8 = terms.has('termin8');
-      const has9 = terms.has('termin9');
+    return Array.from(courseMap.values())
+      .map(({ course, terms }) => {
+        const has7 = terms.has('termin7');
+        const has8 = terms.has('termin8');
+        const has9 = terms.has('termin9');
 
-      if ((has7 || has9) && has8) return null;
+        let availableTerms: Term[] = [];
 
-      let availableTerms: Term[] = [];
-      if (has8) {
-        availableTerms = ['termin8'];
-      } else if (has7 || has9) {
-        availableTerms = ['termin7', 'termin9'].filter(t => terms.has(t as Term)) as Term[];
-      }
+        if (has8) {
+          availableTerms = ['termin8'];
+        } else if (has7 || has9) {
+          availableTerms = ['termin7', 'termin9'];
+        }
 
-      return {
-        ...course,
-        availableTerms,
-      };
-    })
-    .filter(Boolean) as Course[];
+        return {
+          ...course,
+          availableTerms,
+        };
+      })
+      .filter(Boolean) as Course[];
+  }, []);
 
   const totalPages = Math.ceil(allCourses.length / COURSES_PER_PAGE);
   const paginatedCourses = allCourses.slice(
@@ -107,7 +110,6 @@ export default function AllCoursesPage() {
 
   return (
     <div className="container mx-auto py-8">
-      {/* Valda kurser */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
           <Card key={termin}>
@@ -147,8 +149,6 @@ export default function AllCoursesPage() {
           </Card>
         ))}
       </div>
-
-      {/* Alla kurser med paginering */}
       <Card>
         <CardHeader>
           <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
@@ -174,7 +174,8 @@ export default function AllCoursesPage() {
                       <h4 className="font-medium">{course.name}</h4>
                       <p className="text-sm text-muted-foreground">{course.course_code}</p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Tillgänglig i: {course.availableTerms.map(t => t.replace('termin', 'Termin ')).join(', ')}
+                        Tillgänglig i:{' '}
+                        {course.availableTerms.map(t => t.replace('termin', 'Termin ')).join(', ')}
                       </p>
                     </div>
                     <span className="text-sm font-medium bg-accent px-2 py-1 rounded">
@@ -221,8 +222,6 @@ export default function AllCoursesPage() {
               );
             })}
           </div>
-
-          {/* Paginering */}
           <div className="flex justify-center mt-6 space-x-2">
             {Array.from({ length: totalPages }, (_, index) => (
               <Button
