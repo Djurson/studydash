@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ChevronDown, CircleAlert } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { StatusSquare } from "../edit/statussquare";
 import { CourseJSON, Status, UserData } from "@/utils/types";
 import { SemesterInfo } from "@/utils/semesterDates";
@@ -44,7 +44,7 @@ export default function MasterSemester({
 
   return (
     <div>
-      <main className=" bg-accent overflow-hidden rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
+      <main className={` bg-accent overflow-hidden rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full ${borderClasses[status]} transition-colors duration-200`}>
         <button className="flex items-center justify-between w-full p-4 cursor-pointer hover:bg-highlight-2" onClick={() => setIsOpen(!isOpen)}>
           <div className="flex gap-4 items-center">
             <StatusSquare status={status} />

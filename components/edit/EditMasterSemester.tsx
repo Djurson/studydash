@@ -22,7 +22,7 @@ export default function EditMasterSemester({ semester, index }: EditMasterSemest
           <h3 className="text-lg font-medium">Termin {index + 1}</h3>
         </div>
 
-        <p className="col-start-5 col-span-2 text-xs text-gray-600 text-left ">{semester.fullString.slice(-7)}</p>
+        <p className="col-start-5 col-span-2 text-xs text-gray-600 text-left ">{semester.fullString}</p>
 
         <ChevronDown size={24} className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
       </button>

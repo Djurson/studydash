@@ -39,6 +39,7 @@ export default function Page() {
 
   const [openGuide, setOpenGuide] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [program, setProgram] = useState<any>(null);
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -52,7 +53,6 @@ export default function Page() {
   const finalThesisSemester = allSemesters[9];
 
   let semesterCount = -1;
-  let program;
 
   const thsesis = {
     ...thesisData.programs[0],
@@ -73,7 +73,8 @@ export default function Page() {
           university: userData.university,
           previousFounds: userData.previousfunds,
         });
-        program = userProgram(userData);
+        const userProgramData = userProgram(userData);
+        setProgram(userProgramData);
         setLoading(false);
         setOpenGuide(false);
       } else {
@@ -267,7 +268,7 @@ export default function Page() {
             {studyInformation.year !== undefined ? (
               <>
                 <div className="flex flex-col gap-4">
-                  {program!.semesters.map((semester: any) => {
+                  {program.semesters.map((semester: any) => {
                     semesterCount += 1;
                     return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
                   })}
