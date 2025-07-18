@@ -67,6 +67,8 @@ export default function AllCoursesPage() {
       });
     });
 
+
+
     return Array.from(courseMap.values())
       .map(({ course, terms }) => {
         const has7 = terms.has('termin7');
@@ -94,7 +96,11 @@ export default function AllCoursesPage() {
     (currentPage - 1) * COURSES_PER_PAGE,
     currentPage * COURSES_PER_PAGE
   );
+  const totalCredits = Object.values(selectedCourses)
+  .flat()
+  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
+  const CREDIT_GOAL = 90;
   const addToTermin = (termin: Term, course: Course) => {
     setSelectedCourses(prev => ({
       ...prev,
@@ -111,7 +117,19 @@ export default function AllCoursesPage() {
 
   return (
     <div className="container mx-auto py-8">
+    <div className="mb-6">
+  <p className="mb-1 text-sm font-medium">
+    Valda poäng: {totalCredits} / {CREDIT_GOAL}
+  </p>
+  <div className="w-full bg-gray-200 h-3 rounded">
+    <div
+      className="h-3 bg-blue-500 rounded transition-all"
+      style={{ width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%` }}
+    />
+  </div>
+</div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      
         {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
           <Card key={termin}>
             <CardHeader>
