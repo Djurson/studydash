@@ -118,7 +118,7 @@ export default function AllCoursesPage() {
   .filter(course => course.overview?.education_level === 'Avancerad nivå')
   .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
-const ADVANCED_CREDIT_GOAL = 45;
+const ADVANCED_CREDIT_GOAL = 30;
 
   const removeFromTermin = (termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
@@ -126,6 +126,17 @@ const ADVANCED_CREDIT_GOAL = 45;
       [termin]: prev[termin].filter(c => c.course_code !== courseCode),
     }));
   };
+
+const ADVANCED_SUBJECT_GOAL = 30;
+
+const advancedSubjectCredits = Object.values(selectedCourses)
+  .flat()
+  .filter(
+    (course) =>
+      course.level === 'Avancerad nivå' &&
+      ['Medieteknik', 'Datateknik'].includes(course.main_subject)
+  )
+  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
   return (
   <div className="container mx-auto py-8">
@@ -168,14 +179,12 @@ const ADVANCED_CREDIT_GOAL = 45;
         </Card>
       ))}
 
-      {/* Progress Bars inside a Card */}
       <Card className="col-span-1 md:col-span-3">
         <CardHeader>
           <CardTitle className="text-lg">Studieprogress</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-6">
-            {/* Total Credits Progress */}
             <div className="w-full">
               <p className="mb-1 text-sm font-medium">
                 Valda poäng: {totalCredits} / {CREDIT_GOAL}
@@ -190,7 +199,7 @@ const ADVANCED_CREDIT_GOAL = 45;
               </div>
             </div>
 
-            {/* Advanced Credits Progress */}
+            
             <div className="w-full">
               <p className="mb-1 text-sm font-medium">
                 Avancerad nivå: {advancedLevelCredits} / {ADVANCED_CREDIT_GOAL} hp
@@ -204,6 +213,19 @@ const ADVANCED_CREDIT_GOAL = 45;
                 />
               </div>
             </div>
+            <div className="w-full">
+  <p className="mb-1 text-sm font-medium">
+    Avancerad nivå i Medieteknik/Datateknik: {advancedSubjectCredits} / {ADVANCED_SUBJECT_GOAL} hp
+  </p>
+  <div className="w-full bg-gray-200 h-3 rounded">
+    <div
+      className="h-3 bg-purple-600 rounded transition-all"
+      style={{
+        width: `${Math.min((advancedSubjectCredits / ADVANCED_SUBJECT_GOAL) * 100, 100)}%`,
+      }}
+    />
+  </div>
+</div>
           </div>
         </CardContent>
       </Card>
@@ -285,8 +307,6 @@ const ADVANCED_CREDIT_GOAL = 45;
             );
           })}
         </div>
-
-        {/* Pagination */}
         <div className="flex justify-center mt-6 space-x-2">
           {Array.from({ length: totalPages }, (_, index) => (
             <Button
