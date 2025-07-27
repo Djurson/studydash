@@ -119,7 +119,29 @@ export default function AllCoursesPage() {
   .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
 const ADVANCED_CREDIT_GOAL = 30;
+const ADVANCED_MEDIA_GOAL = 30;
+const ADVANCED_DATA_GOAL = 30;
 
+let advancedMediaCredits = 0;
+let advancedDataCredits = 0;
+
+Object.values(selectedCourses)
+  .flat()
+  .forEach((course) => {
+    const level = course.overview?.education_level;
+    const subjectsRaw = course.overview?.main_subject;
+
+    if (level === 'Avancerad nivå' && typeof subjectsRaw === 'string') {
+      const subjects = subjectsRaw.split(',').map((s: string) => s.trim());
+
+      if (subjects.includes('Medieteknik')) {
+        advancedMediaCredits += parseFloat(course.credits);
+      }
+      if (subjects.includes('Datateknik')) {
+        advancedDataCredits += parseFloat(course.credits);
+      }
+    }
+  });
   const removeFromTermin = (termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
       ...prev,
@@ -129,12 +151,30 @@ const ADVANCED_CREDIT_GOAL = 30;
 
 const ADVANCED_SUBJECT_GOAL = 30;
 
-const advancedSubjectCredits = Object.values(selectedCourses)
+function subjectIncludes(course: Course, subject: string) {
+  const subjectsRaw = course.overview?.main_subject;
+  if (!subjectsRaw) return false;
+
+  if (Array.isArray(subjectsRaw)) {
+    return subjectsRaw.includes(subject);
+  }
+
+  return subjectsRaw.split(',').map((s: string) => s.trim()).includes(subject);
+}
+
+const advancedMedieteknikCredits = Object.values(selectedCourses)
   .flat()
   .filter(
     (course) =>
-      course.level === 'Avancerad nivå' &&
-      ['Medieteknik', 'Datateknik'].includes(course.main_subject)
+      course.level === 'Avancerad nivå' && subjectIncludes(course, 'Medieteknik')
+  )
+  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+
+const advancedDatateknikCredits = Object.values(selectedCourses)
+  .flat()
+  .filter(
+    (course) =>
+      course.level === 'Avancerad nivå' && subjectIncludes(course, 'Datateknik')
   )
   .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
@@ -181,7 +221,7 @@ const advancedSubjectCredits = Object.values(selectedCourses)
 
       <Card className="col-span-1 md:col-span-3">
         <CardHeader>
-          <CardTitle className="text-lg">Studieprogress</CardTitle>
+          <CardTitle className="text-lg">Progression</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-6">
@@ -198,34 +238,46 @@ const advancedSubjectCredits = Object.values(selectedCourses)
                 />
               </div>
             </div>
-
-            
-            <div className="w-full">
-              <p className="mb-1 text-sm font-medium">
-                Avancerad nivå: {advancedLevelCredits} / {ADVANCED_CREDIT_GOAL} hp
-              </p>
-              <div className="w-full bg-gray-200 h-3 rounded">
-                <div
-                  className="h-3 bg-green-600 rounded transition-all"
-                  style={{
-                    width: `${Math.min((advancedLevelCredits / ADVANCED_CREDIT_GOAL) * 100, 100)}%`,
-                  }}
-                />
+              <div className="w-full">
+                <p className="mb-1 text-sm font-medium">
+                  Avancerad nivå i Medieteknik: {advancedMediaCredits} / {ADVANCED_MEDIA_GOAL} hp
+                </p>
+                <div className="w-full bg-gray-200 h-3 rounded">
+                  <div
+                    className="h-3 bg-indigo-600 rounded transition-all"
+                    style={{
+                      width: `${Math.min((advancedMediaCredits / ADVANCED_MEDIA_GOAL) * 100, 100)}%`,
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="w-full">
-  <p className="mb-1 text-sm font-medium">
-    Avancerad nivå i Medieteknik/Datateknik: {advancedSubjectCredits} / {ADVANCED_SUBJECT_GOAL} hp
-  </p>
-  <div className="w-full bg-gray-200 h-3 rounded">
-    <div
-      className="h-3 bg-purple-600 rounded transition-all"
-      style={{
-        width: `${Math.min((advancedSubjectCredits / ADVANCED_SUBJECT_GOAL) * 100, 100)}%`,
-      }}
-    />
-  </div>
-</div>
+              <div className="w-full">
+                <p className="mb-1 text-sm font-medium">
+                  Avancerad nivå i Datateknik: {advancedDataCredits} / {ADVANCED_DATA_GOAL} hp
+                </p>
+                <div className="w-full bg-gray-200 h-3 rounded">
+                  <div
+                    className="h-3 bg-yellow-500 rounded transition-all"
+                    style={{
+                      width: `${Math.min((advancedDataCredits / ADVANCED_DATA_GOAL) * 100, 100)}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="w-full">
+                <p className="mb-1 text-sm font-medium">
+                  Avancerad nivå i Datateknik: {advancedDatateknikCredits} / {ADVANCED_SUBJECT_GOAL} hp
+                </p>
+                <div className="w-full bg-gray-200 h-3 rounded">
+                  <div
+                    className="h-3 bg-pink-500 rounded transition-all"
+                    style={{
+                      width: `${Math.min((advancedDatateknikCredits / ADVANCED_SUBJECT_GOAL) * 100, 100)}%`,
+                    }}
+                  />
+                </div>
+              </div>
           </div>
         </CardContent>
       </Card>
