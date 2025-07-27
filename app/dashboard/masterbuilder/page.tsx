@@ -1,10 +1,10 @@
 'use client';
 
-// Set-ExecutionPolicy Unrestricted -Scope Process (För Jonas)
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, X, ChevronDown } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,12 @@ import {
 
 import masterData from '@/webscraping/MasterKurser/MasterKurser.json';
 
+// Dynamically import CourseCard with no SSR
+const CourseCard = dynamic(() => import('./coursecard'), {
+  ssr: false,
+  loading: () => <div className="border p-4 rounded-lg">Loading course...</div>
+});
+
 type Term = 'termin7' | 'termin8' | 'termin9';
 
 type Course = {
@@ -22,7 +28,7 @@ type Course = {
   credits: string;
   semesterName: string;
   availableTerms: Term[];
-   overview?: {
+  overview?: {
     education_level?: string;
     [key: string]: any;
   };
@@ -32,6 +38,7 @@ type Course = {
 const COURSES_PER_PAGE = 30;
 
 export default function AllCoursesPage() {
+  const [isClient, setIsClient] = useState(false);
   const [selectedCourses, setSelectedCourses] = useState<{
     termin7: Course[];
     termin8: Course[];
@@ -39,6 +46,10 @@ export default function AllCoursesPage() {
   }>({ termin7: [], termin8: [], termin9: [] });
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const allCourses = useMemo(() => {
     const courseMap = new Map<
@@ -72,8 +83,6 @@ export default function AllCoursesPage() {
       });
     });
 
-
-
     return Array.from(courseMap.values())
       .map(({ course, terms }) => {
         const has7 = terms.has('termin7');
@@ -102,8 +111,8 @@ export default function AllCoursesPage() {
     currentPage * COURSES_PER_PAGE
   );
   const totalCredits = Object.values(selectedCourses)
-  .flat()
-  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+    .flat()
+    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
   const CREDIT_GOAL = 90;
   const addToTermin = (termin: Term, course: Course) => {
@@ -114,34 +123,35 @@ export default function AllCoursesPage() {
   };
 
   const advancedLevelCredits = Object.values(selectedCourses)
-  .flat()
-  .filter(course => course.overview?.education_level === 'Avancerad nivå')
-  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+    .flat()
+    .filter(course => course.overview?.education_level === 'Avancerad nivå')
+    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
-const ADVANCED_CREDIT_GOAL = 30;
-const ADVANCED_MEDIA_GOAL = 30;
-const ADVANCED_DATA_GOAL = 30;
+  const ADVANCED_CREDIT_GOAL = 30;
+  const ADVANCED_MEDIA_GOAL = 30;
+  const ADVANCED_DATA_GOAL = 30;
 
-let advancedMediaCredits = 0;
-let advancedDataCredits = 0;
+  let advancedMediaCredits = 0;
+  let advancedDataCredits = 0;
 
-Object.values(selectedCourses)
-  .flat()
-  .forEach((course) => {
-    const level = course.overview?.education_level;
-    const subjectsRaw = course.overview?.main_subject;
+  Object.values(selectedCourses)
+    .flat()
+    .forEach((course) => {
+      const level = course.overview?.education_level;
+      const subjectsRaw = course.overview?.main_subject;
 
-    if (level === 'Avancerad nivå' && typeof subjectsRaw === 'string') {
-      const subjects = subjectsRaw.split(',').map((s: string) => s.trim());
+      if (level === 'Avancerad nivå' && typeof subjectsRaw === 'string') {
+        const subjects = subjectsRaw.split(',').map((s: string) => s.trim());
 
-      if (subjects.includes('Medieteknik')) {
-        advancedMediaCredits += parseFloat(course.credits);
+        if (subjects.includes('Medieteknik')) {
+          advancedMediaCredits += parseFloat(course.credits);
+        }
+        if (subjects.includes('Datateknik')) {
+          advancedDataCredits += parseFloat(course.credits);
+        }
       }
-      if (subjects.includes('Datateknik')) {
-        advancedDataCredits += parseFloat(course.credits);
-      }
-    }
-  });
+    });
+
   const removeFromTermin = (termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
       ...prev,
@@ -149,102 +159,106 @@ Object.values(selectedCourses)
     }));
   };
 
-const ADVANCED_SUBJECT_GOAL = 30;
+  const ADVANCED_SUBJECT_GOAL = 30;
 
-function subjectIncludes(course: Course, subject: string) {
-  const subjectsRaw = course.overview?.main_subject;
-  if (!subjectsRaw) return false;
+  function subjectIncludes(course: Course, subject: string) {
+    const subjectsRaw = course.overview?.main_subject;
+    if (!subjectsRaw) return false;
 
-  if (Array.isArray(subjectsRaw)) {
-    return subjectsRaw.includes(subject);
+    if (Array.isArray(subjectsRaw)) {
+      return subjectsRaw.includes(subject);
+    }
+
+    return subjectsRaw.split(',').map((s: string) => s.trim()).includes(subject);
   }
 
-  return subjectsRaw.split(',').map((s: string) => s.trim()).includes(subject);
-}
+  const advancedMedieteknikCredits = Object.values(selectedCourses)
+    .flat()
+    .filter(
+      (course) =>
+        course.level === 'Avancerad nivå' && subjectIncludes(course, 'Medieteknik')
+    )
+    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
-const advancedMedieteknikCredits = Object.values(selectedCourses)
-  .flat()
-  .filter(
-    (course) =>
-      course.level === 'Avancerad nivå' && subjectIncludes(course, 'Medieteknik')
-  )
-  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+  const advancedDatateknikCredits = Object.values(selectedCourses)
+    .flat()
+    .filter(
+      (course) =>
+        course.level === 'Avancerad nivå' && subjectIncludes(course, 'Datateknik')
+    )
+    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
-const advancedDatateknikCredits = Object.values(selectedCourses)
-  .flat()
-  .filter(
-    (course) =>
-      course.level === 'Avancerad nivå' && subjectIncludes(course, 'Datateknik')
-  )
-  .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+  if (!isClient) {
+    return <div className="container mx-auto py-8">Loading...</div>;
+  }
 
   return (
-  <div className="container mx-auto py-8">
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
-        <Card key={termin}>
+    <div className="container mx-auto py-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
+          <Card key={termin}>
+            <CardHeader>
+              <CardTitle className="text-lg">
+                {termin.replace('termin', 'Termin ')}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {selectedCourses[termin].length === 0 ? (
+                <p className="text-sm text-muted-foreground">Inga kurser valda</p>
+              ) : (
+                <div className="space-y-2">
+                  {selectedCourses[termin].map((course) => (
+                    <div
+                      key={course.course_code}
+                      className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                    >
+                      <div>
+                        <p className="font-medium text-sm">{course.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {course.course_code} • {course.credits}
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFromTermin(termin, course.course_code)}
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        ))}
+
+        <Card className="col-span-1 md:col-span-3">
           <CardHeader>
-            <CardTitle className="text-lg">
-              {termin.replace('termin', 'Termin ')}
-            </CardTitle>
+            <CardTitle className="text-lg">Progression</CardTitle>
           </CardHeader>
           <CardContent>
-            {selectedCourses[termin].length === 0 ? (
-              <p className="text-sm text-muted-foreground">Inga kurser valda</p>
-            ) : (
-              <div className="space-y-2">
-                {selectedCourses[termin].map((course) => (
+            <div className="flex flex-col md:flex-row gap-6">
+              <div className="w-full">
+                <p className="mb-1 text-sm font-medium">
+                  Valda poäng: {totalCredits} / {CREDIT_GOAL}
+                </p>
+                <div className="w-full bg-gray-200 h-3 rounded">
                   <div
-                    key={course.course_code}
-                    className="flex items-center justify-between p-2 bg-gray-50 rounded"
-                  >
-                    <div>
-                      <p className="font-medium text-sm">{course.name}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {course.course_code} • {course.credits}
-                      </p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFromTermin(termin, course.course_code)}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
+                    className="h-3 bg-blue-900 rounded transition-all"
+                    style={{
+                      width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%`,
+                    }}
+                  />
+                </div>
               </div>
-            )}
-          </CardContent>
-        </Card>
-      ))}
-
-      <Card className="col-span-1 md:col-span-3">
-        <CardHeader>
-          <CardTitle className="text-lg">Progression</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full">
-              <p className="mb-1 text-sm font-medium">
-                Valda poäng: {totalCredits} / {CREDIT_GOAL}
-              </p>
-              <div className="w-full bg-gray-200 h-3 rounded">
-                <div
-                  className="h-3 bg-blue-500 rounded transition-all"
-                  style={{
-                    width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%`,
-                  }}
-                />
-              </div>
-            </div>
               <div className="w-full">
                 <p className="mb-1 text-sm font-medium">
                   Avancerad nivå i Medieteknik: {advancedMediaCredits} / {ADVANCED_MEDIA_GOAL} hp
                 </p>
                 <div className="w-full bg-gray-200 h-3 rounded">
                   <div
-                    className="h-3 bg-indigo-600 rounded transition-all"
+                    className="h-3 bg-blue-900 rounded transition-all"
                     style={{
                       width: `${Math.min((advancedMediaCredits / ADVANCED_MEDIA_GOAL) * 100, 100)}%`,
                     }}
@@ -257,124 +271,53 @@ const advancedDatateknikCredits = Object.values(selectedCourses)
                 </p>
                 <div className="w-full bg-gray-200 h-3 rounded">
                   <div
-                    className="h-3 bg-yellow-500 rounded transition-all"
+                    className="h-3 bg-blue-900 rounded transition-all"
                     style={{
                       width: `${Math.min((advancedDataCredits / ADVANCED_DATA_GOAL) * 100, 100)}%`,
                     }}
                   />
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-              <div className="w-full">
-                <p className="mb-1 text-sm font-medium">
-                  Avancerad nivå i Datateknik: {advancedDatateknikCredits} / {ADVANCED_SUBJECT_GOAL} hp
-                </p>
-                <div className="w-full bg-gray-200 h-3 rounded">
-                  <div
-                    className="h-3 bg-pink-500 rounded transition-all"
-                    style={{
-                      width: `${Math.min((advancedDatateknikCredits / ADVANCED_SUBJECT_GOAL) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {paginatedCourses.map((course) => {
+              const isSelected = Object.values(selectedCourses)
+                .flat()
+                .some((c) => c.course_code === course.course_code);
+
+              return (
+                <CourseCard
+                  key={`${course.course_code}-${course.semesterName}`}
+                  course={course}
+                  isSelected={isSelected}
+                  onAdd={addToTermin}
+                />
+              );
+            })}
+          </div>
+          <div className="flex justify-center mt-6 space-x-2">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Button
+                key={index + 1}
+                variant={currentPage === index + 1 ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </Button>
+            ))}
           </div>
         </CardContent>
       </Card>
     </div>
-
-    {/* All Courses Card */}
-    <Card>
-      <CardHeader>
-        <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {paginatedCourses.map((course) => {
-            const isSelected = Object.values(selectedCourses)
-              .flat()
-              .some((c) => c.course_code === course.course_code);
-
-            return (
-              <div
-                key={`${course.course_code}-${course.semesterName}`}
-                className={`border p-4 rounded-lg hover:shadow-md transition-all ${
-                  isSelected
-                    ? 'opacity-50 cursor-not-allowed'
-                    : 'cursor-pointer hover:border-blue-500'
-                }`}
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-medium">{course.name}</h4>
-                    <p className="text-sm text-muted-foreground">{course.course_code}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Tillgänglig i:{' '}
-                      {course.availableTerms
-                        .map((t) => t.replace('termin', 'Termin '))
-                        .join(', ')}
-                    </p>
-                  </div>
-                  <span className="text-sm font-medium bg-accent px-2 py-1 rounded">
-                    {course.credits}
-                  </span>
-                </div>
-
-                {!isSelected && (
-                  <div className="mt-2 flex justify-end">
-                    {course.availableTerms.length > 1 ? (
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="outline" size="sm" className="h-6">
-                            <Plus className="h-3 w-3 mr-1" />
-                            Lägg till
-                            <ChevronDown className="h-3 w-3 ml-1" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          {course.availableTerms.map((term) => (
-                            <DropdownMenuItem
-                              key={term}
-                              onClick={() => addToTermin(term, course)}
-                            >
-                              Lägg till i {term.replace('termin', 'Termin ')}
-                            </DropdownMenuItem>
-                          ))}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    ) : (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-6"
-                        onClick={() => addToTermin(course.availableTerms[0], course)}
-                      >
-                        <Plus className="h-3 w-3 mr-1" />
-                        Lägg till
-                      </Button>
-                    )}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-        <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <Button
-              key={index + 1}
-              variant={currentPage === index + 1 ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setCurrentPage(index + 1)}
-            >
-              {index + 1}
-            </Button>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-);
-
-
+  );
 }
