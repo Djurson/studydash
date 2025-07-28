@@ -238,24 +238,24 @@ export default function AllCoursesPage() {
               ) : (
                 <div className="space-y-2">
                   {selectedCourses[termin].map((course) => (
-                    <div
-                      key={course.course_code}
-                      className="flex items-center justify-between p-2 bg-gray-50 rounded"
-                    >
-                      <div>
-                        <p className="font-medium text-sm">{course.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {course.course_code} • {course.credits}
-                        </p>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => removeFromTermin(termin, course.course_code)}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
+                  <div
+                    key={course.course_code}
+                    className="flex items-center justify-between p-2 rounded border border-border dark:border-muted"
+                  >
+                    <div>
+                      <p className="font-medium text-sm">{course.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {course.course_code} • {course.credits}
+                      </p>
                     </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeFromTermin(termin, course.course_code)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
                   ))}
                 </div>
               )}
@@ -263,54 +263,51 @@ export default function AllCoursesPage() {
           </Card>
         ))}
 
-        <Card className="col-span-1 md:col-span-3">
-          <CardHeader>
-            <CardTitle className="text-lg">Progression</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="w-full">
-                <p className="mb-1 text-sm font-medium">
-                  Valda poäng: {totalCredits} / {CREDIT_GOAL}
-                </p>
-                <div className="w-full bg-gray-200 h-3 rounded">
-                  <div
-                    className="h-3 bg-blue-900 rounded transition-all"
-                    style={{
-                      width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="w-full">
-                <p className="mb-1 text-sm font-medium">
-                  Avancerad nivå i Medieteknik: {advancedMediaCredits} / {ADVANCED_MEDIA_GOAL} hp
-                </p>
-                <div className="w-full bg-gray-200 h-3 rounded">
-                  <div
-                    className="h-3 bg-blue-900 rounded transition-all"
-                    style={{
-                      width: `${Math.min((advancedMediaCredits / ADVANCED_MEDIA_GOAL) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="w-full">
-                <p className="mb-1 text-sm font-medium">
-                  Avancerad nivå i Datateknik: {advancedDataCredits} / {ADVANCED_DATA_GOAL} hp
-                </p>
-                <div className="w-full bg-gray-200 h-3 rounded">
-                  <div
-                    className="h-3 bg-blue-900 rounded transition-all"
-                    style={{
-                      width: `${Math.min((advancedDataCredits / ADVANCED_DATA_GOAL) * 100, 100)}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+<div className="col-span-1 md:col-span-3 space-y-6 mb-8">
+  <div>
+    <div className="flex flex-col md:flex-row gap-6">
+      <div className="w-full">
+        <p className="mb-1 text-sm font-medium">
+          Valda poäng: {totalCredits} / {CREDIT_GOAL}
+        </p>
+        <div className="w-full bg-gray-200  h-3 rounded">
+          <div
+            className="h-3 bg-blue-900 rounded transition-all"
+            style={{
+              width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%`,
+            }}
+          />
+        </div>
+      </div>
+      <div className="w-full">
+        <p className="mb-1 text-sm font-medium">
+          Avancerad nivå i Medieteknik: {advancedMediaCredits} / {ADVANCED_MEDIA_GOAL} hp
+        </p>
+        <div className="w-full bg-gray-200  h-3 rounded">
+          <div
+            className="h-3 bg-blue-900 rounded transition-all"
+            style={{
+              width: `${Math.min((advancedMediaCredits / ADVANCED_MEDIA_GOAL) * 100, 100)}%`,
+            }}
+          />
+        </div>
+      </div>
+      <div className="w-full">
+        <p className="mb-1 text-sm font-medium">
+          Avancerad nivå i Datateknik: {advancedDataCredits} / {ADVANCED_DATA_GOAL} hp
+        </p>
+        <div className="w-full bg-gray-200  h-3 rounded">
+          <div
+            className="h-3 bg-blue-900 rounded transition-all"
+            style={{
+              width: `${Math.min((advancedDataCredits / ADVANCED_DATA_GOAL) * 100, 100)}%`,
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
       </div>
 
       <Card>
