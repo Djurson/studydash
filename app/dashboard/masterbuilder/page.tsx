@@ -14,7 +14,31 @@ import {
 
 import masterData from '@/webscraping/MasterKurser/MasterKurser.json';
 
-// Dynamically import CourseCard with no SSR
+
+const saveSelectedCourses = (courses: any) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('selectedCourses', JSON.stringify(courses));
+  }
+};
+
+const loadSelectedCourses = () => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('selectedCourses');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+
+        if (parsed.termin7 && parsed.termin8 && parsed.termin9) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error('Failed to parse saved courses', e);
+      }
+    }
+  }
+  return { termin7: [], termin8: [], termin9: [] };
+};
+
 const CourseCard = dynamic(() => import('./coursecard'), {
   ssr: false,
   loading: () => <div className="border p-4 rounded-lg">Loading course...</div>
@@ -43,13 +67,19 @@ export default function AllCoursesPage() {
     termin7: Course[];
     termin8: Course[];
     termin9: Course[];
-  }>({ termin7: [], termin8: [], termin9: [] });
+  }>(loadSelectedCourses());
 
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      saveSelectedCourses(selectedCourses);
+    }
+  }, [selectedCourses, isClient]);
 
   const allCourses = useMemo(() => {
     const courseMap = new Map<
