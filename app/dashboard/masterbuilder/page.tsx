@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, X, ChevronDown } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { PillbuttonContainer } from '@/components/main/pillbutton';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -134,12 +135,23 @@ export default function AllCoursesPage() {
       })
       .filter(Boolean) as Course[];
   }, []);
-
+const [filter, setFilter] = useState<string>('Alla');
+  const filteredCourses = allCourses.filter(course => {
+  if (filter === 'Alla') return true;
+  if (filter === 'Avancerad') return course.overview?.education_level === 'Avancerad nivå';
+  if (filter === 'Grund') return course.overview?.education_level === 'Grundnivå';
+  if (filter === 'Datateknik') return subjectIncludes(course, 'Datateknik');
+  if (filter === 'Medieteknik') return subjectIncludes(course, 'Medieteknik');
+  if (filter === 'termin7' || filter === 'termin8' || filter === 'termin9') {
+    return course.availableTerms.includes(filter as Term);
+  }
+  return true;
+});
   const totalPages = Math.ceil(allCourses.length / COURSES_PER_PAGE);
-  const paginatedCourses = allCourses.slice(
-    (currentPage - 1) * COURSES_PER_PAGE,
-    currentPage * COURSES_PER_PAGE
-  );
+ const paginatedCourses = filteredCourses.slice(
+  (currentPage - 1) * COURSES_PER_PAGE,
+  currentPage * COURSES_PER_PAGE
+);
   const totalCredits = Object.values(selectedCourses)
     .flat()
     .reduce((sum, course) => sum + parseFloat(course.credits), 0);
@@ -309,7 +321,11 @@ export default function AllCoursesPage() {
   </div>
 </div>
       </div>
-
+      <PillbuttonContainer 
+  selected={filter} 
+  setSelected={setFilter} 
+  showAllFilters 
+/>
       <Card>
         <CardHeader>
           <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
