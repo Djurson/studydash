@@ -6,49 +6,32 @@ import { CourseJSON } from "@/utils/types";
 
 type PillButtonProps = ComponentProps<typeof Button> & {
   currentValue: string;
-  filterType?: "subject" | "level" | "term" | "default";
+  filterType?: "term";
 };
 
-/**
- * Pill button component
- *
- * @remarks
- * This component renders a button that changes its appearance based on the current value.
- * It highlights the selected button with a different style.
- *
- * @param currentValue - The currently selected value used to determine the active button
- * @param filterType - Optional prop to specify button style type (subject/level/term)
- * @param props - Additional button props such as `value` and `id` passed down from the parent component
- *
- * @returns Returns a styled pill button with a hover effect and active state
- */
+export function PillButton({
+  currentValue,
+  filterType = "term",
+  ...props
+}: PillButtonProps) {
+  const baseClasses =
+    "border-1 px-4 py-1.5 rounded-2xl font-semibold text-sm transition duration-200 ease-in-out cursor-pointer";
 
-export function PillButton({ currentValue, filterType = "default", ...props }: PillButtonProps) {
-  const baseClasses = "border-1 px-4 py-1.5 rounded-2xl font-semibold text-sm transition duration-200 ease-in-out cursor-pointer";
-  
   const typeClasses = {
-    subject: {
-      base: "hover:text-primary hover:border-primary",
-      active: "text-primary border-primary bg-highlight dark:text-foreground"
-    },
-    level: {
-      base: "hover:text-green-600 hover:border-green-600",
-      active: "text-green-600 border-green-600 bg-green-100 dark:bg-green-900/30 dark:text-foreground"
-    },
     term: {
       base: "hover:text-blue-600 hover:border-blue-600",
-      active: "text-blue-600 border-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-foreground"
+      active:
+        "text-blue-600 border-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-foreground",
     },
-    default: {
-      base: "hover:text-blue-900 hover:border-blue-900",
-      active: "text-blue-900 border-blue-900 bg-highlight dark:text-foreground"
-    }
   };
 
   return (
     <button
-      className={`${baseClasses} ${typeClasses[filterType].base} 
-                  ${props.value === currentValue ? typeClasses[filterType].active : "text-foreground dark:border-muted bg-accent"}`}
+      className={`${baseClasses} ${typeClasses[filterType].base} ${
+        props.value === currentValue
+          ? typeClasses[filterType].active
+          : "text-foreground dark:border-muted bg-accent"
+      }`}
       {...props}
     >
       {props.id}
@@ -63,108 +46,106 @@ type PillButtonContainerProps = {
   showAllFilters?: boolean;
 };
 
-export function PillbuttonContainer({ 
-  mainSubjects, 
-  selected, 
+export function PillbuttonContainer({
+  mainSubjects,
+  selected,
   setSelected,
-  showAllFilters = false 
+  showAllFilters = false,
 }: PillButtonContainerProps) {
   return (
     <div className="my-4 flex flex-wrap gap-2">
       {showAllFilters && (
         <>
-
-          <PillButton 
-            id="Alla terminer" 
-            value="Alla" 
-            currentValue={selected} 
+          <PillButton
+            id="Alla Kurser"
+            value="Alla"
+            currentValue={selected}
             onClick={() => setSelected("Alla")}
+            filterType="term"
           />
-          <PillButton 
-            id="Termin 7" 
-            value="termin7" 
-            currentValue={selected} 
+          <PillButton
+            id="Termin 7"
+            value="termin7"
+            currentValue={selected}
             onClick={() => setSelected("termin7")}
             filterType="term"
           />
-          <PillButton 
-            id="Termin 8" 
-            value="termin8" 
-            currentValue={selected} 
+          <PillButton
+            id="Termin 8"
+            value="termin8"
+            currentValue={selected}
             onClick={() => setSelected("termin8")}
             filterType="term"
           />
-          <PillButton 
-            id="Termin 9" 
-            value="termin9" 
-            currentValue={selected} 
+          <PillButton
+            id="Termin 9"
+            value="termin9"
+            currentValue={selected}
             onClick={() => setSelected("termin9")}
             filterType="term"
           />
-          
-
-          <PillButton 
-            id="Avancerad nivå" 
-            value="Avancerad" 
-            currentValue={selected} 
+          <PillButton
+            id="Avancerad nivå"
+            value="Avancerad"
+            currentValue={selected}
             onClick={() => setSelected("Avancerad")}
-            filterType="level"
+            filterType="term"
           />
-          <PillButton 
-            id="Grundnivå" 
-            value="Grund" 
-            currentValue={selected} 
+          <PillButton
+            id="Grundnivå"
+            value="Grund"
+            currentValue={selected}
             onClick={() => setSelected("Grund")}
-            filterType="level"
+            filterType="term"
           />
-          
-    
-          <PillButton 
-            id="Datateknik" 
-            value="Datateknik" 
-            currentValue={selected} 
+          <PillButton
+            id="Datateknik"
+            value="Datateknik"
+            currentValue={selected}
             onClick={() => setSelected("Datateknik")}
-            filterType="subject"
+            filterType="term"
           />
-          <PillButton 
-            id="Medieteknik" 
-            value="Medieteknik" 
-            currentValue={selected} 
+          <PillButton
+            id="Medieteknik"
+            value="Medieteknik"
+            currentValue={selected}
             onClick={() => setSelected("Medieteknik")}
-            filterType="subject"
+            filterType="term"
           />
         </>
       )}
-      
 
       {mainSubjects && (
         <>
-          <PillButton 
-            id="Alla" 
-            value="Alla" 
-            currentValue={selected} 
+          <PillButton
+            id="Alla"
+            value="Alla"
+            currentValue={selected}
             onClick={() => setSelected("Alla")}
+            filterType="term"
           />
-          <PillButton 
-            id="Oavklarade" 
-            value="Oavklarade" 
-            currentValue={selected} 
+          <PillButton
+            id="Oavklarade"
+            value="Oavklarade"
+            currentValue={selected}
             onClick={() => setSelected("Oavklarade")}
+            filterType="term"
           />
-          <PillButton 
-            id="Avklarade" 
-            value="Avklarade" 
-            currentValue={selected} 
+          <PillButton
+            id="Avklarade"
+            value="Avklarade"
+            currentValue={selected}
             onClick={() => setSelected("Avklarade")}
+            filterType="term"
           />
           {Array.from(mainSubjects.keys()).map((subject: string) => (
-            <PillButton 
-              key={subject} 
-              id={subject} 
-              value={subject} 
-              currentValue={selected} 
+            <PillButton
+              key={subject}
+              id={subject}
+              value={subject}
+              currentValue={selected}
               onClick={() => setSelected(subject)}
-              filterType="subject"
+              filterType="term"
             />
           ))}
         </>
