@@ -1,19 +1,20 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, X, ChevronDown } from 'lucide-react';
+import { X } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { PillbuttonContainer } from '@/components/main/pillbutton';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 
 import masterData from '@/webscraping/MasterKurser/MasterKurser.json';
+
+
+type FilterType = {
+  type: 'term' | 'area' | 'level';
+  value: string;
+  label: string;
+};
 
 
 const saveSelectedCourses = (courses: any) => {
@@ -28,7 +29,6 @@ const loadSelectedCourses = () => {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-
         if (parsed.termin7 && parsed.termin8 && parsed.termin9) {
           return parsed;
         }
@@ -42,7 +42,11 @@ const loadSelectedCourses = () => {
 
 const CourseCard = dynamic(() => import('./coursecard'), {
   ssr: false,
-  loading: () => <div className="border p-4 rounded-lg">Loading course...</div>
+  loading: () => <div className="border p-4 rounded-lg animate-pulse">
+    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+    <div className="h-3 bg-gray-200 rounded w-1/2 mb-3"></div>
+    <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+  </div>
 });
 
 type Term = 'termin7' | 'termin8' | 'termin9';
@@ -55,12 +59,26 @@ type Course = {
   availableTerms: Term[];
   overview?: {
     education_level?: string;
+    main_subject?: string | string[];
     [key: string]: any;
   };
   [key: string]: any;
 };
 
 const COURSES_PER_PAGE = 30;
+
+
+const CREDIT_GOAL = 90;
+const ADVANCED_CREDIT_GOAL = 30;
+const ADVANCED_MEDIA_GOAL = 30;
+const ADVANCED_DATA_GOAL = 30;
+
+
+const TERM_LABELS = {
+  termin7: 'Termin 7',
+  termin8: 'Termin 8',
+  termin9: 'Termin 9'
+} as const;
 
 export default function AllCoursesPage() {
   const [isClient, setIsClient] = useState(false);
@@ -71,6 +89,7 @@ export default function AllCoursesPage() {
   }>(loadSelectedCourses());
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedFilters, setSelectedFilters] = useState<FilterType[]>([]);
 
   useEffect(() => {
     setIsClient(true);
@@ -81,6 +100,12 @@ export default function AllCoursesPage() {
       saveSelectedCourses(selectedCourses);
     }
   }, [selectedCourses, isClient]);
+
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedFilters]);
+
 
   const allCourses = useMemo(() => {
     const courseMap = new Map<
@@ -135,50 +160,55 @@ export default function AllCoursesPage() {
       })
       .filter(Boolean) as Course[];
   }, []);
-const [filter, setFilter] = useState<string>('Alla');
-  const filteredCourses = allCourses.filter(course => {
-  if (filter === 'Alla') return true;
-  if (filter === 'Avancerad') return course.overview?.education_level === 'Avancerad nivå';
-  if (filter === 'Grund') return course.overview?.education_level === 'Grundnivå';
-  if (filter === 'Datateknik') return subjectIncludes(course, 'Datateknik');
-  if (filter === 'Medieteknik') return subjectIncludes(course, 'Medieteknik');
-  if (filter === 'termin7' || filter === 'termin8' || filter === 'termin9') {
-    return course.availableTerms.includes(filter as Term);
-  }
-  return true;
-});
-  const totalPages = Math.ceil(allCourses.length / COURSES_PER_PAGE);
- const paginatedCourses = filteredCourses.slice(
-  (currentPage - 1) * COURSES_PER_PAGE,
-  currentPage * COURSES_PER_PAGE
-);
-  const totalCredits = Object.values(selectedCourses)
-    .flat()
-    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
 
-  const CREDIT_GOAL = 90;
-  const addToTermin = (termin: Term, course: Course) => {
-    setSelectedCourses(prev => ({
-      ...prev,
-      [termin]: [...prev[termin], { ...course, semesterName: `Termin ${termin.slice(-1)}` }],
-    }));
-  };
 
-  const advancedLevelCredits = Object.values(selectedCourses)
-    .flat()
-    .filter(course => course.overview?.education_level === 'Avancerad nivå')
-    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+  const subjectIncludes = useCallback((course: Course, subject: string) => {
+    const subjectsRaw = course.overview?.main_subject;
+    if (!subjectsRaw) return false;
 
-  const ADVANCED_CREDIT_GOAL = 30;
-  const ADVANCED_MEDIA_GOAL = 30;
-  const ADVANCED_DATA_GOAL = 30;
+    if (Array.isArray(subjectsRaw)) {
+      return subjectsRaw.includes(subject);
+    }
 
-  let advancedMediaCredits = 0;
-  let advancedDataCredits = 0;
+    return subjectsRaw.split(',').map((s: string) => s.trim()).includes(subject);
+  }, []);
 
-  Object.values(selectedCourses)
-    .flat()
-    .forEach((course) => {
+
+  const filteredCourses = useMemo(() => {
+    if (selectedFilters.length === 0) return allCourses;
+    
+    return allCourses.filter(course => {
+      return selectedFilters.every(filter => {
+        if (filter.type === 'term') return course.availableTerms.includes(filter.value as Term);
+        if (filter.type === 'level') {
+          if (filter.value === 'Avancerad') return course.overview?.education_level === 'Avancerad nivå';
+          if (filter.value === 'Grund') return course.overview?.education_level === 'Grundnivå';
+        }
+        if (filter.type === 'area') return subjectIncludes(course, filter.value);
+        return true;
+      });
+    });
+  }, [allCourses, selectedFilters, subjectIncludes]);
+
+
+  const totalPages = Math.ceil(filteredCourses.length / COURSES_PER_PAGE);
+  const paginatedCourses = useMemo(() => {
+    return filteredCourses.slice(
+      (currentPage - 1) * COURSES_PER_PAGE,
+      currentPage * COURSES_PER_PAGE
+    );
+  }, [filteredCourses, currentPage]);
+
+
+  const creditStats = useMemo(() => {
+    const allSelectedCourses = Object.values(selectedCourses).flat();
+    
+    const totalCredits = allSelectedCourses.reduce((sum, course) => sum + parseFloat(course.credits), 0);
+    
+    let advancedMediaCredits = 0;
+    let advancedDataCredits = 0;
+
+    allSelectedCourses.forEach((course) => {
       const level = course.overview?.education_level;
       const subjectsRaw = course.overview?.main_subject;
 
@@ -194,41 +224,49 @@ const [filter, setFilter] = useState<string>('Alla');
       }
     });
 
-  const removeFromTermin = (termin: Term, courseCode: string) => {
+    return {
+      totalCredits,
+      advancedMediaCredits,
+      advancedDataCredits
+    };
+  }, [selectedCourses]);
+
+
+  const addToTermin = useCallback((termin: Term, course: Course) => {
+    setSelectedCourses(prev => ({
+      ...prev,
+      [termin]: [...prev[termin], { ...course, semesterName: TERM_LABELS[termin] }],
+    }));
+  }, []);
+
+  const removeFromTermin = useCallback((termin: Term, courseCode: string) => {
     setSelectedCourses(prev => ({
       ...prev,
       [termin]: prev[termin].filter(c => c.course_code !== courseCode),
     }));
-  };
+  }, []);
 
-  const ADVANCED_SUBJECT_GOAL = 30;
 
-  function subjectIncludes(course: Course, subject: string) {
-    const subjectsRaw = course.overview?.main_subject;
-    if (!subjectsRaw) return false;
+  const selectedCourseCodes = useMemo(() => {
+    return new Set(Object.values(selectedCourses).flat().map(c => c.course_code));
+  }, [selectedCourses]);
 
-    if (Array.isArray(subjectsRaw)) {
-      return subjectsRaw.includes(subject);
-    }
 
-    return subjectsRaw.split(',').map((s: string) => s.trim()).includes(subject);
-  }
-
-  const advancedMedieteknikCredits = Object.values(selectedCourses)
-    .flat()
-    .filter(
-      (course) =>
-        course.level === 'Avancerad nivå' && subjectIncludes(course, 'Medieteknik')
-    )
-    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
-
-  const advancedDatateknikCredits = Object.values(selectedCourses)
-    .flat()
-    .filter(
-      (course) =>
-        course.level === 'Avancerad nivå' && subjectIncludes(course, 'Datateknik')
-    )
-    .reduce((sum, course) => sum + parseFloat(course.credits), 0);
+  const ProgressBar = ({ current, goal, label }: { current: number; goal: number; label: string }) => (
+    <div className="w-full">
+      <p className="mb-1 text-sm font-medium">
+        {label}: {current} / {goal} hp
+      </p>
+      <div className="w-full bg-gray-200 h-3 rounded">
+        <div
+          className="h-3 bg-blue-900 rounded transition-all"
+          style={{
+            width: `${Math.min((current / goal) * 100, 100)}%`,
+          }}
+        />
+      </div>
+    </div>
+  );
 
   if (!isClient) {
     return <div className="container mx-auto py-8">Loading...</div>;
@@ -236,12 +274,13 @@ const [filter, setFilter] = useState<string>('Alla');
 
   return (
     <div className="container mx-auto py-8">
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         {(['termin7', 'termin8', 'termin9'] as Term[]).map((termin) => (
           <Card key={termin}>
             <CardHeader>
               <CardTitle className="text-lg">
-                {termin.replace('termin', 'Termin ')}
+                {TERM_LABELS[termin]}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -250,24 +289,25 @@ const [filter, setFilter] = useState<string>('Alla');
               ) : (
                 <div className="space-y-2">
                   {selectedCourses[termin].map((course) => (
-                  <div
-                    key={course.course_code}
-                    className="flex items-center justify-between p-2 rounded border border-border dark:border-muted"
-                  >
-                    <div>
-                      <p className="font-medium text-sm">{course.name}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {course.course_code} • {course.credits}
-                      </p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFromTermin(termin, course.course_code)}
+                    <div
+                      key={course.course_code}
+                      className="flex items-center justify-between p-2 rounded border border-border dark:border-muted"
                     >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-sm truncate">{course.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {course.course_code} • {course.credits} hp
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeFromTermin(termin, course.course_code)}
+                        className="flex-shrink-0 ml-2"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
                   ))}
                 </div>
               )}
@@ -275,67 +315,49 @@ const [filter, setFilter] = useState<string>('Alla');
           </Card>
         ))}
 
-<div className="col-span-1 md:col-span-3 space-y-6 mb-8">
-  <div>
-    <div className="flex flex-col md:flex-row gap-6">
-      <div className="w-full">
-        <p className="mb-1 text-sm font-medium">
-          Valda poäng: {totalCredits} / {CREDIT_GOAL}
-        </p>
-        <div className="w-full bg-gray-200  h-3 rounded">
-          <div
-            className="h-3 bg-blue-900 rounded transition-all"
-            style={{
-              width: `${Math.min((totalCredits / CREDIT_GOAL) * 100, 100)}%`,
-            }}
-          />
+
+        <div className="col-span-1 md:col-span-3 space-y-6 mb-8">
+          <div className="flex flex-col md:flex-row gap-6">
+            <ProgressBar 
+              current={creditStats.totalCredits} 
+              goal={CREDIT_GOAL} 
+              label="Valda poäng" 
+            />
+            <ProgressBar 
+              current={creditStats.advancedMediaCredits} 
+              goal={ADVANCED_MEDIA_GOAL} 
+              label="Avancerad nivå i Medieteknik" 
+            />
+            <ProgressBar 
+              current={creditStats.advancedDataCredits} 
+              goal={ADVANCED_DATA_GOAL} 
+              label="Avancerad nivå i Datateknik" 
+            />
+          </div>
         </div>
       </div>
-      <div className="w-full">
-        <p className="mb-1 text-sm font-medium">
-          Avancerad nivå i Medieteknik: {advancedMediaCredits} / {ADVANCED_MEDIA_GOAL} hp
-        </p>
-        <div className="w-full bg-gray-200  h-3 rounded">
-          <div
-            className="h-3 bg-blue-900 rounded transition-all"
-            style={{
-              width: `${Math.min((advancedMediaCredits / ADVANCED_MEDIA_GOAL) * 100, 100)}%`,
-            }}
-          />
-        </div>
-      </div>
-      <div className="w-full">
-        <p className="mb-1 text-sm font-medium">
-          Avancerad nivå i Datateknik: {advancedDataCredits} / {ADVANCED_DATA_GOAL} hp
-        </p>
-        <div className="w-full bg-gray-200  h-3 rounded">
-          <div
-            className="h-3 bg-blue-900 rounded transition-all"
-            style={{
-              width: `${Math.min((advancedDataCredits / ADVANCED_DATA_GOAL) * 100, 100)}%`,
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      </div>
+
+
       <PillbuttonContainer 
-  selected={filter} 
-  setSelected={setFilter} 
-  showAllFilters 
-/>
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+        variant="course-filter"
+      />
+
+
       <Card>
         <CardHeader>
-          <CardTitle>Alla kurser (Termin 7–9)</CardTitle>
+          <CardTitle className="flex items-center justify-between">
+            <span>Alla kurser (Termin 7–9)</span>
+            <span className="text-sm font-normal text-muted-foreground">
+              {filteredCourses.length} kurser
+            </span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {paginatedCourses.map((course) => {
-              const isSelected = Object.values(selectedCourses)
-                .flat()
-                .some((c) => c.course_code === course.course_code);
+              const isSelected = selectedCourseCodes.has(course.course_code);
 
               return (
                 <CourseCard
@@ -347,18 +369,53 @@ const [filter, setFilter] = useState<string>('Alla');
               );
             })}
           </div>
-          <div className="flex justify-center mt-6 space-x-2">
-            {Array.from({ length: totalPages }, (_, index) => (
+          
+       
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6 space-x-2">
               <Button
-                key={index + 1}
-                variant={currentPage === index + 1 ? 'default' : 'outline'}
+                variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage(index + 1)}
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
               >
-                {index + 1}
+                Föregående
               </Button>
-            ))}
-          </div>
+              
+              {Array.from({ length: Math.min(5, totalPages) }, (_, index) => {
+                let pageNum;
+                if (totalPages <= 5) {
+                  pageNum = index + 1;
+                } else if (currentPage <= 3) {
+                  pageNum = index + 1;
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + index;
+                } else {
+                  pageNum = currentPage - 2 + index;
+                }
+
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={currentPage === pageNum ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentPage(pageNum)}
+                  >
+                    {pageNum}
+                  </Button>
+                );
+              })}
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Nästa
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
