@@ -103,7 +103,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isSelected, onAdd }) =>
           </div>
           <div className="flex items-center gap-1 ml-2 flex-shrink-0">
             <BookOpen className="h-3 w-3 text-muted-foreground" />
-            <span className="text-sm font-medium">{course.credits} hp</span>
+            <span className="text-sm font-medium">{course.credits}</span>
           </div>
         </div>
 
