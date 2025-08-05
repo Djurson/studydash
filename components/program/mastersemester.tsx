@@ -1,71 +1,164 @@
 "use client";
+
 import { useState } from "react";
-import { ChevronDown, CircleAlert } from "lucide-react";
-import { StatusSquare } from "../edit/statussquare";
-import { CourseJSON, Status, UserData } from "@/utils/types";
+import { ChevronDown } from "lucide-react";
+import { Separator } from "../ui/separator";
+import { Course, CourseJSON, UserData } from "@/utils/types";
+import { Status, StatusSquare } from "../edit/statussquare";
 import { SemesterInfo } from "@/utils/semesterDates";
-import { Courses } from "./courses";
 
-interface MasterSemesterInterface {
+type Term = "termin7" | "termin8" | "termin9";
+
+type CourseType = {
   name: string;
-  courses: CourseJSON[];
-}
+  course_code: string;
+  credits: string;
+  semesterName: string;
+  availableTerms: Term[];
+  overview?: {
+    education_level?: string;
+    main_subject?: string | string[];
+    [key: string]: any;
+  };
+  [key: string]: any;
+};
 
-type StatusBorderClasses = Record<Status, string>;
-
-export default function MasterSemester({
-  semester,
-  semesterSeason,
+export function MasterSemester({
+  semesterName,
+  courses,
+  terminSeason,
   userData,
   subjectfilter,
 }: {
-  semester: MasterSemesterInterface;
-  semesterSeason: SemesterInfo;
+  semesterName: string;
+  courses: CourseType[];
+  terminSeason: SemesterInfo;
   userData: UserData | undefined;
   subjectfilter: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const status = checkStatus(semester, semesterSeason, userData);
-
-  const totalCredits = semester.courses.reduce((sum, course) => {
+  // Calculate total credits for all courses in this semester
+  const totalCredits = courses.reduce((sum, course) => {
     return sum + Number(course.credits.replace("hp", "").trim());
   }, 0);
 
-  const borderClasses: StatusBorderClasses = {
-    none: "",
-    ongoing: "border-1 border-yellow-900",
-    done: "border-1 border-green-900",
-    error: "",
-    added: "",
-    deleted: "",
-    changed: "",
+  // Determine overall semester status based on all courses
+  const getSemesterStatus = (): Status => {
+    let hasCompletedCourses = false;
+    let hasIncompleteCourses = false;
+
+    for (const course of courses) {
+      const status = GetStatus(userData?.studyinfo, course.course_code);
+      if (status === "done") {
+        hasCompletedCourses = true;
+      } else {
+        hasIncompleteCourses = true;
+      }
+    }
+
+    if (hasCompletedCourses && !hasIncompleteCourses) {
+      return "done";
+    }
+    if (hasCompletedCourses && hasIncompleteCourses) {
+      return "ongoing";
+    }
+    if (hasIncompleteCourses) {
+      return "ongoing";
+    }
+    return "none";
   };
+
+  const semesterStatus = getSemesterStatus();
 
   return (
     <div>
-      <main className=" bg-accent overflow-hidden rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
+      <main className="bg-accent overflow-hidden rounded-2xl shadow-[2px_4px_12px_0px_rgba(0,_0,_0,_0.08)] w-full h-full">
         <button className="flex items-center justify-between w-full p-4 cursor-pointer hover:bg-highlight-2" onClick={() => setIsOpen(!isOpen)}>
           <div className="flex gap-4 items-center">
-            <StatusSquare status={status} />
-            <h3 className="text-lg font-medium">{subjectfilter ? semester.name : semester.name.slice(0, -7)}</h3>
+            <StatusSquare status={semesterStatus} />
+            <h3 className="text-lg font-medium">{semesterName}</h3>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-29">
-              {!subjectfilter && <p className=" text-sm text-gray-600 w-22 text-center ">{semesterSeason.fullString}</p>}
+              {!subjectfilter && <p className="text-sm text-gray-600 w-22 text-center">{courses.length} kurser</p>}
               <div className="w-17.5 h-1"></div>
-              <p className=" text-sm text-gray-600 w-13 text-right">{totalCredits}</p>
+              <p className="text-sm text-gray-600 w-13 text-right">{totalCredits} hp</p>
             </div>
-
             <ChevronDown size={24} className={`col-start-8 justify-self-end transition-transform duration-200 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"}`} />
           </div>
         </button>
         <section>
           {isOpen && (
             <div className="bg-accent px-4 pb-4">
-              {semester.courses.map((course) => (
-                <Courses key={course.course_code} course={course} semesterStatus={status} semesterSeason={semesterSeason} userData={userData} subjectfilter={subjectfilter} />
-              ))}
+              <div className="flex flex-col w-full">
+                <div className="flex relative w-full">
+                  <div className="absolute left-[0.563rem] top-0 bottom-0 w-px bg-secondary z-0" />
+                  <div className="flex flex-col pl-[1.125rem] w-full">
+                    {courses.map((course, index) => {
+                      const grade = userData?.studyinfo.get(course.course_code)?.grade;
+                      const status = GetStatus(userData?.studyinfo, course.course_code);
+
+                      return (
+                        <div key={course.course_code}>
+                          <div className="w-full text-left items-center py-2">
+                            <div className="flex justify-between flex-row gap-4 items-center">
+                              <div className="flex gap-4 items-center">
+                                <StatusSquare status={status} />
+                                <h4 className="font-medium text-sm">
+                                  {course.name} - {course.course_code}
+                                </h4>
+                              </div>
+                              <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-29">
+                                  {grade && grade !== "" ? (
+                                    <div className="flex items-center">
+                                      <div className="border-1 border-green-900 rounded-xl px-2 py-1">
+                                        <p className="text-sm items-center text-green-900">Betyg {grade}</p>
+                                      </div>
+                                    </div>
+                                  ) : null}
+                                  <div>
+                                    <p className="font-medium text-sm w-13 text-right">{course.credits}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Course details */}
+                          <div className="pl-8 pb-2">
+                            <div className="text-xs text-gray-500">
+                              <p>
+                                <strong>Tillgängliga terminer:</strong> {course.availableTerms.join(", ")}
+                              </p>
+                              {course.overview?.education_level && (
+                                <p>
+                                  <strong>Utbildningsnivå:</strong> {course.overview.education_level}
+                                </p>
+                              )}
+                              {course.overview?.main_subject && (
+                                <p>
+                                  <strong>Huvudområde:</strong> {Array.isArray(course.overview.main_subject) ? course.overview.main_subject.join(", ") : course.overview.main_subject}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Add separator between courses except for the last one */}
+                          {index < courses.length - 1 && (
+                            <div className="pl-8 pr-10">
+                              <Separator />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+
+                    <Separator />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </section>
@@ -74,48 +167,20 @@ export default function MasterSemester({
   );
 }
 
-function checkStatus(semester: MasterSemesterInterface, semesterSeason: SemesterInfo, userData?: UserData): Status {
-  if (semesterSeason.year > new Date().getFullYear()) {
+function GetStatus(studyMap: Map<string, Course> | undefined, course_code: string): Status {
+  if (!studyMap) {
     return "none";
   }
 
-  if (semesterSeason.year === new Date().getFullYear() && new Date().getMonth() < 9 && semesterSeason.semester === "HT") {
+  const courseResult = studyMap.get(course_code);
+
+  if (!courseResult) {
     return "none";
   }
 
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
-  const isCurrentSemester =
-    semesterSeason.year === currentYear && ((semesterSeason.semester === "VT" && currentMonth >= 1 && currentMonth <= 6) || (semesterSeason.semester === "HT" && currentMonth >= 8));
-
-  let hasIncompleteCourses = false;
-  let hasCompletedCourses = false;
-
-  for (const course of semester.courses) {
-    if (Number(course.credits.replace("hp", "").trim()) === 0) {
-      continue;
-    }
-
-    const courseInfo = userData?.studyinfo.get(course.course_code);
-    const hasGrade = courseInfo?.grade && courseInfo.grade !== "";
-    const hasDate = courseInfo?.date;
-
-    if (hasGrade && hasDate) {
-      hasCompletedCourses = true;
-    } else {
-      hasIncompleteCourses = true;
-    }
-  }
-
-  // Determine status
-  if (hasCompletedCourses && !hasIncompleteCourses) {
+  if (courseResult.grade !== "") {
     return "done";
   }
-  if (hasCompletedCourses && hasIncompleteCourses) {
-    return "ongoing";
-  }
-  if (isCurrentSemester) {
-    return "ongoing";
-  }
-  return "none";
+
+  return "ongoing";
 }

@@ -8,7 +8,40 @@ import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { CourseJSON, UserData } from "@/utils/types";
-import MasterSemester from "./mastersemester";
+import { MasterSemester } from "./mastersemester";
+
+const loadSelectedCourses = () => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("selectedCourses");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.termin7 && parsed.termin8 && parsed.termin9) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error("Failed to parse saved courses", e);
+      }
+    }
+  }
+  return { termin7: [], termin8: [], termin9: [] };
+};
+
+type Term = "termin7" | "termin8" | "termin9";
+
+type Course = {
+  name: string;
+  course_code: string;
+  credits: string;
+  semesterName: string;
+  availableTerms: Term[];
+  overview?: {
+    education_level?: string;
+    main_subject?: string | string[];
+    [key: string]: any;
+  };
+  [key: string]: any;
+};
 
 export default function SemesterSection({
   userData,
@@ -34,6 +67,11 @@ export default function SemesterSection({
   const finalThesisSemester = allSemesters[9];
 
   const [, setAvailableSubjects] = useState<string[]>([]);
+  const [selectedCourses, setSelectedCourses] = useState<{
+    termin7: Course[];
+    termin8: Course[];
+    termin9: Course[];
+  }>(loadSelectedCourses());
 
   let semesterCount = -1;
   const program = userProgram(userData);
@@ -72,6 +110,25 @@ export default function SemesterSection({
 
   const filteredSubjects = getFilteredSubjects();
 
+  // Group selected courses by semesterName
+  const groupCoursesBySemester = () => {
+    const allCourses = [...selectedCourses.termin7, ...selectedCourses.termin8, ...selectedCourses.termin9];
+
+    const groupedCourses = new Map<string, Course[]>();
+
+    allCourses.forEach((course) => {
+      const semesterName = course.semesterName;
+      if (!groupedCourses.has(semesterName)) {
+        groupedCourses.set(semesterName, []);
+      }
+      groupedCourses.get(semesterName)!.push(course);
+    });
+
+    return groupedCourses;
+  };
+
+  const groupedMasterCourses = groupCoursesBySemester();
+
   return (
     <>
       <main className="flex flex-col gap-4">
@@ -106,11 +163,10 @@ export default function SemesterSection({
           ) : (
             <>
               <div className="flex flex-col gap-4">
-                {/*masterSemesters.map((semester) => (
-                  <MasterSemester key={semester.name} semester={semester} semesterSeason={allSemesters} userData={userData} subjectfilter={false} />
-                ))*/}
+                {Array.from(groupedMasterCourses.entries()).map(([semesterName, courses]) => (
+                  <MasterSemester key={semesterName} semesterName={semesterName} courses={courses} terminSeason={allSemesters[9]} userData={userData} subjectfilter={false} />
+                ))}
               </div>
-
               <div className="flex flex-col gap-4 pb-4">
                 {thsesis.semesters.map((semester) => (
                   <Semester key={semester.name} semester={semester} semsterSeason={allSemesters[9]} userData={userData} subjectfilter={false} />

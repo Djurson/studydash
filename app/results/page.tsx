@@ -29,6 +29,8 @@ type studyInformation = {
   previousFounds: boolean;
 };
 
+type ProgramType = ReturnType<typeof userProgram>;
+
 export default function Page() {
   const plugin = useRef(Autoplay({ delay: 2500, stopOnInteraction: true, stopOnLastSnap: true }));
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
@@ -40,6 +42,7 @@ export default function Page() {
 
   const [openGuide, setOpenGuide] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [program, setProgram] = useState<ProgramType | null>(null);
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -53,7 +56,6 @@ export default function Page() {
   const finalThesisSemester = allSemesters[9];
 
   let semesterCount = -1;
-  let program;
 
   const thsesis = {
     ...thesisData.programs[0],
@@ -74,7 +76,8 @@ export default function Page() {
           university: userData.university,
           previousFounds: userData.previousfunds,
         });
-        program = userProgram(userData);
+        const userProgramData = userProgram(userData);
+        setProgram(userProgramData);
         setLoading(false);
         setOpenGuide(false);
       } else {
