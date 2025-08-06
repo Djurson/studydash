@@ -31,6 +31,39 @@ type studyInformation = {
 
 type ProgramType = ReturnType<typeof userProgram>;
 
+type Term = "termin7" | "termin8" | "termin9";
+
+type Course = {
+  name: string;
+  course_code: string;
+  credits: string;
+  semesterName: string;
+  availableTerms: Term[];
+  overview?: {
+    education_level?: string;
+    main_subject?: string | string[];
+    [key: string]: any;
+  };
+  [key: string]: any;
+};
+
+const loadSelectedCourses = () => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("selectedCourses");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.termin7 && parsed.termin8 && parsed.termin9) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error("Failed to parse saved courses", e);
+      }
+    }
+  }
+  return { termin7: [], termin8: [], termin9: [] };
+};
+
 export default function Page() {
   const plugin = useRef(Autoplay({ delay: 2500, stopOnInteraction: true, stopOnLastSnap: true }));
   const [studyInformation, setStudyInformation] = useState<studyInformation>({
@@ -43,6 +76,7 @@ export default function Page() {
   const [openGuide, setOpenGuide] = useState(false);
   const [loading, setLoading] = useState(true);
   const [program, setProgram] = useState<ProgramType | null>(null);
+  const [userData, setUserData] = useState<any>(undefined);
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -65,18 +99,25 @@ export default function Page() {
     })),
   };
 
+  const [selectedCourses, setSelectedCourses] = useState<{
+    termin7: Course[];
+    termin8: Course[];
+    termin9: Course[];
+  }>(loadSelectedCourses());
+
   // Hämta data från servern
   useEffect(() => {
     const fetchUserData = async () => {
-      const userData = await GetUserData();
-      if (userData) {
+      const fetchedUserData = await GetUserData();
+      if (fetchedUserData) {
+        setUserData(fetchedUserData);
         setStudyInformation({
-          year: userData.studyyear,
-          program: userData.program,
-          university: userData.university,
-          previousFounds: userData.previousfunds,
+          year: fetchedUserData.studyyear,
+          program: fetchedUserData.program,
+          university: fetchedUserData.university,
+          previousFounds: fetchedUserData.previousfunds,
         });
-        const userProgramData = userProgram(userData);
+        const userProgramData = userProgram(fetchedUserData);
         setProgram(userProgramData);
         setLoading(false);
         setOpenGuide(false);
@@ -88,6 +129,24 @@ export default function Page() {
 
     fetchUserData();
   }, []);
+
+  const groupCoursesBySemester = () => {
+    const allCourses = [...selectedCourses.termin7, ...selectedCourses.termin8, ...selectedCourses.termin9];
+
+    const groupedCourses = new Map<string, Course[]>();
+
+    allCourses.forEach((course) => {
+      const semesterName = course.semesterName;
+      if (!groupedCourses.has(semesterName)) {
+        groupedCourses.set(semesterName, []);
+      }
+      groupedCourses.get(semesterName)!.push(course);
+    });
+
+    return groupedCourses;
+  };
+
+  const groupedMasterCourses = groupCoursesBySemester();
 
   if (loading) {
     return (
@@ -282,9 +341,26 @@ export default function Page() {
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-4">
-                  {masterSemesters.map((semester, index) => (
-                    <EditMasterSemester key={semester.fullString} semester={semester} index={index + showFrom - 1} />
-                  ))}
+                  {masterSemesters.map((semesterInfo, index) => {
+                    // Check if there are courses for this semester
+                    const semesterCourses = Array.from(groupedMasterCourses.values())
+                      .flat()
+                      .filter((course) => {
+                        const terminKey = `termin${index + showFrom}` as Term;
+                        return selectedCourses[terminKey].includes(course);
+                      });
+
+                    return (
+                      <EditMasterSemester
+                        key={`termin-${index + showFrom}`}
+                        semester={semesterInfo}
+                        index={index}
+                        userData={userData}
+                        selectedCourses={selectedCourses}
+                        groupedCourses={groupedMasterCourses}
+                      />
+                    );
+                  })}
                 </div>
                 <Separator />
                 <div className="flex flex-col gap-4 pb-4">
