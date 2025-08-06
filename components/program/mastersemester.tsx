@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
@@ -29,13 +27,19 @@ export function MasterSemester({ semesterName, courses, userData, subjectfilter 
   }, 0);
 
   // Determine overall semester status based on all courses
-  const getSemesterStatus = (): Status => {
+  function getSemesterStatus(courses: CourseType[], userData?: UserData): Status {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+
     let hasCompletedCourses = false;
     let hasIncompleteCourses = false;
 
     for (const course of courses) {
-      const status = GetStatus(userData?.studyinfo, course.course_code);
-      if (status === "done") {
+      const courseInfo = userData?.studyinfo.get(course.course_code);
+      const hasGrade = courseInfo?.grade && courseInfo.grade !== "";
+      const hasDate = courseInfo?.date;
+
+      if (hasGrade && hasDate) {
         hasCompletedCourses = true;
       } else {
         hasIncompleteCourses = true;
@@ -45,16 +49,19 @@ export function MasterSemester({ semesterName, courses, userData, subjectfilter 
     if (hasCompletedCourses && !hasIncompleteCourses) {
       return "done";
     }
+
     if (hasCompletedCourses && hasIncompleteCourses) {
       return "ongoing";
     }
+
     if (hasIncompleteCourses) {
       return "ongoing";
     }
-    return "none";
-  };
 
-  const semesterStatus = getSemesterStatus();
+    return "none";
+  }
+
+  const semesterStatus = getSemesterStatus(courses, userData);
 
   return (
     <div>
@@ -62,7 +69,7 @@ export function MasterSemester({ semesterName, courses, userData, subjectfilter 
         <button className="flex items-center justify-between w-full p-4 cursor-pointer hover:bg-highlight-2" onClick={() => setIsOpen(!isOpen)}>
           <div className="flex gap-4 items-center">
             <StatusSquare status={semesterStatus} />
-            <h3 className="text-lg font-medium">{semesterName}</h3>
+            <h3 className="text-lg font-medium"> {semesterName}</h3>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-29">

@@ -1,17 +1,12 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import { Badge } from '@/components/ui/badge';
-import { Plus, ChevronDown, BookOpen, GraduationCap } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { Plus, ChevronDown, BookOpen, GraduationCap } from "lucide-react";
 
-type Term = 'termin7' | 'termin8' | 'termin9';
+type Term = "termin7" | "termin8" | "termin9";
 
 export type Course = {
   name: string;
@@ -22,9 +17,7 @@ export type Course = {
   overview?: {
     education_level?: string;
     main_subject?: string | string[];
-    [key: string]: any;
   };
-  [key: string]: any;
 };
 
 interface CourseCardProps {
@@ -52,37 +45,36 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isSelected, onAdd }) =>
     );
   }
 
- 
   const getMainSubjects = () => {
     const subjects = course.overview?.main_subject;
     if (!subjects) return [];
     if (Array.isArray(subjects)) return subjects;
- 
-    return subjects.split(',,').map((s: string) => s.trim()).filter(s => s.length > 0);
-  };
 
+    return subjects
+      .split(",,")
+      .map((s: string) => s.trim())
+      .filter((s) => s.length > 0);
+  };
 
   const getEducationLevel = () => {
     const level = course.overview?.education_level;
-    if (level === 'Avancerad nivå') return 'Avancerad';
-    if (level === 'Grundnivå') return 'Grund';
-    return level || 'Okänd';
+    if (level === "Avancerad nivå") return "Avancerad";
+    if (level === "Grundnivå") return "Grund";
+    return level || "Okänd";
   };
-
 
   const getLevelColor = () => {
     const level = course.overview?.education_level;
-    if (level === 'Avancerad nivå') return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200';
-    if (level === 'Grundnivå') return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200';
-    return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-200';
+    if (level === "Avancerad nivå") return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200";
+    if (level === "Grundnivå") return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200";
+    return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-200";
   };
 
-
   const getSubjectColor = (subject: string) => {
-    if (subject === 'Datateknik') return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200';
-    if (subject === 'Medieteknik') return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200';
-    if (subject === 'Industriell ekonomi') return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200';
-    return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-200';
+    if (subject === "Datateknik") return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200";
+    if (subject === "Medieteknik") return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200";
+    if (subject === "Industriell ekonomi") return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200";
+    return "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-200";
   };
 
   const mainSubjects = getMainSubjects();
@@ -91,9 +83,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isSelected, onAdd }) =>
   return (
     <div
       className={`p-4 rounded-xl bg-card text-card-foreground border border-border dark:border-muted shadow-sm transition-all duration-200 ${
-        isSelected ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-primary hover:shadow-md'
-      }`}
-    >
+        isSelected ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:border-primary hover:shadow-md"
+      }`}>
       <div className="space-y-3">
         {/* Header with title and credits */}
         <div className="flex justify-between items-start">
@@ -114,28 +105,22 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isSelected, onAdd }) =>
             {educationLevel}
           </Badge>
           {mainSubjects.map((subject, index) => (
-            <Badge 
-              key={index}
-              variant="outline" 
-              className={`text-xs px-2 py-0.5 ${getSubjectColor(subject)}`}
-            >
+            <Badge key={index} variant="outline" className={`text-xs px-2 py-0.5 ${getSubjectColor(subject)}`}>
               {subject}
             </Badge>
           ))}
         </div>
 
-  
         <div className="text-xs text-muted-foreground">
-          <span className="font-medium">Tillgänglig:</span>{' '}
+          <span className="font-medium">Tillgänglig:</span>{" "}
           {course.availableTerms.map((t, index) => (
             <span key={t}>
-              {t.replace('termin', 'T')}
-              {index < course.availableTerms.length - 1 ? ', ' : ''}
+              {t.replace("termin", "T")}
+              {index < course.availableTerms.length - 1 ? ", " : ""}
             </span>
           ))}
         </div>
 
-     
         {!isSelected && (
           <div className="flex justify-end pt-1">
             {course.availableTerms.length > 1 ? (
@@ -147,26 +132,16 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, isSelected, onAdd }) =>
                     <ChevronDown className="h-3 w-3 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end"
-                  avoidCollisions={true}
-                  collisionPadding={10}
-                  onCloseAutoFocus={(e) => e.preventDefault()}
-                >
+                <DropdownMenuContent align="end" avoidCollisions={true} collisionPadding={10} onCloseAutoFocus={(e) => e.preventDefault()}>
                   {course.availableTerms.map((term) => (
                     <DropdownMenuItem key={term} onClick={() => onAdd(term, course)}>
-                      Lägg till i {term.replace('termin', 'Termin ')}
+                      Lägg till i {term.replace("termin", "Termin ")}
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-7 text-xs"
-                onClick={() => onAdd(course.availableTerms[0], course)}
-              >
+              <Button variant="outline" size="sm" className="h-7 text-xs" onClick={() => onAdd(course.availableTerms[0], course)}>
                 <Plus className="h-3 w-3 mr-1" />
                 Lägg till
               </Button>
