@@ -6,11 +6,10 @@ import { ChangeHistory } from "@/components/edit/changehistory";
 import { Checkbox } from "@/components/ui/checkbox";
 
 // Funktionerna för att generera och hämta terminer som inte mappas från json
-import { generateAllSemesters, getSemestersInRange, SemesterInfo } from "@/utils/semesterDates";
+import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
 import EditMasterSemester from "@/components/edit/EditMasterSemester";
 import EditSemesters from "@/components/edit/EditSemesters";
 
-import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useRef, useState } from "react";
@@ -21,6 +20,7 @@ import Link from "next/link";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import userProgram from "@/components/utils/userProgram";
+import { UserData } from "@/utils/types";
 
 type studyInformation = {
   year: string | undefined;
@@ -42,9 +42,7 @@ type Course = {
   overview?: {
     education_level?: string;
     main_subject?: string | string[];
-    [key: string]: any;
   };
-  [key: string]: any;
 };
 
 const loadSelectedCourses = () => {
@@ -76,7 +74,7 @@ export default function Page() {
   const [openGuide, setOpenGuide] = useState(false);
   const [loading, setLoading] = useState(true);
   const [program, setProgram] = useState<ProgramType | null>(null);
-  const [userData, setUserData] = useState<any>(undefined);
+  const [userData, setUserData] = useState<UserData>();
 
   const currentYear = new Date().getMonth() < 8 ? new Date().getFullYear() - 1 : new Date().getFullYear();
   const startYear = currentYear - 4;
@@ -99,7 +97,7 @@ export default function Page() {
     })),
   };
 
-  const [selectedCourses, setSelectedCourses] = useState<{
+  const [selectedCourses] = useState<{
     termin7: Course[];
     termin8: Course[];
     termin9: Course[];
@@ -334,7 +332,7 @@ export default function Page() {
             {studyInformation.year !== undefined ? (
               <>
                 <div className="flex flex-col gap-4">
-                  {program!.semesters.map((semester: any) => {
+                  {program!.semesters.map((semester) => {
                     semesterCount += 1;
                     return <EditSemesters key={semester.name} semester={semester} semsterSeason={allSemesters[semesterCount]} />;
                   })}
@@ -343,12 +341,6 @@ export default function Page() {
                 <div className="flex flex-col gap-4">
                   {masterSemesters.map((semesterInfo, index) => {
                     // Check if there are courses for this semester
-                    const semesterCourses = Array.from(groupedMasterCourses.values())
-                      .flat()
-                      .filter((course) => {
-                        const terminKey = `termin${index + showFrom}` as Term;
-                        return selectedCourses[terminKey].includes(course);
-                      });
 
                     return (
                       <EditMasterSemester

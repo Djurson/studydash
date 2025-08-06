@@ -1,19 +1,19 @@
 import MT from "@/webscraping/6CEMEN-2022.json";
 import KTS from "@/webscraping/ED-KTS/6CKTS.json";
 import ED from "@/webscraping/ED-KTS/6CIEN.json";
-import { UserData, WithAuthProps } from "@/utils/types";
+import { UserData } from "@/utils/types";
 
 export default function userProgram(userData: UserData | undefined) {
-  let mapOfPrograms = mapPrograms();
+  const mapOfPrograms = mapPrograms();
 
-  let program = mapOfPrograms.get(userData?.program);
+  const program = mapOfPrograms.get(userData?.program);
   console.log(program);
   const programData = program as typeof MT;
   return programData.programs[0];
 }
 
 function mapPrograms() {
-  let programMap = new Map<string | undefined, object>();
+  const programMap = new Map<string | undefined, object>();
   MT.programs.forEach((getName) => {
     programMap.set(getName.name, MT);
   });

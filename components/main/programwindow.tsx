@@ -1,5 +1,4 @@
 "use client";
-import programData from "@/webscraping/6CEMEN-2022.json";
 import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";

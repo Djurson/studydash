@@ -1,9 +1,8 @@
 "use client";
 // Funktionerna för att generera och hämta terminer som inte mappas från json
-import { generateAllSemesters, getSemestersInRange } from "@/utils/semesterDates";
+import { generateAllSemesters } from "@/utils/semesterDates";
 import Semester from "@/components/program/semester";
 import userProgram from "../utils/userProgram";
-import programData from "@/webscraping/6CEMEN-2022.json";
 import thesisData from "@/webscraping/Exjobb-engineers.json";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
@@ -38,9 +37,7 @@ type Course = {
   overview?: {
     education_level?: string;
     main_subject?: string | string[];
-    [key: string]: any;
   };
-  [key: string]: any;
 };
 
 export default function SemesterSection({
@@ -60,14 +57,11 @@ export default function SemesterSection({
   const startYear = userData?.studyyear;
 
   const startingSemester = startYear ? `HT ${startYear}` : `HT ${currentYear}`;
-  const showFrom = 7;
-  const showTo = 9;
   const allSemesters = generateAllSemesters(startingSemester);
-  const masterSemesters = getSemestersInRange(startingSemester, showFrom, showTo);
   const finalThesisSemester = allSemesters[9];
 
   const [, setAvailableSubjects] = useState<string[]>([]);
-  const [selectedCourses, setSelectedCourses] = useState<{
+  const [selectedCourses] = useState<{
     termin7: Course[];
     termin8: Course[];
     termin9: Course[];
@@ -164,7 +158,7 @@ export default function SemesterSection({
             <>
               <div className="flex flex-col gap-4">
                 {Array.from(groupedMasterCourses.entries()).map(([semesterName, courses]) => (
-                  <MasterSemester key={semesterName} semesterName={semesterName} courses={courses} terminSeason={allSemesters[9]} userData={userData} subjectfilter={false} />
+                  <MasterSemester key={semesterName} semesterName={semesterName} courses={courses} userData={userData} subjectfilter={false} />
                 ))}
               </div>
               <div className="flex flex-col gap-4 pb-4">

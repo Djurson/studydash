@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Separator } from "../ui/separator";
-import { Course, CourseJSON, UserData } from "@/utils/types";
+import { Course, UserData } from "@/utils/types";
 import { Status, StatusSquare } from "../edit/statussquare";
-import { SemesterInfo } from "@/utils/semesterDates";
 
 type Term = "termin7" | "termin8" | "termin9";
 
@@ -18,24 +17,10 @@ type CourseType = {
   overview?: {
     education_level?: string;
     main_subject?: string | string[];
-    [key: string]: any;
   };
-  [key: string]: any;
 };
 
-export function MasterSemester({
-  semesterName,
-  courses,
-  terminSeason,
-  userData,
-  subjectfilter,
-}: {
-  semesterName: string;
-  courses: CourseType[];
-  terminSeason: SemesterInfo;
-  userData: UserData | undefined;
-  subjectfilter: boolean;
-}) {
+export function MasterSemester({ semesterName, courses, userData, subjectfilter }: { semesterName: string; courses: CourseType[]; userData: UserData | undefined; subjectfilter: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Calculate total credits for all courses in this semester

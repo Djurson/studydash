@@ -16,9 +16,7 @@ type CourseType = {
   overview?: {
     education_level?: string;
     main_subject?: string | string[];
-    [key: string]: any;
   };
-  [key: string]: any;
 };
 
 interface EditMasterSemesterProps {
