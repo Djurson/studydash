@@ -7,6 +7,12 @@ import SemesterSection from "@/components/program/semesterSection";
 import { CourseJSON, UserData } from "@/utils/types";
 import userProgram from "../utils/userProgram";
 
+type FilterType = {
+  type: 'term' | 'area' | 'level';
+  value: string;
+  label: string;
+};
+
 export default function CourseClientWrapper({ userData }: { userData: UserData | undefined }) {
   const mainSubjects = new Map<string, CourseJSON[]>();
   const unfinishedCourses: CourseJSON[] = [];
@@ -37,12 +43,25 @@ export default function CourseClientWrapper({ userData }: { userData: UserData |
     });
   });
 
-  console.log(selected);
+  const convertToFilters = (selected: string): FilterType[] => {
+    if (!selected || selected === "Alla") return [];
+    return [{ 
+      type: 'area', // or whatever type makes sense for your subjects
+      value: selected, 
+      label: selected 
+    }];
+  };
 
+  const handleFilterChange = (filters: FilterType[]) => {
+    const newSelected = filters.length > 0 ? filters[0].value : "Alla";
+    setSelected(newSelected);
+  };
   return (
     <>
       {/* PillbuttonContainer with viewModes */}
-      <PillbuttonContainer mainSubjects={mainSubjects} selected={selected} setSelected={setSelected} />
+      <PillbuttonContainer  mainSubjects={mainSubjects} 
+      selectedFilters={convertToFilters(selected)} 
+      setSelectedFilters={handleFilterChange}  />
 
       {/* SemesterSection gets selected state */}
       <SemesterSection userData={userData} mainSubjects={mainSubjects} unfinishedCourses={unfinishedCourses} finishedCourses={finishedCourses} selected={selected} />

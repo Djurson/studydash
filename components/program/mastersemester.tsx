@@ -28,8 +28,6 @@ export function MasterSemester({ semesterName, courses, userData, subjectfilter 
 
   // Determine overall semester status based on all courses
   function getSemesterStatus(courses: CourseType[], userData?: UserData): Status {
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth();
 
     let hasCompletedCourses = false;
     let hasIncompleteCourses = false;
