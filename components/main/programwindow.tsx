@@ -3,6 +3,21 @@ import CardCarousel from "../card/card-carousel";
 import { WithAuthProps } from "@/utils/types";
 import { MapHasExamination } from "@/utils/utils";
 import userProgram from "../utils/userProgram";
+import { useState } from "react";
+
+type Course = {
+  name: string;
+  course_code: string;
+  credits: string;
+  semesterName: string;
+  availableTerms: Term[];
+  overview?: {
+    education_level?: string;
+    main_subject?: string | string[];
+  };
+};
+
+type Term = "termin7" | "termin8" | "termin9";
 
 //stulen funktion från en tidigare modul för att hitta nuvarande år med nuvarande kurse
 function getCurrentStudyYear() {
@@ -19,9 +34,35 @@ function getCurrentStudyYear() {
     end: new Date(studyYear + 1, 6, 31),
   };
 }
+
+const loadSelectedCourses = () => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("selectedCourses");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.termin7 && parsed.termin8 && parsed.termin9) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error("Failed to parse saved courses", e);
+      }
+    }
+  }
+  return { termin7: [], termin8: [], termin9: [] };
+};
+
 // sorterar och skapar nya maps baserat på användarens år samt vilka kurser har inte har ett betyg i något ämne
 export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const program = userProgram(userData);
+  
+  // Move selectedCourses state inside the component
+  const [selectedCourses] = useState<{
+    termin7: Course[];
+    termin8: Course[];
+    termin9: Course[];
+  }>(loadSelectedCourses());
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const currentCoursesArray: any[] = [];
   const missedExams = new Map();
@@ -29,6 +70,27 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
   const nonPassingMissedExams: any[] = [];
 
   const currentTerm = getCurrentStudyYear();
+
+  // Helper function to group courses by semester
+  const groupCoursesBySemester = () => {
+    const allCourses = [...selectedCourses.termin7, ...selectedCourses.termin8, ...selectedCourses.termin9];
+
+    const groupedCourses = new Map<string, Course[]>();
+
+    allCourses.forEach((course) => {
+      const semesterName = course.semesterName;
+      if (!groupedCourses.has(semesterName)) {
+        groupedCourses.set(semesterName, []);
+      }
+      groupedCourses.get(semesterName)!.push(course);
+    });
+
+    
+
+    return groupedCourses;
+  };
+
+  const groupedMasterCourses = groupCoursesBySemester();
 
   program.semesters.forEach((semester) => {
     if (semester.name.includes(currentTerm.current)) {
@@ -56,12 +118,25 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
     });
   });
 
+  // Filter current master courses based on current term
+  const currentMasterCourses: Course[] = [];
+  const validTerms = ["termin 7", "termin 8", "termin 9"];
+
+  groupedMasterCourses.forEach((courses, semesterName) => {
+    if (validTerms.some(term => semesterName.toLowerCase().includes(term))) {
+      currentMasterCourses.push(...courses);
+    }
+  });
+  
+  console.log("Current master courses found:", currentMasterCourses);
+
   return (
     <div className="flex flex-col gap-4 row-span-2 mt-2 h-[25rem]">
       <div className="flex flex-col row-span-1 gap-2 h-[45%]">
         <h3 className="text-sm text-gray-600">Nuvarande</h3>
         <hr className="w-full bg-gray-600"></hr>
         <div className="overflow-scroll no-scrollbar flex flex-col gap-2">
+          {/* Display regular program courses */}
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {currentCoursesArray.map((item: any, index: any) => (
             //loopar igenom alla nuvarande kurser
@@ -91,6 +166,19 @@ export default function ProgramWindow({ userData }: Partial<WithAuthProps>) {
               </div>
               <hr className="w-full bg-gray-600"></hr>
             </a>
+          ))}
+
+          {/* Display current master courses */}
+          {currentMasterCourses.map((course, courseIndex) => (
+            <div key={`current-master-${courseIndex}`} className="flex flex-col gap-2">
+              <h3 className="text-sm font-semibold">{course.name}</h3>
+              <div className="flex flex-row justify-between w-full">
+                <p className="text-xs text-gray-600">{course.course_code}</p>
+                <p className="text-xs text-gray-600">{course.credits}</p>
+              </div>
+              <p className="text-xs text-blue-600">Master Course - {course.semesterName}</p>
+              <hr className="w-full bg-gray-600"></hr>
+            </div>
           ))}
         </div>
       </div>
